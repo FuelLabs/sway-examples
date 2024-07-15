@@ -1,0 +1,33 @@
+{
+  "name": "sway-applications",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Sway Applications",
+  "author": "Fuel Labs <contact@fuel.sh> (https://fuel.network/)",
+  "homepage": "https://github.com/FuelLabs/sway-applications",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FuelLabs/sway-applications.git"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/FuelLabs/sway-applications/issues"
+  },
+  "scripts": {
+    "build:preview": "pnpm turbo:run build:preview",
+    "start": "pnpm turbo:run start",
+    "ts:check": "pnpm turbo:run ts:check",
+    "turbo:run": "./scripts/turbo.sh",
+    "dev": "./scripts/dev.sh"
+  },
+  "dependencies": {
+    "execa": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.26",
+    "dotenv": "^16.4.5",
+    "next": "14.2.2",
+    "turbo": "^1.12.5",
+    "typescript": "^5.2.2"
+  }
+}
