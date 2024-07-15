@@ -1,17 +1,17 @@
 {
-  "name": "sway-applications",
+  "name": "sway-examples",
   "version": "0.0.1",
   "private": true,
-  "description": "Sway Applications",
+  "description": "Sway Examples",
   "author": "Fuel Labs <contact@fuel.sh> (https://fuel.network/)",
-  "homepage": "https://github.com/FuelLabs/sway-applications",
+  "homepage": "https://github.com/FuelLabs/sway-examples",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FuelLabs/sway-applications.git"
+    "url": "git+https://github.com/FuelLabs/sway-examples.git"
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/FuelLabs/sway-applications/issues"
+    "url": "https://github.com/FuelLabs/sway-examples/issues"
   },
   "scripts": {
     "build:preview": "pnpm turbo:run build:preview",

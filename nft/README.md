@@ -29,12 +29,12 @@ To begin, install dependencies.
 
 ### 📚 1. Getting the Repository
 
-1. Visit the [Sway Application](https://github.com/FuelLabs/sway-applications) repo and fork the project.
+1. Visit the [Sway Application](https://github.com/FuelLabs/sway-examples) repo and fork the project.
 2. Then clone your forked copy to your local machine and get to work.
 
 ```sh
-git clone https://github.com/FuelLabs/sway-applications
-cd sway-applications
+git clone https://github.com/FuelLabs/sway-examples
+cd sway-examples
 ```
 
 ### 📦 2. Install Dependencies
