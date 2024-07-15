@@ -28,7 +28,7 @@ importers:
         specifier: ^5.2.2
         version: 5.5.2
 
-  NFT:
+  nft:
     dependencies:
       '@emotion/react':
         specifier: ^11.11.4
