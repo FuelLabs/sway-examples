@@ -12,12 +12,16 @@ import { NavMenu } from "./NavMenu";
 import { NFTRoutes } from "@/routes";
 import { ExternalFaucet } from "./ExternalFaucet";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
+import { useEffect, useState } from "react";
+
+import { faucetUrl } from "@/utils/url";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
-  const { wallet, network, walletBalance, refetchBalance } = useActiveWallet();
+  const { wallet, network, walletBalance, refetchBalance, isConnected } = useActiveWallet();
   const router = useRouter();
   const { isTablet, isMobile } = useBreakpoints();
+  const [hasOpenedFaucetPage, setHasOpenedFaucetPage] = useState(false);
 
   const TOP_UP_AMOUNT = 100_000_000;
 
@@ -51,6 +55,17 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       `Please add the network ${NODE_URL} to your Fuel wallet, or swtich to it if you have it already, and refresh the page.`
     );
   };
+
+  useEffect(() => {
+    if (isConnected && walletBalance?.eq(0) && !hasOpenedFaucetPage) {
+      setHasOpenedFaucetPage(true);
+      if (isTablet) {
+        window.open(faucetUrl(wallet?.address.toString()), "_blank");
+      } else {
+        router.push("/nft/faucet");
+      }
+    }
+  }, [isConnected, walletBalance, isTablet])
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { Link } from "./Link";
+import { faucetUrl } from "@/utils/url";
 
 export const ExternalFaucet = ({
   address,
@@ -14,7 +15,7 @@ export const ExternalFaucet = ({
     <>
       {isTablet ? (
         <Link
-          href={`https://faucet-testnet.fuel.network/?address=${address}`}
+          href={faucetUrl(address)}
           target="_blank"
         >
           {children}
