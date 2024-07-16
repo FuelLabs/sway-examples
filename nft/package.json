@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "fuels:run": "run-s fuels:build fuels:typegen fuels:deploy",
-    "fuels:typegen": "fuels typegen -i ./NFT-contract/out/debug/NFT-contract-abi.json -o ./src/contract-types/contracts",
+    "fuels:typegen": "fuels typegen -i ./contracts/out/debug/NFT-contract-abi.json -o ./src/contract-types/contracts",
     "fuels:node": "fuels node",
     "fuels:build": "fuels build",
     "fuels:deploy": "fuels deploy",

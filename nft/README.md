@@ -54,23 +54,25 @@ pnpm fuels:node
 
 ### 🛠️ 4. Build and Deploy contracts
 
-Now that you have the local node running you can build and deploy the contracts.  This command will build the contracts, generate their ts types for the frontend, deploy the contracts, and set the owner of the NFT contract.
+Now that you have the local node running you can build and deploy the contracts. This command will build the contracts, generate their ts types for the frontend, deploy the contracts, and set the owner of the NFT contract.
 
 ```sh
 pnpm fuels:run
 ```
 
+If you want to deploy to the testnet and interact with your contract, set `NEXT_PUBLIC_DAPP_ENVIRONMENT` to testnet in your `.env` file in the next step.
+
 ### 🪅 5. Create Pinata Account and get API Key
 
-Create a `.env` file based on the provided example in the `NFT/` directory
+Create a `.env` file based on the provided example in the `nft/` directory
 
 ```sh
 cp ./.env.example ./.env
 ```
 
-This app uses Pinata to store NFT image data.  You can follow their [documentation](https://docs.pinata.cloud/account-management/api-keys) to get an api key and gateway url.  Once you have an account set `PINATA_JWT` as the API key and `NEXT_PUBLIC_GATEWAY_URL` as your pinata gateway url in your `.env` file.
+This app uses Pinata to store NFT image data. You can follow their [documentation](https://docs.pinata.cloud/account-management/api-keys) to get an api key and gateway url. Once you have an account set `PINATA_JWT` as the API key and `NEXT_PUBLIC_GATEWAY_URL` as your pinata gateway url in your `.env` file.
 
-###  💻 6. Run Web App
+### 💻 6. Run Web App
 
 Now that you have your contract and its types you can start your frontend.
 
@@ -84,9 +86,8 @@ After running that command, you can open [http://localhost:3000](http://localhos
 
 ### 🧪 7. Run Contract tests
 
-```bash
-cd NFT-contract
-forc test 
+```sh
+cargo test
 ```
 
 # Overview
@@ -97,13 +98,13 @@ Each NFT may contain any metadata the user desires to store, however this fronte
 
 # Standards Implementations
 
-The project implements and follows the [SRC-20; Native Asset](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-20.md), [SRC-3; Mint and Burn](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-3.md), and [SRC-7; Metadata](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-7.md) standards. It also uses the [Native Asset Library](https://fuellabs.github.io/sway-libs/book/asset/index.html) to implement the basic functionality behind the standards.  
+The project implements and follows the [SRC-20; Native Asset](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-20.md), [SRC-3; Mint and Burn](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-3.md), and [SRC-7; Metadata](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-7.md) standards. It also uses the [Native Asset Library](https://fuellabs.github.io/sway-libs/book/asset/index.html) to implement the basic functionality behind the standards.
 
 ## SRC-20
 
-The [SRC-20](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-20.md) standard requires that there is a maximum number of one coin per NFT asset. It also states that the decimals must be `0u8` for any NFT. This project conforms to both these restrictions and thus can be deemed an NFT on the Fuel Network. 
+The [SRC-20](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-20.md) standard requires that there is a maximum number of one coin per NFT asset. It also states that the decimals must be `0u8` for any NFT. This project conforms to both these restrictions and thus can be deemed an NFT on the Fuel Network.
 
-Set functions for name and symbol have been provided to the user. While traditionally name and symbol are written into the contract rather than storage, this contract is open to mint new types of assets. This means that every NFT minted by this contract may contain a different name and symbol. 
+Set functions for name and symbol have been provided to the user. While traditionally name and symbol are written into the contract rather than storage, this contract is open to mint new types of assets. This means that every NFT minted by this contract may contain a different name and symbol.
 
 The [SRC-20](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-20.md) ABI defined below has also been implemented.
 
@@ -137,7 +138,7 @@ abi SRC3 {
 
 ## SRC-7
 
-The [SRC-7](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-7.md) standard defines the ABI for retrieving metadata. This has been properly implemented. 
+The [SRC-7](https://github.com/FuelLabs/sway-standards/blob/master/SRCs/src-7.md) standard defines the ABI for retrieving metadata. This has been properly implemented.
 
 A set function that uses storage has been provided to allow the user to set their own desired metadata. There is no limit or restrictions to what and the amount of metadata an asset may have.
 
@@ -147,5 +148,3 @@ abi SRC7 {
     fn metadata(asset: AssetId, key: String) -> Option<Metadata>;
 }
 ```
-
-

@@ -11,7 +11,7 @@ const fuelCorePort = +(process.env.NEXT_PUBLIC_FUEL_NODE_PORT as string) || 4000
 
 export default createConfig({
   workspace: './',
-  output: IS_PROD ? './production-contract' : './src/contract-types',
+  output: IS_PROD ? './artifacts' : './src/contract-types',
   fuelCorePort,
   providerUrl: NODE_URL,
   onSuccess: async (event: CommandEvent) => {

@@ -10,7 +10,7 @@ use sha2::{Digest, Sha256};
 
 abigen!(Contract(
     name = "NFT",
-    abi = "./NFT-contract/out/debug/NFT-contract-abi.json"
+    abi = "./contracts/out/debug/NFT-contract-abi.json"
 ),);
 
 const NFT_CONTRACT_BINARY_PATH: &str = "./out/debug/NFT-contract.bin";

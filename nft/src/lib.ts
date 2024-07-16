@@ -1,5 +1,5 @@
 import { Account, BN } from "fuels";
-import productionContractId from "../production-contract/contract-ids.json";
+import productionContractId from "../artifacts/contract-ids.json";
 import contractId from "@/contract-types/contract-ids.json";
 
 type DappEnvironment = "local" | "testnet";
