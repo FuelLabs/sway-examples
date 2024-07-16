@@ -94,7 +94,7 @@ cargo test
 
 A non-fungible token (NFT) is a unique asset that has a maximum supply of one. On the Fuel Network, all NFTs are [Native Assets](https://docs.fuel.network/docs/sway/blockchain-development/native_assets). They are commonly associated with artwork / collectibles however there are many greater utilities beyond that which have yet to be written for the Fuel Network.
 
-Each NFT may contain any metadata the user desires to store, however this frontend app only stores: name, symbol, description, and image uri.
+Each NFT may contain any metadata the user desires to store, however this frontend app only stores the image uri under the `"image"` string. We store the `name` and `symbol` on-chain using [sway-libs](https://github.com/FuelLabs/sway-libs/tree/master). We also store extra metadata on IPFS such as the `nftSubId`, `minter`, `nftName`, and `nftDescription`.
 
 # Standards Implementations
 

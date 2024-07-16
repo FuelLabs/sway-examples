@@ -18,10 +18,13 @@ import { faucetUrl } from "@/utils/url";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
-  const { wallet, network, walletBalance, refetchBalance, isConnected } = useActiveWallet();
+  const { wallet, network, walletBalance, refetchBalance, isConnected } =
+    useActiveWallet();
   const router = useRouter();
   const { isTablet, isMobile } = useBreakpoints();
   const [hasOpenedFaucetPage, setHasOpenedFaucetPage] = useState(false);
+  const [hasRedirectedAfterFaucet, setHasRedirectedAfterFaucet] =
+    useState(false);
 
   const TOP_UP_AMOUNT = 100_000_000;
 
@@ -65,7 +68,20 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         router.push("/nft/faucet");
       }
     }
-  }, [isConnected, walletBalance, isTablet])
+  }, [isConnected, walletBalance, isTablet]);
+
+  useEffect(() => {
+    if (
+      walletBalance &&
+      isConnected &&
+      !walletBalance.eq(0) &&
+      hasOpenedFaucetPage &&
+      !hasRedirectedAfterFaucet
+    ) {
+      setHasRedirectedAfterFaucet(true);
+      router.push("/nft")
+    }
+  }, [isConnected, walletBalance]);
 
   return (
     <>
