@@ -51,10 +51,10 @@ export default function Mint() {
   const nftName = router.query.nftName as string;
   const nftDescription = router.query.nftDescription as string;
 
-  const { totalSupply } = useTotalSupply(subId);
+  const { totalSupply, isLoading: isTotalSupplyLoading } = useTotalSupply(subId);
   const { isConnected } = useActiveWallet();
 
-  const { nftData } = useGetNFTData({
+  const { nftData, isLoading: isNFTDataLoading } = useGetNFTData({
     keyvalues: {
       nftSubId: {
         value: subId,
@@ -70,6 +70,8 @@ export default function Mint() {
   }, [nftData]);
 
   const mint = useMint();
+
+  const isLoading = isTotalSupplyLoading || isNFTDataLoading;
 
   return (
     <Stack
@@ -95,7 +97,7 @@ export default function Mint() {
       </Box>
       <Stack className="px-4" spacing={2}>
         <Text variant="h5">{nftName}</Text>
-        {!totalSupply ? (
+        {!totalSupply && !isLoading ? (
           <Button
             onClick={() => {
               mint.mutate({
