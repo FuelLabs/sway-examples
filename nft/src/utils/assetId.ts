@@ -1,4 +1,4 @@
-import { AssetIdInput } from "@/contract-types/contracts/NFTContractAbi";
+import { AssetIdInput } from "src/contract-types/contracts/NFTContractAbi";
 import { arrayify, concat, sha256 } from "fuels";
 
 // creates a subId repeating the provided number

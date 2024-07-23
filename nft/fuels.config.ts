@@ -1,7 +1,7 @@
 import { CommandEvent, Commands, defaultConsensusKey, FuelsConfig, createConfig, Wallet, Provider } from 'fuels';
 import dotenv from 'dotenv';
-import { NODE_URL, IS_PROD } from '@/lib';
-import { NFTContractAbi__factory } from '@/contract-types';
+import { NODE_URL, IS_PROD } from 'src/lib';
+import { NFTContractAbi__factory } from 'src/contract-types';
 
 dotenv.config({
   path: ['.env.local', '.env'],
