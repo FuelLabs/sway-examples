@@ -39,7 +39,7 @@ export const useUpdateMetadata = () => {
 
       const response = await fetch(
         `${PINATA_API_URL}/pinning/hashMetadata`,
-        options
+        options,
       );
 
       console.log(`response`, response);
