@@ -1,14 +1,14 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import { Layout } from "./components/Layout";
-import Home from "./pages";
+import Home from "./screens";
 import { NFTRoutes } from "./routes";
-import Explore from "./pages/nft";
-import Create from "./pages/nft/create";
-import Faucet from "./pages/nft/faucet";
-import Collection from "./pages/nft/collection";
-import Address from "./pages/nft/collection/address";
-import Mint from "./pages/nft/mint/id/fileId";
+import Explore from "./screens/nft";
+import Create from "./screens/nft/create";
+import Faucet from "./screens/nft/faucet";
+import Collection from "./screens/nft/collection";
+import Address from "./screens/nft/collection/address";
+import Mint from "./screens/nft/mint/id/fileId";
 
 export const App = () => {
   return (
