@@ -1,6 +1,6 @@
-import { useBreakpoints } from "@/hooks/useBreakpoints";
+import { useBreakpoints } from "hooks/useBreakpoints";
 import { Link } from "./Link";
-import { faucetUrl } from "@/utils/url";
+import { faucetUrl } from "src/utils/url";
 
 export const ExternalFaucet = ({
   address,

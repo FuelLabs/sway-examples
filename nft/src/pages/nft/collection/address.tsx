@@ -1,27 +1,27 @@
-import { useGetNFTData } from "@/hooks/useGetNFTData";
-import { getTruncatedAddress } from "@/utils/address";
+import { useGetNFTData } from "hooks/useGetNFTData";
+import { getTruncatedAddress } from "src/utils/address";
 import { Box, IconButton, Stack, Tooltip } from "@mui/material";
-import { useRouter } from "next/router";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { useSearchParams } from "react-router-dom";
 
-import { Text } from "@/components/Text";
-import { NFTGrid } from "@/components/NFTGrid";
+import { Text } from "components/Text";
+import { NFTGrid } from "components/NFTGrid";
 
 export default function Address() {
-  const router = useRouter();
+  const [urlSearchParams] = useSearchParams();
 
   // The filter expects a value so we pass in an impossible wallet address
   // in the case the user is disconnected
   const { nftData, isLoading } = useGetNFTData({
     keyvalues: {
       minter: {
-        value: router.query.address as string,
+        value: urlSearchParams.get("address") as string,
         op: "eq",
       },
     },
   });
 
-  const accountAddress = router.query.address as string;
+  const accountAddress = urlSearchParams.get("address") as string;
 
   return (
     <NFTGrid

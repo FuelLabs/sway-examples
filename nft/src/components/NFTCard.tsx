@@ -1,6 +1,7 @@
 import { Card, CardContent, CardActionArea, Box } from "@mui/material";
-import { useRouter } from "next/router";
-import { GATEWAY_URL } from "@/lib";
+import { useNavigate } from "react-router-dom"; 
+
+import { GATEWAY_URL } from "src/lib";
 import { NFTImage } from "./NFTImage";
 import { Text } from "./Text";
 
@@ -21,7 +22,7 @@ export const NFTCard = ({
   nftSubId,
   showDescription,
 }: NFTCardProps) => {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -35,7 +36,7 @@ export const NFTCard = ({
     >
       <CardActionArea
         onClick={() => {
-          router.push(
+          navigate(
             `/nft/mint/${cid}/${fileCid}?nftName=${nftName}&nftDescription=${nftDescription}&nftSubId=${nftSubId}`
           );
         }}

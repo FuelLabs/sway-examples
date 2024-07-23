@@ -1,4 +1,3 @@
-import clsx from "clsx";
 
 export const NFTImage = ({
   src,

@@ -1,4 +1,4 @@
-import NextLink from "next/link";
+import { Link as RouterLink } from "react-router-dom";
 
 export const Link = ({
   href,
@@ -12,12 +12,12 @@ export const Link = ({
   target?: string;
 }) => {
   return (
-    <NextLink
-      href={href}
+    <RouterLink
+      to={href}
       className={`text-white no-underline font-sans hover:underline hover:text-green-500 ${className}`}
       target={target}
     >
       {children}
-    </NextLink>
+    </RouterLink>
   );
 };

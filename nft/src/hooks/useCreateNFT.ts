@@ -2,14 +2,14 @@ import { useWallet } from "@fuels/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { getRandomB256 } from "fuels";
-import { NFTContractAbi__factory } from "@/contract-types";
-import { AssetIdInput } from "@/contract-types/contracts/NFTContractAbi";
-import { createAssetId } from "@/utils/assetId";
+import { useNavigate } from "react-router-dom";
+import { NFTContractAbi__factory } from "src/contract-types";
+import { AssetIdInput } from "src/contract-types/contracts/NFTContractAbi";
+import { createAssetId } from "src/utils/assetId";
 import { useUpdateMetadata } from "./useUpdateMetadata";
 import { useUnpin } from "./useUnpin";
-import { CONTRACT_ID } from "@/lib";
-import { useRouter } from "next/router";
-import { NFTQueryKeys } from "@/queryKeys";
+import { CONTRACT_ID } from "src/lib";
+import { NFTQueryKeys } from "src/queryKeys";
 
 type CreateNFT = {
   cid: string;
@@ -22,7 +22,7 @@ export const useCreateNFT = () => {
   const { wallet } = useWallet();
   const updateMetadata = useUpdateMetadata();
   const unpin = useUnpin();
-  const router = useRouter();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -32,6 +32,8 @@ export const useCreateNFT = () => {
         throw new Error(
           `Cannot create NFT if wallet is ${wallet}.  Please connect your wallet.`
         );
+
+      if (!cid) throw new Error(`cid is ${cid}`);
 
       const contract = NFTContractAbi__factory.connect(CONTRACT_ID, wallet);
 
@@ -58,7 +60,7 @@ export const useCreateNFT = () => {
         },
       });
       toast.success("NFT successfully created.");
-      router.push("/nft");
+      navigate("/nft");
     },
     onError: (err, { cid }) => {
       // TODO: if the ts sdk erroneously throws an error

@@ -10,10 +10,9 @@
         "dependsOn": ["ts:check"],
         "outputs": ["dist/**"]
       },
-      "build:preview": {
-        "dependsOn": ["^ts:check"],
-        "outputs": ["dist/**", "./next/**"],
-        "cache": false
+      "build:all": {
+        "dependsOn": ["^build"],
+        "outputs": ["dist/**", "./dist"]
       },
       "dev": {
         "dependsOn": ["^ts:check"],

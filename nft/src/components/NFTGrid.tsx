@@ -1,4 +1,4 @@
-import { NFTData } from "@/hooks/useGetNFTData";
+import { NFTData } from "hooks/useGetNFTData";
 import { Box, Grid, Skeleton, Stack } from "@mui/material";
 import { ReactNode } from "react";
 import { NFTCard } from "./NFTCard";

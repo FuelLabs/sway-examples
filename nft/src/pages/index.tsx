@@ -1,6 +1,6 @@
-import { FuelLogo } from "@/components/FuelLogo";
-import { HomeCard } from "@/components/HomeCard";
-import { Text } from "@/components/Text";
+import { FuelLogo } from "components/FuelLogo";
+import { HomeCard } from "components/HomeCard";
+import { Text } from "components/Text";
 import { Box, Grid, Stack } from "@mui/material";
 
 export default function Home() {

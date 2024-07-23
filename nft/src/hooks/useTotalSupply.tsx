@@ -1,8 +1,8 @@
-import { NFTContractAbi__factory } from "@/contract-types";
+import { NFTContractAbi__factory } from "src/contract-types";
 import { useQuery } from "@tanstack/react-query";
-import { CONTRACT_ID, NODE_URL } from "@/lib";
-import { createAssetId } from "@/utils/assetId";
-import { NFTQueryKeys } from "@/queryKeys";
+import { CONTRACT_ID, NODE_URL } from "src/lib";
+import { createAssetId } from "src/utils/assetId";
+import { NFTQueryKeys } from "src/queryKeys";
 import { Provider } from "fuels";
 
 export const useTotalSupply = (subId: string) => {

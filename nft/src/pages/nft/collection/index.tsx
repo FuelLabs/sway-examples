@@ -1,13 +1,10 @@
-import { NFTCard } from "@/components/NFTCard";
-import { useActiveWallet } from "@/hooks/useActiveWallet";
-import { useGetNFTData } from "@/hooks/useGetNFTData";
-import { Grid, Stack } from "@mui/material";
+import { useActiveWallet } from "hooks/useActiveWallet";
+import { useGetNFTData } from "hooks/useGetNFTData";
+import { Text } from "components/Text";
+import { NFTGrid } from "components/NFTGrid";
 
-import { Text } from "@/components/Text";
-import { NFTGrid } from "@/components/NFTGrid";
-
-export default function Home() {
-  const { isConnected, wallet, isPending: isWalletPending } = useActiveWallet();
+export default function Collection() {
+  const { wallet, isPending: isWalletPending } = useActiveWallet();
 
   // The filter expects a value so we pass in an impossible wallet address
   // in the case the user is disconnected
@@ -18,7 +15,7 @@ export default function Home() {
         op: "eq",
       },
     },
-  });
+  }, !wallet);
 
   const isPending = isNFTDataPending || isWalletPending;
 

@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
-import { useActiveWallet } from "@/hooks/useActiveWallet";
-import { getTruncatedAddress } from "@/utils/address";
+import { useActiveWallet } from "hooks/useActiveWallet";
+import { getTruncatedAddress } from "src/utils/address";
 
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text);

@@ -1,6 +1,6 @@
-import { Text } from "@/components/Text";
-import { useActiveWallet } from "@/hooks/useActiveWallet";
-import { TESTNET_FAUCET_LINK } from "@/lib";
+import { Text } from "components/Text";
+import { useActiveWallet } from "hooks/useActiveWallet";
+import { TESTNET_FAUCET_LINK } from "src/lib";
 import { useEffect } from "react";
 
 export default function Faucet() {

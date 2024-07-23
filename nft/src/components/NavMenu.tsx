@@ -5,7 +5,7 @@ import TableRowsIcon from "@mui/icons-material/TableRows";
 import { IconButton } from "@mui/material";
 import { useState } from "react";
 import { Link } from "./Link";
-import { NFTRoutes } from "@/routes";
+import { NFTRoutes } from "src/routes";
 import { ConnectButton } from "./ConnectButton";
 import { ExternalFaucet } from "./ExternalFaucet";
 

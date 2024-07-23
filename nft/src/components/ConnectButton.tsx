@@ -1,6 +1,6 @@
 import { useConnectUI, useDisconnect } from "@fuels/react";
 import { Button } from "./Button";
-import { useActiveWallet } from "@/hooks/useActiveWallet";
+import { useActiveWallet } from "hooks/useActiveWallet";
 export const ConnectButton = () => {
   const {
     isPending: isLoading,

@@ -1,27 +1,26 @@
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "./Link";
 import { Button } from "./Button";
-import { CURRENT_ENVIRONMENT, NODE_URL } from "@/lib";
+import { CURRENT_ENVIRONMENT, NODE_URL } from "src/lib";
 import { WalletDisplay } from "./WalletDisplay";
-import { useActiveWallet } from "@/hooks/useActiveWallet";
-import { useFaucet } from "@/hooks/useFaucet";
-import Head from "next/head";
+import { useActiveWallet } from "hooks/useActiveWallet";
+import { useFaucet } from "hooks/useFaucet";
 import { ConnectButton } from "./ConnectButton";
-import { useRouter } from "next/router";
 import { NavMenu } from "./NavMenu";
-import { NFTRoutes } from "@/routes";
+import { NFTRoutes } from "src/routes";
 import { ExternalFaucet } from "./ExternalFaucet";
-import { useBreakpoints } from "@/hooks/useBreakpoints";
+import { useBreakpoints } from "hooks/useBreakpoints";
 import { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
-import { faucetUrl } from "@/utils/url";
+import { faucetUrl } from "src/utils/url";
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
   const { wallet, network, walletBalance, refetchBalance, isConnected } =
     useActiveWallet();
-  const router = useRouter();
   const { isTablet, isMobile } = useBreakpoints();
+  const navigate = useNavigate();
   const [hasOpenedFaucetPage, setHasOpenedFaucetPage] = useState(false);
   const [hasRedirectedAfterFaucet, setHasRedirectedAfterFaucet] =
     useState(false);
@@ -45,7 +44,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (CURRENT_ENVIRONMENT === "testnet" && !isTablet) {
-      router.push(NFTRoutes.faucet);
+      navigate(NFTRoutes.faucet);
     }
     await refetchBalance();
   };
@@ -65,7 +64,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       if (isTablet) {
         window.open(faucetUrl(wallet?.address.toString()), "_blank");
       } else {
-        router.push("/nft/faucet");
+        navigate(NFTRoutes.faucet);
       }
     }
   }, [isConnected, walletBalance, isTablet]);
@@ -79,16 +78,16 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       !hasRedirectedAfterFaucet
     ) {
       setHasRedirectedAfterFaucet(true);
-      router.push("/nft")
+      navigate(NFTRoutes.explore);
     }
   }, [isConnected, walletBalance]);
 
   return (
     <>
-      <Head>
+      <head>
         <title>Fuel App</title>
         <link rel="icon" href="/fuel.ico" />
-      </Head>
+      </head>
       <Toaster />
       <div className="flex flex-col">
         <nav
@@ -133,7 +132,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         </nav>
 
         <div className="min-h-screen items-center p-8 lg:p-24 flex flex-col gap-6">
-          {children}
+          {children ?? <Outlet />}
         </div>
       </div>
     </>

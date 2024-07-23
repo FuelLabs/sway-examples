@@ -1,10 +1,10 @@
-import { NFTContractAbi__factory } from "@/contract-types";
+import { NFTContractAbi__factory } from "src/contract-types";
 import { useWallet } from "@fuels/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useUpdateMetadata } from "./useUpdateMetadata";
-import { CONTRACT_ID } from "@/lib";
-import { NFTQueryKeys } from "@/queryKeys";
+import { CONTRACT_ID } from "src/lib";
+import { NFTQueryKeys } from "src/queryKeys";
 
 export const useMint = () => {
   const { wallet } = useWallet();

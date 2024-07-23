@@ -1,18 +1,18 @@
-import { useRouter } from "next/router";
-
-import { GATEWAY_URL } from "@/lib";
 import { Box, Stack } from "@mui/material";
-import { Button } from "@/components/Button";
-import { useMint } from "@/hooks/useMint";
-import { useTotalSupply } from "@/hooks/useTotalSupply";
+import { Button } from "components/Button";
+import { useMint } from "hooks/useMint";
+import { useTotalSupply } from "hooks/useTotalSupply";
 import clsx from "clsx";
-import { NFTImage } from "@/components/NFTImage";
-import { useActiveWallet } from "@/hooks/useActiveWallet";
-import { useGetNFTData } from "@/hooks/useGetNFTData";
-import { Link } from "@/components/Link";
-import { getTruncatedAddress } from "@/utils/address";
-import { Text } from "@/components/Text";
+import { NFTImage } from "components/NFTImage";
+import { useActiveWallet } from "hooks/useActiveWallet";
+import { useGetNFTData } from "hooks/useGetNFTData";
+import { Link } from "components/Link";
+import { getTruncatedAddress } from "src/utils/address";
+import { Text } from "components/Text";
 import { useEffect, useState } from "react";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
+
+import { GATEWAY_URL } from "src/lib";
 
 const MAX_INITIAL_DESCRIPTION = 256;
 
@@ -44,14 +44,20 @@ const NFTDescription = ({ nftDescription }: { nftDescription: string }) => {
 };
 
 export default function Mint() {
-  const router = useRouter();
+  const location = useLocation();
+  const urlParams = useParams();
+  const [searchParams] = useSearchParams();
   const [minterAddress, setMinterAddress] = useState("");
+  console.log(`location`, location);
+  console.log(`urlParams`, urlParams);
+  console.log(`searchParams`, searchParams);
 
-  const subId = (router.query.nftSubId || "dud") as string;
-  const nftName = router.query.nftName as string;
-  const nftDescription = router.query.nftDescription as string;
+  const subId = (searchParams.get("nftSubId") || "dud") as string;
+  const nftName = searchParams.get("nftName") as string;
+  const nftDescription = searchParams.get("nftDescription") as string;
 
-  const { totalSupply, isLoading: isTotalSupplyLoading } = useTotalSupply(subId);
+  const { totalSupply, isLoading: isTotalSupplyLoading } =
+    useTotalSupply(subId);
   const { isConnected } = useActiveWallet();
 
   const { nftData, isLoading: isNFTDataLoading } = useGetNFTData({
@@ -91,7 +97,7 @@ export default function Mint() {
     >
       <Box display="flex" alignSelf="center">
         <NFTImage
-          src={`${GATEWAY_URL}/ipfs/${router.query.id}/${router.query.fileId}`}
+          src={`${GATEWAY_URL}/ipfs/${urlParams['id']}/${urlParams["fileId"]}`}
           className="w-80 h-80 lg:w-96 lg:h-96"
         />
       </Box>
@@ -102,7 +108,7 @@ export default function Mint() {
             onClick={() => {
               mint.mutate({
                 nftSubId: subId,
-                cid: router.query.id as string,
+                cid: urlParams["id"] as string,
                 nftName,
                 nftDescription,
               });
@@ -124,7 +130,7 @@ export default function Mint() {
         ) : (
           <Text>Loading...</Text>
         )}
-        {router.query.nftDescription && (
+        {searchParams.get("nftDescription") && (
           <NFTDescription nftDescription={nftDescription} />
         )}
       </Stack>

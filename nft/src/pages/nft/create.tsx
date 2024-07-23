@@ -1,17 +1,17 @@
-import { UploadButton } from "@/components/UploadButton";
-import { useUploadFile } from "@/hooks/useUploadFile";
+import { UploadButton } from "components/UploadButton";
+import { useUploadFile } from "hooks/useUploadFile";
 import { IconButton, Stack, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import clsx from "clsx";
 import { useIsMutating } from "@tanstack/react-query";
 
-import { Button } from "@/components/Button";
-import { Input, inputStyle } from "@/components/Input";
-import { useActiveWallet } from "@/hooks/useActiveWallet";
-import { NFTImage } from "@/components/NFTImage";
-import { Text } from "@/components/Text";
-import { NFTQueryKeys } from "@/queryKeys";
+import { Button } from "components/Button";
+import { Input, inputStyle } from "components/Input";
+import { useActiveWallet } from "hooks/useActiveWallet";
+import { NFTImage } from "components/NFTImage";
+import { Text } from "components/Text";
+import { NFTQueryKeys } from "src/queryKeys";
 
 export default function Create() {
   const [file, setFile] = useState<File>();

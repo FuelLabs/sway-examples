@@ -1,6 +1,7 @@
 import { Card, CardActionArea, CardContent } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 import { Text } from "./Text";
-import { useRouter } from "next/router";
 
 type HomeCardProps = {
   href: string;
@@ -9,7 +10,7 @@ type HomeCardProps = {
 };
 
 export const HomeCard = ({ href, title, children }: HomeCardProps) => {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -26,7 +27,7 @@ export const HomeCard = ({ href, title, children }: HomeCardProps) => {
     >
       <CardActionArea
         onClick={() => {
-          router.push(href);
+          navigate(href);
         }}
         sx={{ height: "stretch" }}
       >

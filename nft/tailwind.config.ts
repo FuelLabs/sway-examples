@@ -9,7 +9,7 @@ const config: Config = {
   corePlugins: {
     preflight: false,
   },
-  important: '#__next',
+  important: '#root',
   theme: {
     fontFamily: {
       sans: ['sans-serif']
