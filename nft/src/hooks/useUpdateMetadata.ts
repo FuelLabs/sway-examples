@@ -17,18 +17,17 @@ export const useUpdateMetadata = () => {
       metadata: { name?: string; keyvalues?: { [key: string]: string } };
       ipfsHash: string;
     }) => {
-      let temp = JSON.stringify({
+      let putData = JSON.stringify({
         ipfsPinHash: ipfsHash,
         keyvalues: metadata.keyvalues,
       });
-      console.log(`temp`, temp);
       const options = {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${PINATA_JWT}`,
           "Content-Type": "application/json",
         },
-        body: temp
+        body: putData
       };
 
       const response = await fetch(

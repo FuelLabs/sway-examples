@@ -40,7 +40,6 @@ export const NFTGrid = ({ isLoading, title, nftData }: NFTGridProps) => {
           <NFTGridLoader />
         ) : (
           nftData.map((nftDatum) => {
-            console.log(`nftDatum`, nftDatum);
             return (
               <Grid item xs={12} sm={6} md={4}>
                 <NFTCard

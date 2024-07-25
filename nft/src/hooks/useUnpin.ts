@@ -19,8 +19,6 @@ export const useUnpin = () => {
         options
       );
 
-      console.log(`response`, response);
-
       return response;
     },
     onError: (err) => {

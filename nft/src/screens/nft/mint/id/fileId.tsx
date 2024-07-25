@@ -10,7 +10,7 @@ import { Link } from "components/Link";
 import { getTruncatedAddress } from "src/utils/address";
 import { Text } from "components/Text";
 import { useEffect, useState } from "react";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import { GATEWAY_URL } from "src/lib";
 
@@ -44,13 +44,9 @@ const NFTDescription = ({ nftDescription }: { nftDescription: string }) => {
 };
 
 export default function Mint() {
-  const location = useLocation();
   const urlParams = useParams();
   const [searchParams] = useSearchParams();
   const [minterAddress, setMinterAddress] = useState("");
-  console.log(`location`, location);
-  console.log(`urlParams`, urlParams);
-  console.log(`searchParams`, searchParams);
 
   const subId = (searchParams.get("nftSubId") || "dud") as string;
   const nftName = searchParams.get("nftName") as string;
