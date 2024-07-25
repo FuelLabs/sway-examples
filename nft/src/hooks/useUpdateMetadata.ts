@@ -17,12 +17,10 @@ export const useUpdateMetadata = () => {
       metadata: { name?: string; keyvalues?: { [key: string]: string } };
       ipfsHash: string;
     }) => {
-      // const options = {
-      //   method: 'PUT',
-      //   headers: {Authorization: `Bearer ${PINATA_JWT}`, 'Content-Type': 'application/json'},
-      //   body: JSON.stringify({ metadata, ipfsHash })
-      // };
-      const temp = JSON.stringify(metadata.keyvalues);
+      let temp = JSON.stringify({
+        ipfsPinHash: ipfsHash,
+        keyvalues: metadata.keyvalues,
+      });
       console.log(`temp`, temp);
       const options = {
         method: "PUT",
@@ -30,19 +28,13 @@ export const useUpdateMetadata = () => {
           Authorization: `Bearer ${PINATA_JWT}`,
           "Content-Type": "application/json",
         },
-        body: `{"ipfsHash":"${ipfsHash}",${
-          metadata.name ? `"name": ${metadata.name},` : ""
-        }"keyvalues":"${temp}"}`,
+        body: temp
       };
-
-      console.log(`options`, options);
 
       const response = await fetch(
         `${PINATA_API_URL}/pinning/hashMetadata`,
-        options,
+        options
       );
-
-      console.log(`response`, response);
 
       return response;
     },

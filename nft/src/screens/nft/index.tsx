@@ -6,8 +6,6 @@ import { NFTGrid } from "components/NFTGrid";
 export default function Explore() {
   const { nftData, isLoading } = useGetNFTData();
 
-  console.log(`nftData`, nftData);
-
   return (
     <NFTGrid
       isLoading={isLoading}

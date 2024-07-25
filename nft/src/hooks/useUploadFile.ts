@@ -18,14 +18,9 @@ export const useUploadFile = () => {
   const mutation = useMutation({
     mutationFn: async ({ fileToUpload }: UploadFileParams) => {
       const formData = new FormData();
-      // Wrap in dir
-      // Array.from([fileToUpload]).forEach((file) => {
-      //   formData.append("file", file);
-      // });
       const folderCid = getRandomB256();
-      formData.append("file", fileToUpload, `${folderCid}/${fileToUpload.name}`);
+      formData.append("file", fileToUpload, `${folderCid}/${folderCid}`);
 
-      //const fileCid = getRandomB256();
       const metadata = JSON.stringify({ name: folderCid });
       formData.append("pinataMetadata", metadata);
 
@@ -42,12 +37,10 @@ export const useUploadFile = () => {
 
       const res = await fetch(`${PINATA_API_URL}/pinning/pinFileToIPFS`, fetchOptions);
       const resData = await res.json();
-      console.log(`resData`, resData);
       return resData.IpfsHash;
     },
     onSuccess: (data, { name, description, symbol }) => {
       const newCid = data;
-      console.log(`newCid`, newCid);
       createNFT.mutateAsync({
         cid: newCid,
         name,
