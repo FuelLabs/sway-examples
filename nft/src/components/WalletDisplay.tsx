@@ -1,4 +1,7 @@
 import toast from "react-hot-toast";
+import { IconButton } from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+
 import { useActiveWallet } from "hooks/useActiveWallet";
 import { getTruncatedAddress } from "src/utils/address";
 
@@ -16,12 +19,9 @@ export const WalletDisplay = () => {
         <span className="text-base text-gray-400 font-sans">
           {getTruncatedAddress(wallet.address.toAddress() as string)}
         </span>
-        <img
-          src="/copy.svg"
-          alt="copy"
-          className="cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
-          onClick={() => copyToClipboard(wallet.address.toAddress() as string)}
-        />
+        <IconButton className="text-white hover:opacity-80 p-0" onClick={() => copyToClipboard(wallet.address.toAddress() as string)}>
+          <ContentCopyIcon className="w-5 h-5" />
+        </IconButton>
         <span className="text-base text-gray-400 font-sans">
           Balance: {walletBalance?.format()} ETH
         </span>
