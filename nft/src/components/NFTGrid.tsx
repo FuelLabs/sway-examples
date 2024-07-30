@@ -1,5 +1,5 @@
 import { NFTData } from "hooks/useGetNFTData";
-import { Box, Grid, Skeleton, Stack } from "@mui/material";
+import { Box, Grid, Skeleton, Stack, css } from "@mui/material";
 import { ReactNode } from "react";
 import { NFTCard } from "./NFTCard";
 
@@ -39,7 +39,7 @@ export const NFTGrid = ({ isLoading, title, nftData }: NFTGridProps) => {
         {isLoading ? (
           <NFTGridLoader />
         ) : (
-          nftData.map((nftDatum) => {
+          nftData.map((nftDatum) => {  
             return (
               <Grid item xs={12} sm={6} md={4}>
                 <NFTCard

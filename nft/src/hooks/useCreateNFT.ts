@@ -1,4 +1,4 @@
-import { useWallet } from "@fuels/react";
+import { QUERY_KEYS, useWallet } from "@fuels/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { getRandomB256 } from "fuels";

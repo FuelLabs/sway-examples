@@ -4,11 +4,11 @@ import { NFTGrid } from "components/NFTGrid";
 
 
 export default function Explore() {
-  const { nftData, isLoading } = useGetNFTData();
+  const { nftData, isFetching } = useGetNFTData();
 
   return (
     <NFTGrid
-      isLoading={isLoading}
+      isLoading={isFetching}
       nftData={nftData}
       title={<Text variant="h3">Latest NFTs</Text>}
     />
