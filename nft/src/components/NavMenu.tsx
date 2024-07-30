@@ -32,9 +32,9 @@ export const NavMenu = ({ address }: { address?: string }) => {
       >
         <TableRowsIcon className="rounded-sm active:bg-gray-600 text-gray-400" />
       </IconButton>
-      {/** We need to specify next as the container to get tailwind css to work for material ui */}
+      {/** We need to specify root as the container to get tailwind css to work for material ui */}
       <Menu
-        container={() => document.getElementById("__next")}
+        container={() => document.getElementById("root")}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
