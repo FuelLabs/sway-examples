@@ -4,7 +4,7 @@
     "buildCommand": "pnpm build:preview",
     "outputDirectory": "./dist",
     "rewrites": [
-        { "source": "sway-nft.vercel.app", "destination": "/nft/index.html" }
+        { "source": "/nft", "destination": "sway-nft.vercel.app" }
     ]
 }
   
