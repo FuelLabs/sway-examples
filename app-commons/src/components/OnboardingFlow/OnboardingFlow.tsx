@@ -1,5 +1,5 @@
 
 export const OnboardingFlow = () => {
 
-    return <div>hello</div>;
+    return <button className="bg-green-500 text-white">hello</button>;
 }

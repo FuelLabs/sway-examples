@@ -1,5 +1,8 @@
-/** @type { import('@storybook/react').Preview } */
-const preview = {
+import "../src/styles/index.css";
+
+import { Preview } from "@storybook/react";
+
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
