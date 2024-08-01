@@ -4,6 +4,7 @@
     "buildCommand": "pnpm build:preview",
     "devCommand": "",
     "outputDirectory": "dist",
+    "cleanUrls": false,
     "trailingSlash": true,
     "rewrites": [
       {
