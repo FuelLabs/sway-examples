@@ -1,18 +1,30 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm build:preview",
-  "outputDirectory": "./dist",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/nft/$1",
-      "has": [
-        {
-          "type": "host",
-          "value": "sway-nft.vercel.app"
-        }
-      ]
-    }
-  ]
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "installCommand": "pnpm install",
+    "buildCommand": "pnpm build:preview",
+    "devCommand": "",
+    "outputDirectory": "dist",
+    "trailingSlash": true,
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/nft/$1",
+        "has": [
+          {
+            "type": "host",
+            "value": "sway-nft.vercel.app"
+          }
+        ]
+      },
+      {
+        "source": "/:path*",
+        "destination": "/nft/:path*",
+        "has": [
+          {
+            "type": "host",
+            "value": "sway-nft.vercel.app"
+          }
+        ]
+      }
+    ]
 }
