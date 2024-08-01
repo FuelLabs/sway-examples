@@ -12,6 +12,7 @@ import { ExternalFaucet } from "./ExternalFaucet";
 import { useBreakpoints } from "hooks/useBreakpoints";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { OnboardingFlow } from "app-commons";
 
 import { faucetUrl } from "src/utils/url";
 
@@ -89,6 +90,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
         <link rel="icon" href="/fuel.ico" />
       </head>
       <Toaster />
+      <OnboardingFlow container={() => document.getElementById("root")} />
       <div className="flex flex-col">
         <nav
           className="flex justify-between items-center p-4 bg-black text-white gap-2 lg:gap-6 gradient-border
