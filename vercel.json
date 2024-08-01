@@ -16,6 +16,16 @@
             "value": "sway-nft.vercel.app"
           }
         ]
+      },
+      {
+        "source": ":path*",
+        "destination": "/nft/:path*",
+        "has": [
+          {
+            "type": "host",
+            "value": "sway-nft.vercel.app"
+          }
+        ]
       }
     ]
 }
