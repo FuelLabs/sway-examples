@@ -8,16 +8,6 @@
     "trailingSlash": true,
     "rewrites": [
       {
-        "source": "/:path*",
-        "destination": "/nft/:path*",
-        "has": [
-          {
-            "type": "host",
-            "value": "sway-nft.vercel.app"
-          }
-        ]
-      },
-      {
         "source": "/nft/:path*",
         "destination": "/nft/create/:path*",
         "has": [
