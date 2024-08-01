@@ -36,7 +36,8 @@
     "react-dom": "^18.2",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.25.1",
-    "react-use": "^17.5.0"
+    "react-use": "^17.5.0",
+    "vite-plugin-vercel": "^8.0.0"
   },
   "devDependencies": {
     "@types/formidable": "^3.4.5",
