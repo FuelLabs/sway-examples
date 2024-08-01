@@ -1,2 +1,3 @@
 
-export { OnboardingFlow } from "./OnboardingFlow/OnboardingFlow";
+export { OnboardingFlow } from "./OnboardingFlow";
+export { Text } from "./Text";
