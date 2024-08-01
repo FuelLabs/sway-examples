@@ -18,8 +18,8 @@
         ]
       },
       {
-        "source": ":path*",
-        "destination": "/nft/:path*",
+        "source": "/nft/:path*",
+        "destination": "/nft/create/:path*",
         "has": [
           {
             "type": "host",
