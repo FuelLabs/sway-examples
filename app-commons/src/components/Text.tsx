@@ -1,6 +1,6 @@
 import { Typography, TypographyProps } from "@mui/material";
 
-type TextProps = TypographyProps;
+export type TextProps = TypographyProps;
 
 export const Text = ({ children, className, ...props }: TextProps) => {
   return (

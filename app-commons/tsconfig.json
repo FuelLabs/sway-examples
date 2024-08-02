@@ -20,8 +20,10 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es2020"
+    "target": "es2020",
+    "baseUrl": ".",
+    "outDir": "./dist"
   },
-  "include": ["src", ".storybook"],
+  "include": ["src", ".storybook", "*.config.*"],
   "exclude": ["**/dist", "**/build", "node_modules", "**/node_modules"]
 }

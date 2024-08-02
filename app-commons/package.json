@@ -3,15 +3,47 @@
   "version": "1.0.0",
   "description": "Common components for sway example apps",
   "main": "./src/index.ts",
-  "module": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.tsx",
+    "./styles.css": "./src/styles/index.css"
+  },
+  "publishConfig": {
+    "main": "./dist/index.cjs.js",
+    "module": "./dist/index.cjs.js",
+    "types": "./dist/index.d.ts",
+    "typings": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": "./dist/index.esm.js",
+        "require": "./dist/index.cjs.jg",
+        "default": "./dist/index.cjs.js",
+        "types": "./dist/index.d.ts",
+        "typings": "./dist/index.d.ts"
+      },
+      "./styles.css": "./dist/styles.css"
+    },
+    "files": [
+      "dist"
+    ]
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build:lib": "tsup --dts",
+    "build:watch": "tsup --watch",
+    "ts:check": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@fuels/connectors": "^0.9.1",
+    "@mui/material": "^5.15.12",
+    "react": "^18.2",
+    "react-dom": "^18.2"
+  },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
     "@storybook/addon-essentials": "^8.2.6",
@@ -32,12 +64,5 @@
     "tailwindcss": "^3.3.0",
     "tsup": "^8.2.3",
     "typescript": "^5.5.4"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.15.12",
-    "react": "^18.2",
-    "react-dom": "^18.2"
   }
 }
