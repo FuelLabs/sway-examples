@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import { WelcomePage } from "./WelcomePage";
 import { OnboardingTopBar, CurrentStep } from "./OnboardingTopBar";
+import { FaucetPage } from "./FaucetPage";
+import { SuccessPage } from "./SuccessPage";
 
 type OnboardingFlowProps = {
   container?: Element | (() => Element | null) | null;
@@ -22,10 +24,17 @@ export const OnboardingFlow = ({ container }: OnboardingFlowProps) => {
       <Stack spacing={4} className="items-center">
         <OnboardingTopBar currentStep={currentStep} />
 
-        <WelcomePage
-          message="Welcome to Sway NFT!"
-          messageProps={{ className: "text-xl" }}
-        />
+        {currentStep === CurrentStep.Welcome ? (
+          <WelcomePage
+            message="Welcome to Sway NFT!"
+            messageProps={{ className: "text-xl" }}
+            setCurrentStep={setCurrentStep}
+          />
+        ) : currentStep === CurrentStep.Faucet ? (
+          <FaucetPage setCurrentStep={setCurrentStep} />
+        ) : (
+          <SuccessPage message="Success!" setOpen={setOpen} />
+        )}
       </Stack>
     </Dialog>
   );

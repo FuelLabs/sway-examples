@@ -59,29 +59,29 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     );
   };
 
-  useEffect(() => {
-    if (isConnected && walletBalance?.eq(0) && !hasOpenedFaucetPage) {
-      setHasOpenedFaucetPage(true);
-      if (isTablet) {
-        window.open(faucetUrl(wallet?.address.toString()), "_blank");
-      } else {
-        navigate(NFTRoutes.faucet);
-      }
-    }
-  }, [isConnected, walletBalance, isTablet]);
+  // useEffect(() => {
+  //   if (isConnected && walletBalance?.eq(0) && !hasOpenedFaucetPage) {
+  //     setHasOpenedFaucetPage(true);
+  //     if (isTablet) {
+  //       window.open(faucetUrl(wallet?.address.toString()), "_blank");
+  //     } else {
+  //       navigate(NFTRoutes.faucet);
+  //     }
+  //   }
+  // }, [isConnected, walletBalance, isTablet]);
 
-  useEffect(() => {
-    if (
-      walletBalance &&
-      isConnected &&
-      !walletBalance.eq(0) &&
-      hasOpenedFaucetPage &&
-      !hasRedirectedAfterFaucet
-    ) {
-      setHasRedirectedAfterFaucet(true);
-      navigate(NFTRoutes.explore);
-    }
-  }, [isConnected, walletBalance]);
+  // useEffect(() => {
+  //   if (
+  //     walletBalance &&
+  //     isConnected &&
+  //     !walletBalance.eq(0) &&
+  //     hasOpenedFaucetPage &&
+  //     !hasRedirectedAfterFaucet
+  //   ) {
+  //     setHasRedirectedAfterFaucet(true);
+  //     navigate(NFTRoutes.explore);
+  //   }
+  // }, [isConnected, walletBalance]);
 
   return (
     <>
