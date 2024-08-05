@@ -15,6 +15,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { OnboardingFlow } from "app-commons";
 
 import { faucetUrl } from "src/utils/url";
+import { useOnboardingFlowContext } from "../../../app-commons/src/components/OnboardingFlowProvider";
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
@@ -25,6 +26,8 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const [hasOpenedFaucetPage, setHasOpenedFaucetPage] = useState(false);
   const [hasRedirectedAfterFaucet, setHasRedirectedAfterFaucet] =
     useState(false);
+
+  const { openDialog } = useOnboardingFlowContext();
 
   const TOP_UP_AMOUNT = 100_000_000;
 
@@ -85,13 +88,9 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
 
   return (
     <>
-      <head>
-        <title>Fuel App</title>
-        <link rel="icon" href="/fuel.ico" />
-      </head>
       <Toaster />
       <OnboardingFlow container={() => document.getElementById("root")} />
-      <div className="flex flex-col">
+      <div className={`flex flex-col ${openDialog && "fixed"}`}>
         <nav
           className="flex justify-between items-center p-4 bg-black text-white gap-2 lg:gap-6 gradient-border
             bg-gradient-to-b

@@ -13,11 +13,10 @@ import {
   BurnerWalletConnector,
   WalletConnectConnector,
 } from "@fuels/connectors";
-import {
-  StyledEngineProvider,
-} from "@mui/material";
+import { StyledEngineProvider } from "@mui/material";
 
 import { NODE_URL, WC_PROJECT_ID } from "src/lib";
+import { OnboardingFlowProvider } from "../../../app-commons/src/components/OnboardingFlowProvider";
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => {
@@ -73,27 +72,27 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <StyledEngineProvider injectFirst>
-        <BrowserRouter>
-          <QueryClientProvider client={queryClient}>
-            <FuelProvider
-              fuelConfig={{
-                connectors: [
-                  new FuelWalletConnector(),
-                  new FueletWalletConnector(),
-                  new WalletConnectConnector({
-                    fuelProvider: currentProvider,
-                    wagmiConfig,
-                    projectId: WC_PROJECT_ID,
-                  }),
-                  new FuelWalletDevelopmentConnector(),
-                  new BurnerWalletConnector({ fuelProvider: currentProvider }),
-                ],
-              }}
-            >
-              {children}
-            </FuelProvider>
-          </QueryClientProvider>
-        </BrowserRouter>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <FuelProvider
+            fuelConfig={{
+              connectors: [
+                new FuelWalletConnector(),
+                new FueletWalletConnector(),
+                new WalletConnectConnector({
+                  fuelProvider: currentProvider,
+                  wagmiConfig,
+                  projectId: WC_PROJECT_ID,
+                }),
+                new FuelWalletDevelopmentConnector(),
+                new BurnerWalletConnector({ fuelProvider: currentProvider }),
+              ],
+            }}
+          >
+            <OnboardingFlowProvider>{children}</OnboardingFlowProvider>
+          </FuelProvider>
+        </QueryClientProvider>
+      </BrowserRouter>
     </StyledEngineProvider>
   );
 };
