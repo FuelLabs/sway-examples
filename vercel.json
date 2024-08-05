@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "/(.*)",
-        "destination": "https://sway-nft.vercel.app/nft$1",
+        "destination": "https://sway-examples.vercel.app/nft$1",
         "has": [
           {
             "type": "host",
@@ -18,7 +18,7 @@
         ]
       }, {
         "source": "/:path*",
-        "destination": "https://sway-nft.vercel.app/nft/:path",
+        "destination": "https://sway-examples.vercel.app/nft/:path",
         "has": [
           {
             "type": "host",
