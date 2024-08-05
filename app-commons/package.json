@@ -29,6 +29,7 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "build:all": "pnpm run ts:check && pnpm run build:lib",
     "build:lib": "tsup --dts",
     "build:watch": "tsup --watch",
     "ts:check": "tsc --noEmit"
