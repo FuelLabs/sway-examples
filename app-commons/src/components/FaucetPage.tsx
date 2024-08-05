@@ -19,12 +19,12 @@ export const FaucetPage = ({ setCurrentStep }: FaucetPageProps) => {
   useEffect(() => {
     const interval = setInterval(refetch, 500);
     if (balance && balance.gt(0)) {
-      console.log("here");
       setCurrentStep(CurrentStep.Success);
     }
     return () => clearInterval(interval);
   }, [balance]);
 
+  // TODO: fix this does not work as intended
   useEffect(() => {
     const logo = document.getElementsByClassName("fuel-logo");
     if (logo) {
@@ -32,13 +32,10 @@ export const FaucetPage = ({ setCurrentStep }: FaucetPageProps) => {
     }
   }, []);
 
-  console.log(`balance`, balance);
-
   if (isLoading || isPending || isFetching) return <Text>Loading...</Text>;
 
   if (!wallet) return <Text>Wallet not found</Text>;
 
-  console.log("iframe");
   return (
     <iframe
       src={`${TESTNET_FAUCET_LINK}?address=${wallet.address.toAddress()}`}

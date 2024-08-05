@@ -14,12 +14,12 @@ export default createConfig({
   output: IS_PROD ? './artifacts' : './src/contract-types',
   fuelCorePort,
   providerUrl: NODE_URL,
-  onSuccess: async (event: CommandEvent) => {
-    if (event.type !== Commands.deploy) {
-      return;
-    }
+  onDeploy: async (_config: FuelsConfig, data) => {
+    // if (event.type !== Commands.deploy) {
+    //   return;
+    // }
 
-    const { data: contracts } = event;
+    const contracts = data;
 
     const nftContract = contracts.find((contract) => {
       console.log(`contract`, contract);
