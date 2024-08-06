@@ -37,10 +37,10 @@ export const OnboardingFlowProvider = ({
   // }, [isConnected])
 
   return (
-    <FuelProvider fuelConfig={{ connectors: defaultConnectors() }}>
+    // <FuelProvider fuelConfig={{ connectors: defaultConnectors() }}>
       <OnboardingFlowContext.Provider value={{ openDialog, setOpenDialog }}>
         {children}
       </OnboardingFlowContext.Provider>
-    </FuelProvider>
+    // </FuelProvider>
   );
 };

@@ -16,6 +16,8 @@ export const FaucetPage = ({ setCurrentStep }: FaucetPageProps) => {
   });
   const [className, setClassName] = useState("");
 
+  console.log(`wallet`, wallet);
+
   useEffect(() => {
     const interval = setInterval(refetch, 500);
     if (balance && balance.gt(0)) {

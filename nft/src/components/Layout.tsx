@@ -90,7 +90,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     <>
       <Toaster />
       <OnboardingFlow container={() => document.getElementById("root")} />
-      <div className={`flex flex-col ${openDialog && "fixed"}`}>
+      <div className={`flex flex-col w-full ${openDialog && "fixed"}`}>
         <nav
           className="flex justify-between items-center p-4 bg-black text-white gap-2 lg:gap-6 gradient-border
             bg-gradient-to-b
