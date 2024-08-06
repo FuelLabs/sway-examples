@@ -25,6 +25,12 @@ importers:
         specifier: ^5.2.2
         version: 5.5.3
 
+  home:
+    devDependencies:
+      vite:
+        specifier: ^5.1.4
+        version: 5.3.4(@types/node@20.14.11)(terser@5.31.3)
+
   nft:
     dependencies:
       '@emotion/react':

@@ -7,10 +7,12 @@
         "outputs": ["./**/*.typegen.ts"]
       },
       "build": {
+        "cache": false,
         "dependsOn": ["ts:check"],
         "outputs": ["dist/**"]
       },
       "build:all": {
+        "cache": false,
         "dependsOn": ["^build"],
         "outputs": ["dist/**", "./dist"]
       },

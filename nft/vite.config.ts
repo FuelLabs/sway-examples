@@ -9,21 +9,6 @@ export default defineConfig({
     outDir: process.env.NFT_DIST,
   },
   plugins: [react(), vercel()],
-  // @ts-ignore
-  vercel: {
-    rewrites: [
-      {
-        "source": "/nft/:path*",
-        "destination": "/nft/create/:path*",
-        "has": [
-          {
-            "type": "host",
-            "value": "sway-nft.vercel.app/(.*)"
-          }
-        ]
-      }
-    ]
-  },
   resolve: {
     alias: {
       src: "/src",

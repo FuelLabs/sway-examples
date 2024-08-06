@@ -1,0 +1,12 @@
+{
+  "name": "sway-home-app",
+  "version": "0.1.3",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "^5.1.4"
+  }
+}
