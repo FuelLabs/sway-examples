@@ -24,9 +24,9 @@
     "execa": "^8.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.11.26",
+    "@types/node": "^20.14.14",
     "dotenv": "^16.4.5",
-    "turbo": "^1.12.5",
-    "typescript": "^5.2.2"
+    "turbo": "^1.13.4",
+    "typescript": "^5.5.4"
   }
 }

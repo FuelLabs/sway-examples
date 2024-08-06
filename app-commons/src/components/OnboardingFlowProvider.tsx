@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useIsConnected } from "@fuels/react";
+import { FuelProvider, useIsConnected } from "@fuels/react";
+import { defaultConnectors } from "@fuels/connectors";
 
 export type OnboardingFlowContextType = {
   openDialog: boolean;
@@ -36,8 +37,10 @@ export const OnboardingFlowProvider = ({
   // }, [isConnected])
 
   return (
-    <OnboardingFlowContext.Provider value={{ openDialog, setOpenDialog }}>
-      {children}
-    </OnboardingFlowContext.Provider>
+    <FuelProvider fuelConfig={{ connectors: defaultConnectors() }}>
+      <OnboardingFlowContext.Provider value={{ openDialog, setOpenDialog }}>
+        {children}
+      </OnboardingFlowContext.Provider>
+    </FuelProvider>
   );
 };

@@ -15,7 +15,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { OnboardingFlow } from "app-commons";
 
 import { faucetUrl } from "src/utils/url";
-import { useOnboardingFlowContext } from "../../../app-commons/src/components/OnboardingFlowProvider";
+import { useOnboardingFlowContext } from "app-commons";
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();

@@ -1,7 +1,7 @@
 import { FuelProvider } from "@fuels/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "fuels";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { coinbaseWallet, walletConnect } from "@wagmi/connectors";
 import { http, createConfig, injected } from "@wagmi/core";
 import type { Config as WagmiConfig } from "@wagmi/core";
@@ -17,7 +17,7 @@ import {
 import { StyledEngineProvider } from "@mui/material";
 
 import { NODE_URL, WC_PROJECT_ID } from "src/lib";
-import { OnboardingFlowProvider } from "../../../app-commons/src/components/OnboardingFlowProvider";
+import { OnboardingFlowProvider } from "app-commons";
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => {
