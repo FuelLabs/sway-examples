@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head> </head>
+  <body id="poop">
+    <script>
+      const checkCookiesEnable = () => {
+        let isCookieEnabled = window.navigator.cookieEnabled ? true : false;
+        if (
+          typeof window.navigator.cookieEnabled == "undefined" &&
+          !isCookieEnabled
+        ) {
+          document.cookie = "testcookie";
+          isCookieEnabled =
+            document.cookie.indexOf("testcookie") != -1 ? true : false;
+        }
+
+        console.log(`isCookieEnabled`, isCookieEnabled);
+
+        return isCookieEnabled;
+      };
+      (function () {
+        window.addEventListener("message", (event) => {
+          console.log("HEREEEEEEE");
+          try {
+            let data = JSON.parse(event.data);
+            if (data["test"] !== "cookie") return;
+            let result = checkCookiesEnable();
+            parent.postMessage(
+              JSON.stringify({
+                result: result,
+              }),
+              event.origin
+            );
+          } catch (e) {
+            console.error(e);
+          }
+        });
+      })();
+    </script>
+    <div>test</div>
+  </body>
+</html>

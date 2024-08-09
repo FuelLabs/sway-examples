@@ -1,9 +1,11 @@
 import { Box, Button, Stack } from "@mui/material";
-import { useConnectUI, useConnect, useIsConnected } from "@fuels/react";
+import { useConnectUI, useConnect, useIsConnected, useWallet } from "@fuels/react";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 import { Text, TextProps } from "./Text";
 import { CurrentStep } from "./OnboardingTopBar";
-import { useEffect } from "react";
+import { isSafari } from "src/utils";
 
 type WelcomePageProps = {
   message?: string;
@@ -17,22 +19,32 @@ export const WelcomePage = ({
   setCurrentStep,
 }: WelcomePageProps) => {
   const { connect } = useConnectUI();
-  const { connect: connectBurner } = useConnect();
-  const { isConnected } = useIsConnected();
+  const { connectAsync: connectBurner, data } = useConnect();
+  const { wallet } = useWallet();
+  // const { isConnected } = useIsConnected();
 
-  useEffect(() => {
-    if (isConnected) {
-      setCurrentStep(CurrentStep.Faucet);
-    }
-  }, [isConnected]);
+  // useEffect(() => {
+  //   if (isConnected) {
+  //     setCurrentStep(CurrentStep.Faucet);
+  //   }
+  // }, [isConnected]);
 
   return (
     <Stack spacing={3} className="w-5/6 items-center">
       {message && <Text {...messageProps}>{message}</Text>}
       <Button
         className="btn-primary h-12 w-full"
-        onClick={() => {
-          connectBurner("Burner Wallet");
+        onClick={async () => {
+          const isConnected = await connectBurner("Burner Wallet");
+          console.log(`isConnected`, isConnected);
+          if (isConnected) {
+            window.open(
+              `https://faucet-testnet.fuel.network/?address=${wallet.address.toString()}&autoClose`,
+              "_blank"
+            );
+          } else {
+            toast.error("Error connecting wallet");
+          }
         }}
       >
         Temporary Wallet

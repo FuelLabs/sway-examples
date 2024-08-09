@@ -9,6 +9,7 @@ export default defineConfig([
     tsconfig: path.resolve(__dirname, "./tsconfig.json"),
     entry: ["./src/index.ts"],
     format: ["esm"],
-    outDir: "dist"
+    outDir: "dist",
+    publicDir: 'public'
   }
 ]);

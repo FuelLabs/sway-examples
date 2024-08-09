@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { FuelProvider, useIsConnected } from "@fuels/react";
 import { defaultConnectors } from "@fuels/connectors";
 
+import { Toaster } from "react-hot-toast";
+
 export type OnboardingFlowContextType = {
   openDialog: boolean;
   setOpenDialog: (open: boolean) => void;
@@ -28,7 +30,6 @@ export const OnboardingFlowProvider = ({
   children: React.ReactNode;
 }) => {
   const { isConnected } = useIsConnected();
-  console.log(`isConnected`, isConnected);
   const [openDialog, setOpenDialog] = useState(!isConnected);
 
   // useEffect(() => {
@@ -39,6 +40,7 @@ export const OnboardingFlowProvider = ({
   return (
     // <FuelProvider fuelConfig={{ connectors: defaultConnectors() }}>
       <OnboardingFlowContext.Provider value={{ openDialog, setOpenDialog }}>
+        <Toaster />
         {children}
       </OnboardingFlowContext.Provider>
     // </FuelProvider>
