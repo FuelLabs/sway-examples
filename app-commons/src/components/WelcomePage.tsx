@@ -6,7 +6,7 @@ import {
   useWallet,
   useBalance,
 } from "@fuels/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { Text, TextProps } from "./Text";
@@ -29,12 +29,18 @@ export const WelcomePage = ({
   const { refetch: refetchWallet, wallet } = useWallet();
   const { balance } = useBalance({ address: wallet?.address.toString() });
   const { isConnected } = useIsConnected();
+  const [redirect, setRedirect] = useState(false);
 
-  useEffect(() => {
-    if (isConnected &&  !balance?.gt(0)) {
-      setCurrentStep(CurrentStep.Faucet);
+  // useEffect(() => {
+  //   if (isConnected &&  !balance?.gt(0)) {
+  //     setCurrentStep(CurrentStep.Faucet);
+  //   }
+  // }, [isConnected, balance]);
+    useEffect(() => {
+    if (isConnected && wallet && !balance?.gt(0) && redirect) {
+      window.location.href = `https://faucet-testnet.fuel.network/?address=${wallet.address.toString()}&redirectUrl=${window.location.href}`;
     }
-  }, [isConnected, balance]);
+  }, [isConnected, wallet, redirect]);
 
   return (
     <Stack spacing={3} className="w-5/6 items-center">
@@ -66,17 +72,7 @@ export const WelcomePage = ({
         className="text-white h-12 w-full border-slate-600"
         onClick={() => {
           connect();
-          // console.log(`rest`, rest);
-          // const { data: isConnected } = await refetchIsConnected();
-          // const { data: wallet } = await refetchWallet();
-          // if (isConnected && wallet) {
-          //   window.open(
-          //     `https://faucet-testnet.fuel.network/?address=${wallet.address.toString()}&autoClose`,
-          //     "_blank"
-          //   );
-          // } else {
-          //   toast.error("Error fetching wallet");
-          // }
+          setRedirect(true);
         }}
       >
         Connect
