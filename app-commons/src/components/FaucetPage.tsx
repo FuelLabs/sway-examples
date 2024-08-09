@@ -12,19 +12,23 @@ type FaucetPageProps = {
 };
 
 export const FaucetPage = ({ setCurrentStep }: FaucetPageProps) => {
-  const { wallet, isLoading, isPending, isFetching } = useWallet();
-  const { balance, refetch } = useBalance({
-    address: wallet?.address.toB256(),
-  });
+  const {
+    wallet,
+    isLoading: isLoadingWallet,
+    isPending: isPendingWallet,
+    isFetching: isFetchingWallet,
+  } = useWallet();
+  const {
+    isPending: isPendingBalance,
+    isLoading: isLoadingBalance,
+    isFetching: isFetchingBalance,
+  } = useBalance({ address: wallet?.address.toString() });
   const [className, setClassName] = useState("");
-
-  useEffect(() => {
-    const interval = setInterval(refetch, 500);
-    if (balance && balance.gt(0)) {
-      setCurrentStep(CurrentStep.Success);
-    }
-    return () => clearInterval(interval);
-  }, [balance]);
+  const isLoading =
+    isLoadingWallet ||
+    isPendingWallet ||
+    isFetchingWallet ||
+    (!wallet && (isPendingBalance || isLoadingBalance || isFetchingBalance));
 
   // TODO: fix, this does not work
   // the gray cloud flare page does not have top margin
@@ -36,33 +40,34 @@ export const FaucetPage = ({ setCurrentStep }: FaucetPageProps) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (isSafari && wallet) {
-  //     window.open(
-  //       `https://faucet-testnet.fuel.network/?address=${wallet.address.toString()}&autoClose`,
-  //       "_blank"
-  //     );
-  //   }
-  // }, [isSafari, wallet]);
-
-  if (isLoading || isPending || isFetching) return <Text>Loading...</Text>;
+  if (isLoading) return <Text>Loading...</Text>;
 
   if (!wallet) return <Text>Wallet not found</Text>;
 
   return (
     <>
       {isSafari ? (
-        <Button className="btn-primary h-12 w-full">Faucet</Button>
+        <Button
+          className="btn-primary h-12 w-full"
+          onClick={() => {
+            window.open(
+              `https://faucet-testnet.fuel.network/?address=${wallet.address.toString()}&autoClose`,
+              "_blank"
+            );
+          }}
+        >
+          Faucet
+        </Button>
       ) : (
         <iframe
-        src={`${TESTNET_FAUCET_LINK}?address=${wallet.address.toAddress()}`}
-        id="test"
-        width="100%"
-        height="600px"
-        className={className}
-      >
-        hello
-      </iframe>
+          src={`${TESTNET_FAUCET_LINK}?address=${wallet.address.toAddress()}`}
+          id="test"
+          width="100%"
+          height="600px"
+          className={className}
+        >
+          hello
+        </iframe>
       )}
     </>
   );

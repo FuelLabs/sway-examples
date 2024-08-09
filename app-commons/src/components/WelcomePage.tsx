@@ -1,5 +1,11 @@
 import { Box, Button, Stack } from "@mui/material";
-import { useConnectUI, useConnect, useIsConnected, useWallet } from "@fuels/react";
+import {
+  useConnectUI,
+  useConnect,
+  useIsConnected,
+  useWallet,
+  useBalance,
+} from "@fuels/react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
@@ -19,15 +25,16 @@ export const WelcomePage = ({
   setCurrentStep,
 }: WelcomePageProps) => {
   const { connect } = useConnectUI();
-  const { connectAsync: connectBurner, data } = useConnect();
-  const { wallet } = useWallet();
-  // const { isConnected } = useIsConnected();
+  const { connectAsync: connectBurner } = useConnect();
+  const { refetch: refetchWallet, wallet } = useWallet();
+  const { balance } = useBalance({ address: wallet?.address.toString() });
+  const { isConnected } = useIsConnected();
 
-  // useEffect(() => {
-  //   if (isConnected) {
-  //     setCurrentStep(CurrentStep.Faucet);
-  //   }
-  // }, [isConnected]);
+  useEffect(() => {
+    if (isConnected &&  !balance?.gt(0)) {
+      setCurrentStep(CurrentStep.Faucet);
+    }
+  }, [isConnected, balance]);
 
   return (
     <Stack spacing={3} className="w-5/6 items-center">
@@ -36,12 +43,16 @@ export const WelcomePage = ({
         className="btn-primary h-12 w-full"
         onClick={async () => {
           const isConnected = await connectBurner("Burner Wallet");
-          console.log(`isConnected`, isConnected);
           if (isConnected) {
-            window.open(
-              `https://faucet-testnet.fuel.network/?address=${wallet.address.toString()}&autoClose`,
-              "_blank"
-            );
+            const { data: wallet } = await refetchWallet();
+            if (wallet) {
+              window.open(
+                `https://faucet-testnet.fuel.network/?address=${wallet.address.toString()}&autoClose`,
+                "_blank"
+              );
+            } else {
+              toast.error("Error fetching wallet");
+            }
           } else {
             toast.error("Error connecting wallet");
           }
@@ -55,6 +66,17 @@ export const WelcomePage = ({
         className="text-white h-12 w-full border-slate-600"
         onClick={() => {
           connect();
+          // console.log(`rest`, rest);
+          // const { data: isConnected } = await refetchIsConnected();
+          // const { data: wallet } = await refetchWallet();
+          // if (isConnected && wallet) {
+          //   window.open(
+          //     `https://faucet-testnet.fuel.network/?address=${wallet.address.toString()}&autoClose`,
+          //     "_blank"
+          //   );
+          // } else {
+          //   toast.error("Error fetching wallet");
+          // }
         }}
       >
         Connect

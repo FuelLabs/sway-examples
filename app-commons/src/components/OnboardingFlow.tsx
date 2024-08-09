@@ -7,6 +7,7 @@ import { FaucetPage } from "./FaucetPage";
 import { SuccessPage } from "./SuccessPage";
 import { useBreakpoints } from "src/hooks/useBreakpoints";
 import { useOnboardingFlowContext } from "./OnboardingFlowProvider";
+import { useBalance, useWallet } from "@fuels/react";
 
 type OnboardingFlowProps = {
   container?: Element | (() => Element | null) | null;
@@ -16,6 +17,18 @@ export const OnboardingFlow = ({ container }: OnboardingFlowProps) => {
   const { openDialog } = useOnboardingFlowContext();
   const [currentStep, setCurrentStep] = useState(CurrentStep.Welcome);
   const { isMobile } = useBreakpoints();
+  const { wallet } = useWallet();
+  const { balance, refetch: refetchBalance } = useBalance({
+    address: wallet?.address.toString(),
+  });
+
+  useEffect(() => {
+    const interval = setInterval(refetchBalance, 500);
+    if (balance && balance.gt(0)) {
+      setCurrentStep(CurrentStep.Success);
+    }
+    return () => clearInterval(interval);
+  }, [balance]);
 
   return (
     <Dialog
