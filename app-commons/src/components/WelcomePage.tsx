@@ -53,10 +53,14 @@ export const WelcomePage = ({
       if (balance && balance.gt(0)) {
         setCurrentStep(CurrentStep.Success);
       } else if (!isBalanceLoading) {
-        const redirectUrl = new URL("https://faucet-testnet.fuel.network/");
-        redirectUrl.searchParams.append("address", wallet.address.toString());
-        redirectUrl.searchParams.append("redirectUrl", window.location.href);
-        window.location.href = redirectUrl.href;
+        if (isSafari) {
+          const redirectUrl = new URL("https://faucet-testnet.fuel.network/");
+          redirectUrl.searchParams.append("address", wallet.address.toString());
+          redirectUrl.searchParams.append("redirectUrl", window.location.href);
+          window.location.href = redirectUrl.href;
+        } else {
+          setCurrentStep(CurrentStep.Faucet);
+        }
       }
     }
   }, [isConnected, wallet, balance, isBalanceLoading]);

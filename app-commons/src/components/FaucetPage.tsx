@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { Text } from "./Text";
 import { TESTNET_FAUCET_LINK } from "../config";
 import { CurrentStep } from "./OnboardingTopBar";
-import { isSafari } from "src/utils";
-import { Button } from "@mui/material";
 
 type FaucetPageProps = {
   setCurrentStep: (currentStep: CurrentStep) => void;
@@ -45,30 +43,14 @@ export const FaucetPage = ({ setCurrentStep }: FaucetPageProps) => {
   if (!wallet) return <Text>Wallet not found</Text>;
 
   return (
-    <>
-      {isSafari ? (
-        <Button
-          className="btn-primary h-12 w-full"
-          onClick={() => {
-            window.open(
-              `https://faucet-testnet.fuel.network/?address=${wallet.address.toString()}&autoClose`,
-              "_blank"
-            );
-          }}
-        >
-          Faucet
-        </Button>
-      ) : (
-        <iframe
-          src={`${TESTNET_FAUCET_LINK}?address=${wallet.address.toAddress()}`}
-          id="test"
-          width="100%"
-          height="600px"
-          className={className}
-        >
-          hello
-        </iframe>
-      )}
-    </>
+    <iframe
+      src={`${TESTNET_FAUCET_LINK}?address=${wallet.address.toAddress()}`}
+      id="test"
+      width="100%"
+      height="600px"
+      className={className}
+    >
+      hello
+    </iframe>
   );
 };
