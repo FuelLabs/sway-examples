@@ -38,11 +38,11 @@ export const OnboardingFlow = ({ container }: OnboardingFlowProps) => {
       id="onboarding"
       PaperProps={{ className: "p-8 w-full bg-black border-slate-600 border" }}
     >
-      <DialogContent className="overflow-hidden">
+      <DialogContent>
         <Stack spacing={4} className="items-center">
           <OnboardingTopBar currentStep={currentStep} />
 
-          <Box className="flex h-[400px] md:h-full w-full justify-center items-center">
+          <Box className="flex w-full justify-center items-center">
             {currentStep === CurrentStep.Welcome ? (
               <WelcomePage
                 message="Welcome to Sway NFT!"

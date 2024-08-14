@@ -34,7 +34,7 @@ export const FaucetPage = ({ setCurrentStep }: FaucetPageProps) => {
   useEffect(() => {
     const logo = document.getElementsByClassName("fuel-logo");
     if (logo) {
-      setClassName("-mt-20 h-[700px]");
+      setClassName("overflow-hidden h-[800px]");
     }
   }, []);
 
@@ -47,7 +47,7 @@ export const FaucetPage = ({ setCurrentStep }: FaucetPageProps) => {
       src={`${TESTNET_FAUCET_LINK}?address=${wallet.address.toAddress()}`}
       id="test"
       width="100%"
-      height="600px"
+      height="800px"
       className={className}
     >
       hello

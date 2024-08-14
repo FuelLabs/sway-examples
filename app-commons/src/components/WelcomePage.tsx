@@ -43,7 +43,7 @@ export const WelcomePage = ({
   const { isConnected } = useIsConnected();
 
   const isBalanceLoading =
-    isFetchingBalance || isPendingBalance || isLoadingBalance;
+    (isFetchingBalance || isPendingBalance || isLoadingBalance) && !wallet;
   const isWalletLoading =
     isLoadingWallet || isPendingWallet || isFetchingWallet;
   const isLoading = isBalanceLoading || isWalletLoading;
