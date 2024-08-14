@@ -4,4 +4,3 @@
     "buildCommand": "pnpm build:preview",
     "outputDirectory": "./nft/dist"
 }
-  
