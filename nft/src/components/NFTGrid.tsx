@@ -6,7 +6,7 @@ import { NFTCard } from "./NFTCard";
 type NFTGridProps = {
   isLoading?: boolean;
   title: ReactNode;
-  nftData: NFTData[];
+  nftData: NFTData[] | undefined;
 };
 
 const NFTGridLoader = () => {
@@ -29,7 +29,7 @@ const NFTGridLoader = () => {
   );
 };
 
-export const NFTGrid = ({ isLoading, title, nftData }: NFTGridProps) => {
+export const NFTGrid = ({ isLoading, title, nftData = [] }: NFTGridProps) => {
   return (
     <Stack spacing={2} alignItems="flex-start" className="w-full">
       <Box display="flex" alignSelf="center">

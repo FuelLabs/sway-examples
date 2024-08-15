@@ -8,7 +8,7 @@ export default function Collection() {
 
   // The filter expects a value so we pass in an impossible wallet address
   // in the case the user is disconnected
-  const { nftData, isLoading: isNFTDataPending } = useGetNFTData({
+  const { data: nftData, isLoading: isNFTDataPending } = useGetNFTData({
     keyvalues: {
       minter: {
         value: wallet?.address.toB256() || "dud",

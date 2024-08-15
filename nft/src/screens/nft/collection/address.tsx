@@ -14,7 +14,7 @@ export default function Address() {
 
   // The filter expects a value so we pass in an impossible wallet address
   // in the case the user is disconnected
-  const { nftData, isLoading } = useGetNFTData({
+  const { data: nftData, isLoading } = useGetNFTData({
     keyvalues: {
       minter: {
         value: accountAddress,

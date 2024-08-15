@@ -52,11 +52,11 @@ export default function Mint() {
   const nftName = searchParams.get("nftName") as string;
   const nftDescription = searchParams.get("nftDescription") as string;
 
-  const { totalSupply, isLoading: isTotalSupplyLoading } =
+  const { data: totalSupply, isLoading: isTotalSupplyLoading } =
     useTotalSupply(subId);
   const { isConnected } = useActiveWallet();
 
-  const { nftData, isLoading: isNFTDataLoading } = useGetNFTData({
+  const {data:nftData, isLoading: isNFTDataLoading } = useGetNFTData({
     keyvalues: {
       nftSubId: {
         value: subId,
@@ -66,7 +66,7 @@ export default function Mint() {
   });
 
   useEffect(() => {
-    if (nftData.length && nftData[0].metadata.keyvalues.minter) {
+    if (nftData?.length && nftData[0].metadata.keyvalues.minter) {
       setMinterAddress(nftData[0].metadata.keyvalues.minter);
     }
   }, [nftData]);
@@ -119,7 +119,7 @@ export default function Mint() {
             NFT minted by{" "}
             <Link href={`/nft/collection/${minterAddress}`}>
               {getTruncatedAddress(
-                nftData[0].metadata.keyvalues.minter as string
+                nftData?.[0].metadata.keyvalues.minter as string
               )}
             </Link>
           </Text>
