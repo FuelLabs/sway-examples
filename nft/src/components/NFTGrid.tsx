@@ -18,9 +18,10 @@ const NFTGridLoader = () => {
           return (
             <Skeleton
               key={i}
-              variant="rectangular"
-              height="250px"
-              className="bg-gray-900"
+              variant="rounded"
+              className="bg-gray-900/50"
+              height={389}
+              width="100%"
             />
           );
         })}
