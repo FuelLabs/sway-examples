@@ -139,7 +139,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
         <div className="bg-content bg-gradient mx-8">
           <BrandBackgroundBlur />
 
-          <div className="max-w-[840px] mx-auto mt-14 px-4">
+          <div className="max-w-[1200px] mx-auto mt-14 px-4">
             {children ?? <Outlet />}
           </div>
         </div>

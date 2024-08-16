@@ -27,11 +27,12 @@ export const NFTCard = ({
   return (
     <Card
       variant="outlined"
+      className="rounded-lg"
       sx={{
         padding: "18px",
         backgroundColor: "black",
         borderColor: "#1e1e1e",
-        borderWidth: "3px",
+        borderWidth: "1px",
       }}
     >
       <CardActionArea
@@ -45,7 +46,7 @@ export const NFTCard = ({
           <NFTImage src={`${GATEWAY_URL}/ipfs/${cid}/${fileCid}`} />
         </Box>
         <CardContent sx={{ paddingBottom: "0px", paddingLeft: "0px" }}>
-          <Text className="text-2xl">{nftName}</Text>
+          <span className="text-lg font-mono text-white">{nftName}</span>
           {showDescription && <Text>{nftDescription}</Text>}
         </CardContent>
       </CardActionArea>
