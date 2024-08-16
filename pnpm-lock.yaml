@@ -69,6 +69,9 @@ importers:
       react-use:
         specifier: ^17.5.0
         version: 17.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      vite-plugin-vercel:
+        specifier: ^8.0.0
+        version: 8.0.0(vite@5.3.4(@types/node@20.14.11)(terser@5.31.3))
     devDependencies:
       '@types/react':
         specifier: ^18.3.3
@@ -109,6 +112,9 @@ importers:
       vite:
         specifier: ^5.3.4
         version: 5.3.4(@types/node@20.14.11)(terser@5.31.3)
+      vite-plugin-static-copy:
+        specifier: ^1.0.1
+        version: 1.0.6(vite@5.3.4(@types/node@20.14.11)(terser@5.31.3))
 
   nft:
     dependencies:
