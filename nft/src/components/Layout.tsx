@@ -96,7 +96,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
 
             {!isMobile && (
               <>
-                <NavLink to={NFTRoutes.explore}>
+                <NavLink to={NFTRoutes.explore} end>
                   <ExploreIcon fontSize="inherit" /> Explore
                 </NavLink>
                 <NavLink to={NFTRoutes.create}>

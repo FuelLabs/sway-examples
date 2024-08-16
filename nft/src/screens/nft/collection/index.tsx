@@ -1,6 +1,5 @@
 import { useActiveWallet } from "hooks/useActiveWallet";
 import { useGetNFTData } from "hooks/useGetNFTData";
-import { Text } from "components/Text";
 import { NFTGrid } from "components/NFTGrid";
 
 export default function Collection() {
@@ -23,7 +22,7 @@ export default function Collection() {
     <NFTGrid
       isLoading={isPending}
       nftData={nftData}
-      title={<Text variant="h5">Your NFTs</Text>}
+      title={<h3 className="text-xl font-mono mb-5 text-white">Your NFTs</h3>}
     />
   );
 }
