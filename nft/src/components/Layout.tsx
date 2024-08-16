@@ -1,5 +1,5 @@
-import toast, { Toaster } from "react-hot-toast";
-import { Link } from "./Link";
+import toast from "react-hot-toast";
+import { NavLink } from "react-router-dom";
 import { Button } from "./Button";
 import { CURRENT_ENVIRONMENT, NODE_URL } from "src/lib";
 import { WalletDisplay } from "./WalletDisplay";
@@ -12,9 +12,13 @@ import { ExternalFaucet } from "./ExternalFaucet";
 import { useBreakpoints } from "hooks/useBreakpoints";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import ExploreIcon from '@mui/icons-material/ExploreOutlined';
+import AddBoxIcon from '@mui/icons-material/AddBoxOutlined';
+import AccountCircleIcon from '@mui/icons-material/AccountCircleOutlined';
 
 import { faucetUrl } from "src/utils/url";
 import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
+import { FuelLogo } from "./FuelLogo";
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
@@ -85,18 +89,23 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
 
   return (
     <div>
-      <header>
+      <header className="w-full sticky top-0 z-2 bg-gradient">
         <nav
-          className="flex justify-between items-center p-4 bg-black gap-2 lg:gap-6 gradient-border
-            bg-gradient-to-b
-            from-zinc-900
-            to-zinc-950/80"
+          className="flex justify-between items-center gap-2 lg:gap-6 p-4 max-w-[1780px] mx-auto"
         >
+          <FuelLogo size={32} showLettering />
+
           {!isMobile && (
             <>
-              <Link href={NFTRoutes.explore}>Explore</Link>
-              <Link href={NFTRoutes.create}>Create</Link>
-              <Link href={NFTRoutes.collection}>My Account</Link>
+              <NavLink to={NFTRoutes.explore}>
+                <ExploreIcon fontSize="inherit" /> Explore
+              </NavLink>
+              <NavLink to={NFTRoutes.create}>
+                <AddBoxIcon fontSize="inherit" /> Create
+              </NavLink> 
+              <NavLink to={NFTRoutes.collection}>
+                <AccountCircleIcon fontSize="inherit" /> My Account
+              </NavLink>
             </>
           )}
 
@@ -126,7 +135,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
         </nav>
       </header>
 
-      <main className="w-full bg-content mt-8 pb-8">
+      <main className="w-full max-w-[1780px] bg-content bg-gradient mt-8 pb-8 mx-auto">
         <BrandBackgroundBlur />
 
           <div className="max-w-[840px] mx-auto mt-14 px-4">

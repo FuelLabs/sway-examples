@@ -1,12 +1,20 @@
+import clsx from "clsx";
+
 type FuelLogoProps = {
   size?: number;
   showSymbol?: boolean;
   showLettering?: boolean;
+  className?: string;
 };
 
-export const FuelLogo = ({ size = 50, showSymbol = true, showLettering = false }: FuelLogoProps) => {
+export const FuelLogo = ({ 
+  size = 50, 
+  showSymbol = true, 
+  showLettering = false, 
+  className 
+}: FuelLogoProps) => {
   return (
-    <span className="flex flex-row items-center gap-3">
+    <span className={clsx("flex flex-row items-center gap-3", className)}>
       {showSymbol && (
         <svg viewBox="0 0 136 136" width={size} height={size}>
           <rect
