@@ -1,5 +1,4 @@
 import { useGetNFTData } from "hooks/useGetNFTData";
-import { Text } from "components/Text";
 import { NFTGrid } from "components/NFTGrid";
 
 
@@ -10,7 +9,7 @@ export default function Explore() {
     <NFTGrid
       isLoading={isFetching}
       nftData={data}
-      title={<Text variant="h3">Latest NFTs</Text>}
+      title={<h3 className="text-3xl font-sans">Latest NFTs</h3>}
     />
   );
 }

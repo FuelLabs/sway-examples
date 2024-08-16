@@ -91,7 +91,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
       <Toaster />
       <div className="flex flex-col">
         <nav
-          className="flex justify-between items-center p-4 bg-black text-white gap-2 lg:gap-6 gradient-border
+          className="flex justify-between items-center p-4 bg-black gap-2 lg:gap-6 gradient-border
             bg-gradient-to-b
             from-zinc-900
             to-zinc-950/80"
@@ -99,15 +99,13 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
           {!isMobile && (
             <>
               <Link href={NFTRoutes.explore}>Explore</Link>
-
               <Link href={NFTRoutes.create}>Create</Link>
-
               <Link href={NFTRoutes.collection}>My Account</Link>
             </>
           )}
 
           {showAddNetworkButton && (
-            <Button onClick={tryToAddNetwork} className="bg-red-500 text-white">
+            <Button onClick={tryToAddNetwork} className="bg-red-500">
               Wrong Network
             </Button>
           )}
