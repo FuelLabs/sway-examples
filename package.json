@@ -16,9 +16,9 @@
   "scripts": {
     "build:preview": "node ./scripts/build-website/index.mjs",
     "build:all": "turbo run build:all",
-    "start": "pnpm turbo:run start",
-    "dev": "pnpm turbo:run dev",
-    "ts:check": "pnpm turbo:run ts:check"
+    "start": "turbo run start",
+    "dev": "turbo run dev",
+    "ts:check": "turbo run ts:check"
   },
   "dependencies": {
     "execa": "^8.0.1"
