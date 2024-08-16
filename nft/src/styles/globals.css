@@ -18,6 +18,9 @@ body {
   background: linear-gradient(180deg, rgba(8, 8, 8, 0.88) 0%, rgba(8, 8, 8, 0.79) 100%);
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.03), 0px 1px 1px 0px rgba(0, 0, 0, 0.06);
 }
+.bg-gradient-header {
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.94) 0%, rgba(8, 8, 8, 0.85) 100%);
+}
 .bg-content { 
   border-radius: 28px;
   border-top-color: hsla(0,0%,100%,.08);

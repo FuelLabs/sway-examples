@@ -30,6 +30,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   background-color: #0b140b;
-  color: #FFF;
+  color: oklch(94.91% 0 none);
   font-size: 16px;
 }

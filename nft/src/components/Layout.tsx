@@ -89,7 +89,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
 
   return (
     <div>
-      <header className="w-full sticky top-0 z-10 bg-gradient">
+      <header className="w-full sticky top-0 z-10 bg-gradient-header">
         <nav className="max-w-[1780px] mx-auto">
           <div className="flex justify-between items-center gap-2 lg:gap-6 py-4 px-8">
             <FuelLogo size={32} showLettering />
