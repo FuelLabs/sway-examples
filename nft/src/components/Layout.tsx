@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import { faucetUrl } from "src/utils/url";
+import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
@@ -83,13 +84,8 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
   }, [isConnected, walletBalance]);
 
   return (
-    <>
-      <head>
-        <title>Fuel App</title>
-        <link rel="icon" href="/fuel.ico" />
-      </head>
-      <Toaster />
-      <div className="flex flex-col">
+    <div>
+      <header>
         <nav
           className="flex justify-between items-center p-4 bg-black gap-2 lg:gap-6 gradient-border
             bg-gradient-to-b
@@ -128,11 +124,16 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
             <NavMenu address={wallet?.address.toString()} />
           )}
         </nav>
+      </header>
 
-        <div className="min-h-screen items-center p-8 lg:p-24 flex flex-col gap-6">
-          {children ?? <Outlet />}
-        </div>
-      </div>
-    </>
+      <main className="w-full bg-content mt-8 pb-8">
+        <BrandBackgroundBlur />
+
+          <div className="max-w-[840px] mx-auto mt-14 px-4">
+            {children ?? <Outlet />}
+          </div>
+      </main>
+    </div>
   );
 };
+
