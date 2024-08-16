@@ -16,19 +16,14 @@ const NFTGridLoader = () => {
         .fill(0)
         .map((_, i) => {
           return (
-            <div key={i} className="bg-white/[.08] rounded-2xl overflow-hidden">
-              <div className="h-0 pb-[66.6667%] relative">
+            <div key={i} className="rounded-2xl overflow-hidden">
+              <div className="h-0 pb-[76.6667%] relative">
                 <Skeleton
-                  sx={{ bgcolor: 'grey.800', position: 'absolute' }}
+                  sx={{ bgcolor: 'rgba(255, 255, 255, 0.08)', position: 'absolute' }}
                   variant="rounded"
                   height="100%"
                   width="100%"
                 />
-              </div>
-              <div className="px-6 py-4">
-                <span className="text-lg font-mono text-white">
-                  <Skeleton variant="text" width="60%" sx={{ bgcolor: 'grey.500' }} animation="pulse" />
-                </span>
               </div>
             </div>
           );

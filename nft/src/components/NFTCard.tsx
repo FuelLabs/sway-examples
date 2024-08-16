@@ -25,7 +25,7 @@ export const NFTCard = ({
 
   return (
     <div
-      className="bg-white/[.08] hover:bg-white/10 transition-all shadow-elevation-1 duration-200 hover:-translate-y-1 hover:shadow-elevation-2 rounded-2xl overflow-hidden cursor-pointer"
+      className="bg-white/[.08] hover:bg-white/10 group transition-all shadow-elevation-1 duration-200 hover:-translate-y-1 hover:shadow-elevation-2 rounded-2xl overflow-hidden cursor-pointer"
       onClick={() => {
         navigate(
           `/nft/mint/${cid}/${fileCid}?nftName=${nftName}&nftDescription=${nftDescription}&nftSubId=${nftSubId}`
@@ -33,8 +33,8 @@ export const NFTCard = ({
       }}
     >
       <NFTImage src={`${GATEWAY_URL}/ipfs/${cid}/${fileCid}`}>
-        <div className="px-6 py-4 bg-black/40 backdrop-blur-xl absolute bottom-0 w-full">
-          <span className="text-lg font-mono text-white">{nftName}</span>
+        <div className="px-6 py-4 bg-black/40 backdrop-blur absolute bottom-0 w-full opacity-100 group-hover:opacity-0 transition-opacity">
+          <span className="text-lg font-mono text-white capitalize">{nftName}</span>
           {showDescription && <Text>{nftDescription}</Text>}
         </div>
       </NFTImage>
