@@ -81,24 +81,16 @@ export default function Mint() {
       spacing={3}
       className={clsx(
         "gradient-border",
-        "rounded-xl",
-        "bg-gradient-to-b",
-        "from-zinc-900",
-        "to-zinc-950/80",
-        "px-2",
-        "py-8",
-        "sm:w-3/4",
-        "md:w-1/2"
+        "rounded-2xl overflow-hidden",
+        "pb-8"
       )}
     >
-      <Box display="flex" alignSelf="center">
-        <NFTImage
-          src={`${GATEWAY_URL}/ipfs/${urlParams['id']}/${urlParams["fileId"]}`}
-          className="w-80 h-80 lg:w-96 lg:h-96"
-        />
-      </Box>
+      <NFTImage
+        src={`${GATEWAY_URL}/ipfs/${urlParams['id']}/${urlParams["fileId"]}`}
+        cover={false}
+      />
       <Stack className="px-4" spacing={2}>
-        <Text variant="h5">{nftName}</Text>
+        <h5 className="text-2xl font-mono">{nftName}</h5>
         {!totalSupply && !isLoading ? (
           <Button
             onClick={() => {
@@ -115,14 +107,14 @@ export default function Mint() {
             {mint.isPending ? "Minting..." : "Mint"}
           </Button>
         ) : minterAddress ? (
-          <Text>
+          <p className="text-sm text-white/70">
             NFT minted by{" "}
             <Link href={`/nft/collection/${minterAddress}`}>
               {getTruncatedAddress(
                 nftData?.[0].metadata.keyvalues.minter as string
               )}
             </Link>
-          </Text>
+          </p>
         ) : (
           <Text>Loading...</Text>
         )}

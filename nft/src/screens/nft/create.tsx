@@ -76,7 +76,7 @@ export default function Create() {
                     >
                       <CloseIcon />
                     </IconButton>
-                    <NFTImage src={URL.createObjectURL(file)} className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96" />
+                    <NFTImage src={URL.createObjectURL(file)} />
                   </>
                 ) : (
                   <Stack spacing={2}>
