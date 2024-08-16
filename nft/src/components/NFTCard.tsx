@@ -32,11 +32,12 @@ export const NFTCard = ({
         );
       }}
     >
-      <NFTImage src={`${GATEWAY_URL}/ipfs/${cid}/${fileCid}`} />
-      <div className="px-6 py-4">
-        <span className="text-lg font-mono text-white">{nftName}</span>
-        {showDescription && <Text>{nftDescription}</Text>}
-      </div>
+      <NFTImage src={`${GATEWAY_URL}/ipfs/${cid}/${fileCid}`}>
+        <div className="px-6 py-4 bg-black/40 backdrop-blur-xl absolute bottom-0 w-full">
+          <span className="text-lg font-mono text-white">{nftName}</span>
+          {showDescription && <Text>{nftDescription}</Text>}
+        </div>
+      </NFTImage>
     </div>
   );
 };
