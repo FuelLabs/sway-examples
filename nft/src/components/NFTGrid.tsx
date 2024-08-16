@@ -12,17 +12,25 @@ type NFTGridProps = {
 const NFTGridLoader = () => {
   return (
     <>
-      {Array(6)
+      {Array(9)
         .fill(0)
         .map((_, i) => {
           return (
-            <Skeleton
-              key={i}
-              variant="rounded"
-              className="bg-gray-900/50"
-              height={389}
-              width="100%"
-            />
+            <div key={i} className="bg-white/[.08] rounded-2xl overflow-hidden">
+              <div className="h-0 pb-[66.6667%] relative">
+                <Skeleton
+                  sx={{ bgcolor: 'grey.800', position: 'absolute' }}
+                  variant="rounded"
+                  height="100%"
+                  width="100%"
+                />
+              </div>
+              <div className="px-6 py-4">
+                <span className="text-lg font-mono text-white">
+                  <Skeleton variant="text" width="60%" sx={{ bgcolor: 'grey.500' }} animation="pulse" />
+                </span>
+              </div>
+            </div>
           );
         })}
     </>
