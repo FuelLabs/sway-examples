@@ -89,58 +89,60 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
 
   return (
     <div>
-      <header className="w-full sticky top-0 z-2 bg-gradient">
-        <nav
-          className="flex justify-between items-center gap-2 lg:gap-6 p-4 max-w-[1780px] mx-auto"
-        >
-          <FuelLogo size={32} showLettering />
+      <header className="w-full sticky top-0 z-10 bg-gradient">
+        <nav className="max-w-[1780px] mx-auto">
+          <div className="flex justify-between items-center gap-2 lg:gap-6 py-4 px-8">
+            <FuelLogo size={32} showLettering />
 
-          {!isMobile && (
-            <>
-              <NavLink to={NFTRoutes.explore}>
-                <ExploreIcon fontSize="inherit" /> Explore
-              </NavLink>
-              <NavLink to={NFTRoutes.create}>
-                <AddBoxIcon fontSize="inherit" /> Create
-              </NavLink> 
-              <NavLink to={NFTRoutes.collection}>
-                <AccountCircleIcon fontSize="inherit" /> My Account
-              </NavLink>
-            </>
-          )}
+            {!isMobile && (
+              <>
+                <NavLink to={NFTRoutes.explore}>
+                  <ExploreIcon fontSize="inherit" /> Explore
+                </NavLink>
+                <NavLink to={NFTRoutes.create}>
+                  <AddBoxIcon fontSize="inherit" /> Create
+                </NavLink> 
+                <NavLink to={NFTRoutes.collection}>
+                  <AccountCircleIcon fontSize="inherit" /> My Account
+                </NavLink>
+              </>
+            )}
 
-          {showAddNetworkButton && (
-            <Button onClick={tryToAddNetwork} className="bg-red-500">
-              Wrong Network
-            </Button>
-          )}
+            {showAddNetworkButton && (
+              <Button onClick={tryToAddNetwork} className="bg-red-500">
+                Wrong Network
+              </Button>
+            )}
 
-          <div className="ml-auto">
-            <WalletDisplay />
+            <div className="ml-auto">
+              <WalletDisplay />
+            </div>
+
+            {!isMobile ? (
+              <>
+                {showTopUpButton && (
+                  <ExternalFaucet address={wallet?.address.toString()}>
+                    <Button onClick={() => topUpWallet()}>Faucet</Button>
+                  </ExternalFaucet>
+                )}
+
+                <ConnectButton />
+              </>
+            ) : (
+              <NavMenu address={wallet?.address.toString()} />
+            )}
           </div>
-
-          {!isMobile ? (
-            <>
-              {showTopUpButton && (
-                <ExternalFaucet address={wallet?.address.toString()}>
-                  <Button onClick={() => topUpWallet()}>Faucet</Button>
-                </ExternalFaucet>
-              )}
-
-              <ConnectButton />
-            </>
-          ) : (
-            <NavMenu address={wallet?.address.toString()} />
-          )}
         </nav>
       </header>
 
-      <main className="w-full max-w-[1780px] bg-content bg-gradient mt-8 pb-8 mx-auto">
-        <BrandBackgroundBlur />
+      <main className="w-full max-w-[1780px] mt-8 pb-8 mx-auto">
+        <div className="bg-content bg-gradient mx-8">
+          <BrandBackgroundBlur />
 
           <div className="max-w-[840px] mx-auto mt-14 px-4">
             {children ?? <Outlet />}
           </div>
+        </div>
       </main>
     </div>
   );
