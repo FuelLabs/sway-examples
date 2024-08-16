@@ -15,7 +15,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 const contractId =
   CURRENT_ENVIRONMENT === "local"
     ? contractIds.testContract
-    : (process.env.VITE_PUBLIC_TESTNET_CONTRACT_ID as string); // Testnet Contract ID
+    : (import.meta.env.VITE_PUBLIC_TESTNET_CONTRACT_ID as string); // Testnet Contract ID
 
 export default function Home() {
   const { wallet, walletBalance, refetchBalance, isConnected } =
