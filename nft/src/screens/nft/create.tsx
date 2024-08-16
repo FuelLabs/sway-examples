@@ -133,7 +133,10 @@ export default function Create() {
           </div>
         </div>
       ) : (
-        <Text>Please connect your wallet to create an NFT.</Text>
+        <div>
+          <h3 className="text-xl font-mono mb-5 text-white">Create</h3>
+          <p className="text-white/60 text-sm">Please connect your wallet to create an NFT.</p>
+        </div>
       )}
     </>
   );
