@@ -1,5 +1,27 @@
-
-
 {
-  "rewrites": [{ "source": "/:path*", "destination": "/index.html" }]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm build:preview",
+  "devCommand": "",
+  "outputDirectory": "dist",
+  "cleanUrls": false,
+  "trailingSlash": true,
+  "rewrites": [
+    {
+      "source": "/nft",
+      "destination": "/nft/index.html"
+    },
+    {
+      "source": "/nft/:path*",
+      "destination": "/nft/index.html"
+    },
+    {
+      "source": "/counter",
+      "destination": "/counter/index.html"
+    },
+    {
+      "source": "/counter/:path*",
+      "destination": "/counter/index.html"
+    }
+  ]
 }
