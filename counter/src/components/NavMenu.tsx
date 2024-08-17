@@ -42,7 +42,7 @@ export const NavMenu = ({ address }: { address?: string }) => {
         slotProps={{ paper: { className: "bg-black" } }}
       >
         <MenuItem onClick={handleClose}>
-          <Link className="text-white" to="/">
+          <Link className="text-white" to="/counter">
             Home
           </Link>
         </MenuItem>

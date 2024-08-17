@@ -57,7 +57,7 @@ export default function App() {
         <nav className="flex justify-between items-center p-4 bg-black text-white gap-6">
           {!isMobile && (
             <>
-              <Link className="text-fuel-green hover:underline" to="/">
+              <Link className="text-fuel-green hover:underline" to="/counter">
                 Home
               </Link>
               <Link
