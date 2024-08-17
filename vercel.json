@@ -8,8 +8,16 @@
   "trailingSlash": true,
   "rewrites": [
     {
+      "source": "/nft",
+      "destination": "/nft/index.html"
+    },
+    {
       "source": "/nft/:path*",
       "destination": "/nft/index.html"
+    },
+    {
+      "source": "/counter",
+      "destination": "/counter/index.html"
     },
     {
       "source": "/counter/:path*",
