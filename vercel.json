@@ -9,11 +9,11 @@
   "rewrites": [
     {
       "source": "/nft/:path*",
-      "destination": "/nft/:path*"
+      "destination": "/nft/index.html"
     },
     {
       "source": "/counter/:path*",
-      "destination": "/counter/:path*"
+      "destination": "/counter/index.html"
     }
   ]
 }
