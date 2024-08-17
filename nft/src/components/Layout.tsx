@@ -8,7 +8,6 @@ import { useFaucet } from "hooks/useFaucet";
 import { ConnectButton } from "./ConnectButton";
 import { NavMenu } from "./NavMenu";
 import { NFTRoutes } from "src/routes";
-import { ExternalFaucet } from "./ExternalFaucet";
 import { useBreakpoints } from "hooks/useBreakpoints";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -19,18 +18,18 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircleOutlined';
 import { faucetUrl } from "src/utils/url";
 import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
 import { FuelLogo } from "./FuelLogo";
+  
+const TOP_UP_AMOUNT = 100_000_000;
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
   const { wallet, network, walletBalance, refetchBalance, isConnected } =
     useActiveWallet();
-  const { isTablet, isMobile } = useBreakpoints();
+  const { isTablet } = useBreakpoints();
   const navigate = useNavigate();
   const [hasOpenedFaucetPage, setHasOpenedFaucetPage] = useState(false);
   const [hasRedirectedAfterFaucet, setHasRedirectedAfterFaucet] =
     useState(false);
-
-  const TOP_UP_AMOUNT = 100_000_000;
 
   const topUpWallet = async () => {
     if (!wallet) {
@@ -91,22 +90,24 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     <div>
       <header className="w-full sticky top-0 z-10 bg-gradient-header">
         <nav className="max-w-[1780px] mx-auto">
-          <div className="flex justify-between items-center gap-2 lg:gap-6 py-4 px-8">
+          <div className="flex  items-center gap-2 lg:gap-6 py-4 px-8">
+            <div className="block md:hidden">
+              <NavMenu />
+            </div>
+            
             <FuelLogo size={32} showLettering />
 
-            {!isMobile && (
-              <>
-                <NavLink to={NFTRoutes.explore} end>
-                  <ExploreIcon fontSize="inherit" /> Explore
-                </NavLink>
-                <NavLink to={NFTRoutes.create}>
-                  <AddBoxIcon fontSize="inherit" /> Create
-                </NavLink> 
-                <NavLink to={NFTRoutes.collection}>
-                  <AccountCircleIcon fontSize="inherit" /> My Account
-                </NavLink>
-              </>
-            )}
+            <div className="hidden md:flex flex-row items-center gap-2 grow">
+              <NavLink to={NFTRoutes.explore} end>
+                <ExploreIcon fontSize="inherit" /> Explore
+              </NavLink>
+              <NavLink to={NFTRoutes.create}>
+                <AddBoxIcon fontSize="inherit" /> Create
+              </NavLink> 
+              <NavLink to={NFTRoutes.collection}>
+                <AccountCircleIcon fontSize="inherit" /> My Account
+              </NavLink>
+            </div>
 
             {showAddNetworkButton && (
               <Button onClick={tryToAddNetwork} className="bg-red-500">
@@ -114,23 +115,13 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
               </Button>
             )}
 
-            <div className="ml-auto">
+            <div className="ml-auto hidden lg:block">
               <WalletDisplay />
             </div>
 
-            {!isMobile ? (
-              <>
-                {showTopUpButton && (
-                  <ExternalFaucet address={wallet?.address.toString()}>
-                    <Button onClick={() => topUpWallet()}>Faucet</Button>
-                  </ExternalFaucet>
-                )}
-
-                <ConnectButton />
-              </>
-            ) : (
-              <NavMenu address={wallet?.address.toString()} />
-            )}
+            <div className="ml-auto">
+              <ConnectButton showTopUpButton={!!showTopUpButton} onTopUp={topUpWallet}  />
+            </div>
           </div>
         </nav>
       </header>
