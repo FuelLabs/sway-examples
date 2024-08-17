@@ -125,11 +125,11 @@ export default function Home() {
         </Button>
       </>
 
-      <Link to="/predicate" className="text-fuel-green hover:underline">
+      <Link to="/counter/predicate" className="text-fuel-green hover:underline">
         Predicate Example
       </Link>
 
-      <Link to="/script" className="text-fuel-green hover:underline">
+      <Link to="/counter/script" className="text-fuel-green hover:underline">
         Script Example
       </Link>
     </>

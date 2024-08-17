@@ -78,7 +78,7 @@ export default function App() {
             <WalletDisplay />
           </div>
           {!isMobile && (
-            <Button className="bg-gray-500" onClick={() => navigate("/faucet")}>
+            <Button className="bg-gray-500" onClick={() => navigate("/counter/faucet")}>
               Faucet
             </Button>
           )}
@@ -94,10 +94,10 @@ export default function App() {
         </nav>
         <div className="min-h-screen items-center justify-center flex flex-col gap-6">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/predicate" element={<PredicateExample />} />
-            <Route path="/script" element={<ScriptExample />} />
-            <Route path="/faucet" element={<Faucet />} />
+            <Route path="/counter" element={<Home />} />
+            <Route path="/counter/predicate" element={<PredicateExample />} />
+            <Route path="/counter/script" element={<ScriptExample />} />
+            <Route path="/counter/faucet" element={<Faucet />} />
           </Routes>{" "}
         </div>
       </div>

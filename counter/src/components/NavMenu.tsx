@@ -57,7 +57,7 @@ export const NavMenu = ({ address }: { address?: string }) => {
         </MenuItem>
         {address && (
           <MenuItem onClick={handleClose}>
-            <Link className="text-white" to="/faucet">
+            <Link className="text-white" to="/counter/faucet">
               Faucet
             </Link>
           </MenuItem>
