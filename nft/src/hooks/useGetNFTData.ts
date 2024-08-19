@@ -11,7 +11,7 @@ export type NFTData = Omit<PinataPin, "metadata"> & {
 };
 
 export const useGetNFTData = (filter?: PinataMetadataFilter, skipFetch?: boolean) => {
-  const query = useQuery({
+  return useQuery<NFTData[]>({
     queryKey: [NFTQueryKeys.nftData, filter, skipFetch],
     queryFn: async () => {
       if (skipFetch) {
@@ -34,12 +34,8 @@ export const useGetNFTData = (filter?: PinataMetadataFilter, skipFetch?: boolean
         const nftData = await response.json();
         return nftData.rows;
       }
+
       return [];
     },
   });
-
-  return {
-    ...query,
-    nftData: (query.data || []) as NFTData[],
-  };
 };
