@@ -104,8 +104,8 @@ export default function PredicateExample() {
           "Your wallet does not have enough funds. Please click the 'Faucet' button in the top right corner, or use the local faucet."
         );
       }
-      if (!predicateBalance || predicateBalance.lt(bn.parseUnits("0.09"))) {
-        return toast.error("Predicate balance is less than 0.09 ETH");
+      if (!predicateBalance || predicateBalance.lt(bn.parseUnits("0.0009"))) {
+        return toast.error("Predicate balance is less than 0.0009 ETH");
       }
       setIsLoadingUnlock(true);
       const reInitializePredicate = TestPredicateAbi__factory.createInstance(
@@ -158,7 +158,7 @@ export default function PredicateExample() {
   const isButtonDisabled =
     !isConnected ||
     !predicateBalance ||
-    predicateBalance.lt(bn.parseUnits("0.09"));
+    predicateBalance.lt(bn.parseUnits("0.0009"));
 
   return (
     <>
@@ -196,12 +196,12 @@ export default function PredicateExample() {
             : ""
         }`}
         onClick={async () =>
-          await transferFundsToPredicate(bn.parseUnits("0.1"))
+          await transferFundsToPredicate(bn.parseUnits("0.001"))
         }
       >
         {isLoadingTransfer
           ? "Transferring to Predicate..."
-          : "Transfer 0.1 ETH to Predicate"}
+          : "Transfer 0.001 ETH to Predicate"}
       </Button>
 
       <Input
@@ -220,19 +220,19 @@ export default function PredicateExample() {
             : ""
         }`}
         onClick={async () =>
-          await unlockPredicateAndTransferFundsBack(bn.parseUnits("0.09"))
+          await unlockPredicateAndTransferFundsBack(bn.parseUnits("0.0009"))
         }
       >
         {isLoadingUnlock
           ? "Unlocking Predicate and Transferring to Wallet..."
-          : "Unlock Predicate and Transfer 0.09 ETH back to Wallet"}
+          : "Unlock Predicate and Transfer 0.0009 ETH back to Wallet"}
       </Button>
 
       <span className="mt-4 w-[360px] text-center text-gray-400">
         Do note that when you 'unlock' a predicate, the predicate also pays for
         the gas of the transaction. <br />
         This is why you will notice that the balance of the predicate gets
-        reduced by 0.09 ETH + a nominal gas fee.
+        reduced by 0.0009 ETH + a nominal gas fee.
       </span>
 
       <Link
