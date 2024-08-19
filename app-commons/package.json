@@ -1,5 +1,5 @@
 {
-  "name": "app-commons",
+  "name": "sway-examples-utils",
   "version": "1.0.0",
   "description": "Common components for sway example apps",
   "main": "./dist/index.js",
