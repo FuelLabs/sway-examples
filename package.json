@@ -18,9 +18,12 @@
     "build:all": "turbo run build:all",
     "start": "turbo run start",
     "dev": "turbo run dev",
-    "ts:check": "pnpm turbo:run ts:check"
+    "ts:check": "pnpm turbo:run ts:check",
+    "changeset": "changeset",
+    "changeset:next": "tsx ./scripts/changeset-next"
   },
   "dependencies": {
+    "@changesets/cli": "^2.27.7",
     "execa": "^8.0.1"
   },
   "devDependencies": {

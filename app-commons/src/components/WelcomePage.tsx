@@ -43,10 +43,12 @@ export const WelcomePage = ({
   const { isConnected } = useIsConnected();
 
   const isBalanceLoading =
-    (isFetchingBalance || isPendingBalance || isLoadingBalance) && !wallet;
+    (isFetchingBalance || isPendingBalance || isLoadingBalance);
   const isWalletLoading =
     isLoadingWallet || isPendingWallet || isFetchingWallet;
   const isLoading = isBalanceLoading || isWalletLoading;
+
+  console.log(`navigator.userAgent`, navigator.userAgent);
 
   useEffect(() => {
     if (isConnected && wallet) {
@@ -68,7 +70,7 @@ export const WelcomePage = ({
   return (
     <Stack spacing={3} className="w-5/6 items-center">
       {message && <Text {...messageProps}>{message}</Text>}
-      {isLoading ? (
+      {isWalletLoading ? (
         <Text>Loading...</Text>
       ) : (
         <>
