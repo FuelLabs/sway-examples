@@ -26,7 +26,7 @@ jobs:
           npm-token: ${{ secrets.NPM_TOKEN }}
 
       - name: Build
-        run: pnpm build
+        run: pnpm build:lib
 
       - name: Release to @pr-${{ github.event.pull_request.number }} tag on npm
         id: release

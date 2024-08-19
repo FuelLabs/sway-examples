@@ -6,7 +6,7 @@ on:
       - main
 
 concurrency:
-  group: ${{ github.workflwo }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -25,7 +25,6 @@ jobs:
         with:
           node-version: 20.11.0
           pnpm-version: 8.15.7
-
       - uses: FuelLabs/github-actions/setups/npm@master
         with:
           npm-token: ${{ secrets.NPM_TOKEN }}
