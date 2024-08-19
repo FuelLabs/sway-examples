@@ -12,7 +12,8 @@ const config: Config = {
   important: '#root',
   theme: {
     fontFamily: {
-      sans: ['sans-serif']
+        sans: ['Inter', 'sans-serif'],
+        mono: ['GeistMono', 'monospace'],
     },
   },
   plugins: [],

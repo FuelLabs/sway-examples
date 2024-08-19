@@ -1,4 +1,3 @@
-import { Card, CardContent, CardActionArea, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom"; 
 
 import { GATEWAY_URL } from "src/lib";
@@ -25,30 +24,20 @@ export const NFTCard = ({
   const navigate = useNavigate();
 
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        padding: "18px",
-        backgroundColor: "black",
-        borderColor: "#1e1e1e",
-        borderWidth: "3px",
+    <div
+      className="bg-white/[.08] hover:bg-white/10 group transition-all shadow-elevation-1 duration-200 hover:-translate-y-1 hover:shadow-elevation-2 rounded-2xl overflow-hidden cursor-pointer"
+      onClick={() => {
+        navigate(
+          `/nft/mint/${cid}/${fileCid}?nftName=${nftName}&nftDescription=${nftDescription}&nftSubId=${nftSubId}`
+        );
       }}
     >
-      <CardActionArea
-        onClick={() => {
-          navigate(
-            `/nft/mint/${cid}/${fileCid}?nftName=${nftName}&nftDescription=${nftDescription}&nftSubId=${nftSubId}`
-          );
-        }}
-      >
-        <Box display="flex" justifyContent="center">
-          <NFTImage src={`${GATEWAY_URL}/ipfs/${cid}/${fileCid}`} />
-        </Box>
-        <CardContent sx={{ paddingBottom: "0px", paddingLeft: "0px" }}>
-          <Text className="text-2xl">{nftName}</Text>
+      <NFTImage src={`${GATEWAY_URL}/ipfs/${cid}/${fileCid}`}>
+        <div className="px-6 py-4 bg-black/40 backdrop-blur absolute bottom-0 w-full opacity-100 group-hover:opacity-0 transition-opacity">
+          <span className="text-lg font-mono text-white capitalize">{nftName}</span>
           {showDescription && <Text>{nftDescription}</Text>}
-        </CardContent>
-      </CardActionArea>
-    </Card>
+        </div>
+      </NFTImage>
+    </div>
   );
 };

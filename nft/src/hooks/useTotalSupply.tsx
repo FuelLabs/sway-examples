@@ -6,8 +6,7 @@ import { NFTQueryKeys } from "src/queryKeys";
 import { Provider } from "fuels";
 
 export const useTotalSupply = (subId: string) => {
-
-    const query = useQuery({
+    return useQuery({
         queryKey: [NFTQueryKeys.totalSupply, subId],
         queryFn: async () => {
             const provider = await Provider.create(NODE_URL);
@@ -20,6 +19,4 @@ export const useTotalSupply = (subId: string) => {
             return result.value?.toNumber() || 0;
         },
     });
-
-    return { ...query, totalSupply: query.data };
 };
