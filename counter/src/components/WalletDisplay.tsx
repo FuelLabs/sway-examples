@@ -33,7 +33,7 @@ export const WalletDisplay = () => {
         <span data-testid="wallet-balance" className="text-gray-400">
           Balance:{" "}
           {walletBalance?.format({
-            precision: 4,
+            precision: 5,
           })}{" "}
           ETH
         </span>
