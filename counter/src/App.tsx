@@ -26,7 +26,7 @@ import { NavMenu } from "./components/NavMenu";
 //   "0x74fb4df9671c2e0db969570fa4fec292d338a945e65e633419d5c01fc609b72e";
 
 export default function App() {
-  const { wallet, walletBalance, refetchBalance } = useActiveWallet();
+  const { wallet, walletBalance, refetchBalance, isConnected } = useActiveWallet();
   const {
     wallet: browserWallet,
     isConnected: isBrowserWalletConnected,
@@ -78,7 +78,12 @@ export default function App() {
             <WalletDisplay />
           </div>
           {!isMobile && (
-            <Button className="bg-gray-500" onClick={() => navigate("/counter/faucet")}>
+            <Button className="bg-gray-500" onClick={() => {
+                  if (!isConnected)
+                    return toast.error(
+                      "Please connect your wallet to visit the faucet."
+                    );
+              navigate("/counter/faucet")}}>
               Faucet
             </Button>
           )}
