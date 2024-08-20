@@ -28,7 +28,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
-    "@fuels/connectors": "^0.9.1",
+    "@fuels/connectors": "0.25.0",
+    "@wagmi/connectors": "5.1.6",
     "@wagmi/core": "2.13.4",
     "@fuels/react": "^0.25.0",
     "@mui/material": "^5.15.12",
