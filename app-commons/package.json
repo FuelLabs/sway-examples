@@ -1,5 +1,5 @@
 {
-  "name": "onboarding-flow",
+  "name": "app-commons",
   "version": "1.0.0",
   "description": "Common components for sway example apps",
   "main": "./dist/index.js",
