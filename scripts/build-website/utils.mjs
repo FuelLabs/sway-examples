@@ -6,6 +6,7 @@ import { join } from "path";
 const ROOT_PATH = process.cwd();
 const DIST_FOLDER = join(ROOT_PATH, "./dist");
 const NFT_APP_PATH = "/nft/"
+const AIRDROP_APP_PATH = "/airdrop/"
 
 function setEnvVar(key, value) {
     process.env[key] = process.env[key] || value;
@@ -15,17 +16,22 @@ function setEnvVar(key, value) {
 export function setEnv() {
     // Website urls
     setEnvVar("NFT_BASE_URL", NFT_APP_PATH);
+    setEnvVar("AIRDROP_BASE_URL", AIRDROP_APP_PATH);
+
     // Dist folders
     setEnvVar("NFT_DIST", join(DIST_FOLDER, NFT_APP_PATH))
+    setEnvVar("AIRDROP_DIST", join(DIST_FOLDER, AIRDROP_APP_PATH))
     // TODO do we need to set next env vars?
 
     // Log dist folders
     console.log("Output dist folders:");
     console.log("NFT_DIST", process.env.NFT_DIST);
+    console.log("AIRDROP_DIST", process.env.AIRDROP_DIST);
     // Log env vars
     console.log("Output urls:");
     console.log("BASE_URL", process.env.BASE_URL);
     console.log("NFT_BASE_URL", process.env.NFT_BASE_URL);
+    console.log("AIRDROP_BASE_URL", process.env.AIRDROP_BASE_URL);
 }
 
 export async function runPnpmCommand(commands) {
