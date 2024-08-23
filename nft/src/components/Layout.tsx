@@ -63,30 +63,6 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     );
   };
 
-  // useEffect(() => {
-  //   if (isConnected && walletBalance?.eq(0) && !hasOpenedFaucetPage) {
-  //     setHasOpenedFaucetPage(true);
-  //     if (isTablet) {
-  //       window.open(faucetUrl(wallet?.address.toString()), "_blank");
-  //     } else {
-  //       navigate(NFTRoutes.faucet);
-  //     }
-  //   }
-  // }, [isConnected, walletBalance, isTablet]);
-
-  // useEffect(() => {
-  //   if (
-  //     walletBalance &&
-  //     isConnected &&
-  //     !walletBalance.eq(0) &&
-  //     hasOpenedFaucetPage &&
-  //     !hasRedirectedAfterFaucet
-  //   ) {
-  //     setHasRedirectedAfterFaucet(true);
-  //     navigate(NFTRoutes.explore);
-  //   }
-  // }, [isConnected, walletBalance]);
-
   return (
     <div>
       <header className="w-full sticky top-0 z-10 bg-gradient-header">
