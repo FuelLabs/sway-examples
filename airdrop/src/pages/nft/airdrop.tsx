@@ -1,6 +1,11 @@
 import { Button } from "@/components/Button";
 import { Input, MultilineInput } from "@/components/Input";
 import { Text } from "@/components/Text";
+import {
+  createMerkleTree,
+  stringifyObj,
+  verifyMerkleProof,
+} from "@/utils/merkleTrees";
 import { recipientsParser } from "@/utils/parsers";
 import { TextField } from "@mui/material";
 import { Address } from "fuels";
@@ -85,7 +90,20 @@ export default function Airdrop() {
       <Button
         className="m-auto w-fit"
         onClick={() => {
-          console.log({ recipients });
+          console.log("recipients", recipients);
+          // stringifyObj(recipients);
+          const { leaves, root, tree } = createMerkleTree(recipients);
+          const { isValid } = verifyMerkleProof(
+            [
+              {
+                address:
+                  "0x6c49291704adc561074d887603c0c5e98b162b86s62b746a1c945bb1c71e40f79",
+                amount: 4000000000,
+              },
+            ],
+            root,
+            tree
+          );
         }}
       >
         Submit

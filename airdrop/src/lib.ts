@@ -12,7 +12,9 @@ export const CURRENT_ENVIRONMENT: DappEnvironment =
 const IS_LOCAL = CURRENT_ENVIRONMENT === "local";
 
 export const NODE_URL = IS_LOCAL
-  ? `http://127.0.0.1:${process.env.NEXT_PUBLIC_FUEL_NODE_PORT || 4000}/v1/graphql`
+  ? `http://127.0.0.1:${
+      process.env.NEXT_PUBLIC_FUEL_NODE_PORT || 4000
+    }/v1/graphql`
   : "https://testnet.fuel.network/v1/graphql";
 
 /**
@@ -33,6 +35,8 @@ export const TESTNET_FAUCET_LINK = "https://faucet-testnet.fuel.network/";
 export const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL
   ? process.env.NEXT_PUBLIC_GATEWAY_URL
   : "https://gateway.pinata.cloud";
+
+export const PINATA_JWT = process.env.PINATA_JWT;
 
 export const CONTRACT_ID = IS_LOCAL
   ? contractId["nftContract"]
