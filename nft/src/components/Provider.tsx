@@ -1,9 +1,10 @@
 import { FuelProvider } from "@fuels/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "fuels";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { coinbaseWallet, walletConnect } from "@wagmi/connectors";
 import { http, createConfig, injected } from "@wagmi/core";
+import type { Config as WagmiConfig } from "@wagmi/core";
 import { mainnet, sepolia } from "@wagmi/core/chains";
 import { BrowserRouter } from "react-router-dom";
 import {
@@ -16,23 +17,13 @@ import {
 import { StyledEngineProvider } from "@mui/material";
 
 import { NODE_URL, WC_PROJECT_ID } from "src/lib";
+import { OnboardingFlowProvider } from "app-commons";
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => {
     return new QueryClient({});
   });
-  const [currentUrl, setCurrentUrl] = useState("");
-  const [isMounted, setIsMounted] = useState(false);
   const [currentProvider] = useState(Provider.create(NODE_URL));
-
-  useEffect(() => {
-    setIsMounted(true);
-    setCurrentUrl(window.location.href);
-  }, []);
-
-  // NOTE: If the component is not rendered in the client
-  // the BurnerWalletConnector will throw an error
-  if (!isMounted) return null;
 
   // ============================================================
   // WalletConnect Connector configurations
@@ -41,13 +32,13 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const METADATA = {
     name: "NFT App",
     description: "View and collect NFTs",
-    url: currentUrl,
+    url: location.href,
     icons: ["https://connectors.fuel.network/logo_white.png"],
   };
   // NOTE: we do not have ssr: true
   // Bc there is a bug in the connector
   // https://github.com/FuelLabs/fuel-connectors/issues/134
-  const wagmiConfig = createConfig({
+  const wagmiConfig: WagmiConfig = createConfig({
     chains: [mainnet, sepolia],
     transports: {
       [mainnet.id]: http(),
@@ -88,7 +79,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
               ],
             }}
           >
-            {children}
+            <OnboardingFlowProvider>{children}</OnboardingFlowProvider>
           </FuelProvider>
         </QueryClientProvider>
       </BrowserRouter>

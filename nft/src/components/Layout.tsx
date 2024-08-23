@@ -9,7 +9,7 @@ import { ConnectButton } from "./ConnectButton";
 import { NavMenu } from "./NavMenu";
 import { NFTRoutes } from "src/routes";
 import { useBreakpoints } from "hooks/useBreakpoints";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ExploreIcon from '@mui/icons-material/ExploreOutlined';
 import AddBoxIcon from '@mui/icons-material/AddBoxOutlined';
@@ -61,30 +61,6 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
       `Please add the network ${NODE_URL} to your Fuel wallet, or swtich to it if you have it already, and refresh the page.`
     );
   };
-
-  useEffect(() => {
-    if (isConnected && walletBalance?.eq(0) && !hasOpenedFaucetPage) {
-      setHasOpenedFaucetPage(true);
-      if (isTablet) {
-        window.open(faucetUrl(wallet?.address.toString()), "_blank");
-      } else {
-        navigate(NFTRoutes.faucet);
-      }
-    }
-  }, [isConnected, walletBalance, isTablet]);
-
-  useEffect(() => {
-    if (
-      walletBalance &&
-      isConnected &&
-      !walletBalance.eq(0) &&
-      hasOpenedFaucetPage &&
-      !hasRedirectedAfterFaucet
-    ) {
-      setHasRedirectedAfterFaucet(true);
-      navigate(NFTRoutes.explore);
-    }
-  }, [isConnected, walletBalance]);
 
   return (
     <div>

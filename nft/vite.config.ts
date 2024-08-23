@@ -4,26 +4,13 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.NFT_BASE_URL,
-  build: {
-    outDir: process.env.NFT_DIST,
-  },
+  //root: "../",
+  base: "./",
+  // build: {
+  //   outDir: process.env.NFT_DIST,
+  //   minify: false,
+  // },
   plugins: [react(), vercel()],
-  // @ts-ignore
-  vercel: {
-    rewrites: [
-      {
-        "source": "/nft/:path*",
-        "destination": "/nft/create/:path*",
-        "has": [
-          {
-            "type": "host",
-            "value": "sway-nft.vercel.app/(.*)"
-          }
-        ]
-      }
-    ]
-  },
   resolve: {
     alias: {
       src: "/src",
