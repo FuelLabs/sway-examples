@@ -8,8 +8,7 @@ type UploadRecipientDataParams = {
 
 export const useUploadAirdropData = () => {
   const mutation = useMutation({
-    mutationFn: async ({recipients}: UploadRecipientDataParams) => {
-
+    mutationFn: async ({ recipients }: UploadRecipientDataParams) => {
       const recipientData = JSON.stringify(recipients);
 
       const formData = new FormData();
@@ -19,28 +18,33 @@ export const useUploadAirdropData = () => {
 
       formData.append("pinataMetadata", metaData);
       formData.append("data", recipientData);
-      
+
       const options = JSON.stringify({ cidVersion: 0 });
       formData.append("pinataOptions", options);
 
       const blob = new Blob([recipientData], { type: "application/json" });
       formData.append("file", blob, "recipients.json");
 
+      console.log({ PINATA_JWT });
+
       const fetchOptions = {
         method: "POST",
-        headers: {
-          Authorizaton: `Bearer ${PINATA_JWT}`
-        },
         body: formData,
+        headers: {
+          "pinata_api_key": process.env.NEXT_PUBLIC_API_Key,
+          "pinata_secret_api_key": process.env.NEXT_PUBLIC_API_Secret,
+          Authorizaton: `Bearer ${PINATA_JWT}`,
+        },
       };
-      
 
-      const res = await fetch(GATEWAY_URL + "/pinning/pinFileToIPFS", fetchOptions);
+      const res = await fetch(
+        "https://api.pinata.cloud" + "/pinning/pinFileToIPFS",
+        fetchOptions
+      );
       const resData = await res.json();
       return resData.IpfsHash;
-
     },
-    onSuccess: (data ) => {
+    onSuccess: (data) => {
       toast.success(`Data uploaded successfully! IPFS Hash: ${data}`);
     },
     onError: (err) => {
@@ -50,3 +54,5 @@ export const useUploadAirdropData = () => {
 
   return mutation;
 };
+
+

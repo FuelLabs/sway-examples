@@ -1,6 +1,7 @@
 import { Button } from "@/components/Button";
 import { Input, MultilineInput } from "@/components/Input";
 import { Text } from "@/components/Text";
+import { useUploadAirdropData } from "@/hooks/useUploadAirdropData";
 import {
   createMerkleTree,
   stringifyObj,
@@ -51,6 +52,8 @@ export default function Airdrop() {
     return recipientsParser(Number(9)).parse(parseSRC20Text(text));
   }, []);
 
+  const uploadToipfs = useUploadAirdropData();
+
   useEffect(() => {
     if (textValue) {
       try {
@@ -89,8 +92,36 @@ export default function Airdrop() {
 
       <Button
         className="m-auto w-fit"
-        onClick={() => {
+        onClick={async () => {
           console.log("recipients", recipients);
+
+          // uploading to ipfs
+          const data = uploadToipfs?.mutateAsync({
+            recipients: [
+              {
+                address:
+                  "0x6c49291704adc561074d887603c0c5e98b162b86s62b746a1c945bb1c71e40f79",
+                amount: 4000000000,
+              },
+              {
+                address:
+                  "0x9a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085",
+                amount: 4000000000,
+              },
+              {
+                address:
+                  "0x05d6e170e2e7ae00fc147c4d0c3a13d06c77a40794782d9ec10ea6f5bd23eb1d",
+                amount: 4000000000,
+              },
+              {
+                address:
+                  "0x3764ed56dd996b8e262b0d28b4b9bdb8d4043e9445724aca06a749de6dbff829",
+                amount: 4000000000,
+              },
+            ],
+          });
+          console.log("data from ipfs: ", data);
+
           // stringifyObj(recipients);
           const { leaves, root, tree } = createMerkleTree(recipients);
           const { isValid } = verifyMerkleProof(

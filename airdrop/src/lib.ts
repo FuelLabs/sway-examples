@@ -34,9 +34,9 @@ export const TESTNET_FAUCET_LINK = "https://faucet-testnet.fuel.network/";
 
 export const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL
   ? process.env.NEXT_PUBLIC_GATEWAY_URL
-  : "https://gateway.pinata.cloud";
+  : "https://beige-ready-porcupine-957.mypinata.cloud";
 
-export const PINATA_JWT = process.env.PINATA_JWT;
+export const PINATA_JWT = process.env.NEXT_PUBLIC_PINATA_JWT;
 
 export const CONTRACT_ID = IS_LOCAL
   ? contractId["nftContract"]
