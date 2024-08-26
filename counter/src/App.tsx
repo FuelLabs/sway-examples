@@ -21,6 +21,7 @@ import { useBreakpoints } from "./hooks/useBreakpoints";
 import "./App.css";
 import { NavMenu } from "./components/NavMenu";
 import ThemeToggle from "./components/ThemeToggle";
+import { useEffect, useState } from "react";
 
 
 // const CONTRACT_ID =
@@ -50,7 +51,22 @@ export default function App() {
       `Please add the network ${NODE_URL} to your Fuel wallet, or swtich to it if you have it already, and refresh the page.`
     );
   };
-
+  const [darkMode, setDarkMode] = useState(() => {
+    return (
+      localStorage.getItem("theme") === "dark" ||
+      (!localStorage.getItem("theme") &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
+  });
+    useEffect(() => {
+      if (darkMode) {
+        document.documentElement.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.removeAttribute("data-theme");
+        localStorage.setItem("theme", "light");
+      }
+    }, [darkMode]);
   return (
     <>
       <Toaster position="bottom-center" />
@@ -75,17 +91,20 @@ export default function App() {
               Wrong Network
             </Button>
           )}
-          <ThemeToggle/>
           <div className="ml-auto">
-            <WalletDisplay />
+            <WalletDisplay darkMode={darkMode} />
           </div>
           {!isMobile && (
-            <Button className="bg-gray-500" onClick={() => {
-                  if (!isConnected)
-                    return toast.error(
-                      "Please connect your wallet to visit the faucet."
-                    );
-              navigate("/counter/faucet")}}>
+            <Button
+              className="bg-gray-500"
+              onClick={() => {
+                if (!isConnected)
+                  return toast.error(
+                    "Please connect your wallet to visit the faucet."
+                  );
+                navigate("/counter/faucet");
+              }}
+            >
               Faucet
             </Button>
           )}
@@ -97,6 +116,7 @@ export default function App() {
           {!isBrowserWalletConnected && !isMobile && (
             <Button onClick={connect}>Connect Wallet</Button>
           )}
+          <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
           {isMobile && <NavMenu address={wallet?.address.toString()} />}
         </nav>
         <div className="min-h-screen items-center justify-center flex flex-col gap-6">
