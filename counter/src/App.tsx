@@ -20,6 +20,7 @@ import Faucet from "./pages/Faucet";
 import { useBreakpoints } from "./hooks/useBreakpoints";
 import "./App.css";
 import { NavMenu } from "./components/NavMenu";
+import ThemeToggle from "./components/ThemeToggle";
 
 
 // const CONTRACT_ID =
@@ -53,8 +54,8 @@ export default function App() {
   return (
     <>
       <Toaster position="bottom-center" />
-      <div className="flex flex-col bg-black text-white">
-        <nav className="flex justify-between items-center p-4 bg-black text-white gap-6">
+      <div className="flex flex-col bg-background text-text-primary">
+        <nav className="flex justify-between items-center p-4 bg-background text-text-primary gap-6">
           {!isMobile && (
             <>
               <Link className="text-fuel-green hover:underline" to="/counter">
@@ -74,6 +75,7 @@ export default function App() {
               Wrong Network
             </Button>
           )}
+          <ThemeToggle/>
           <div className="ml-auto">
             <WalletDisplay />
           </div>

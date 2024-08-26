@@ -5,6 +5,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    // darkMode: 'selector',
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -12,6 +13,10 @@ export default {
       },
       colors: {
         'fuel-green': '#009d5a',
+        background: 'var(--background-color)',
+        'text-primary': 'var(--text-color)',
+        primary: 'var(--primary-color)',
+        secondary: 'var(--secondary-color)',
       },
     },
   },

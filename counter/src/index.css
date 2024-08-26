@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* index.css or global.css */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --primary-color: #4f46e5;
+  --secondary-color: #10b981;
+}
+
+[data-theme="dark"] {
+  --background-color: #000000;
+  --text-color: #ffffff;
+  --primary-color: #6366f1;
+  --secondary-color: #34d399;
+}
