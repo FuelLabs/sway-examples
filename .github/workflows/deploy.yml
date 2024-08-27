@@ -11,14 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      # set up node and install deps
-      - uses: FuelLabs/github-actions/setups/node@master
-        with:
-          node-version: 18.18.0
-          pnpm-version: 8.15.7
+      - name: Setup Nopde
+        uses: actions/setup-node@v4
+
+    - name: Setup PNPM
+      uses: pnpm/action-setup@v4
+      with:
+        run_install: true
 
       - name: Build
         run: pnpm build:preview
