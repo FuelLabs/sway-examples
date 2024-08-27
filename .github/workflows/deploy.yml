@@ -1,8 +1,9 @@
 name: Publish to Github Pages
 
 on:
-  pull_request:
-    types: [opened, synchronize, edited, closed, reopened]
+  push:
+    branches: ["master"]
+
   workflow_dispatch:
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
