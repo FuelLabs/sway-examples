@@ -9,6 +9,7 @@ export default defineConfig({
   build: {
     outDir: process.env.NFT_DIST,
     minify: false,
+    emptyOutDir: true,
   },
   plugins: [react()],
   resolve: {
