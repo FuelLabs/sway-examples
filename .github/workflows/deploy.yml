@@ -17,10 +17,10 @@ jobs:
       - name: Setup Nopde
         uses: actions/setup-node@v4
 
-    - name: Setup PNPM
-      uses: pnpm/action-setup@v4
-      with:
-        run_install: true
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: true
 
       - name: Build
         run: pnpm build:preview
