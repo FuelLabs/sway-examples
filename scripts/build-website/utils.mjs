@@ -24,7 +24,7 @@ export function setEnv() {
     console.log("NFT_DIST", process.env.NFT_DIST);
     // Log env vars
     console.log("Output urls:");
-    console.log("BASE_URL", process.env.VITE_BASE_URL);
+    console.log("VITE_BASE_URL", process.env.VITE_BASE_URL);
     console.log("NFT_BASE_URL", process.env.NFT_BASE_URL);
 }
 
