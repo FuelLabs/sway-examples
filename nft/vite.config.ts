@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/sway-examples/',
+  base: process.env.BASE_URL,
   build: {
     outDir: process.env.NFT_DIST,
     minify: false,

@@ -28,11 +28,17 @@ jobs:
 
       - name: Build
         run: pnpm build:preview
+        env:
+          BASE_URL: /sway-examples/pr-preview/${{ github.event.number }}
 
       - name: Deploy preview
+        id: deploy
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: ./dist/
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
+
+      - name: Set Vite base url
+
