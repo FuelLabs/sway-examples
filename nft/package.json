@@ -11,7 +11,7 @@
     "fuels:dev": "fuels dev",
     "dev": "vite",
     "build:all": "NODE_ENV=production run-s build",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --emptyOutDir",
     "start": "vite preview"
   },
   "dependencies": {
