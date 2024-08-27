@@ -11,6 +11,8 @@ import Address from "./screens/nft/collection/address";
 import Mint from "./screens/nft/mint/id/fileId";
 
 export const App = () => {
+  console.log("APPPPPPP");
+  
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
