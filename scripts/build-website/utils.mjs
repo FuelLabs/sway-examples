@@ -16,7 +16,7 @@ export function setEnv() {
     // Website urls
     setEnvVar("NFT_BASE_URL", NFT_APP_PATH);
     // Dist folders
-    setEnvVar("NFT_DIST", join(DIST_FOLDER, NFT_APP_PATH))
+    setEnvVar("NFT_DIST", join(DIST_FOLDER, NFT_APP_PATH));
     // TODO do we need to set next env vars?
 
     // Log dist folders
