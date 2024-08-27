@@ -26,11 +26,13 @@ jobs:
 
       - name: Build
         run: pnpm build:preview
+        env:
+          BASE_URL: /sway-examples
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .
+          folder: ./dist/
           branch: gh-pages
           clean-exclude: pr-preview
           force: false
