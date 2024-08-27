@@ -33,8 +33,6 @@ jobs:
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
-        env:
-          VITE_BASE_URL: /sway-examples/pr-preview/${{ github.event.number }}
         with:
           source-dir: ./dist/
           preview-branch: gh-pages
