@@ -46,9 +46,6 @@ export const WelcomePage = ({
     (isFetchingBalance || isPendingBalance || isLoadingBalance);
   const isWalletLoading =
     isLoadingWallet || isPendingWallet || isFetchingWallet;
-  const isLoading = isBalanceLoading || isWalletLoading;
-
-  console.log(`navigator.userAgent`, navigator.userAgent);
 
   useEffect(() => {
     if (isConnected && wallet) {

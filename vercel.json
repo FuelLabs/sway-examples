@@ -2,5 +2,5 @@
     "$schema": "https://openapi.vercel.sh/vercel.json",
     "installCommand": "pnpm install",
     "buildCommand": "pnpm build:preview",
-    "outputDirectory": "./nft/dist"
+    "outputDirectory": "./dist"
 }

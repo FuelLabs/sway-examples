@@ -4,12 +4,11 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  //root: "../",
-  base: "./",
-  // build: {
-  //   outDir: process.env.NFT_DIST,
-  //   minify: false,
-  // },
+  base: process.env.NFT_BASE_URL,
+  build: {
+    outDir: process.env.NFT_DIST,
+    minify: false,
+  },
   plugins: [react(), vercel()],
   resolve: {
     alias: {
