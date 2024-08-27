@@ -7,6 +7,8 @@ import { AppProvider } from "./components/Provider";
 import { Toaster } from "react-hot-toast";
 import { OnboardingFlow } from "app-commons";
 
+console.log("MAINNNNNN");
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AppProvider>
