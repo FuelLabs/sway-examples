@@ -3,95 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sway Applications</title>
-    <link rel="icon" href="/fuel.ico" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: "Roboto";
-        background-color: rgb(240, 240, 240);
-        margin: 0;
-      }
-      .flex-container {
-        display: flex;
-        margin-left: 150px;
-        margin-right: 150px;
-        margin-top: 50px;
-      }
-      .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
-        height: 142px;
-        width: 280px;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        border-radius: 12px;
-        margin: 16px;
-        padding: 16px;
-        background-color: white;
-      }
-      .card-text {
-        color: black;
-        font-size: 16px;
-      }
-      .card:hover {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-      }
-      .text1 {
-        font-size: 44px;
-        color: black;
-        margin-bottom: 4px;
-        margin-top: 16px;
-      }
-      .text2 {
-        font-size: 36px;
-        color: black;
-        margin-bottom: 4px;
-        margin-top: 16px;
-      }
-      .header {
-        display: flex;
-        align-content: center;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        padding-top: 22px;
-        padding-bottom: 22px;
-        background-color: rgb(250, 250, 250);
-      }
-    </style>
+    <title>Fuel NFT</title>
+    <link rel="icon" href="/sway-examples/pr-preview/pr-6/fuel.ico" />
+    <link rel="preload" href="/sway-examples/pr-preview/pr-6/fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/sway-examples/pr-preview/pr-6/fonts/Inter-Italic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/sway-examples/pr-preview/pr-6/fonts/GeistMono.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/sway-examples/pr-preview/pr-6/fonts/fonts.css">
     <script>
-      window.onload = function() {
-        const pathname = window.location.pathname;
-        const nftLink = document.getElementById("nftLink");
-        nftLink.href = `${pathname}nft`
-      }
+      console.log("HTMLLLLLLLLL");
     </script>
+    <script type="module" crossorigin src="/sway-examples/pr-preview/pr-6/assets/index-D_rJ3BWS.js"></script>
+    <link rel="stylesheet" crossorigin href="/sway-examples/pr-preview/pr-6/assets/index-CIqJIuL9.css">
   </head>
   <body>
-    <div class="header">
-      <img
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALnSURBVHgB7Zs9bNNAGIZfu6aCqhVlZKlgZGCgG2WhjF34ydIOSKAO7cBAVSgDAxMLogKJIsHAwICYkIChI8pCR8SAxEjFwkjKAKixffi1UtRU+TnbZ+ezL4/UXONcojyv7865uwSwHKft3p/1ewhxDVAnUHUc1DF2a9b7f+D3+iOE6iYsw41vfz28BGWfPHFbt+dhKW6rnISluLCcYQCwHE+nkvO9gdGrr+B8+YGiUVPHsPtuMSon296P93wL7utPcHb+dnxe82kNwfwZ9EMrAO/BB1HyoxdfROXPrs/TlSdiu0AR8kQrgGBB/wVNUJQ80QogPHcy/iuCIuWJdhfw71xA3hQtT7QDyLsVDEKeJBoEg+UZ5MGg5EmyAOZOxW/WJGnl2SWzypPEl0F/+SxMkUXeXzMzJiUOIJyfhjp6GFmRIE8SB0D5rGOBFHmS6pNgsDSTuhVIkiepAkjbCqTJk9RzgaStQKI8SR0A5cOFab26QuVJptmgv9S/G0iWJ5kCoFSvj8fS5Unm9YBuk6QyyJPMAXSaJJVFnmgtifWjuVGLl83cj99i6eaTWps8OXTjTVx2mkuwLsWLWnPYj5EAYumNKz3r7L5fhESG+wKwHO0uMLL51ejSeMBZ5dTgtyT19gWebcG7uwlTcLSXIE+0uoAbnX1TDOJS14tCxwBp8qSwACTKk0ICkCpPcg9AsjzJNQCuGkmWJ7kFEESLJc37c5BOLgHE8n3mBlIwHkCZ5InRAMomT4wFUEZ5YiSAssqTzAGUWZ5kCqDs8iT9zlAF5Em6zdGKyJPEAfBbIlWRJ4kCUKePw4+WwCuBUjsstAOgfLzZYeDbISJQzjYLrQAqJ0/4oyloLoqWYVaXCCc6+2Orb/mvhfsCTgOOO7t3z7IAInkVyR9Z2d47YlEALfnxlc/7j9oTQBhePihP7AhAhdcxcbve6SEj2+NyiZo9z/zEWr1bjYoGEF3mwvAlxkcew1ltYEh3/gEkB8K7fHo9CQAAAABJRU5ErkJggg=="
-        alt="Fuel Logo"
-        style="margin-right: 15px"
-      />
-      <div style="font-size: 36px; color: black; width: fit-content">
-        Sway Applications
-      </div>
-    </div>
-    <div class="flex-container">
-      <a id="nftLink" style="text-decoration: none">
-        <div class="card">
-          <p class="text1">NFTs</p>
-          <p class="card-text">
-            Create and mint NFTs.
-          </p>
-        </div>
-      </a>
-    </div>
+    <div id="root"></div>
   </body>
 </html>
