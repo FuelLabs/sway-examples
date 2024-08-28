@@ -22,6 +22,7 @@ import { FuelLogo } from "./FuelLogo";
 const TOP_UP_AMOUNT = 100_000_000;
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
+  console.log("Layout");
   const { faucetWallet } = useFaucet();
   const { wallet, network, walletBalance, refetchBalance, isConnected } =
     useActiveWallet();
