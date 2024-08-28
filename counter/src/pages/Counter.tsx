@@ -13,7 +13,7 @@ import { useIncrementCounter } from "../hooks/useIncrementCounter";
 const contractId =
   CURRENT_ENVIRONMENT === "local"
     ? contractIds.testContract
-    : (process.env.VITE_PUBLIC_TESTNET_CONTRACT_ID as string); // Testnet Contract ID
+    : (process.env.VITE_PUBLIC_TESTNET_CONTRACT_ID as string);
 
 export default function Home() {
   const { wallet, walletBalance, refetchBalance, isConnected } =
