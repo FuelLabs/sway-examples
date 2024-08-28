@@ -16,10 +16,11 @@ export const App = () => {
   console.log(`window.location.href`, window.location.href);
   console.log(`window.location.pathname`, window.location.pathname);
   console.log(`import.meta.env.VITE_BASE_URL`, import.meta.env.VITE_BASE_URL);
+  console.log(`import.meta.env.BASE_URL`, import.meta.env.BASE_URL);
   
   return (
     <Routes>
-      <Route path="/nft/" element={<Layout />}>
+      <Route path="/nft" element={<Layout />}>
         <Route index element={<Explore />} />
         <Route path={NFTRoutes.explore} element={<Explore />} />
         <Route path={NFTRoutes.create} element={<Create />} />
