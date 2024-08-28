@@ -2,6 +2,7 @@
   "name": "counter-dapp",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "prebuild": "fuels build",
     "fuels:dev": "fuels dev",
