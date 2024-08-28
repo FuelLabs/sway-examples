@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 
 .fuels
+pnpm-lock.yaml
 
 src/sway-api/contracts
 src/sway-api/predicates

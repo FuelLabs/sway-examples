@@ -4,70 +4,23 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import { FuelLogo } from "../components/FuelLogo";
 import { Input } from "../components/Input";
-// import { Link } from "../components/Link";
 import { useActiveWallet } from "../hooks/useActiveWallet";
-import { TestScriptAbi__factory } from "../sway-api";
-import { BN, BigNumberish, Script, bn } from "fuels";
+import { useRunScript } from "../hooks/useRunScript";
 import { useState } from "react";
-import toast from "react-hot-toast";
-import useAsync from "react-use/lib/useAsync";
-import LaunchIcon from "@mui/icons-material/Launch";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function ScriptExample() {
   const { wallet, walletBalance, isConnected } = useActiveWallet();
 
-  const [script, setScript] = useState<Script<[input: BigNumberish], BN>>();
   const [input, setInput] = useState<string>();
   const [result, setResult] = useState<string>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useAsync(async () => {
-    if (wallet) {
-      const script = TestScriptAbi__factory.createInstance(wallet);
-      setScript(script);
-    }
-  }, [wallet]);
-
-  const runScript = async () => {
-    try {
-      if (!isConnected)
-        return toast.error("Please connect your wallet to run the script");
-      if (!script) {
-        return toast.error("Script not loaded");
-      }
-      if (walletBalance?.eq(0)) {
-        return toast.error(
-          "Your wallet does not have enough funds. Please click the 'Faucet' button in the top right corner, or use the local faucet."
-        );
-      }
-
-      setIsLoading(true);
-
-      const { waitForResult } = await script.functions.main(bn(input)).call();
-      const { value, transactionId } = await waitForResult();
-
-      setResult(value.toString());
-      toast(() => (
-        <span>
-          <CheckCircleIcon color="success" />
-          Transaction Success! View it on the
-          <a
-            className="pl-1 underline"
-            target="_blank"
-            href={`https://app.fuel.network/tx/${transactionId}`}
-          >
-            block explorer
-          </a>
-        </span>
-      ));
-    } catch (error) {
-      console.error(error);
-      toast.error("Error running script.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { runScript, isLoading } = useRunScript({
+    wallet,
+    walletBalance,
+    isConnected,
+    input: input ?? "",
+    setResult,
+  });
 
   return (
     <>
@@ -98,9 +51,9 @@ export default function ScriptExample() {
       </Button>
 
       {result && (
-        <div className="flex gap-4 align-baseline">
+        <div className="flex gap-2 align-bottom">
           <h5 className="font-semibold text-xl">Result:</h5>
-          <p className="text-gray-400">{result}</p>
+          <span className="text-gray-400 text-center flex justify-center items-center">{result}</span>
         </div>
       )}
 
@@ -115,10 +68,6 @@ export default function ScriptExample() {
       >
         Learn more about Scripts
       </Link>
-
-      {/* <Link href="/" className="mt-12">
-        Back to home
-      </Link> */}
     </>
   );
 }

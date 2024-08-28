@@ -1,12 +1,9 @@
 import { useConnectUI, useDisconnect } from "@fuels/react";
-import { bn } from "fuels";
 import { Button } from "./components/Button";
 import toast, { Toaster } from "react-hot-toast";
 import { useActiveWallet } from "./hooks/useActiveWallet";
-import { useBrowserWallet } from "./hooks/useBrowserWallet";
 import { WalletDisplay } from "./components/WalletDisplay";
-import { CURRENT_ENVIRONMENT, NODE_URL, TESTNET_FAUCET_LINK } from "./lib";
-import { useFaucet } from "./hooks/useFaucet";
+import { NODE_URL } from "./lib";
 import {
   Routes,
   Route,
@@ -18,33 +15,21 @@ import PredicateExample from "./pages/Predicate";
 import ScriptExample from "./pages/Script";
 import Faucet from "./pages/Faucet";
 import { useBreakpoints } from "./hooks/useBreakpoints";
-import "./App.css";
 import { NavMenu } from "./components/NavMenu";
 import ThemeToggle from "./components/ThemeToggle";
 import { useEffect, useState } from "react";
 
-
-// const CONTRACT_ID =
-//   "0x74fb4df9671c2e0db969570fa4fec292d338a945e65e633419d5c01fc609b72e";
-
 export default function App() {
-  const { wallet, walletBalance, refetchBalance, isConnected } = useActiveWallet();
-  const {
-    wallet: browserWallet,
-    isConnected: isBrowserWalletConnected,
-    network: browserWalletNetwork,
-  } = useBrowserWallet();
-
+  const { wallet, network, isConnected } =
+    useActiveWallet();
   const { connect } = useConnectUI();
   const { disconnect } = useDisconnect();
   const navigate = useNavigate();
   const { isMobile } = useBreakpoints();
 
 
-  const showAddNetworkButton =
-    browserWallet &&
-    browserWalletNetwork &&
-    browserWalletNetwork?.url !== NODE_URL;
+  const showAddNetworkButton = wallet && network && network?.url !== NODE_URL;
+
 
   const tryToAddNetwork = () => {
     return alert(
@@ -108,12 +93,12 @@ export default function App() {
               Faucet
             </Button>
           )}
-          {isBrowserWalletConnected && !isMobile && (
+          {isConnected && !isMobile && (
             <Button className="bg-red-600" onClick={disconnect}>
               Disconnect
             </Button>
           )}
-          {!isBrowserWalletConnected && !isMobile && (
+          {!isConnected && !isMobile && (
             <Button onClick={connect}>Connect Wallet</Button>
           )}
           <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
