@@ -3,13 +3,16 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { FuelProvider } from "@fuels/react";
+import { coinbaseWallet, walletConnect } from "@wagmi/connectors";
+import { http, createConfig, injected } from "@wagmi/core";
+import type { Config as WagmiConfig } from "@wagmi/core";
+import { mainnet, sepolia } from "@wagmi/core/chains";
 import { Provider } from "fuels";
 import {
-  BakoSafeConnector,
-  BurnerWalletConnector,
   FuelWalletConnector,
   FuelWalletDevelopmentConnector,
   FueletWalletConnector,
+  BurnerWalletConnector,
   WalletConnectConnector,
 } from "@fuels/connectors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -40,7 +43,6 @@ const Root = () => {
                   new WalletConnectConnector({
                     fuelProvider: providerToUse,
                   }),
-                  new BakoSafeConnector(),
                   new FueletWalletConnector(),
                   new FuelWalletDevelopmentConnector(),
                 ],
