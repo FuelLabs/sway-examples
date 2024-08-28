@@ -15,7 +15,7 @@ export const App = () => {
   
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/nft" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path={NFTRoutes.explore} element={<Explore />} />
         <Route path={NFTRoutes.create} element={<Create />} />
