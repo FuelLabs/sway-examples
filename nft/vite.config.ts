@@ -5,7 +5,7 @@ console.log(`process.env.VITE_BASE_URL`, process.env.VITE_BASE_URL);
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: "../",
+  // root: "../",
   base: process.env.VITE_BASE_URL,
   build: {
     outDir: process.env.NFT_DIST,
