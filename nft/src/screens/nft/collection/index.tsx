@@ -1,6 +1,5 @@
 import { useActiveWallet } from "hooks/useActiveWallet";
 import { useGetNFTData } from "hooks/useGetNFTData";
-import { Text } from "components/Text";
 import { NFTGrid } from "components/NFTGrid";
 
 export default function Collection() {
@@ -8,7 +7,7 @@ export default function Collection() {
 
   // The filter expects a value so we pass in an impossible wallet address
   // in the case the user is disconnected
-  const { nftData, isLoading: isNFTDataPending } = useGetNFTData({
+  const { data: nftData, isLoading: isNFTDataPending } = useGetNFTData({
     keyvalues: {
       minter: {
         value: wallet?.address.toB256() || "dud",
@@ -23,7 +22,7 @@ export default function Collection() {
     <NFTGrid
       isLoading={isPending}
       nftData={nftData}
-      title={<Text variant="h5">Your NFTs</Text>}
+      title={<h3 className="text-xl font-mono mb-5 text-white">Your NFTs</h3>}
     />
   );
 }

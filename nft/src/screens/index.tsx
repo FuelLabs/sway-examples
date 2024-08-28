@@ -5,7 +5,7 @@ import { Box, Grid, Stack } from "@mui/material";
 
 export default function Home() {
   return (
-    <Stack>
+    <Stack className="w-full">
       <nav
         className="flex justify-between items-center p-4 bg-black text-white gap-6 gradient-border
             bg-gradient-to-b

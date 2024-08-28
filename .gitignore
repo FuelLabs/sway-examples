@@ -9,4 +9,6 @@
 node_modules
 .turbo
 dist
+
+*storybook.log
 .vercel

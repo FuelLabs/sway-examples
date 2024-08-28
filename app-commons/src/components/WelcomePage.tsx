@@ -1,0 +1,99 @@
+import { Box, Button, Stack } from "@mui/material";
+import {
+  useConnectUI,
+  useConnect,
+  useIsConnected,
+  useWallet,
+  useBalance,
+} from "@fuels/react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
+import { Text, TextProps } from "./Text";
+import { CurrentStep } from "./OnboardingTopBar";
+import { isSafari } from "src/utils";
+
+type WelcomePageProps = {
+  message?: string;
+  messageProps?: TextProps;
+  setCurrentStep: (currentStep: CurrentStep) => void;
+};
+
+export const WelcomePage = ({
+  message,
+  messageProps,
+  setCurrentStep,
+}: WelcomePageProps) => {
+  const { connect: connectUI } = useConnectUI();
+  const { connect: connectBurner } = useConnect();
+  const {
+    wallet,
+    isLoading: isLoadingWallet,
+    isPending: isPendingWallet,
+    isFetching: isFetchingWallet,
+  } = useWallet();
+  const {
+    balance,
+    isFetching: isFetchingBalance,
+    isPending: isPendingBalance,
+    isLoading: isLoadingBalance,
+  } = useBalance({
+    address: wallet?.address.toString(),
+  });
+  const { isConnected } = useIsConnected();
+
+  const isBalanceLoading =
+    (isFetchingBalance || isPendingBalance || isLoadingBalance);
+  const isWalletLoading =
+    isLoadingWallet || isPendingWallet || isFetchingWallet;
+  const isLoading = isBalanceLoading || isWalletLoading;
+
+  console.log(`navigator.userAgent`, navigator.userAgent);
+
+  useEffect(() => {
+    if (isConnected && wallet) {
+      if (balance && balance.gt(0)) {
+        setCurrentStep(CurrentStep.Success);
+      } else if (!isBalanceLoading) {
+        if (isSafari) {
+          const redirectUrl = new URL("https://faucet-testnet.fuel.network/");
+          redirectUrl.searchParams.append("address", wallet.address.toString());
+          redirectUrl.searchParams.append("redirectUrl", window.location.href);
+          window.location.href = redirectUrl.href;
+        } else {
+          setCurrentStep(CurrentStep.Faucet);
+        }
+      }
+    }
+  }, [isConnected, wallet, balance, isBalanceLoading]);
+
+  return (
+    <Stack spacing={3} className="w-5/6 items-center">
+      {message && <Text {...messageProps}>{message}</Text>}
+      {isWalletLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          <Button
+            className="btn-primary h-12 w-full"
+            onClick={() => {
+              connectBurner("Burner Wallet");
+            }}
+          >
+            Temporary Wallet
+          </Button>
+          <Box className="border-b-2 border-slate-600 w-full" />
+          <Button
+            variant="outlined"
+            className="text-white h-12 w-full border-slate-600"
+            onClick={() => {
+              connectUI();
+            }}
+          >
+            Connect
+          </Button>
+        </>
+      )}
+    </Stack>
+  );
+};

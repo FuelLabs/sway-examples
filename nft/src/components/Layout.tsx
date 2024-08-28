@@ -1,5 +1,5 @@
-import toast, { Toaster } from "react-hot-toast";
-import { Link } from "./Link";
+import toast from "react-hot-toast";
+import { NavLink } from "react-router-dom";
 import { Button } from "./Button";
 import { CURRENT_ENVIRONMENT, NODE_URL } from "src/lib";
 import { WalletDisplay } from "./WalletDisplay";
@@ -8,24 +8,28 @@ import { useFaucet } from "hooks/useFaucet";
 import { ConnectButton } from "./ConnectButton";
 import { NavMenu } from "./NavMenu";
 import { NFTRoutes } from "src/routes";
-import { ExternalFaucet } from "./ExternalFaucet";
 import { useBreakpoints } from "hooks/useBreakpoints";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import ExploreIcon from '@mui/icons-material/ExploreOutlined';
+import AddBoxIcon from '@mui/icons-material/AddBoxOutlined';
+import AccountCircleIcon from '@mui/icons-material/AccountCircleOutlined';
 
 import { faucetUrl } from "src/utils/url";
+import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
+import { FuelLogo } from "./FuelLogo";
+  
+const TOP_UP_AMOUNT = 100_000_000;
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
   const { wallet, network, walletBalance, refetchBalance, isConnected } =
     useActiveWallet();
-  const { isTablet, isMobile } = useBreakpoints();
+  const { isTablet } = useBreakpoints();
   const navigate = useNavigate();
   const [hasOpenedFaucetPage, setHasOpenedFaucetPage] = useState(false);
   const [hasRedirectedAfterFaucet, setHasRedirectedAfterFaucet] =
     useState(false);
-
-  const TOP_UP_AMOUNT = 100_000_000;
 
   const topUpWallet = async () => {
     if (!wallet) {
@@ -58,83 +62,60 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     );
   };
 
-  useEffect(() => {
-    if (isConnected && walletBalance?.eq(0) && !hasOpenedFaucetPage) {
-      setHasOpenedFaucetPage(true);
-      if (isTablet) {
-        window.open(faucetUrl(wallet?.address.toString()), "_blank");
-      } else {
-        navigate(NFTRoutes.faucet);
-      }
-    }
-  }, [isConnected, walletBalance, isTablet]);
-
-  useEffect(() => {
-    if (
-      walletBalance &&
-      isConnected &&
-      !walletBalance.eq(0) &&
-      hasOpenedFaucetPage &&
-      !hasRedirectedAfterFaucet
-    ) {
-      setHasRedirectedAfterFaucet(true);
-      navigate(NFTRoutes.explore);
-    }
-  }, [isConnected, walletBalance]);
-
   return (
-    <>
-      <head>
-        <title>Fuel App</title>
-        <link rel="icon" href="/fuel.ico" />
-      </head>
-      <Toaster />
-      <div className="flex flex-col">
-        <nav
-          className="flex justify-between items-center p-4 bg-black text-white gap-2 lg:gap-6 gradient-border
-            bg-gradient-to-b
-            from-zinc-900
-            to-zinc-950/80"
-        >
-          {!isMobile && (
-            <>
-              <Link href={NFTRoutes.explore}>Explore</Link>
+    <div>
+      <header className="w-full sticky top-0 z-10 bg-gradient-header">
+        <nav className="max-w-[1780px] mx-auto">
+          <div className="flex  items-center gap-2 lg:gap-6 py-4 px-8">
+            <div className="block md:hidden">
+              <NavMenu />
+            </div>
+            
+            <FuelLogo size={32} showLettering />
 
-              <Link href={NFTRoutes.create}>Create</Link>
+            <div className="hidden md:flex flex-row items-center gap-2 grow">
+              <NavLink to={NFTRoutes.explore} end>
+                <ExploreIcon fontSize="inherit" /> Explore
+              </NavLink>
+              <NavLink to={NFTRoutes.create}>
+                <AddBoxIcon fontSize="inherit" /> Create
+              </NavLink> 
+              <NavLink to={NFTRoutes.collection}>
+                <AccountCircleIcon fontSize="inherit" /> My Account
+              </NavLink>
+            </div>
 
-              <Link href={NFTRoutes.collection}>My Account</Link>
-            </>
-          )}
+            {showAddNetworkButton && (
+              <Button onClick={tryToAddNetwork} className="bg-red-500">
+                Wrong Network
+              </Button>
+            )}
 
-          {showAddNetworkButton && (
-            <Button onClick={tryToAddNetwork} className="bg-red-500 text-white">
-              Wrong Network
-            </Button>
-          )}
+            <div className="ml-auto hidden lg:block">
+              <WalletDisplay />
+            </div>
 
-          <div className="ml-auto">
-            <WalletDisplay />
+            <div className="ml-auto">
+              <ConnectButton showTopUpButton={!!showTopUpButton} onTopUp={topUpWallet}  />
+            </div>
           </div>
-
-          {!isMobile ? (
-            <>
-              {showTopUpButton && (
-                <ExternalFaucet address={wallet?.address.toString()}>
-                  <Button onClick={() => topUpWallet()}>Faucet</Button>
-                </ExternalFaucet>
-              )}
-
-              <ConnectButton />
-            </>
-          ) : (
-            <NavMenu address={wallet?.address.toString()} />
-          )}
         </nav>
+      </header>
 
-        <div className="min-h-screen items-center p-8 lg:p-24 flex flex-col gap-6">
-          {children ?? <Outlet />}
+      <main className="w-full max-w-[1780px] mt-8 pb-8 mx-auto">
+        <div className="bg-content bg-gradient mx-8">
+          <BrandBackgroundBlur />
+
+          <div className="max-w-[1200px] min-h-[calc(100vh-200px)] mx-auto mt-6 lg:mt-14 px-4">
+            {children ?? <Outlet />}
+
+            <p className="text-[#b4b4b4] text-sm mt-14 text-center">
+              © 2024 Fuel Labs. All rights reserved
+            </p>
+          </div>
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
+
