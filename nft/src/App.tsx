@@ -20,7 +20,7 @@ export const App = () => {
   
   return (
     <Routes>
-      <Route path="/nft" element={<Layout />}>
+      <Route path={import.meta.env.VITE_BASE_URL} element={<Layout />}>
         <Route index element={<Explore />} />
         <Route path={NFTRoutes.explore} element={<Explore />} />
         <Route path={NFTRoutes.create} element={<Create />} />
