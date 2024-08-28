@@ -4,8 +4,8 @@
 /* eslint-disable */
 
 /*
-  Fuels version: 0.92.1
-  Forc version: 0.61.2
+  Fuels version: 0.93.0
+  Forc version: 0.62.0
   Fuel-Core version: 0.31.0
 */
 
@@ -17,8 +17,8 @@ import {
   Provider,
 } from 'fuels';
 
-export type TestPredicateAbiConfigurables = {
-};
+export type TestPredicateAbiConfigurables = Partial<{
+}>;
 
 export type TestPredicateAbiInputs = [password: BigNumberish];
 
