@@ -30,6 +30,8 @@ export default function App() {
 
   const showAddNetworkButton = wallet && network && network?.url !== NODE_URL;
 
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 
   const tryToAddNetwork = () => {
     return alert(
@@ -87,7 +89,14 @@ export default function App() {
                   return toast.error(
                     "Please connect your wallet to visit the faucet."
                   );
-                navigate("/counter/faucet");
+                if (isSafari && wallet) {
+                  const redirectUrl = new URL("https://faucet-testnet.fuel.network/");
+                  redirectUrl.searchParams.append("address", wallet.address.toString());
+                  redirectUrl.searchParams.append("redirectUrl", window.location.href);
+                  window.location.href = redirectUrl.href;
+                } else {
+                  navigate("/counter/faucet");
+                }
               }}
             >
               Faucet
