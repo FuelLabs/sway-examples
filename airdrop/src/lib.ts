@@ -43,3 +43,5 @@ export const CONTRACT_ID = IS_LOCAL
   : productionContractId["nftContract"];
 
 export const WC_PROJECT_ID = process.env.NEXT_PUBLIC_APP_WC_PROJECT_ID!;
+
+export const PINATA_API_URL="https://api.pinata.cloud"

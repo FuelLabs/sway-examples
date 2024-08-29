@@ -16,7 +16,7 @@ const Provider = dynamic(
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   // NOTE: only apply the nft app layout to the nft app
-  const getLayout = router.route.includes("nft")
+  const getLayout = router.route.includes("nft") || router.route.includes("airdrop") 
     ? getNFTLayout
     : (page: React.ReactElement) => {
         return <>{page}</>;
