@@ -1,6 +1,7 @@
 import { Button } from "@/components/Button";
 import { Input, MultilineInput } from "@/components/Input";
 import { Text } from "@/components/Text";
+import { useDeployAirdrop } from "@/hooks/useDeployAirdrop";
 import { useUploadAirdropData } from "@/hooks/useUploadAirdropData";
 import {
   createMerkleTree,
@@ -8,8 +9,9 @@ import {
   verifyMerkleProof,
 } from "@/utils/merkleTrees";
 import { recipientsParser } from "@/utils/parsers";
+import { useWallet } from "@fuels/react";
 import { TextField } from "@mui/material";
-import { Address } from "fuels";
+import { Address, BytesLike, getRandomB256 } from "fuels";
 import { useCallback, useEffect, useState } from "react";
 
 const parseSRC20Text = (text: string): [string, string][] => {
@@ -33,15 +35,9 @@ const parseSRC20Text = (text: string): [string, string][] => {
 };
 
 export default function Airdrop() {
-  const [assetId, setAssetId] = useState<string>();
+  const [assetId, setAssetId] = useState<string & BytesLike>("");
   const placeholderText =
     "0x00...00, 4\n0x00...00, 4\n0x00...00, 4\n0x00...00, 4\n0x00...00, 4";
-  const [addresses, setAddresses] = useState<
-    {
-      address: string;
-      amount: number;
-    }[]
-  >();
   const [recipients, setRecipients] = useState<
     { address: string; amount: bigint }[]
   >([]);
@@ -52,7 +48,10 @@ export default function Airdrop() {
     return recipientsParser(Number(9)).parse(parseSRC20Text(text));
   }, []);
 
+  const {wallet} = useWallet();
+
   const uploadToipfs = useUploadAirdropData();
+  const { mutate: deployAirdrop, isPending } = useDeployAirdrop();
 
   useEffect(() => {
     if (textValue) {
@@ -72,7 +71,7 @@ export default function Airdrop() {
         Airdrop an SRC20 token
       </Text>
 
-      <Text> Enter Token Address</Text>
+      <Text>Enter Asset Id</Text>
       <Input
         placeholder="0x00...00"
         value={assetId}
@@ -103,9 +102,40 @@ export default function Airdrop() {
 
           // stringifyObj(recipients);
           const { leaves, root, tree } = createMerkleTree(recipients);
+          console.log("root: ", root);
           const { isValid } = verifyMerkleProof(recipients[0], root, tree);
 
           console.log("Merkle proof valid:", isValid);
+
+          const deployRes = await deployAirdrop({
+            storageSlots: [
+              {
+                key: "MERKLE_ROOT",
+                value: getRandomB256()
+                // value: `0x${root}` as string,
+              },
+              {
+                key: "ASSET",
+                value: `0x${assetId}` as string,
+              },
+              {
+                key: "END_TIME",
+                value: "8932748843"
+              },{
+                key: "NUM_LEAVES",
+                value: recipients.length.toString(),
+              },{
+                key: "INITIAL_OWNER",
+                value: wallet?.address.toString() as string,
+              },{
+                key: "INITIAL_SIGNER",
+                value: wallet?.address.toString() as string,
+              },
+            ],
+          });
+
+
+          // console.log("deployRes: ", deployRes);
         }}
       >
         Submit
