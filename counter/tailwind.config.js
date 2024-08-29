@@ -3,6 +3,9 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./index.html",
+    "./node_modules/app-commons/src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/app-commons/tailwind.config.ts",
   ],
   theme: {
     // darkMode: 'selector',

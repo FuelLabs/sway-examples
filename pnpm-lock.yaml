@@ -148,6 +148,9 @@ importers:
       '@wagmi/core':
         specifier: 2.12.2
         version: 2.12.2(@tanstack/query-core@5.52.2)(@types/react@18.3.4)(react@18.3.1)(typescript@5.5.4)(viem@2.20.1(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8))
+      app-commons:
+        specifier: workspace:*
+        version: link:../app-commons
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
