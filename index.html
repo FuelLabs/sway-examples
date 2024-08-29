@@ -67,8 +67,12 @@
     <script>
       window.onload = function() {
         const pathname = window.location.pathname;
+
         const nftLink = document.getElementById("nftLink");
         nftLink.href = `${pathname}nft`
+
+        const fuelLogo = document.getElementById("fuelLogo");
+        fuelLogo.src = `${pathname}fuel-logo-64.png`
       }
     </script>
   </head>
@@ -76,6 +80,7 @@
     <div class="header">
       <img
         src="/fuel-logo-64.png"
+        id="fuelLogo"
         alt="Fuel Logo"
         style="margin-right: 15px"
       />
