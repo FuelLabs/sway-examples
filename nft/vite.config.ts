@@ -3,7 +3,6 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // root: "../",
   base: process.env.VITE_BASE_URL ? `${process.env.VITE_BASE_URL}/nft` : "/",
   build: {
     outDir: process.env.NFT_DIST,
