@@ -3,13 +3,18 @@ import { useMutation } from "@tanstack/react-query";
 import { GATEWAY_URL, PINATA_JWT } from "@/lib";
 
 type UploadRecipientDataParams = {
-  recipients: Array<{ address: string; amount: number }>;
+  recipients: Array<{ address: string; amount: bigint }>;
 };
 
 export const useUploadAirdropData = () => {
   const mutation = useMutation({
     mutationFn: async ({ recipients }: UploadRecipientDataParams) => {
-      const recipientData = JSON.stringify(recipients);
+      // Custom replacer function to handle BigInt values
+      const replacer = (key: string, value: any) => {
+        return typeof value === 'bigint' ? value.toString() : value;
+      };
+
+      const recipientData = JSON.stringify(recipients, replacer);
 
       const formData = new FormData();
       const metaData = JSON.stringify({
@@ -33,12 +38,12 @@ export const useUploadAirdropData = () => {
         headers: {
           "pinata_api_key": process.env.NEXT_PUBLIC_API_Key,
           "pinata_secret_api_key": process.env.NEXT_PUBLIC_API_Secret,
-          Authorizaton: `Bearer ${PINATA_JWT}`,
+          Authorization: `Bearer ${PINATA_JWT}`,
         },
       };
 
       const res = await fetch(
-        "https://api.pinata.cloud" + "/pinning/pinFileToIPFS",
+        "https://api.pinata.cloud/pinning/pinFileToIPFS",
         fetchOptions
       );
       const resData = await res.json();

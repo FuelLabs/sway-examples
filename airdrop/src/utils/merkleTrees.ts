@@ -13,7 +13,12 @@ export const stringifyObj = (obj: Object) => {
 export const createMerkleTree = (
   recipients: { address: string; amount: bigint }[]
 ) => {
-  const leaves = recipients.map((obj) => SHA256(obj));
+  const leaves = recipients.map((recipient) => {
+    // Concatenate address and amount
+    const leafData = `${recipient.address}:${recipient.amount}`;
+    // Hash the concatenated data
+    return SHA256(leafData);
+  });
   const tree = new MerkleTree(leaves, SHA256);
   const root = tree.getRoot().toString("hex");
 
@@ -24,16 +29,24 @@ export const createMerkleTree = (
   return { leaves, tree, root };
 };
 
+// Function to verify a Merkle proof
 export const verifyMerkleProof = (
-  data: any,
+  recipient: { address: string; amount: bigint },
   root: string,
   tree: MerkleTree
 ) => {
-  const hashedData = SHA256(data);
-  const proof = tree.getProof(hashedData);
-  const isValid = tree.verify(proof, hashedData, root);
+  // Concatenate address and amount in the same format as when creating the Merkle tree
+  const leafData = `${recipient.address}:${recipient.amount}`;
+  // Hash the concatenated data to get the leaf
+  const hashedData = SHA256(leafData);
 
-  console.log("proof", proof);
+  // Generate the proof for the hashed leaf
+  const proof = tree.getProof(hashedData);
+
+  // Verify the proof against the Merkle root
+  const isValid = tree.verify(proof, hashedData, Buffer.from(root, "hex"));
+
+  console.log("proof", proof.map((p) => p.data.toString("hex")));
   console.log("isValid", isValid);
-  return {isValid, proof};
+  return { isValid, proof: proof.map((p) => p.data.toString("hex")) };
 };
