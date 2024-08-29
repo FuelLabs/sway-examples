@@ -50,3 +50,10 @@ export const verifyMerkleProof = (
   console.log("isValid", isValid);
   return { isValid, proof: proof.map((p) => p.data.toString("hex")) };
 };
+
+export const generateProof = (recipient: { address: string; amount: bigint }, tree: MerkleTree) => {
+  const leafData = `${recipient.address}:${recipient.amount}`;
+  const hashedData = SHA256(leafData);
+  const proof = tree.getProof(hashedData);
+  return proof.map((p) => p.data.toString("hex"));
+}

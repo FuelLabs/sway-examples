@@ -1,7 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { PINATA_API_URL, PINATA_JWT } from "@/lib";
+import { PinataSDK } from "pinata";
 
-type RecipientData = Array<{ address: string; amount: bigint }>;
+const pinata = new PinataSDK({
+  pinataJwt: PINATA_JWT,
+  pinataGateway: "gateway.pinata.cloud",
+});
+
+export type RecipientData = Array<{ address: string; amount: bigint }>;
 
 export const useGetAirdropData = () => {
   return useQuery<RecipientData>({
@@ -17,25 +23,16 @@ export const useGetAirdropData = () => {
         name: "Airdrop Recipients",
       });
 
-      // const response = await fetch(
-      //   `${PINATA_API_URL}/data/pinList?status=pinned&metadata=${metaData}`,
-      //   options
-      // );
+      const cid = "QmaLkxGHvR4grWchnGjvHF1X2FamgwztG2kV8h3qRN5NLf";
 
-      const cid = "bafybeifqf7ifjxgn2rxoq4vfjzzutynjorfp36rqad3z6lmodr6bnfmlwq"
-      const response = await fetch(`${"https://api.pinata.cloud"}/ipfs/${cid}`, options);
+      const files = await pinata
+      .gateways
+      .get(cid);
 
-      console.log(`response`, response);
 
-      if (response.ok) {
-        const result = await response.text()
-
-        console.log(`result`, result);
-        return result;
-
-        // const airdropData = await response.json();
-        // console.log(`airdropData`, airdropData);
-        // return airdropData.rows;
+      if (files.data) {
+        console.log(`files data`, files);
+        return files.data;
       }
 
       return [];

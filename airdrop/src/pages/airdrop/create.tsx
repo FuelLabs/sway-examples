@@ -13,6 +13,7 @@ import { useWallet } from "@fuels/react";
 import { TextField } from "@mui/material";
 import { Address, BytesLike, getRandomB256 } from "fuels";
 import { useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const parseSRC20Text = (text: string): [string, string][] => {
   const regex = /^0x[a-fA-F0-9]{64}(?= ?[^ ])([=,]?) *(\d*(\.\d*)?)$/;
@@ -60,7 +61,7 @@ export default function Airdrop() {
       } catch (e) {
         setRecipients([]);
         console.error(e);
-        // toast.error("There was an error parsing addresses");
+        toast.error("There was an error parsing addresses");
       }
     }
   }, [textValue]);

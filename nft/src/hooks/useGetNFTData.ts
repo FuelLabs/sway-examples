@@ -26,7 +26,7 @@ export const useGetNFTData = (filter?: PinataMetadataFilter, skipFetch?: boolean
       const metadata = filter ? `&metadata[keyvalues]=${JSON.stringify(filter?.keyvalues)}` : "";
 
       const response = await fetch(
-        `${PINATA_API_URL}/data/pinList?status=pinned${metadata}`,
+        `${"https://gateway.pinata.cloud"}/ipfs/${metadata}`,
         options
       );
 
