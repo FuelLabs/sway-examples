@@ -108,35 +108,44 @@ export default function Airdrop() {
           console.log("Merkle proof valid:", isValid);
 
           const deployRes = await deployAirdrop({
-            // storageSlots: [
-            //   {
-            //     key: "02dac99c283f16bc91b74f6942db7f012699a2ad51272b15207b9cc14a70dbae",
-            //     value: getRandomB256()
-            //     // value: `0x${root}` as string,
-            //   },
-            //   {
-            //     key: "6294951dcb0a9111a517be5cf4785670ff4e166fb5ab9c33b17e6881b48e964f",
-            //     value: getRandomB256()
-            //     // value: `0x${assetId}` as string,
-            //   },
-            //   {
-            //     key: "94b2b70d20da552763c7614981b2a4d984380d7ed4e54c01b28c914e79e44bd5",
-            //     value: "8932748843"
-            //   },{
-            //     key: "94b2b70d20da552763c7614981b2a4d984380d7ed4e54c01b28c914e79e44bd6",
-            //     value: recipients.length.toString(),
-            //   },{
-            //     key: "de9090cb50e71c2588c773487d1da7066d0c719849a7e58dc8b6397a25c567c0",
-            //     value: wallet?.address.toString() as string,
-            //   },{
-            //     key: "de9090cb50e71c2588c773487d1da7066d0c719849a7e58dc8b6397a25c567c1",
-            //     value: wallet?.address.toString() as string,
-            //   },
-            // ],
+            storageSlots: [
+              {
+                "key": "02dac99c283f16bc91b74f6942db7f012699a2ad51272b15207b9cc14a70dbae",
+                "value": getRandomB256()
+              },
+              {
+                "key": "6294951dcb0a9111a517be5cf4785670ff4e166fb5ab9c33b17e6881b48e964f",
+                "value": getRandomB256()
+              },
+              {
+                "key": "94b2b70d20da552763c7614981b2a4d984380d7ed4e54c01b28c914e79e44bd5",
+                "value": "4000000000000000000000000000000000000000000000000000000000000000"
+              },
+              {
+                "key": "94b2b70d20da552763c7614981b2a4d984380d7ed4e54c01b28c914e79e44bd6",
+                "value": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              {
+                "key": "de9090cb50e71c2588c773487d1da7066d0c719849a7e58dc8b6397a25c567c0",
+                "value": wallet?.address.toB256() as string,
+              },
+              {
+                "key": "de9090cb50e71c2588c773487d1da7066d0c719849a7e58dc8b6397a25c567c1",
+                "value": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              {
+                "key": "f383b0ce51358be57daa3b725fe44acdb2d880604e367199080b4379c41bb6ed",
+                "value": wallet?.address.toB256() as string,
+              },
+              {
+                "key": "f383b0ce51358be57daa3b725fe44acdb2d880604e367199080b4379c41bb6ee",
+                "value": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            ],
           });
 
 
-          // console.log("deployRes: ", deployRes);
+          console.log("deployRes: ", deployRes);
         }}
       >
         Submit
