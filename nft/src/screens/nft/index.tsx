@@ -3,7 +3,6 @@ import { NFTGrid } from "components/NFTGrid";
 
 
 export default function Explore() {
-  console.log("EXLPOREEEEEE");
   const { data, isPending } = useGetNFTData();
 
   return (

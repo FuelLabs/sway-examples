@@ -11,12 +11,6 @@ import Address from "./screens/nft/collection/address";
 import Mint from "./screens/nft/mint/id/fileId";
 
 export const App = () => {
-  console.log("APPPPPPP");
-
-  console.log(`window.location.href`, window.location.href);
-  console.log(`window.location.pathname`, window.location.pathname);
-  console.log(`import.meta.env.VITE_BASE_URL`, import.meta.env.VITE_BASE_URL);
-  console.log(`import.meta.env.BASE_URL`, import.meta.env.BASE_URL);
   
   return (
     <Routes>

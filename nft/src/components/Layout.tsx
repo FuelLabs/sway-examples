@@ -15,14 +15,12 @@ import ExploreIcon from '@mui/icons-material/ExploreOutlined';
 import AddBoxIcon from '@mui/icons-material/AddBoxOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircleOutlined';
 
-import { faucetUrl } from "src/utils/url";
 import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
 import { FuelLogo } from "./FuelLogo";
   
 const TOP_UP_AMOUNT = 100_000_000;
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
-  console.log("Layout");
   const { faucetWallet } = useFaucet();
   const { wallet, network, walletBalance, refetchBalance, isConnected } =
     useActiveWallet();

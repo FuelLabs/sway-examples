@@ -4,7 +4,6 @@ import { Text } from "components/Text";
 import { Box, Grid, Stack } from "@mui/material";
 
 export default function Home() {
-  console.log("home");
   return (
     <Stack className="w-full">
       <nav
