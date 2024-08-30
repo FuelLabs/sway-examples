@@ -1,8 +1,9 @@
 import stringify from "json-stable-stringify";
 import { MerkleTree } from "merkletreejs";
 import SHA256 from "crypto-js/sha256";
+import { arrayify } from "fuels";
 
-import keccak256 from "keccak256"
+import keccak256 from "keccak256";
 
 export const stringifyObj = (obj: Object) => {
   const result = stringify(obj);
@@ -46,14 +47,21 @@ export const verifyMerkleProof = (
   // Verify the proof against the Merkle root
   const isValid = tree.verify(proof, hashedData, Buffer.from(root, "hex"));
 
-  console.log("proof", proof.map((p) => p.data.toString("hex")));
+  console.log(
+    "proof",
+    proof.map((p) => p.data.toString("hex"))
+  );
   console.log("isValid", isValid);
   return { isValid, proof: proof.map((p) => p.data.toString("hex")) };
 };
 
-export const generateProof = (recipient: { address: string; amount: bigint }, tree: MerkleTree) => {
+export const generateProof = (
+  recipient: { address: string; amount: bigint },
+  tree: MerkleTree
+) => {
   const leafData = `${recipient.address}:${recipient.amount}`;
   const hashedData = SHA256(leafData);
   const proof = tree.getProof(hashedData);
-  return proof.map((p) => p.data.toString("hex"));
-}
+  return proof
+    .map((p) => `0x${p.data.toString("hex")}`)
+};
