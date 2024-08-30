@@ -3,6 +3,7 @@ import { MerkleTree } from "merkletreejs";
 import SHA256 from "crypto-js/sha256";
 
 import keccak256 from "keccak256"
+import { hexlify } from "fuels";
 
 export const stringifyObj = (obj: Object) => {
   const result = stringify(obj);
@@ -55,5 +56,5 @@ export const generateProof = (recipient: { address: string; amount: bigint }, tr
   const leafData = `${recipient.address}:${recipient.amount}`;
   const hashedData = SHA256(leafData);
   const proof = tree.getProof(hashedData);
-  return proof.map((p) => p.data.toString("hex"));
+  return proof.map((p) => `0x${p.data.toString("hex")}`);
 }
