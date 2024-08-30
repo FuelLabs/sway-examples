@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PINATA_API_URL, PINATA_JWT } from "@/lib";
 import { PinataSDK } from "pinata";
 
-const pinata = new PinataSDK({
+export const pinata = new PinataSDK({
   pinataJwt: PINATA_JWT,
   pinataGateway: "gateway.pinata.cloud",
 });

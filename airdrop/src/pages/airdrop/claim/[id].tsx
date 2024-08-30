@@ -57,7 +57,9 @@ export default function ClaimAirdrop() {
       account: wallet?.address.toB256() as unknown as string,
       treeIndex: treeIndex as number,
       proof,
-      recipient: wallet?.address.toB256() as unknown as IdentityInput,
+      recipient: {
+        Address: { bits: wallet?.address.toB256() },
+      },
     });
   };
 
