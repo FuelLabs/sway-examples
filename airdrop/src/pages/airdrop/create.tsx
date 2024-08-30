@@ -2,7 +2,8 @@ import { Button } from "@/components/Button";
 import { Input, MultilineInput } from "@/components/Input";
 import { Text } from "@/components/Text";
 import { useDeployAirdrop } from "@/hooks/useDeployAirdrop";
-import { useUploadAirdropData } from "@/hooks/useUploadAirdropContractId";
+import { useUploadAirdropData } from "@/hooks/useUploadAirdropData";
+
 // import { useUploadAirdropData } from "@/hooks/useUploadAirdropData";
 import {
   createMerkleTree,

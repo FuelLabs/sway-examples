@@ -1,15 +1,12 @@
 import { HomeCard } from "@/components/HomeCard";
 import { Text } from "@/components/Text";
-import { useGetAirdropData } from "@/hooks/useGetAirdropContractId";
+import { useGetAirdropData } from "@/hooks/useGetAirdropData";
+
 import { Grid } from "@mui/material";
 import { useEffect } from "react";
 
 export default function Claim() {
-  const {
-    data: airdropData,
-    isFetching,
-    isError,
-  } = useGetAirdropData();
+  const { data: airdropData, isFetching, isError } = useGetAirdropData();
 
   useEffect(() => {
     console.log("airdropData: ", airdropData);
@@ -37,10 +34,14 @@ export default function Claim() {
             {airdropData?.map(({ contractId, recipients }, index) => (
               <Grid className="m-3">
                 <HomeCard
-                  title={"Airdrop " + index + 1}
-                  href={`/airdrop/claim/${contractId}?recipient=${recipients}`}
+                  title={"Airdrop " + (index + 1)}
+                  href={`/airdrop/claim/${contractId}?recipient=${JSON.stringify(
+                    recipients
+                  )}`}
                 >
-                  <Text key={index}>{contractId.slice(0,10)}....{contractId.slice(-3)}</Text>
+                  <Text key={index}>
+                    {contractId.slice(0, 10)}....{contractId.slice(-3)}
+                  </Text>
                 </HomeCard>
               </Grid>
             ))}

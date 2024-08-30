@@ -5,31 +5,34 @@ import { Text } from "@/components/Text";
 import { IdentityInput } from "@/contract-types/aidrop-contracts/contracts/AirdropContract";
 import { Vec } from "@/contract-types/aidrop-contracts/contracts/common";
 import { useClaimAirdrop } from "@/hooks/useClaimAirdrop";
-import { RecipientData, useGetAirdropData } from "@/hooks/useGetAirdropData";
 import { createMerkleTree, generateProof } from "@/utils/merkleTrees";
 import { useWallet } from "@fuels/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from "next/navigation";
+
+export type RecipientData = Array<{ address: string; amount: bigint }>;
 
 export default function ClaimAirdrop() {
-  const {query} = useRouter();
+  const { query } = useRouter();
   const contractId = query.id as string;
-  const recipients = useSearchParams().get('recipients');
+  const recipients = JSON.parse(useSearchParams().get("recipient") as string);
 
-  const { data: airdropData } = useGetAirdropData();
+  // const { data: airdropData } = useGetAirdropData();
   const { mutate } = useClaimAirdrop();
   const [isRecipient, setIsRecipient] = useState<{
     address: string;
     amount: bigint;
-  }>(recipients as unknown as { address: string; amount: bigint });
+  }>();
   const [treeIndex, setTreeIndex] = useState<number>();
   const { wallet } = useWallet();
 
+  console.log("recipients", recipients);
+
   useEffect(() => {
-    if (airdropData && wallet) {
-      (airdropData as RecipientData)?.find((recipient, index) => {
+    if (recipients && wallet) {
+      (recipients as RecipientData)?.find((recipient, index) => {
         const temp =
           recipient.address === (wallet?.address.toB256() as unknown as string);
         if (temp) {
@@ -39,7 +42,7 @@ export default function ClaimAirdrop() {
         return temp;
       });
     }
-  }, [airdropData, wallet]);
+  }, [wallet]);
 
   const claimHandler = async () => {
     if (!wallet) {
@@ -52,7 +55,7 @@ export default function ClaimAirdrop() {
       return;
     }
 
-    const { tree } = createMerkleTree(airdropData as RecipientData);
+    const { tree } = createMerkleTree(recipients as RecipientData);
     const proof = generateProof(isRecipient, tree);
 
     console.log("proof:", proof);
