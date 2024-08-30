@@ -1,7 +1,7 @@
 import stringify from "json-stable-stringify";
 import { MerkleTree } from "merkletreejs";
 import SHA256 from "crypto-js/sha256";
-import { arrayify } from "fuels";
+import { hexlify } from "fuels";
 
 import keccak256 from "keccak256";
 
