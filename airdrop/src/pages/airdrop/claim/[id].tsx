@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
+import { formatUnits } from "viem";
 
 export type RecipientData = Array<{ address: string; amount: bigint }>;
 
@@ -31,6 +32,7 @@ export default function ClaimAirdrop() {
   console.log("recipients", recipients);
 
   useEffect(() => {
+    console.log({ wallet });
     if (recipients && wallet) {
       (recipients as RecipientData)?.find((recipient, index) => {
         const temp =
@@ -72,8 +74,8 @@ export default function ClaimAirdrop() {
   };
 
   return (
-    <div>
-      <Text variant="h4" sx={{ paddingBottom: "28px", width: "full" }}>
+    <div className="w-full text-center flex flex-col justify-center">
+      <Text variant="h4" sx={{ paddingBottom: "28px", textAlign: "center" }}>
         Claim Airdrop
       </Text>
       {!wallet ? (
@@ -82,8 +84,10 @@ export default function ClaimAirdrop() {
         <Text>You are not eligible for the airdrop</Text>
       ) : (
         <>
-          <Text>Your Allocations: {Number(isRecipient.amount)}</Text>
-          <Button onClick={claimHandler} className="my-8">
+          <Text textAlign={"center"}>
+            Your Allocations: {Number(formatUnits(isRecipient.amount, 9))}
+          </Text>
+          <Button onClick={claimHandler} className="my-8 mx-auto text-center">
             Claim Airdrop
           </Button>
         </>

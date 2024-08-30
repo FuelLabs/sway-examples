@@ -1,12 +1,15 @@
+import { Button } from "@/components/Button";
 import { HomeCard } from "@/components/HomeCard";
 import { Text } from "@/components/Text";
 import { useGetAirdropData } from "@/hooks/useGetAirdropData";
 
 import { Grid } from "@mui/material";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export default function Claim() {
   const { data: airdropData, isFetching, isError } = useGetAirdropData();
+  const router = useRouter();
 
   useEffect(() => {
     console.log("airdropData: ", airdropData);
@@ -26,6 +29,9 @@ export default function Claim() {
       )}
       {!isFetching && !isError && airdropData && (
         <div className="min-h-screen items-center p-20 flex flex-col gap-6">
+          <Button onClick={() => router.push("/airdrop/create")}>
+            Create New Airdrop
+          </Button>
           <Text variant="h4" sx={{ paddingBottom: "28px", width: "full" }}>
             Below are the open Airdrops
           </Text>
