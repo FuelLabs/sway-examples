@@ -1,8 +1,4 @@
-import {
-  AirdropContract,
-  AirdropContractFactory,
-} from "@/contract-types/aidrop-contracts/contracts";
-import { IdentityInput } from "@/contract-types/aidrop-contracts/contracts/AirdropContract";
+import { AirdropContract, IdentityInput } from "@/contract-types/contracts/AirdropContract";
 import { useWallet } from "@fuels/react";
 import { useMutation } from "@tanstack/react-query";
 import { AbstractAddress } from "fuels";
