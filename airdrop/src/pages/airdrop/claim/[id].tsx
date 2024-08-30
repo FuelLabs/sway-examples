@@ -11,17 +11,19 @@ import { useWallet } from "@fuels/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useSearchParams } from 'next/navigation'
 
 export default function ClaimAirdrop() {
   const {query} = useRouter();
   const contractId = query.id as string;
+  const recipients = useSearchParams().get('recipients');
 
   const { data: airdropData } = useGetAirdropData();
   const { mutate } = useClaimAirdrop();
   const [isRecipient, setIsRecipient] = useState<{
     address: string;
     amount: bigint;
-  }>();
+  }>(recipients as unknown as { address: string; amount: bigint });
   const [treeIndex, setTreeIndex] = useState<number>();
   const { wallet } = useWallet();
 
@@ -77,7 +79,7 @@ export default function ClaimAirdrop() {
         <Text>You are not eligible for the airdrop</Text>
       ) : (
         <>
-          <Text>Your Allocations: 2000</Text>
+          <Text>Your Allocations: {Number(isRecipient.amount)}</Text>
           <Button onClick={claimHandler} className="my-8">
             Claim Airdrop
           </Button>

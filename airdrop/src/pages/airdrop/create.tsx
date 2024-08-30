@@ -2,8 +2,8 @@ import { Button } from "@/components/Button";
 import { Input, MultilineInput } from "@/components/Input";
 import { Text } from "@/components/Text";
 import { useDeployAirdrop } from "@/hooks/useDeployAirdrop";
-import { useUploadContractId } from "@/hooks/useUploadAirdropContractId";
-import { useUploadAirdropData } from "@/hooks/useUploadAirdropData";
+import { useUploadAirdropData } from "@/hooks/useUploadAirdropContractId";
+// import { useUploadAirdropData } from "@/hooks/useUploadAirdropData";
 import {
   createMerkleTree,
   stringifyObj,
@@ -52,22 +52,23 @@ export default function Airdrop() {
 
   const { wallet } = useWallet();
 
-  const uploadToipfs = useUploadAirdropData();
+  // const {mutateAsync, data: ipfsData, isSuccess: uploadToIpfsSuccess} = useUploadAirdropData();
   const {
     mutate: deployAirdrop,
     isSuccess: deployAirdropSuccess,
     data,
   } = useDeployAirdrop();
 
-  const { mutate: uplodadContractId } = useUploadContractId();
+  const { mutate: uploadAirdropData } = useUploadAirdropData();
 
   useEffect(() => {
     if (deployAirdropSuccess && data?.contractId) {
-      uplodadContractId({
+      uploadAirdropData({
         contractId: data?.contractId,
+        recipients
       });
     }
-  }, [deployAirdropSuccess]);
+  }, [deployAirdropSuccess, data]);
 
   useEffect(() => {
     if (textValue) {
@@ -109,12 +110,6 @@ export default function Airdrop() {
         className="m-auto w-fit"
         onClick={async () => {
           console.log("recipients", recipients);
-
-          // uploading to ipfs
-          const data = await uploadToipfs?.mutateAsync({
-            recipients,
-          });
-          console.log("data from ipfs: ", data);
 
           // stringifyObj(recipients);
           const { leaves, root, tree } = createMerkleTree(recipients);

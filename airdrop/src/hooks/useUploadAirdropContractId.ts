@@ -3,28 +3,36 @@ import { useMutation } from "@tanstack/react-query";
 import { AbstractAddress } from "fuels";
 import toast from "react-hot-toast";
 
-export const useUploadContractId = () => {
+export type useUploadAirdropDataParams = {
+  contractId: AbstractAddress | string;
+  recipients: Array<{ address: string; amount: bigint }>;
+};
+
+export const useUploadAirdropData = () => {
   const mutation = useMutation({
     mutationFn: async ({
       contractId,
-    }: {
-      contractId: AbstractAddress | string;
-    }) => {
-      const contractData = JSON.stringify({ contractId });
+      recipients,
+    }: useUploadAirdropDataParams) => {
+      // Custom replacer function to handle BigInt values
+      const replacer = (key: string, value: any) => {
+        return typeof value === "bigint" ? value.toString() : value;
+      };
+      const airdropData = JSON.stringify({ contractId, recipients }, replacer);
 
       const formData = new FormData();
       const metaData = JSON.stringify({
-        name: "Airdrop ContractId",
+        name: "AirdropData",
       });
 
       formData.append("pinataMetadata", metaData);
-      formData.append("data", contractData);
+      formData.append("data", airdropData);
 
       const options = JSON.stringify({ cidVersion: 0 });
       formData.append("pinataOptions", options);
 
-      const blob = new Blob([contractData], { type: "application/json" });
-      formData.append("file", blob, "contractId.json");
+      const blob = new Blob([airdropData], { type: "application/json" });
+      formData.append("file", blob, "airdropData.json");
 
       const fetchOptions = {
         method: "POST",
