@@ -8,10 +8,14 @@ import { useClaimAirdrop } from "@/hooks/useClaimAirdrop";
 import { RecipientData, useGetAirdropData } from "@/hooks/useGetAirdropData";
 import { createMerkleTree, generateProof } from "@/utils/merkleTrees";
 import { useWallet } from "@fuels/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function ClaimAirdrop() {
+  const {query} = useRouter();
+  const contractId = query.id as string;
+
   const { data: airdropData } = useGetAirdropData();
   const { mutate } = useClaimAirdrop();
   const [isRecipient, setIsRecipient] = useState<{
@@ -51,8 +55,7 @@ export default function ClaimAirdrop() {
 
     console.log("proof:", proof);
     mutate({
-      contractId:
-        "0xa857304d0215a3814161807bc5cfc845744ea6baa4c19cfaab534e861399e467",
+      contractId,
       amount: isRecipient?.amount as unknown as number,
       account: wallet?.address.toB256() as unknown as string,
       treeIndex: treeIndex as number,

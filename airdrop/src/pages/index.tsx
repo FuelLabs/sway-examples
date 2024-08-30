@@ -25,6 +25,11 @@ export default function Home() {
             </HomeCard>
           </Grid>
          
+          <Grid item>
+            <HomeCard href="/airdrop/" title="Airdrop tokens">
+            Create and Claim SRC20 token airdrops on the Fuel network.
+            </HomeCard>
+          </Grid>
           
         </Grid>
       </div>

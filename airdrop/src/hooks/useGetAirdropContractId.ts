@@ -34,10 +34,11 @@ export const useGetAirdropContractId = () => {
       );
       console.log(
         "final contractIds from useGetAirdropContractId pinatasdk: ",
-        contractIds
+        {contractIds}
       );
 
-      return contractIds;
+      if (contractIds) return contractIds;
+      return [];
     },
   });
 };

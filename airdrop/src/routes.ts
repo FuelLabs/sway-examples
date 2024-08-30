@@ -3,5 +3,5 @@ export const NFTRoutes = {
     create: "/nft/create",
     collection: "/nft/collection",
     faucet: "/nft/faucet",
-    airdrop: "/nft/airdrop",
+    airdrop: "/airdrop/",
 }
