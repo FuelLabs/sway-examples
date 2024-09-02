@@ -15,7 +15,6 @@ import ExploreIcon from '@mui/icons-material/ExploreOutlined';
 import AddBoxIcon from '@mui/icons-material/AddBoxOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircleOutlined';
 
-import { faucetUrl } from "src/utils/url";
 import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
 import { FuelLogo } from "./FuelLogo";
   

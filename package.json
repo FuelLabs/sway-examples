@@ -15,7 +15,7 @@
     "url": "https://github.com/FuelLabs/sway-examples/issues"
   },
   "scripts": {
-    "build:preview": "node ./scripts/build-website/index.mjs",
+    "build:preview": "node ./app-commons/scripts/build-website/index.mjs",
     "build:all": "turbo run build:all",
     "start": "turbo run start",
     "dev": "turbo run dev",
