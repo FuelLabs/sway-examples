@@ -1,0 +1,42 @@
+name: Publish to Github Pages
+
+on:
+  push:
+    branches: ["master"]
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.7
+          run_install: true
+
+      - name: Build
+        run: pnpm build:preview
+        env:
+          VITE_BASE_URL: /sway-examples/pr-preview/pr-${{ github.event.number }}
+          VITE_PUBLIC_DAPP_ENVIRONMENT: testnet
+          VITE_PINATA_JWT: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJkODEwNDc5Zi1lYjk5LTQyNmMtOGMzMy02ZmU1Yjk1ZTVjYTIiLCJlbWFpbCI6Im1kYXVlcjMzM0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJpZCI6IkZSQTEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX0seyJpZCI6Ik5ZQzEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiNjY0NzllYmFiMDFlOTEwMWJhYmUiLCJzY29wZWRLZXlTZWNyZXQiOiJmMDhiODk1NjVmNDQ0NjE5ZWZiMmM1NGNjOTEwN2E1ZWQ5NTI5OTgwYmZiMTAzOGYwZjc1NGVjNTkxNTE3OGY1IiwiaWF0IjoxNzE3MDE0NzQ1fQ.GvOu2LjeyyP4zE9_d9v8XUNV_Wgh595QTEy2kZa6Psk
+          VITE_PUBLIC_GATEWAY_URL: https://fuchsia-bizarre-butterfly-560.mypinata.cloud
+          VITE_APP_WC_PROJECT_ID: e64002d84b020b9ae5eda323dd191093
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./dist/
+          branch: gh-pages
+          clean-exclude: pr-preview
+          force: false

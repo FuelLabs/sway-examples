@@ -1,16 +1,15 @@
 import react from "@vitejs/plugin-react";
-import vercel from "vite-plugin-vercel";
 import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  //root: "../",
-  base: "./",
-  // build: {
-  //   outDir: process.env.NFT_DIST,
-  //   minify: false,
-  // },
-  plugins: [react(), vercel()],
+  base: process.env.VITE_BASE_URL ? `${process.env.VITE_BASE_URL}/nft` : "/",
+  build: {
+    outDir: process.env.NFT_DIST,
+    minify: false,
+    emptyOutDir: true,
+  },
+  plugins: [react()],
   resolve: {
     alias: {
       src: "/src",
