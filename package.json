@@ -2,7 +2,6 @@
   "name": "sway-examples",
   "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@7.6.2",
   "description": "Sway Examples",
   "author": "Fuel Labs <contact@fuel.sh> (https://fuel.network/)",
   "homepage": "https://github.com/FuelLabs/sway-examples",
