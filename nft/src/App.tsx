@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
+import { VITE_BASE_URL } from "./lib";
 import { Layout } from "./components/Layout";
-import Home from "./screens";
 import { NFTRoutes } from "./routes";
 import Explore from "./screens/nft";
 import Create from "./screens/nft/create";
@@ -14,8 +14,7 @@ export const App = () => {
   
   return (
     <Routes>
-      <Route path={import.meta.env.VITE_BASE_URL} element={<Layout />}>
-        <Route index element={<Explore />} />
+      <Route path={VITE_BASE_URL} element={<Layout />}>
         <Route path={NFTRoutes.explore} element={<Explore />} />
         <Route path={NFTRoutes.create} element={<Create />} />
         <Route path={NFTRoutes.faucet} element={<Faucet />} />

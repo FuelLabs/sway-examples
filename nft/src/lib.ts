@@ -4,6 +4,8 @@ import contractId from "./contract-types/contract-ids.json";
 
 type DappEnvironment = "local" | "testnet";
 
+export const VITE_BASE_URL = process.env.VITE_BASE_URL ?? import.meta.env.VITE_BASE_URL ?? "";
+
 export const IS_PROD = import.meta.env.NODE_ENV === "production";
 
 export const PINATA_JWT = import.meta.env.VITE_PINATA_JWT;

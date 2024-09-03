@@ -1,10 +1,11 @@
 import { Text } from "components/Text";
 import { useActiveWallet } from "hooks/useActiveWallet";
 import { TESTNET_FAUCET_LINK } from "src/lib";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Faucet() {
-  const { wallet, refetchBalance } = useActiveWallet();
+  const { wallet, refetchBalance, walletBalance } = useActiveWallet();
+  const [initialBalance, setInitialBalance] = useState(walletBalance);
 
   useEffect(() => {
     const interval = setInterval(refetchBalance, 500);

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"; 
 
-import { GATEWAY_URL } from "src/lib";
+import { GATEWAY_URL, VITE_BASE_URL } from "src/lib";
 import { NFTImage } from "./NFTImage";
 import { Text } from "./Text";
 
@@ -23,12 +23,14 @@ export const NFTCard = ({
 }: NFTCardProps) => {
   const navigate = useNavigate();
 
+  console.log(`import.meta.env`, import.meta.env);
+
   return (
     <div
       className="bg-white/[.08] hover:bg-white/10 group transition-all shadow-elevation-1 duration-200 hover:-translate-y-1 hover:shadow-elevation-2 rounded-2xl overflow-hidden cursor-pointer"
       onClick={() => {
         navigate(
-          `/nft/mint/${cid}/${fileCid}?nftName=${nftName}&nftDescription=${nftDescription}&nftSubId=${nftSubId}`
+          `${VITE_BASE_URL ?? ""}/nft/mint/${cid}/${fileCid}?nftName=${nftName}&nftDescription=${nftDescription}&nftSubId=${nftSubId}`
         );
       }}
     >
