@@ -27,7 +27,7 @@
 
 This repository is designed to showcase full-stack examples of the Sway Language that users can reference. 
 
-All examples are maintained by official Sway contributors and will be kept up to date with the latest working version of the Fuel development stack. Each application includes a functional Sway program, a frontend using the ts-sdk, and tests written in Rust.
+All examples are maintained by official Sway contributors and will be kept up to date with the latest working version of the Fuel development stack. Each application includes a functional Sway program, a frontend using Typescript, and tests written in Rust, all with the help of the SDKs.
 
 ## Examples
 
@@ -53,7 +53,7 @@ All examples are maintained by official Sway contributors and will be kept up to
 
 ## Using an Example
 
-Navigate to the directory of the example you want to explore and follow the instructions in the README.md file to install, build, and deploy the application. This repository is intended to be an up-to-date resource on specific blockchain building topics.
+Go to the directory or click the example in which you want to explore. Follow the instructions in the README.md file to install, build, and deploy the example application. This repository is intended to be an up-to-date resource on various blockchain building topics from minting and burning to using merkle trees.
 
 ## Contributing
 
