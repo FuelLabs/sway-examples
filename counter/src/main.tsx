@@ -9,7 +9,7 @@ import { OnboardingFlow } from "app-commons";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AppProvider>
-      <Toaster />
+      <Toaster position="bottom-center" />
       <OnboardingFlow container={() => document.getElementById("root")} />
       <App />
     </AppProvider>

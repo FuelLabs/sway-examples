@@ -1,25 +1,26 @@
+import React from 'react';
 import { useConnectUI, useDisconnect } from "@fuels/react";
-import { Button } from "./components/Button";
+import { Button } from "../components/Button";
 import toast, { Toaster } from "react-hot-toast";
-import { useActiveWallet } from "./hooks/useActiveWallet";
-import { WalletDisplay } from "./components/WalletDisplay";
-import { NODE_URL } from "./lib";
+import { useActiveWallet } from "../hooks/useActiveWallet";
+import { WalletDisplay } from "../components/WalletDisplay";
+import { NODE_URL } from "../lib";
 import {
   Routes,
   Route,
   Link,
   useNavigate,
 } from "react-router-dom";
-import Home from "./pages/Counter";
-import PredicateExample from "./pages/Predicate";
-import ScriptExample from "./pages/Script";
-import Faucet from "./pages/Faucet";
-import { useBreakpoints } from "./hooks/useBreakpoints";
-import { NavMenu } from "./components/NavMenu";
-import ThemeToggle from "./components/ThemeToggle";
+import Home from "../pages/Counter";
+import PredicateExample from "../pages/Predicate";
+import ScriptExample from "../pages/Script";
+import Faucet from "../pages/Faucet";
+import { useBreakpoints } from "../hooks/useBreakpoints";
+import { NavMenu } from "../components/NavMenu";
+import ThemeToggle from "../components/ThemeToggle";
 import { useEffect, useState } from "react";
 
-export default function App() {
+export default function Layout() {
   const { wallet, network, isConnected } =
     useActiveWallet();
   const { connect } = useConnectUI();
@@ -60,7 +61,7 @@ export default function App() {
         <nav className="flex justify-between items-center p-4 bg-background text-text-primary gap-6">
           {!isMobile && (
             <>
-              <Link className="text-fuel-green hover:underline" to={`${import.meta.env.VITE_BASE_URL}/counter`}>
+              <Link className="text-fuel-green hover:underline" to="/counter">
                 Home
               </Link>
               <Link
@@ -94,7 +95,7 @@ export default function App() {
                   redirectUrl.searchParams.append("redirectUrl", window.location.href);
                   window.location.href = redirectUrl.href;
                 } else {
-                  navigate(`${import.meta.env.VITE_BASE_URL}/counter/faucet`);
+                  navigate("/counter/faucet");
                 }
               }}
             >
@@ -114,10 +115,10 @@ export default function App() {
         </nav>
         <div className="min-h-screen items-center justify-center flex flex-col gap-6">
           <Routes>
-            <Route path={`${import.meta.env.VITE_BASE_URL}/counter`} element={<Home />} />
-            <Route path={`${import.meta.env.VITE_BASE_URL}/counter/predicate`} element={<PredicateExample />} />
-            <Route path={`${import.meta.env.VITE_BASE_URL}/counter/script`} element={<ScriptExample />} />
-            <Route path={`${import.meta.env.VITE_BASE_URL}/counter/faucet`} element={<Faucet />} />
+            <Route index path="/counter" element={<Home />} />
+            <Route path="/counter/predicate" element={<PredicateExample />} />
+            <Route path="/counter/script" element={<ScriptExample />} />
+            <Route path="/counter/faucet" element={<Faucet />} />
           </Routes>{" "}
         </div>
       </div>
