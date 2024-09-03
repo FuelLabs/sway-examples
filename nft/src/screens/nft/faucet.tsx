@@ -2,7 +2,7 @@ import { Text } from "components/Text";
 import { useActiveWallet } from "hooks/useActiveWallet";
 import { TESTNET_FAUCET_LINK, VITE_BASE_URL } from "src/lib";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, redirect } from "react-router-dom";
 import { NFTRoutes } from "src/routes";
 
 export default function Faucet() {
