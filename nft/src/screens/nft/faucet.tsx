@@ -10,8 +10,6 @@ export default function Faucet() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(`location`, location);
-
   useEffect(() => {
     const interval = setInterval(refetchBalance, 500);
     return () => clearInterval(interval);
