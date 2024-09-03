@@ -6,7 +6,10 @@ type DappEnvironment = "local" | "testnet";
 
 const getEnv = () => {
   try {
-    return process.env;
+    if (process.env) {
+      return process.env
+    }
+    return import.meta.env;
   } catch {
     console.log("in first catch")
     try {
