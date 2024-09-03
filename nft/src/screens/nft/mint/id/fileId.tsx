@@ -109,7 +109,7 @@ export default function Mint() {
         ) : minterAddress ? (
           <p className="text-sm text-white/70">
             NFT minted by{" "}
-            <Link href={`/nft/collection/${minterAddress}`}>
+            <Link href={`nft/collection/${minterAddress}`}>
               {getTruncatedAddress(
                 nftData?.[0].metadata.keyvalues.minter as string
               )}

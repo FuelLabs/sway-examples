@@ -9,12 +9,10 @@ import { ConnectButton } from "./ConnectButton";
 import { NavMenu } from "./NavMenu";
 import { NFTRoutes } from "src/routes";
 import { useBreakpoints } from "hooks/useBreakpoints";
-import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ExploreIcon from "@mui/icons-material/ExploreOutlined";
 import AddBoxIcon from "@mui/icons-material/AddBoxOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircleOutlined";
-import { useEffect } from "react";
 
 import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
 import { FuelLogo } from "./FuelLogo";
