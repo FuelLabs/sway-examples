@@ -10,8 +10,6 @@ import Collection from "./screens/nft/collection";
 import Address from "./screens/nft/collection/address";
 import Mint from "./screens/nft/mint/id/fileId";
 
-console.log(`VITE_BASE_URL`, VITE_BASE_URL);
-
 export const App = () => {
   
   return (

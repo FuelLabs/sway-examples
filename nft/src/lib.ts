@@ -21,8 +21,6 @@ const getEnv = () => {
 
 const env = getEnv();
 
-console.log(`env`, env);
-
 export const VITE_BASE_URL = env.VITE_BASE_URL ?? "";
 
 export const IS_PROD = env.NODE_ENV === "production";
