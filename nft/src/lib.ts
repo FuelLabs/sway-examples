@@ -8,7 +8,9 @@ const getEnv = () => {
   try {
     return process.env;
   } catch {
+    console.log("in first catch")
     try {
+      console.log("in second catch");
       return import.meta.env;
     } catch (e) {
       throw e;
