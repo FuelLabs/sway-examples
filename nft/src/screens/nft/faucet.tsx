@@ -26,7 +26,7 @@ export default function Faucet() {
       if (redirectUrl.includes("faucet")) {
         redirectUrl = NFTRoutes.explore;
       }
-      navigate(`${VITE_BASE_URL}${redirectUrl}`);
+      navigate(`${redirectUrl}`);
     }
   }, [walletBalance]);
 
