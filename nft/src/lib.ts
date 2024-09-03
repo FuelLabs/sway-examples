@@ -4,7 +4,20 @@ import contractId from "./contract-types/contract-ids.json";
 
 type DappEnvironment = "local" | "testnet";
 
-export const VITE_BASE_URL = process.env.VITE_BASE_URL ?? import.meta.env.VITE_BASE_URL ?? "";
+// TODO: this is gross
+export const VITE_BASE_URL = (() => {
+  try {
+    if (process.env.VITE_BASE_URL) {
+      return process.env.VITE_BASE_URL;
+    }
+    return "";
+  } catch {
+    if (import.meta.env.VITE_BASE_URL) {
+      return import.meta.env.VITE_BASE_URL;
+    }
+    return "";
+  }
+})();
 
 export const IS_PROD = import.meta.env.NODE_ENV === "production";
 
