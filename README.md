@@ -34,6 +34,7 @@ All examples are maintained by official Sway contributors and will be kept up to
 #### [NFT Launcher](./nft/README.md)
 
 - An example demonstrating how to mint and burn native NFTs with images stored on IPFS.
+- [demo](https://fuellabs.github.io/sway-examples/nft/)
 
 #### Token Airdrop
 
