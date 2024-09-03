@@ -24,7 +24,7 @@ export default function Faucet() {
     if (walletBalance && initialBalance && !walletBalance.eq(initialBalance)) {
       let redirectUrl: string = location.state.redirectUrl;
       if (redirectUrl.includes("faucet")) {
-        redirectUrl = NFTRoutes.explore;
+        redirectUrl = `/${NFTRoutes.explore}`;
       }
       navigate(`${redirectUrl}`);
     }
