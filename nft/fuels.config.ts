@@ -15,10 +15,6 @@ export default createConfig({
   fuelCorePort,
   providerUrl: NODE_URL,
   onDeploy: async (_config: FuelsConfig, data) => {
-    // if (event.type !== Commands.deploy) {
-    //   return;
-    // }
-
     const contracts = data;
 
     const nftContract = contracts.find((contract) => {

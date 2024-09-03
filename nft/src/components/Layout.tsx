@@ -27,9 +27,6 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     useActiveWallet();
   const { isTablet } = useBreakpoints();
   const navigate = useNavigate();
-  const [hasOpenedFaucetPage, setHasOpenedFaucetPage] = useState(false);
-  const [hasRedirectedAfterFaucet, setHasRedirectedAfterFaucet] =
-    useState(false);
 
   const topUpWallet = async () => {
     if (!wallet) {

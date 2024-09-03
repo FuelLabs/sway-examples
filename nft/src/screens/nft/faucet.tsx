@@ -3,6 +3,7 @@ import { useActiveWallet } from "hooks/useActiveWallet";
 import { TESTNET_FAUCET_LINK, VITE_BASE_URL } from "src/lib";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { NFTRoutes } from "src/routes";
 
 export default function Faucet() {
   const { wallet, refetchBalance, walletBalance } = useActiveWallet();
@@ -21,7 +22,11 @@ export default function Faucet() {
     }
 
     if (walletBalance && initialBalance && !walletBalance.eq(initialBalance)) {
-      navigate(`${VITE_BASE_URL}${location.state.redirectUrl}`);
+      let redirectUrl: string = location.state.redirectUrl;
+      if (redirectUrl.includes("faucet")) {
+        redirectUrl = NFTRoutes.explore;
+      }
+      navigate(`${VITE_BASE_URL}${redirectUrl}`);
     }
   }, [walletBalance]);
 
