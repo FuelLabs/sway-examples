@@ -1,7 +1,7 @@
 <p align="center">
     <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="docs/sway-examples-logo-light-theme.png">
-        <img alt="SwayLibs logo" width="400px" src="docs/sway-examples-logo-dark-theme.png">
+        <source media="(prefers-color-scheme: dark)" srcset="docs/sway-examples-logo-dark-theme.png">
+        <img alt="SwayLibs logo" width="400px" src="docs/sway-examples-logo-light-theme.png">
     </picture>
 </p>
 
@@ -37,7 +37,7 @@ All examples are maintained by official Sway contributors and will be kept up to
 
 #### Token Airdrop
 
-- Learn how to work with Merkle trees in Sway to mint tokens across multiple addresses.
+- Learn how to work with merkle trees in Sway to distrubute native tokens across multiple addresses.
 
 #### Counter Dapp
 
