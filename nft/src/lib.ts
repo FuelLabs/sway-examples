@@ -7,6 +7,8 @@ type DappEnvironment = "local" | "testnet";
 const getEnv = () => {
   try {
     if (process.env) {
+      console.log(`process.env`, process.env);
+      console.log(`import.meta.env`, import.meta.env);
       return process.env
     }
     return import.meta.env;
