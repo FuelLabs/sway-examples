@@ -6,17 +6,13 @@ type DappEnvironment = "local" | "testnet";
 
 const getEnv = () => {
   try {
-    if (process.env) {
-      console.log(`process.env`, process.env);
-      console.log(`import.meta.env`, import.meta.env);
-      return process.env
-    }
-    return import.meta.env;
-  } catch {
-    console.log("in first catch")
-    try {
-      console.log("in second catch");
+    if (import.meta.env) {
       return import.meta.env;
+    }
+    return process.env;
+  } catch {
+    try {
+      return process.env;
     } catch (e) {
       throw e;
     }
@@ -57,7 +53,8 @@ export interface AppWallet {
 
 export const TESTNET_FAUCET_LINK = "https://faucet-testnet.fuel.network/";
 
-export const GATEWAY_URL = env.VITE_PUBLIC_GATEWAY_URL ?? "https://gateway.pinata.cloud";
+export const GATEWAY_URL =
+  env.VITE_PUBLIC_GATEWAY_URL ?? "https://gateway.pinata.cloud";
 
 export const PINATA_API_URL = "https://api.pinata.cloud";
 
