@@ -1,4 +1,4 @@
-import { Link as RouterLink } from "react-router-dom";
+import { Link as NavLink } from "react-router-dom";
 
 export const Link = ({
   href,
@@ -12,12 +12,12 @@ export const Link = ({
   target?: string;
 }) => {
   return (
-    <RouterLink
+    <NavLink
       to={href}
       className={`text-white no-underline font-sans hover:underline hover:text-green-500 ${className}`}
       target={target}
     >
       {children}
-    </RouterLink>
+    </NavLink>
   );
 };
