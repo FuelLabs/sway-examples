@@ -75,7 +75,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
               <NavLink to={NFTRoutes.create}>
                 <AddBoxIcon fontSize="inherit" /> Create
               </NavLink>
-              <NavLink to={NFTRoutes.collection}>
+              <NavLink to={NFTRoutes.collection} end>
                 <AccountCircleIcon fontSize="inherit" /> My Account
               </NavLink>
             </div>
