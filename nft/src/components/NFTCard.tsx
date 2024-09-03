@@ -23,8 +23,6 @@ export const NFTCard = ({
 }: NFTCardProps) => {
   const navigate = useNavigate();
 
-  console.log(`import.meta.env`, import.meta.env);
-
   return (
     <div
       className="bg-white/[.08] hover:bg-white/10 group transition-all shadow-elevation-1 duration-200 hover:-translate-y-1 hover:shadow-elevation-2 rounded-2xl overflow-hidden cursor-pointer"

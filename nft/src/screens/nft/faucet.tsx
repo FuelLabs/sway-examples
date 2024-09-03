@@ -2,12 +2,15 @@ import { Text } from "components/Text";
 import { useActiveWallet } from "hooks/useActiveWallet";
 import { TESTNET_FAUCET_LINK, VITE_BASE_URL } from "src/lib";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Faucet() {
   const { wallet, refetchBalance, walletBalance } = useActiveWallet();
   const [initialBalance, setInitialBalance] = useState(walletBalance);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(`location`, location);
 
   useEffect(() => {
     const interval = setInterval(refetchBalance, 500);
@@ -20,7 +23,7 @@ export default function Faucet() {
     }
 
     if (walletBalance && initialBalance && !walletBalance.eq(initialBalance)) {
-      navigate(`${VITE_BASE_URL}/nft`);
+      navigate(`${VITE_BASE_URL}${location.state.redirectUrl}`);
     }
   }, [walletBalance]);
 

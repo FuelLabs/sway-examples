@@ -48,7 +48,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     }
 
     if (CURRENT_ENVIRONMENT === "testnet" && !isTablet) {
-      navigate(NFTRoutes.faucet, { state: { redirectUrl: location.href } });
+      navigate(NFTRoutes.faucet, { state: { redirectUrl: location.pathname } });
     }
     await refetchBalance();
   };
