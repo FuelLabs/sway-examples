@@ -12,3 +12,5 @@ dist
 
 *storybook.log
 .vercel
+
+dist-directory

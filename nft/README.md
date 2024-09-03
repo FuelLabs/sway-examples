@@ -9,6 +9,12 @@
     <a href="https://crates.io/crates/forc/0.60.0" alt="forc">
         <img src="https://img.shields.io/badge/forc-v0.60.0-orange" />
     </a>
+    <a href="https://img.shields.io/npm/v/fuels" alt="ts-sdk">
+        <img src="https://img.shields.io/npm/v/fuels" />
+    </a>
+    <a href="https://crates.io/crates/fuels/0.66.2" alt="forc">
+        <img src="https://img.shields.io/badge/fuels-v0.66.2-orange" />
+    </a>
     <a href="https://crates.io/crates/fuel-core/0.26.0" alt="fuel-core">
         <img src="https://img.shields.io/badge/fuel--core-v0.26.0-yellow" />
     </a>
@@ -34,7 +40,7 @@ To begin, install dependencies.
 
 ```sh
 git clone https://github.com/FuelLabs/sway-examples
-cd sway-examples
+cd sway-examples/nft
 ```
 
 ### 📦 2. Install Dependencies
@@ -48,7 +54,6 @@ pnpm install
 This command will start a local Fuel node
 
 ```sh
-cd nft
 pnpm fuels:node
 ```
 
