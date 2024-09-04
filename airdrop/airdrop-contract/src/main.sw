@@ -12,7 +12,6 @@ use ::events::{
     OwnershipTransferEvent,
     OwnershipTransferInitiatedEvent,
     PauseChangeEvent,
-    SignerChangeEvent,
 };
 use ::constants::MAX_U32;
 use ::errors::{AccessError, InputError, VerificationError};
@@ -22,10 +21,6 @@ use std::{
     block::timestamp,
     constants::ZERO_B256,
     context::this_balance,
-    ecr::{
-        ec_recover_address,
-        ed_verify,
-    },
     hash::{
         Hash,
         Hasher,
@@ -33,9 +28,7 @@ use std::{
         sha256,
     },
     identity::Identity,
-    vm::evm::ecr::ec_recover_evm_address,
 };
-use std::{call_frames::get_contract_id_from_call_frame, registers::frame_ptr};
 use sway_libs::merkle::binary_proof::{leaf_digest, verify_proof};
 
 configurable {
@@ -55,6 +48,7 @@ storage {
 }
 
 impl AirdropDistributorAbi for Contract {
+
     #[storage(read, write)]
     fn claim(
         amount: u64,
@@ -146,8 +140,8 @@ impl AirdropDistributorAbi for Contract {
         only_pending_owner();
         let old_owner = _owner().unwrap();
         let new_owner = storage.pending_owner.read().unwrap();
-
         storage.owner.write(Some(new_owner));
+
         storage.pending_owner.write(None);
         log(OwnershipTransferEvent {
             from: old_owner,
@@ -176,7 +170,7 @@ impl AirdropDistributorAbi for Contract {
 
         let balance = this_balance(asset_id);
 
-        // transfer the remaining funds to rhe recipient
+        // transfer the remaining funds to the recipient
         transfer(recipient, asset_id, balance);
 
         log(ClawbackEvent {
@@ -192,7 +186,6 @@ impl AirdropDistributorAbi for Contract {
     fn initialize() {
         // initialize can only be called once
         only_uninitialized();
-        // Copy the initial owner to the storage
         storage.owner.write(INITIAL_OWNER);
         storage.is_initialized.write(true);
     }
