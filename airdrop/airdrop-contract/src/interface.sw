@@ -36,7 +36,7 @@ abi AirdropDistributorAbi {
     fn merkle_root() -> b256;
 
     // Get the owner of the contract
-    // Owner has special permissions to change the signer, pause the contract, transfer ownership and clawback assets
+    // Owner has special permissions to pause the contract, transfer ownership and clawback assets
     // 
     // @return The owner of the contract
     #[storage(read)]
@@ -58,7 +58,7 @@ abi AirdropDistributorAbi {
     fn confirm_transfer_ownership();
 
     // intializes the contract
-    // Sets the storage slots for owner and signer to the value of configurable constants
+    // Sets the storage slots for owner to the value of configurable constants
     // This function can only be called once
     #[storage(read, write)]
     fn initialize();

@@ -44,7 +44,6 @@ configurable {
     END_TIME: u64 = 0,
     NUM_LEAVES: u64 = 0,
     INITIAL_OWNER: Option<Identity> = Option::None,
-    INITIAL_SIGNER: Option<Address> = Option::None,
 }
 
 storage {
@@ -53,7 +52,6 @@ storage {
     claims: StorageMap<u64, bool> = StorageMap {},
     is_paused: bool = false,
     is_initialized: bool = false,
-    signer: Option<Address> = Option::None, // need to confirm with Luiz if this is required or not because oauth verficiations are for Github claims and not required for Fuel address claims
 }
 
 impl AirdropDistributorAbi for Contract {
