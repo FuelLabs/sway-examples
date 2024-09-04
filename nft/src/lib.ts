@@ -4,17 +4,34 @@ import contractId from "./contract-types/contract-ids.json";
 
 type DappEnvironment = "local" | "testnet";
 
-export const IS_PROD = import.meta.env.NODE_ENV === "production";
+const getEnv = () => {
+  try {
+    if (import.meta.env) {
+      return import.meta.env;
+    }
+    return process.env;
+  } catch {
+    try {
+      return process.env;
+    } catch (e) {
+      throw e;
+    }
+  }
+};
 
-export const PINATA_JWT = import.meta.env.VITE_PINATA_JWT;
+const env = getEnv();
+
+export const IS_PROD = env.NODE_ENV === "production";
+
+export const PINATA_JWT = env.VITE_PINATA_JWT;
 
 export const CURRENT_ENVIRONMENT: DappEnvironment =
-  (import.meta.env.VITE_PUBLIC_DAPP_ENVIRONMENT as DappEnvironment) || "local";
+  (env.VITE_PUBLIC_DAPP_ENVIRONMENT as DappEnvironment) || "local";
 
 const IS_LOCAL = CURRENT_ENVIRONMENT === "local";
 
 export const NODE_URL = IS_LOCAL
-  ? `http://127.0.0.1:${import.meta.env.VITE_PUBLIC_FUEL_NODE_PORT || 4000}/v1/graphql`
+  ? `http://127.0.0.1:${env.VITE_PUBLIC_FUEL_NODE_PORT || 4000}/v1/graphql`
   : "https://testnet.fuel.network/v1/graphql";
 
 /**
@@ -22,7 +39,7 @@ export const NODE_URL = IS_LOCAL
  * @see {@link https://docs.fuel.network/docs/wallet/dev/getting-started/#using-default-connectors}
  */
 export const ENABLE_FUEL_DEV_CONNECTOR =
-  import.meta.env.VITE_PUBLIC_ENABLE_FUEL_DEV_CONNECTOR === "true";
+  env.VITE_PUBLIC_ENABLE_FUEL_DEV_CONNECTOR === "true";
 
 export interface AppWallet {
   wallet?: Account;
@@ -32,8 +49,8 @@ export interface AppWallet {
 
 export const TESTNET_FAUCET_LINK = "https://faucet-testnet.fuel.network/";
 
-export const GATEWAY_URL = import.meta.env.VITE_PUBLIC_GATEWAY_URL
-  ? import.meta.env.VITE_PUBLIC_GATEWAY_URL
+export const GATEWAY_URL = env.VITE_PUBLIC_GATEWAY_URL
+  ? env.VITE_PUBLIC_GATEWAY_URL
   : "https://gateway.pinata.cloud";
 
 export const PINATA_API_URL = "https://api.pinata.cloud";
@@ -42,4 +59,4 @@ export const CONTRACT_ID = IS_LOCAL
   ? contractId["nftContract"]
   : productionContractId["nftContract"];
 
-export const WC_PROJECT_ID = import.meta.env.VITE_PUBLIC_APP_WC_PROJECT_ID!;
+export const WC_PROJECT_ID = env.VITE_PUBLIC_APP_WC_PROJECT_ID!;
