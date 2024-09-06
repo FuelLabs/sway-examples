@@ -10,9 +10,9 @@ import { Link } from "components/Link";
 import { getTruncatedAddress } from "src/utils/address";
 import { Text } from "components/Text";
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { NavLink, useParams, useSearchParams } from "react-router-dom";
 
-import { GATEWAY_URL } from "src/lib";
+import { GATEWAY_URL, VITE_BASE_URL } from "src/lib";
 
 const MAX_INITIAL_DESCRIPTION = 256;
 
@@ -109,7 +109,7 @@ export default function Mint() {
         ) : minterAddress ? (
           <p className="text-sm text-white/70">
             NFT minted by{" "}
-            <Link href={`/nft/collection/${minterAddress}`}>
+            <Link href={`${VITE_BASE_URL}/nft/collection/${minterAddress}`}>
               {getTruncatedAddress(
                 nftData?.[0].metadata.keyvalues.minter as string
               )}

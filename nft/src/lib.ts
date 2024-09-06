@@ -21,6 +21,8 @@ const getEnv = () => {
 
 const env = getEnv();
 
+export const VITE_BASE_URL = env.VITE_BASE_URL ?? "";
+
 export const IS_PROD = env.NODE_ENV === "production";
 
 export const PINATA_JWT = env.VITE_PINATA_JWT;
@@ -49,9 +51,8 @@ export interface AppWallet {
 
 export const TESTNET_FAUCET_LINK = "https://faucet-testnet.fuel.network/";
 
-export const GATEWAY_URL = env.VITE_PUBLIC_GATEWAY_URL
-  ? env.VITE_PUBLIC_GATEWAY_URL
-  : "https://gateway.pinata.cloud";
+export const GATEWAY_URL =
+  env.VITE_PUBLIC_GATEWAY_URL ?? "https://gateway.pinata.cloud";
 
 export const PINATA_API_URL = "https://api.pinata.cloud";
 

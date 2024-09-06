@@ -9,15 +9,14 @@ import { ConnectButton } from "./ConnectButton";
 import { NavMenu } from "./NavMenu";
 import { NFTRoutes } from "src/routes";
 import { useBreakpoints } from "hooks/useBreakpoints";
-import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import ExploreIcon from '@mui/icons-material/ExploreOutlined';
-import AddBoxIcon from '@mui/icons-material/AddBoxOutlined';
-import AccountCircleIcon from '@mui/icons-material/AccountCircleOutlined';
+import ExploreIcon from "@mui/icons-material/ExploreOutlined";
+import AddBoxIcon from "@mui/icons-material/AddBoxOutlined";
+import AccountCircleIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
 import { FuelLogo } from "./FuelLogo";
-  
+
 const TOP_UP_AMOUNT = 100_000_000;
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
@@ -26,9 +25,6 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     useActiveWallet();
   const { isTablet } = useBreakpoints();
   const navigate = useNavigate();
-  const [hasOpenedFaucetPage, setHasOpenedFaucetPage] = useState(false);
-  const [hasRedirectedAfterFaucet, setHasRedirectedAfterFaucet] =
-    useState(false);
 
   const topUpWallet = async () => {
     if (!wallet) {
@@ -47,7 +43,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     }
 
     if (CURRENT_ENVIRONMENT === "testnet" && !isTablet) {
-      navigate(NFTRoutes.faucet);
+      navigate(NFTRoutes.faucet, { state: { redirectUrl: location.pathname } });
     }
     await refetchBalance();
   };
@@ -65,11 +61,11 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     <div>
       <header className="w-full sticky top-0 z-10 bg-gradient-header">
         <nav className="max-w-[1780px] mx-auto">
-          <div className="flex  items-center gap-2 lg:gap-6 py-4 px-8">
+          <div className="flex items-center gap-2 lg:gap-6 py-4 px-8">
             <div className="block md:hidden">
               <NavMenu />
             </div>
-            
+
             <FuelLogo size={32} showLettering />
 
             <div className="hidden md:flex flex-row items-center gap-2 grow">
@@ -78,8 +74,8 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
               </NavLink>
               <NavLink to={NFTRoutes.create}>
                 <AddBoxIcon fontSize="inherit" /> Create
-              </NavLink> 
-              <NavLink to={NFTRoutes.collection}>
+              </NavLink>
+              <NavLink to={NFTRoutes.collection} end>
                 <AccountCircleIcon fontSize="inherit" /> My Account
               </NavLink>
             </div>
@@ -95,7 +91,10 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
             </div>
 
             <div className="ml-auto">
-              <ConnectButton showTopUpButton={!!showTopUpButton} onTopUp={topUpWallet}  />
+              <ConnectButton
+                showTopUpButton={!!showTopUpButton}
+                onTopUp={topUpWallet}
+              />
             </div>
           </div>
         </nav>
@@ -117,4 +116,3 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     </div>
   );
 };
-
