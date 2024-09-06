@@ -21,7 +21,6 @@ export function setEnv() {
     // Dist folders
     setEnvVar("NFT_DIST", join(DIST_FOLDER, NFT_APP_PATH));
     setEnvVar("COUNTER_DIST", join(DIST_FOLDER, COUNTER_APP_PATH));
-    // TODO do we need to set next env vars?
 
     // Log dist folders
     console.log("Output dist folders:");
