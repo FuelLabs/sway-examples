@@ -7,7 +7,7 @@ dotenv.config({
 });
 
 const fuelCorePort =
-  +(process.env.NEXT_PUBLIC_FUEL_NODE_PORT as string) || 4000;
+  +(process.env.VITE_PUBLIC_FUEL_NODE_PORT as string) || 4000;
 
 export default createConfig({
   workspace: "./sway-programs",

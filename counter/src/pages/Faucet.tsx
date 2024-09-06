@@ -38,7 +38,7 @@ export default function Faucet() {
       walletBalance.gt(previousBalanceRef.current)
     ) {
       toast.success("Funds received! Navigating back to home page.");
-      navigate("/counter");
+      navigate(`${import.meta.env.VITE_BASE_URL}/counter`);
     }
     previousBalanceRef.current = walletBalance;
   }, [walletBalance, navigate]);

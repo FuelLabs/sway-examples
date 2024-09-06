@@ -13,7 +13,7 @@ import { useIncrementCounter } from "../hooks/useIncrementCounter";
 const contractId =
   CURRENT_ENVIRONMENT === "local"
     ? contractIds.testContract
-    : (process.env.VITE_PUBLIC_TESTNET_CONTRACT_ID as string);
+    : (process.env.VITE_PUBLIC_TESTNET_COUNTER_CONTRACT_ID as string);
 
 export default function Home() {
   const { wallet, walletBalance, refetchBalance, isConnected } =
@@ -79,11 +79,11 @@ export default function Home() {
         </Button>
       </>
 
-      <Link to="/counter/predicate" className="text-fuel-green hover:underline">
+      <Link to={`${import.meta.env.VITE_BASE_URL}/counter/predicate`} className="text-fuel-green hover:underline">
         Predicate Example
       </Link>
 
-      <Link to="/counter/script" className="text-fuel-green hover:underline">
+      <Link to={`${import.meta.env.VITE_BASE_URL}/counter/script`} className="text-fuel-green hover:underline">
         Script Example
       </Link>
     </>

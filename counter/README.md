@@ -109,10 +109,10 @@ Contract ID: 0x8342d413de2a678245d9ee39f020795800c7e6a4ac5ff7daae275f533dc05e08
 Deployed in block 0x4ea52b6652836c499e44b7e42f7c22d1ed1f03cf90a1d94cd0113b9023dfa636
 ```
 Now copy the Contract ID, go to your .env file and add a new variable named ```
-VITE_PUBLIC_TESTNET_CONTRACT_ID ```. Set its value to the contract ID you have copied.
+VITE_PUBLIC_TESTNET_COUNTER_CONTRACT_ID ```. Set its value to the contract ID you have copied.
 
 ```sh
-VITE_PUBLIC_TESTNET_CONTRACT_ID=0x8342d413de2a678245d9ee39f020795800c7e6a4ac5ff7daae275f533dc05e08
+VITE_PUBLIC_TESTNET_COUNTER_CONTRACT_ID=0x8342d413de2a678245d9ee39f020795800c7e6a4ac5ff7daae275f533dc05e08
 ```
 
 In the same .env file update the value of your ```VITE_PUBLIC_DAPP_ENVIRONMENT``` from ```local``` to ```testnet``` and you are done.
