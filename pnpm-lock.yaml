@@ -42,6 +42,9 @@ importers:
       '@mui/material':
         specifier: ^5.15.12
         version: 5.16.7(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      fuels:
+        specifier: 0.93.0
+        version: 0.93.0
       react:
         specifier: ^18.2
         version: 18.3.1
@@ -17023,7 +17026,7 @@ snapshots:
 
   webauthn-p256@0.0.5:
     dependencies:
-      '@noble/curves': 1.4.0
+      '@noble/curves': 1.5.0
       '@noble/hashes': 1.4.0
 
   webextension-polyfill@0.10.0: {}
