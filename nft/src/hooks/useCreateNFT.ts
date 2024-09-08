@@ -8,7 +8,7 @@ import { AssetIdInput } from "src/contract-types/contracts/NFTContractAbi";
 import { createAssetId } from "src/utils/assetId";
 import { useUpdateMetadata } from "./useUpdateMetadata";
 import { useUnpin } from "./useUnpin";
-import { CONTRACT_ID } from "src/lib";
+import { CONTRACT_ID, VITE_BASE_URL } from "src/lib";
 import { NFTQueryKeys } from "src/queryKeys";
 
 type CreateNFT = {
@@ -60,7 +60,7 @@ export const useCreateNFT = () => {
         },
       });
       toast.success("NFT successfully created.");
-      navigate("/nft");
+      navigate(`${VITE_BASE_URL}/nft`);
     },
     onError: (err, { cid }) => {
       // TODO: if the ts sdk erroneously throws an error
