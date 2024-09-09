@@ -10,6 +10,7 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtmOutlined';
 
 import { useState } from "react";
 import toast from "react-hot-toast";
+
 import { Button } from "./Button";
 
 const copyToClipboard = (text: string) => {
@@ -25,12 +26,11 @@ type ConnectButtonProps = {
 const StyledButton = styled(MuiButton)({
   boxShadow: 'none',
   textTransform: 'none',
-  backgroundColor: 'hsla(0,0%,100%,.04)',
-  color: 'hsla(0,0%,100%,.5)',
+  backgroundColor: '#B6B6B6',
   padding: '4px 16px',
   fontSize: '14px',
   '&:hover': {
-    backgroundColor: 'hsla(0,0%,100%,.1)',
+    backgroundColor: 'hsla(0,0%,30%,.6)',
     color: '#FFF',
   },
 });
@@ -99,6 +99,7 @@ export const ConnectButton = ({ showTopUpButton, onTopUp }: ConnectButtonProps) 
           color="primary"
           onClick={handleClick}
           endIcon={open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          className="text-gray-600 dark:hover:text-[#fff] dark:hover:bg-[hsla(0,0%,100%,.1)] dark:bg-[hsla(0,0%,100%,.04)] dark:text-[hsla(0,0%,100%,.5)]"
         >
           {getTruncatedAddress(wallet.address.toAddress())}
         </StyledButton>

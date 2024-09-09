@@ -23,12 +23,12 @@ const TOP_UP_AMOUNT = 100_000_000;
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
-  const { wallet, network, walletBalance, refetchBalance, isConnected } =
+  const { wallet, network, walletBalance, refetchBalance } =
     useActiveWallet();
   const { isTablet } = useBreakpoints();
   const navigate = useNavigate();
 
-  const [darkMode, setDarkMode] = useState(() => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
     return (
       localStorage.getItem("theme") === "dark" ||
       (!localStorage.getItem("theme") &&
@@ -36,14 +36,14 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     );
   });
   useEffect(() => {
-    if (darkMode) {
+    if (isDarkMode) {
       document.documentElement.setAttribute("data-theme", "dark");
       localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.removeAttribute("data-theme");
       localStorage.setItem("theme", "light");
     }
-  }, [darkMode]);
+  }, [isDarkMode]);
 
   const topUpWallet = async () => {
     if (!wallet) {
@@ -78,7 +78,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
 
   return (
     <div>
-      <header className="w-full sticky top-0 z-10 bg-gradient-header">
+      <header className="w-full sticky top-0 z-10 bg-gradient-header-light dark:bg-gradient-header">
         <nav className="max-w-[1780px] mx-auto">
           <div className="flex items-center gap-2 lg:gap-6 py-4 px-8">
             <div className="block md:hidden">
@@ -114,7 +114,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
                 showTopUpButton={!!showTopUpButton}
                 onTopUp={topUpWallet}
               />
-              <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+              <ThemeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
             </div>
           </div>
         </nav>

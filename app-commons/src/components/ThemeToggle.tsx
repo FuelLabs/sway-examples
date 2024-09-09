@@ -84,16 +84,16 @@ const SwitchWithIcons = styled(BaseSwitch)({
   },
 });
 interface ThemeToggleProps {
-  darkMode: boolean;
-  setDarkMode: (darkMode: boolean) => void;
+  isDarkMode: boolean;
+  setIsDarkMode: (darkMode: boolean) => void;
 }
 
-export const ThemeToggle = ({ darkMode, setDarkMode }: ThemeToggleProps) => {
+export const ThemeToggle = ({ isDarkMode, setIsDarkMode }: ThemeToggleProps) => {
   return (
     <Stack>
       <SwitchWithIcons
-        checked={darkMode}
-        onChange={() => setDarkMode(!darkMode)}
+        checked={isDarkMode}
+        onChange={() => setIsDarkMode(!isDarkMode)}
       />
     </Stack>
   );
