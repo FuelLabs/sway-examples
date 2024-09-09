@@ -24,7 +24,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     return new QueryClient({});
   });
   const [currentProvider] = useState(Provider.create(NODE_URL));
-
+  
   // ============================================================
   // WalletConnect Connector configurations
   // https://docs.walletconnect.com/web3modal/javascript/about
