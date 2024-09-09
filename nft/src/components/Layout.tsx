@@ -13,6 +13,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import ExploreIcon from "@mui/icons-material/ExploreOutlined";
 import AddBoxIcon from "@mui/icons-material/AddBoxOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircleOutlined";
+import { ThemeToggle } from "app-commons";
+import { useState, useEffect } from "react";
 
 import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
 import { FuelLogo } from "./FuelLogo";
@@ -25,6 +27,23 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
     useActiveWallet();
   const { isTablet } = useBreakpoints();
   const navigate = useNavigate();
+
+  const [darkMode, setDarkMode] = useState(() => {
+    return (
+      localStorage.getItem("theme") === "dark" ||
+      (!localStorage.getItem("theme") &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
+  });
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   const topUpWallet = async () => {
     if (!wallet) {
@@ -90,11 +109,12 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
               <WalletDisplay />
             </div>
 
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center justify-between w-52">
               <ConnectButton
                 showTopUpButton={!!showTopUpButton}
                 onTopUp={topUpWallet}
               />
+              <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
             </div>
           </div>
         </nav>
