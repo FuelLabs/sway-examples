@@ -5,9 +5,7 @@ import { useFaucet } from "../hooks/useFaucet";
 import { bn } from "fuels";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { CURRENT_ENVIRONMENT, TESTNET_FAUCET_LINK } from "../lib";
-import LaunchIcon from "@mui/icons-material/Launch";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { CURRENT_ENVIRONMENT, TESTNET_FAUCET_LINK, VITE_BASE_URL } from "../lib";
 import { useNavigate } from "react-router-dom";
 const isLocal = CURRENT_ENVIRONMENT === "local";
 
@@ -38,7 +36,7 @@ export default function Faucet() {
       walletBalance.gt(previousBalanceRef.current)
     ) {
       toast.success("Funds received! Navigating back to home page.");
-      navigate(`${import.meta.env.VITE_BASE_URL}/counter`);
+      navigate(`${VITE_BASE_URL}/counter`);
     }
     previousBalanceRef.current = walletBalance;
   }, [walletBalance, navigate]);

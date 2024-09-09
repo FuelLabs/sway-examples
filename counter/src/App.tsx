@@ -3,7 +3,7 @@ import { Button } from "./components/Button";
 import toast, { Toaster } from "react-hot-toast";
 import { useActiveWallet } from "./hooks/useActiveWallet";
 import { WalletDisplay } from "./components/WalletDisplay";
-import { NODE_URL } from "./lib";
+import { NODE_URL, VITE_BASE_URL } from "./lib";
 import {
   Routes,
   Route,
@@ -60,7 +60,7 @@ export default function App() {
         <nav className="flex justify-between items-center p-4 bg-background text-text-primary gap-6">
           {!isMobile && (
             <>
-              <Link className="text-fuel-green hover:underline" to={`${import.meta.env.VITE_BASE_URL}/counter`}>
+              <Link className="text-fuel-green hover:underline" to={`${VITE_BASE_URL}/counter`}>
                 Home
               </Link>
               <Link
@@ -94,7 +94,7 @@ export default function App() {
                   redirectUrl.searchParams.append("redirectUrl", window.location.href);
                   window.location.href = redirectUrl.href;
                 } else {
-                  navigate(`${import.meta.env.VITE_BASE_URL}/counter/faucet`);
+                  navigate(`${VITE_BASE_URL}/counter/faucet`);
                 }
               }}
             >
@@ -114,10 +114,10 @@ export default function App() {
         </nav>
         <div className="min-h-screen items-center justify-center flex flex-col gap-6">
           <Routes>
-            <Route path={`${import.meta.env.VITE_BASE_URL}/counter`} element={<Home />} />
-            <Route path={`${import.meta.env.VITE_BASE_URL}/counter/predicate`} element={<PredicateExample />} />
-            <Route path={`${import.meta.env.VITE_BASE_URL}/counter/script`} element={<ScriptExample />} />
-            <Route path={`${import.meta.env.VITE_BASE_URL}/counter/faucet`} element={<Faucet />} />
+            <Route path={`${VITE_BASE_URL}/counter`} element={<Home />} />
+            <Route path={`${VITE_BASE_URL}/counter/predicate`} element={<PredicateExample />} />
+            <Route path={`${VITE_BASE_URL}/counter/script`} element={<ScriptExample />} />
+            <Route path={`${VITE_BASE_URL}/counter/faucet`} element={<Faucet />} />
           </Routes>{" "}
         </div>
       </div>

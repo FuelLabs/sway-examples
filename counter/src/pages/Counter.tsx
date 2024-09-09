@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import { useActiveWallet } from "../hooks/useActiveWallet";
 import useAsync from "react-use/lib/useAsync";
-import { CURRENT_ENVIRONMENT } from "../lib";
+import { CURRENT_ENVIRONMENT, VITE_BASE_URL } from "../lib";
 import { useIncrementCounter } from "../hooks/useIncrementCounter";
 
 const contractId =
@@ -79,11 +79,11 @@ export default function Home() {
         </Button>
       </>
 
-      <Link to={`${import.meta.env.VITE_BASE_URL}/counter/predicate`} className="text-fuel-green hover:underline">
+      <Link to={`${VITE_BASE_URL}/counter/predicate`} className="text-fuel-green hover:underline">
         Predicate Example
       </Link>
 
-      <Link to={`${import.meta.env.VITE_BASE_URL}/counter/script`} className="text-fuel-green hover:underline">
+      <Link to={`${VITE_BASE_URL}/counter/script`} className="text-fuel-green hover:underline">
         Script Example
       </Link>
     </>
