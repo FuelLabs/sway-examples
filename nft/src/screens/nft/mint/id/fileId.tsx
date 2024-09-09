@@ -56,7 +56,7 @@ export default function Mint() {
     useTotalSupply(subId);
   const { isConnected } = useActiveWallet();
 
-  const {data:nftData, isLoading: isNFTDataLoading } = useGetNFTData({
+  const {data: nftData, isLoading: isNFTDataLoading } = useGetNFTData({
     keyvalues: {
       nftSubId: {
         value: subId,
@@ -90,7 +90,7 @@ export default function Mint() {
         cover={false}
       />
       <Stack className="px-4" spacing={2}>
-        <h5 className="text-2xl font-mono">{nftName}</h5>
+        <h5 className="text-2xl dark:text-white text-black font-mono">{nftName}</h5>
         {!totalSupply && !isLoading ? (
           <Button
             onClick={() => {
@@ -107,7 +107,7 @@ export default function Mint() {
             {mint.isPending ? "Minting..." : "Mint"}
           </Button>
         ) : minterAddress ? (
-          <p className="text-sm text-white/70">
+          <p className="text-sm text-zinc-900 dark:text-white/70">
             NFT minted by{" "}
             <Link href={`${VITE_BASE_URL}/nft/collection/${minterAddress}`}>
               {getTruncatedAddress(

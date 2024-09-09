@@ -23,8 +23,7 @@ const TOP_UP_AMOUNT = 100_000_000;
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
-  const { wallet, network, walletBalance, refetchBalance } =
-    useActiveWallet();
+  const { wallet, network, walletBalance, refetchBalance } = useActiveWallet();
   const { isTablet } = useBreakpoints();
   const navigate = useNavigate();
 
@@ -114,20 +113,23 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
                 showTopUpButton={!!showTopUpButton}
                 onTopUp={topUpWallet}
               />
-              <ThemeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+              <ThemeToggle
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
             </div>
           </div>
         </nav>
       </header>
 
       <main className="w-full max-w-[1780px] mt-8 pb-8 mx-auto">
-        <div className="bg-content bg-gradient mx-8">
+        <div className="bg-content bg-gradient-light dark:bg-gradient mx-8">
           <BrandBackgroundBlur />
 
           <div className="max-w-[1200px] min-h-[calc(100vh-200px)] mx-auto mt-6 lg:mt-14 px-4">
             {children ?? <Outlet />}
 
-            <p className="text-[#b4b4b4] text-sm mt-14 text-center">
+            <p className="text-zinc-800 dark:text-[#b4b4b4] text-sm mt-14 text-center">
               © 2024 Fuel Labs. All rights reserved
             </p>
           </div>

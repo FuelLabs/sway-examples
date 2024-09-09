@@ -1,12 +1,19 @@
 import { useConnectUI, useDisconnect } from "@fuels/react";
 import { useActiveWallet } from "hooks/useActiveWallet";
 import { getTruncatedAddress } from "src/utils/address";
-import { Button as MuiButton, ListItemIcon, ListItemText, Menu, MenuItem, styled } from "@mui/material";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMoreOutlined';
-import ExpandLessIcon from '@mui/icons-material/ExpandLessOutlined';
-import CopyIcon from '@mui/icons-material/ContentCopyOutlined';
-import LogoutIcon from '@mui/icons-material/LogoutOutlined';
-import LocalAtmIcon from '@mui/icons-material/LocalAtmOutlined';
+import {
+  Button as MuiButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  styled,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMoreOutlined";
+import ExpandLessIcon from "@mui/icons-material/ExpandLessOutlined";
+import CopyIcon from "@mui/icons-material/ContentCopyOutlined";
+import LogoutIcon from "@mui/icons-material/LogoutOutlined";
+import LocalAtmIcon from "@mui/icons-material/LocalAtmOutlined";
 
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -21,63 +28,62 @@ const copyToClipboard = (text: string) => {
 type ConnectButtonProps = {
   showTopUpButton: boolean;
   onTopUp: () => Promise<string | void>;
-}
+};
 
 const StyledButton = styled(MuiButton)({
-  boxShadow: 'none',
-  textTransform: 'none',
-  backgroundColor: '#B6B6B6',
-  padding: '4px 16px',
-  fontSize: '14px',
-  '&:hover': {
-    backgroundColor: 'hsla(0,0%,30%,.6)',
-    color: '#FFF',
+  boxShadow: "none",
+  textTransform: "none",
+  backgroundColor: "#B6B6B6",
+  padding: "4px 16px",
+  fontSize: "14px",
+  "&:hover": {
+    backgroundColor: "hsla(0,0%,30%,.6)",
+    color: "#FFF",
   },
 });
 
 const StyledMenu = styled(Menu)({
-  '& .MuiPaper-root': {
-    backgroundColor: 'hsla(0,0%,7%,.4)',
-    backdropFilter: 'blur(5px)',
-    color: 'hsla(0,0%,100%,.5)',
-    borderRadius: '8px',
-    border: '1px solid rgba(255,255,255,0.08)',
-    padding: '8px 0',
-    '& .MuiMenu-list': {
+  "& .MuiPaper-root": {
+    backgroundColor: "hsla(0,0%,7%,.4)",
+    backdropFilter: "blur(5px)",
+    color: "hsla(0,0%,100%,.5)",
+    borderRadius: "8px",
+    border: "1px solid rgba(255,255,255,0.08)",
+    padding: "8px 0",
+    "& .MuiMenu-list": {
       padding: 0,
     },
-    '& .MuiMenuItem-root:hover': {
-      backgroundColor: 'hsla(0,0%,100%,.1)',
+    "& .MuiMenuItem-root:hover": {
+      backgroundColor: "hsla(0,0%,100%,.1)",
     },
-    '& .MuiMenuItem-root': {
-      '& .MuiSvgIcon-root': {
+    "& .MuiMenuItem-root": {
+      "& .MuiSvgIcon-root": {
         fontSize: 16,
-        color: '#FFF',
+        color: "#FFF",
         width: 30,
         marginRight: 0,
       },
-      '& .MuiListItemText-root': {
-        color: '#FFF',
+      "& .MuiListItemText-root": {
+        color: "#FFF",
       },
-      '&:hover': {
-        backgroundColor: 'hsla(0,0%,7%,.6)',
+      "&:hover": {
+        backgroundColor: "hsla(0,0%,7%,.6)",
       },
-      '&:active': {
-        backgroundColor: 'hsla(0,0%,7%,.8)',
+      "&:active": {
+        backgroundColor: "hsla(0,0%,7%,.8)",
       },
     },
   },
 });
 
-export const ConnectButton = ({ showTopUpButton, onTopUp }: ConnectButtonProps) => {
+export const ConnectButton = ({
+  showTopUpButton,
+  onTopUp,
+}: ConnectButtonProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const {
-    wallet,
-    isPending: isLoading,
-    isConnected,
-  } = useActiveWallet();
+  const { wallet, isPending: isLoading, isConnected } = useActiveWallet();
   const { connect } = useConnectUI();
   const { disconnect } = useDisconnect();
 
@@ -91,7 +97,7 @@ export const ConnectButton = ({ showTopUpButton, onTopUp }: ConnectButtonProps) 
     setAnchorEl(null);
   };
 
-  if(wallet) {
+  if (wallet) {
     return (
       <div>
         <StyledButton
@@ -109,14 +115,14 @@ export const ConnectButton = ({ showTopUpButton, onTopUp }: ConnectButtonProps) 
           onClose={handleClose}
           anchorOrigin={{
             vertical: 40,
-            horizontal: 'right',
+            horizontal: "right",
           }}
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
+            vertical: "top",
+            horizontal: "right",
           }}
         >
-          <MenuItem 
+          <MenuItem
             onClick={() => {
               copyToClipboard(wallet.address.toAddress());
               handleClose();
@@ -128,7 +134,7 @@ export const ConnectButton = ({ showTopUpButton, onTopUp }: ConnectButtonProps) 
             <ListItemText>Copy address</ListItemText>
           </MenuItem>
           {showTopUpButton && (
-            <MenuItem 
+            <MenuItem
               onClick={() => {
                 onTopUp();
                 handleClose();
@@ -140,7 +146,7 @@ export const ConnectButton = ({ showTopUpButton, onTopUp }: ConnectButtonProps) 
               <ListItemText>Faucet</ListItemText>
             </MenuItem>
           )}
-          <MenuItem 
+          <MenuItem
             onClick={() => {
               onClick();
               handleClose();
@@ -158,7 +164,7 @@ export const ConnectButton = ({ showTopUpButton, onTopUp }: ConnectButtonProps) 
 
   return (
     <Button disabled={isLoading} onClick={() => onClick()}>
-      {isLoading ? 'Loading...' : 'Connect'}
+      {isLoading ? "Loading..." : "Connect"}
     </Button>
   );
 };

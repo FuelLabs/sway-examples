@@ -34,7 +34,7 @@ export const Input: React.FC<{
       onChange={onChange}
       placeholder={placeholder}
       type={type}
-      inputProps={{ className: "placeholder:text-zinc-400 text-zinc-50" }}
+      inputProps={{ className: "text-black placeholder:text-black dark:placeholder:text-zinc-400 dark:text-zinc-50" }}
     />
   );
 };

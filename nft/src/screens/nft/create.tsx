@@ -1,6 +1,6 @@
 import { UploadButton } from "components/UploadButton";
 import { useUploadFile } from "hooks/useUploadFile";
-import { Box, IconButton, Stack, TextField } from "@mui/material";
+import { IconButton, Stack, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import clsx from "clsx";
@@ -41,12 +41,15 @@ export default function Create() {
               <Stack
                 spacing={2}
                 className={clsx(
-                  "gradient-border",
+                  "dark:gradient-border",
                   "h-full",
                   "rounded-xl",
                   "bg-gradient-to-b",
-                  "from-zinc-900",
-                  "to-zinc-950/80",
+                  "from-zinc-300",
+                  "to-zinc-200",
+                  "dark:bg-gradient-to-b",
+                  "dark:from-zinc-900",
+                  "dark:to-zinc-950/80",
                   "px-4",
                   "py-8"
                 )}
@@ -71,12 +74,12 @@ export default function Create() {
                       <IconButton
                         onClick={() => setFile(undefined)}
                         sx={{
-                          color: "white",
                           alignSelf: "end",
                           padding: "0px",
                           marginRight: "-30px",
                           marginTop: "-10px",
                         }}
+                        className="text-zinc-800 dark:text-white"
                       >
                         <CloseIcon />
                       </IconButton>
@@ -115,7 +118,7 @@ export default function Create() {
                   rows={4}
                   className={clsx([...inputStyle])}
                   inputProps={{
-                    className: "placeholder:text-zinc-400 text-zinc-50",
+                    className: "text-black placeholder:text-black dark:placeholder:text-zinc-400 dark:text-zinc-50",
                   }}
                 />
                 <Button
