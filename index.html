@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -70,6 +70,8 @@
 
         const nftLink = document.getElementById("nftLink");
         nftLink.href = `${pathname}nft`
+        const counterLink = document.getElementById("counterLink");
+        counterLink.href = `${pathname}counter`
 
         const fuelLogo = document.getElementById("fuelLogo");
         fuelLogo.src = `${pathname}public/fuel-logo-64.png`
@@ -89,12 +91,18 @@
       </div>
     </div>
     <div class="flex-container">
+      <a id="counterLink" style="text-decoration: none">
+        <div class="card">
+          <p class="text1">Counter</p>
+          <p class="card-text">
+            Interact with a counter, learn about predicates and scripts.
+          </p>
+        </div>
+      </a>
       <a id="nftLink" style="text-decoration: none">
         <div class="card">
           <p class="text1">NFTs</p>
-          <p class="card-text">
-            Create and mint NFTs.
-          </p>
+          <p class="card-text">Create and mint NFTs.</p>
         </div>
       </a>
     </div>
