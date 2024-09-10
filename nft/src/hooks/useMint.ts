@@ -26,9 +26,10 @@ export const useMint = () => {
 
       const recipient = { Address: { bits: wallet.address.toB256() } };
 
-      const result = await contract.functions
+      const callResult = await contract.functions
         .mint(recipient, nftSubId, 1)
         .call();
+      const result = await callResult.waitForResult()
       return result;
     },
     onSuccess: (_, { cid, nftName, nftDescription, nftSubId }) => {
@@ -44,7 +45,7 @@ export const useMint = () => {
           },
         },
       });
-      queryClient.invalidateQueries({ queryKey: [NFTQueryKeys.totalSupply] });
+      queryClient.invalidateQueries({ queryKey: [NFTQueryKeys.totalSupply, nftSubId] });
       toast.success("Successfully minted nft!");
     },
     onError: (err) => {

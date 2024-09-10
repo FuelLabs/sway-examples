@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { NFTQueryKeys } from "src/queryKeys";
-import type { PinataMetadata } from "@pinata/sdk";
 import { PINATA_API_URL, PINATA_JWT } from "src/lib";
 
 // WARNING: although this can take arbitrary metadata

@@ -108,7 +108,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
               <WalletDisplay />
             </div>
 
-            <div className="ml-auto flex items-center justify-between w-52">
+            <div className="ml-auto flex items-center justify-around sm:justify-between w-52">
               <ConnectButton
                 showTopUpButton={!!showTopUpButton}
                 onTopUp={topUpWallet}

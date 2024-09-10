@@ -56,7 +56,7 @@ export default function Mint() {
     useTotalSupply(subId);
   const { isConnected } = useActiveWallet();
 
-  const {data: nftData, isLoading: isNFTDataLoading } = useGetNFTData({
+  const { data: nftData, isLoading: isNFTDataLoading, refetch: refetchNFTData } = useGetNFTData({
     keyvalues: {
       nftSubId: {
         value: subId,
@@ -64,6 +64,12 @@ export default function Mint() {
       },
     },
   });
+
+  useEffect(() => {
+    if (totalSupply) {
+      refetchNFTData();
+    }
+  }, [totalSupply]);
 
   useEffect(() => {
     if (nftData?.length && nftData[0].metadata.keyvalues.minter) {
@@ -79,18 +85,16 @@ export default function Mint() {
     <Stack
       justifyContent="center"
       spacing={3}
-      className={clsx(
-        "gradient-border",
-        "rounded-2xl overflow-hidden",
-        "pb-8"
-      )}
+      className={clsx("gradient-border", "rounded-2xl overflow-hidden", "pb-8")}
     >
       <NFTImage
-        src={`${GATEWAY_URL}/ipfs/${urlParams['id']}/${urlParams["fileId"]}`}
+        src={`${GATEWAY_URL}/ipfs/${urlParams["id"]}/${urlParams["fileId"]}`}
         cover={false}
       />
       <Stack className="px-4" spacing={2}>
-        <h5 className="text-2xl dark:text-white text-black font-mono">{nftName}</h5>
+        <h5 className="text-2xl dark:text-white text-black font-mono">
+          {nftName}
+        </h5>
         {!totalSupply && !isLoading ? (
           <Button
             onClick={() => {

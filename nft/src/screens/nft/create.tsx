@@ -36,7 +36,7 @@ export default function Create() {
         <Text>Loading...</Text>
       ) : isConnected ? (
         <div className="flex flex-col items-center">
-          <div className="gradient-border rounded-2xl w-[75%]">
+          <div className="gradient-border rounded-2xl sm:w-[75%]">
             <div className="grain rounded-2xl p-1.5 drop-shadow-xl">
               <Stack
                 spacing={2}
@@ -83,7 +83,7 @@ export default function Create() {
                       >
                         <CloseIcon />
                       </IconButton>
-                      <div className="w-[510px]">
+                      <div className="w-[240px] md:w-[332px] lg:w-[510px]">
                         <NFTImage src={URL.createObjectURL(file)} />
                       </div>
                     </>
@@ -123,6 +123,7 @@ export default function Create() {
                 />
                 <Button
                   disabled={isCreateButtonDisabled}
+                  className={isCreateButtonDisabled ? "text-white" : ""}
                   onClick={() => {
                     if (file) {
                       uploadFile.mutateAsync({
