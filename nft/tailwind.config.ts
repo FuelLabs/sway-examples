@@ -22,11 +22,7 @@ const config: Config = {
     },
     extend: {
       colors: {
-        //   "fuel-green": "#009d5a",
-        //   background: "var(--background-color)",
         "text-primary": "var(--text-color)",
-        //   primary: "var(--primary-color)",
-        //   secondary: "var(--secondary-color)",
       },
     },
   },
