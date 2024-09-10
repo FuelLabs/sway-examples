@@ -82,7 +82,7 @@ export const WelcomePage = ({
           <Box className="border-b-2 border-slate-600 w-full" />
           <Button
             variant="outlined"
-            className="text-white h-12 w-full border-slate-600"
+            className="text-black dark:text-white h-12 w-full border-slate-600"
             onClick={() => {
               connectUI();
             }}
