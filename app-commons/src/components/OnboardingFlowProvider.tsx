@@ -32,17 +32,10 @@ export const OnboardingFlowProvider = ({
   const { isConnected } = useIsConnected();
   const [openDialog, setOpenDialog] = useState(!isConnected);
 
-  // useEffect(() => {
-  //   if (!is)
-  //     setOpenDialog(!isConnected);
-  // }, [isConnected])
-
   return (
-    // <FuelProvider fuelConfig={{ connectors: defaultConnectors() }}>
       <OnboardingFlowContext.Provider value={{ openDialog, setOpenDialog }}>
         <Toaster />
         {children}
       </OnboardingFlowContext.Provider>
-    // </FuelProvider>
   );
 };
