@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import DatePicker from "@/components/DatePicker";
 import { Input, MultilineInput } from "@/components/Input";
 import { Text } from "@/components/Text";
 import { useDeployAirdrop } from "@/hooks/useDeployAirdrop";
@@ -13,7 +14,7 @@ import {
 import { recipientsParser } from "@/utils/parsers";
 import { useWallet } from "@fuels/react";
 import { TextField } from "@mui/material";
-import { Address, BytesLike, getRandomB256 } from "fuels";
+import { Address, bn, BytesLike, DateTime, getRandomB256 } from "fuels";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -45,6 +46,7 @@ export default function Airdrop() {
     { address: string; amount: bigint }[]
   >([]);
   const [textValue, setTextValue] = useState<string>("");
+  const [endDate, setEndDate] = useState("");
 
   const parseText = useCallback((text: string) => {
     // Need to parse decimals dynamically, currently hardcoded to 9
@@ -66,7 +68,7 @@ export default function Airdrop() {
     if (deployAirdropSuccess && data?.contractId) {
       uploadAirdropData({
         contractId: data?.contractId,
-        recipients
+        recipients,
       });
     }
   }, [deployAirdropSuccess, data]);
@@ -107,6 +109,18 @@ export default function Airdrop() {
         onChange={(val) => setTextValue(val.target.value)}
       />
 
+      <input className="block mb-6"
+        onChange={(e) => {
+          const tiaValue = DateTime.fromUnixMilliseconds(
+            new Date(e.target.value).getTime()
+          ).toTai64();
+          
+          // console.log(bn(BigInt(tiaValue).toString()).toString());
+          console.log(BigInt(tiaValue));
+          setEndDate(tiaValue);
+        }}
+        type="date"
+      />
       <Button
         className="m-auto w-fit"
         onClick={async () => {
@@ -131,8 +145,8 @@ export default function Airdrop() {
               },
               {
                 key: "94b2b70d20da552763c7614981b2a4d984380d7ed4e54c01b28c914e79e44bd5",
-                value:
-                  "9999900000000000000000000000000000000000000000000000000000000000",
+                value: bn(endDate).toHex(32),
+                  // "9999900000000000000000000000000000000000000000000000000000000000",
               },
               {
                 key: "94b2b70d20da552763c7614981b2a4d984380d7ed4e54c01b28c914e79e44bd6",

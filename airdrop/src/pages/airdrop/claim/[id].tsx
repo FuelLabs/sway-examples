@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import { formatUnits } from "viem";
+import { useGetOwner } from "@/hooks/useGetAirdropContractData";
 
 export type RecipientData = Array<{ address: string; amount: bigint }>;
 
@@ -19,7 +20,6 @@ export default function ClaimAirdrop() {
   const { query } = useRouter();
   const contractId = query.id as string;
   const recipients = JSON.parse(useSearchParams().get("recipient") as string);
-
   // const { data: airdropData } = useGetAirdropData();
   const { mutate } = useClaimAirdrop();
   const [isRecipient, setIsRecipient] = useState<{
@@ -30,6 +30,8 @@ export default function ClaimAirdrop() {
   const { wallet } = useWallet();
 
   console.log("recipients", recipients);
+
+  const { owner } = useGetOwner({ contractId });
 
   useEffect(() => {
     console.log({ wallet });
@@ -92,6 +94,8 @@ export default function ClaimAirdrop() {
           </Button>
         </>
       )}
+
+      <Text textAlign={"center"}>Contract Owner: {owner}</Text>
     </div>
   );
 }

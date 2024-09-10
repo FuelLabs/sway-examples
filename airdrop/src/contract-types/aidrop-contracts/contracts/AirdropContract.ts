@@ -56,7 +56,6 @@ export type AirdropContractConfigurables = Partial<{
   END_TIME: BigNumberish;
   NUM_LEAVES: BigNumberish;
   INITIAL_OWNER: Option<IdentityInput>;
-  INITIAL_SIGNER: Option<AddressInput>;
 }>;
 
 const abi = {
@@ -105,14 +104,6 @@ const abi = {
       ]
     },
     {
-      "type": "enum std::option::Option<struct std::address::Address>",
-      "concreteTypeId": "8f44be37f59226eedaa8ba576d6674575f420f34a03f5d452cb9886ef9d38214",
-      "metadataTypeId": 4,
-      "typeArguments": [
-        "f597b637c3b0f588fb8d7086c6f4735caa3122b85f0423b82e489f9bb58e2308"
-      ]
-    },
-    {
       "type": "enum sway_libs::merkle::binary_proof::ProofError",
       "concreteTypeId": "b99ff7124bda2b55402338105d5a582d311c1113da1c5f5b1b6f2c32bcd91965",
       "metadataTypeId": 5
@@ -141,11 +132,6 @@ const abi = {
       "type": "struct events::PauseChangeEvent",
       "concreteTypeId": "68b78007febdb9c12cc535c7b120f5b4e11145114b85e2c44947fac773823991",
       "metadataTypeId": 12
-    },
-    {
-      "type": "struct std::address::Address",
-      "concreteTypeId": "f597b637c3b0f588fb8d7086c6f4735caa3122b85f0423b82e489f9bb58e2308",
-      "metadataTypeId": 13
     },
     {
       "type": "struct std::asset_id::AssetId",
@@ -660,45 +646,32 @@ const abi = {
     {
       "name": "MERKLE_ROOT",
       "concreteTypeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
-      "offset": 35400
+      "offset": 34792
     },
     {
       "name": "ASSET",
       "concreteTypeId": "c0710b6731b1dd59799cf6bef33eee3b3b04a2e40e80a0724090215bbf2ca974",
-      "offset": 35272
+      "offset": 34704
     },
     {
       "name": "END_TIME",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 35304
+      "offset": 34736
     },
     {
       "name": "NUM_LEAVES",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 35432
+      "offset": 34824
     },
     {
       "name": "INITIAL_OWNER",
       "concreteTypeId": "253aea1197e8005518365bd24c8bc31f73a434fac0f7350e57696edfdd4850c2",
-      "offset": 35312
-    },
-    {
-      "name": "INITIAL_SIGNER",
-      "concreteTypeId": "8f44be37f59226eedaa8ba576d6674575f420f34a03f5d452cb9886ef9d38214",
-      "offset": 35360
+      "offset": 34744
     }
   ]
 };
 
 const storageSlots: StorageSlot[] = [
-  {
-    "key": "169190cff4e553cf9d468d08ae500d7f94b6d04af30d35b9ee84b94bc0cbf06f",
-    "value": "0000000000000000000000000000000000000000000000000000000000000000"
-  },
-  {
-    "key": "169190cff4e553cf9d468d08ae500d7f94b6d04af30d35b9ee84b94bc0cbf070",
-    "value": "0000000000000000000000000000000000000000000000000000000000000000"
-  },
   {
     "key": "1d63cc2495bbf5570c9a6d7f632018dc033107e7f4452405c44601bb771a4a5d",
     "value": "0000000000000000000000000000000000000000000000000000000000000000"
