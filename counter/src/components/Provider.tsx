@@ -16,7 +16,7 @@ import {
 } from "@fuels/connectors";
 import { StyledEngineProvider } from "@mui/material";
 
-import { NODE_URL, WC_PROJECT_ID } from "src/lib";
+import { NODE_URL, WC_PROJECT_ID } from "../lib";
 import { OnboardingFlowProvider } from "app-commons";
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
@@ -24,14 +24,13 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     return new QueryClient({});
   });
   const [currentProvider] = useState(Provider.create(NODE_URL));
-  
   // ============================================================
   // WalletConnect Connector configurations
   // https://docs.walletconnect.com/web3modal/javascript/about
   // ============================================================
   const METADATA = {
-    name: "NFT App",
-    description: "View and collect NFTs",
+    name: "Counter App",
+    description: "Play with scripts, counters and predicates",
     url: location.href,
     icons: ["https://connectors.fuel.network/logo_white.png"],
   };
@@ -59,29 +58,28 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
       }),
     ],
   });
-
   return (
     <StyledEngineProvider injectFirst>
       <BrowserRouter>
-          <QueryClientProvider client={queryClient}>
-            <FuelProvider
-              fuelConfig={{
-                connectors: [
-                  new FuelWalletConnector(),
-                  new FueletWalletConnector(),
-                  new WalletConnectConnector({
-                    fuelProvider: currentProvider,
-                    wagmiConfig,
-                    projectId: WC_PROJECT_ID,
-                  }),
-                  new FuelWalletDevelopmentConnector(),
-                  new BurnerWalletConnector({ fuelProvider: currentProvider }),
-                ],
-              }}
-            >
-              <OnboardingFlowProvider>{children}</OnboardingFlowProvider>
-            </FuelProvider>
-          </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <FuelProvider
+            fuelConfig={{
+              connectors: [
+                new FuelWalletConnector(),
+                new FueletWalletConnector(),
+                new WalletConnectConnector({
+                  fuelProvider: currentProvider,
+                  wagmiConfig,
+                  projectId: WC_PROJECT_ID,
+                }),
+                new FuelWalletDevelopmentConnector(),
+                new BurnerWalletConnector({ fuelProvider: currentProvider }),
+              ],
+            }}
+          >
+            <OnboardingFlowProvider>{children}</OnboardingFlowProvider>
+          </FuelProvider>
+        </QueryClientProvider>
       </BrowserRouter>
     </StyledEngineProvider>
   );
