@@ -11,7 +11,7 @@ export const Button = ({
     <BaseButton
       {...props}
       variant={variant}
-      className={clsx("btn", "btn-primary", className)}
+      className={clsx("btn", "btn-primary", "text-black", className)}
     >
       {children}
     </BaseButton>

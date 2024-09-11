@@ -13,6 +13,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import ExploreIcon from "@mui/icons-material/ExploreOutlined";
 import AddBoxIcon from "@mui/icons-material/AddBoxOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircleOutlined";
+import { ThemeToggle } from "app-commons";
+import { useState, useEffect } from "react";
 
 import { BrandBackgroundBlur } from "./BrandBackgroundBlur";
 import { FuelLogo } from "./FuelLogo";
@@ -21,10 +23,26 @@ const TOP_UP_AMOUNT = 100_000_000;
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { faucetWallet } = useFaucet();
-  const { wallet, network, walletBalance, refetchBalance, isConnected } =
-    useActiveWallet();
+  const { wallet, network, walletBalance, refetchBalance } = useActiveWallet();
   const { isTablet } = useBreakpoints();
   const navigate = useNavigate();
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return (
+      localStorage.getItem("theme") === "dark" ||
+      (!localStorage.getItem("theme") &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
+  });
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDarkMode]);
 
   const topUpWallet = async () => {
     if (!wallet) {
@@ -59,7 +77,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
 
   return (
     <div>
-      <header className="w-full sticky top-0 z-10 bg-gradient-header">
+      <header className="w-full sticky top-0 z-10 bg-gradient-header-light dark:bg-gradient-header">
         <nav className="max-w-[1780px] mx-auto">
           <div className="flex items-center gap-2 lg:gap-6 py-4 px-8">
             <div className="block md:hidden">
@@ -90,10 +108,14 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
               <WalletDisplay />
             </div>
 
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center justify-around sm:justify-between w-52">
               <ConnectButton
                 showTopUpButton={!!showTopUpButton}
                 onTopUp={topUpWallet}
+              />
+              <ThemeToggle
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
               />
             </div>
           </div>
@@ -101,13 +123,13 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
       </header>
 
       <main className="w-full max-w-[1780px] mt-8 pb-8 mx-auto">
-        <div className="bg-content bg-gradient mx-8">
+        <div className="bg-content bg-gradient-light dark:bg-gradient mx-8">
           <BrandBackgroundBlur />
 
           <div className="max-w-[1200px] min-h-[calc(100vh-200px)] mx-auto mt-6 lg:mt-14 px-4">
             {children ?? <Outlet />}
 
-            <p className="text-[#b4b4b4] text-sm mt-14 text-center">
+            <p className="text-zinc-800 dark:text-[#b4b4b4] text-sm mt-14 text-center">
               © 2024 Fuel Labs. All rights reserved
             </p>
           </div>

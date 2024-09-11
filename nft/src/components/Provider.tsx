@@ -63,25 +63,25 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <StyledEngineProvider injectFirst>
       <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <FuelProvider
-            fuelConfig={{
-              connectors: [
-                new FuelWalletConnector(),
-                new FueletWalletConnector(),
-                new WalletConnectConnector({
-                  fuelProvider: currentProvider,
-                  wagmiConfig,
-                  projectId: WC_PROJECT_ID,
-                }),
-                new FuelWalletDevelopmentConnector(),
-                new BurnerWalletConnector({ fuelProvider: currentProvider }),
-              ],
-            }}
-          >
-            <OnboardingFlowProvider>{children}</OnboardingFlowProvider>
-          </FuelProvider>
-        </QueryClientProvider>
+          <QueryClientProvider client={queryClient}>
+            <FuelProvider
+              fuelConfig={{
+                connectors: [
+                  new FuelWalletConnector(),
+                  new FueletWalletConnector(),
+                  new WalletConnectConnector({
+                    fuelProvider: currentProvider,
+                    wagmiConfig,
+                    projectId: WC_PROJECT_ID,
+                  }),
+                  new FuelWalletDevelopmentConnector(),
+                  new BurnerWalletConnector({ fuelProvider: currentProvider }),
+                ],
+              }}
+            >
+              <OnboardingFlowProvider>{children}</OnboardingFlowProvider>
+            </FuelProvider>
+          </QueryClientProvider>
       </BrowserRouter>
     </StyledEngineProvider>
   );

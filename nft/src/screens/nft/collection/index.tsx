@@ -22,7 +22,7 @@ export default function Collection() {
     <NFTGrid
       isLoading={isPending}
       nftData={nftData}
-      title={<h3 className="text-xl font-mono mb-5 text-white">Your NFTs</h3>}
+      title={<h3 className="text-xl font-mono mb-5 text-black dark:text-white">Your NFTs</h3>}
     />
   );
 }

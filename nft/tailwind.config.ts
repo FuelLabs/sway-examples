@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
 
+/** @type {import('tailwindcss').Config} */
 const config: Config = {
+  darkMode: ['selector', '[data-theme="dark"]'],
   content: [
     "./src/screens/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,14 +11,19 @@ const config: Config = {
     "./node_modules/app-commons/src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/app-commons/tailwind.config.ts",
   ],
-  // corePlugins: {
-  //   preflight: false,
-  // },
   important: "#root",
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        mono: ['GeistMono', 'monospace'],
+      sans: ["Inter", "sans-serif"],
+      mono: ["GeistMono", "monospace"],
+    },
+    extend: {
+      colors: {
+        "text-primary": "var(--text-color)",
+      },
     },
   },
   plugins: [],

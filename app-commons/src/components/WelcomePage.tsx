@@ -6,22 +6,19 @@ import {
   useWallet,
   useBalance,
 } from "@fuels/react";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useEffect } from "react";
 
-import { Text, TextProps } from "./Text";
+import { Text } from "./Text";
 import { CurrentStep } from "./OnboardingTopBar";
 import { isSafari } from "src/utils";
 
 type WelcomePageProps = {
-  message?: string;
-  messageProps?: TextProps;
+  message?: React.ReactNode;
   setCurrentStep: (currentStep: CurrentStep) => void;
 };
 
 export const WelcomePage = ({
   message,
-  messageProps,
   setCurrentStep,
 }: WelcomePageProps) => {
   const { connect: connectUI } = useConnectUI();
@@ -66,13 +63,13 @@ export const WelcomePage = ({
 
   return (
     <Stack spacing={3} className="w-5/6 items-center">
-      {message && <Text {...messageProps}>{message}</Text>}
+      {message}
       {isWalletLoading ? (
         <Text>Loading...</Text>
       ) : (
         <>
           <Button
-            className="btn-primary h-12 w-full"
+            className="btn-primary h-12 w-full text-black"
             onClick={() => {
               connectBurner("Burner Wallet");
             }}
@@ -82,7 +79,7 @@ export const WelcomePage = ({
           <Box className="border-b-2 border-slate-600 w-full" />
           <Button
             variant="outlined"
-            className="text-white h-12 w-full border-slate-600"
+            className="text-black dark:text-white h-12 w-full border-slate-600"
             onClick={() => {
               connectUI();
             }}

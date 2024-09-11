@@ -9,7 +9,7 @@ export default function Explore() {
     <NFTGrid
       isLoading={isPending}
       nftData={data}
-      title={<h3 className="text-xl font-mono mb-5 text-white">Latest NFTs</h3>}
+      title={<h3 className="text-xl font-mono mb-5 text-black dark:text-white">Latest NFTs</h3>}
     />
   );
 }

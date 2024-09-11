@@ -11,9 +11,10 @@ import { useBalance, useWallet } from "@fuels/react";
 
 type OnboardingFlowProps = {
   container?: Element | (() => Element | null) | null;
+  welcomeMessage?: React.ReactNode;
 };
 
-export const OnboardingFlow = ({ container }: OnboardingFlowProps) => {
+export const OnboardingFlow = ({ container, welcomeMessage }: OnboardingFlowProps) => {
   const { openDialog } = useOnboardingFlowContext();
   const [currentStep, setCurrentStep] = useState(CurrentStep.Welcome);
   const { isMobile } = useBreakpoints();
@@ -36,7 +37,7 @@ export const OnboardingFlow = ({ container }: OnboardingFlowProps) => {
       container={container}
       open={openDialog}
       id="onboarding"
-      PaperProps={{ className: "p-8 w-full bg-black border-slate-600 border" }}
+      PaperProps={{ className: "p-8 w-full bg-zinc-200 dark:bg-black border-slate-600 border" }}
     >
       <DialogContent>
         <Stack spacing={4} className="items-center">
@@ -45,8 +46,7 @@ export const OnboardingFlow = ({ container }: OnboardingFlowProps) => {
           <Box className="flex w-full justify-center items-center">
             {currentStep === CurrentStep.Welcome ? (
               <WelcomePage
-                message="Welcome to Sway NFT!"
-                messageProps={{ className: "text-xl" }}
+                message={welcomeMessage}
                 setCurrentStep={setCurrentStep}
               />
             ) : currentStep === CurrentStep.Faucet ? (
