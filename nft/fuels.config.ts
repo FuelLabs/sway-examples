@@ -1,7 +1,7 @@
 import { defaultConsensusKey, FuelsConfig, createConfig, Wallet, Provider } from 'fuels';
 import dotenv from 'dotenv';
 import { NODE_URL, IS_PROD } from 'src/lib';
-import { NFTContractAbi__factory } from 'src/contract-types';
+import { NFTContract } from 'src/contract-types/contracts';
 
 dotenv.config({
   path: ['.env.local', '.env'],
@@ -31,7 +31,7 @@ export default createConfig({
     const wallet = Wallet.fromPrivateKey(privateKey, provider);
 
     // Call nft contructor to initialize owner
-    const contract = NFTContractAbi__factory.connect(nftContract.contractId, wallet);
+    const contract = new NFTContract(nftContract.contractId, wallet);
     try {
       await contract.functions.constructor( { Address: { bits: wallet.address.toB256() }}).call();
       console.log("Owner initialized");

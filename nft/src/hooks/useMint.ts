@@ -1,4 +1,4 @@
-import { NFTContractAbi__factory } from "src/contract-types";
+import { NFTContract } from "src/contract-types/contracts";
 import { useWallet } from "@fuels/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -22,7 +22,7 @@ export const useMint = () => {
     }) => {
       if (!wallet) throw new Error(`Cannot mint if wallet is ${wallet}`);
 
-      const contract = NFTContractAbi__factory.connect(CONTRACT_ID, wallet);
+      const contract = new NFTContract(CONTRACT_ID, wallet);
 
       const recipient = { Address: { bits: wallet.address.toB256() } };
 
