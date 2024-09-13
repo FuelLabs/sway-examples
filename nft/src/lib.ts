@@ -1,7 +1,6 @@
 import { Account, BN } from "fuels";
 import productionContractId from "../artifacts/contract-ids.json";
 import contractId from "./contract-types/contract-ids.json";
-import "dotenv/config";
 
 type DappEnvironment = "local" | "testnet";
 
