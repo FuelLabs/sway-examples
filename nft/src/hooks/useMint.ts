@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useUpdateMetadata } from "./useUpdateMetadata";
 import { CONTRACT_ID } from "src/lib";
 import { NFTQueryKeys } from "src/queryKeys";
+import { bn } from "fuels";
 
 export const useMint = () => {
   const { wallet } = useWallet();
@@ -27,7 +28,7 @@ export const useMint = () => {
       const recipient = { Address: { bits: wallet.address.toB256() } };
 
       const callResult = await contract.functions
-        .mint(recipient, nftSubId, 1)
+        .mint(recipient, nftSubId, bn(1))
         .call();
       const result = await callResult.waitForResult()
       return result;
