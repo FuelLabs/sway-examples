@@ -69,7 +69,7 @@ export default function Home() {
           onClick={onIncrementPressed}
           className={`mt-6 ${
             isLoading
-              ? "bg-transparent border border-gray-400 pointer-events-none"
+              ? "bg-buttonTransition border border-gray-400 pointer-events-none"
               : !isConnected
               ? "bg-gray-500"
               : ""
