@@ -72,7 +72,7 @@ export default function PredicateExample() {
       <Button
         className={`${
           isLoadingTransfer
-            ? "bg-buttonTransition border border-gray-400 pointer-events-none"
+            ? "bg-buttontransition border border-gray-400 pointer-events-none"
             : !isConnected
               ? "bg-gray-500"
               : ""
@@ -96,7 +96,7 @@ export default function PredicateExample() {
       <Button
         className={`w-11/12 sm:w-fit ${
           isLoadingUnlock
-            ? "bg-buttonTransition border border-gray-400 pointer-events-none"
+            ? "bg-buttontransition border border-gray-400 pointer-events-none"
             : isButtonDisabled
               ? "bg-gray-500"
               : ""

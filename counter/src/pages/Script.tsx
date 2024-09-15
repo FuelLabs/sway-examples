@@ -40,7 +40,7 @@ export default function ScriptExample() {
       <Button
         className={`${
           isLoading
-            ? "bg-buttonTransition border border-gray-400 pointer-events-none"
+            ? "bg-buttontransition border border-gray-400 pointer-events-none"
             : !isConnected
               ? "bg-gray-500"
               : ""
