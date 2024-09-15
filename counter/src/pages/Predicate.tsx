@@ -72,10 +72,10 @@ export default function PredicateExample() {
       <Button
         className={`${
           isLoadingTransfer
-            ? "bg-transparent border border-gray-400 pointer-events-none"
+            ? "bg-buttonTransition border border-gray-400 pointer-events-none"
             : !isConnected
-            ? "bg-gray-500"
-            : ""
+              ? "bg-gray-500"
+              : ""
         }`}
         onClick={async () =>
           await transferFundsToPredicate(bn.parseUnits("0.001"))
@@ -96,10 +96,10 @@ export default function PredicateExample() {
       <Button
         className={`w-11/12 sm:w-fit ${
           isLoadingUnlock
-            ? "bg-transparent border border-gray-400 pointer-events-none"
+            ? "bg-buttonTransition border border-gray-400 pointer-events-none"
             : isButtonDisabled
-            ? "bg-gray-500"
-            : ""
+              ? "bg-gray-500"
+              : ""
         }`}
         onClick={async () =>
           await unlockPredicateAndTransferFundsBack(

@@ -69,21 +69,27 @@ export default function Home() {
           onClick={onIncrementPressed}
           className={`mt-6 ${
             isLoading
-              ? "bg-transparent border border-gray-400 pointer-events-none"
+              ? "bg-buttonTransition border border-gray-400 pointer-events-none"
               : !isConnected
-              ? "bg-gray-500"
-              : ""
+                ? "bg-gray-500"
+                : ""
           }`}
         >
           {isLoading ? "Incrementing..." : "Increment Counter"}
         </Button>
       </>
 
-      <Link to={`${VITE_BASE_URL}/counter/predicate`} className="text-fuel-green hover:underline">
+      <Link
+        to={`${VITE_BASE_URL}/counter/predicate`}
+        className="text-fuel-green hover:underline"
+      >
         Predicate Example
       </Link>
 
-      <Link to={`${VITE_BASE_URL}/counter/script`} className="text-fuel-green hover:underline">
+      <Link
+        to={`${VITE_BASE_URL}/counter/script`}
+        className="text-fuel-green hover:underline"
+      >
         Script Example
       </Link>
     </>
