@@ -34,7 +34,7 @@ To begin, install dependencies.
 
 ```sh
 git clone https://github.com/FuelLabs/sway-examples
-cd sway-examples
+cd sway-examples/nft
 ```
 
 ### 📦 2. Install Dependencies

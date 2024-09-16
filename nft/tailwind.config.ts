@@ -8,8 +8,8 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./index.html",
-    "./node_modules/app-commons/src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/app-commons/tailwind.config.ts",
+    "./node_modules/sway-example-commons/src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/sway-example-commons/tailwind.config.ts",
   ],
   important: "#root",
   corePlugins: {
