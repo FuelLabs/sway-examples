@@ -2,7 +2,7 @@ import { Button } from "../components/Button";
 import { FuelLogo } from "../components/FuelLogo";
 import { Input } from "../components/Input";
 import { useActiveWallet } from "../hooks/useActiveWallet";
-import { TestPredicateAbi__factory } from "../sway-api/predicates/index";
+import { TestPredicate } from "../sway-api/predicates/index";
 import { BN, InputValue, Predicate } from "fuels";
 import { bn } from "fuels";
 import { useState } from "react";
@@ -20,9 +20,9 @@ export default function PredicateExample() {
 
   useAsync(async () => {
     if (wallet) {
-      const predicateInstance = TestPredicateAbi__factory.createInstance(
-        wallet.provider
-      );
+      const predicateInstance = new TestPredicate({
+        provider: wallet.provider,
+      });      
       setPredicate(predicateInstance);
       setPredicateBalance(await predicateInstance.getBalance());
     }
