@@ -7,7 +7,7 @@ import { TestContract } from "../sway-api/contracts/index";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 interface UseIncrementCounterProps {
-  contract: TestContract | undefined;
+  contract?: TestContract;
   isConnected: boolean | null;
   walletBalance: BN | null;
   setCounter: (value: number) => void;
