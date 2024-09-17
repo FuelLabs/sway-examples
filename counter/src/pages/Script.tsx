@@ -7,6 +7,7 @@ import { Input } from "../components/Input";
 import { useActiveWallet } from "../hooks/useActiveWallet";
 import { useRunScript } from "../hooks/useRunScript";
 import { useState } from "react";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export default function ScriptExample() {
   const { wallet, walletBalance, isConnected } = useActiveWallet();
@@ -69,6 +70,7 @@ export default function ScriptExample() {
         className="text-fuel-green hover:underline"
       >
         Learn more about Scripts
+        <OpenInNewIcon fontSize="small" className="ml-1" />
       </Link>
     </>
   );

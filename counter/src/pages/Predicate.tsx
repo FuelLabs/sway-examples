@@ -10,6 +10,7 @@ import useAsync from "react-use/lib/useAsync";
 import { Link } from "react-router-dom";
 import { useTransferFundsToPredicate } from "../hooks/useTransferFundsToPredicate";
 import { useUnlockPredicateAndTransferFundsBack } from "../hooks/useUnlockPredicateAndTransferFundsBack";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export default function PredicateExample() {
   const { wallet, walletBalance, refetchBalance, isConnected } =
@@ -125,7 +126,8 @@ export default function PredicateExample() {
         target="_blank"
         className="text-fuel-green hover:underline"
       >
-        Learn more about Predicates
+        Learn more about Predicates 
+        <OpenInNewIcon fontSize="small" className="ml-1" />
       </Link>
     </>
   );
