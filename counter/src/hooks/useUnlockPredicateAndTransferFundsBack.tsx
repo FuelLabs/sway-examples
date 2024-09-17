@@ -50,7 +50,10 @@ export function useUnlockPredicateAndTransferFundsBack({
       setIsLoadingUnlock(true);
       const baseAssetId = wallet.provider.getBaseAssetId();
       let provider = wallet.provider
-      const reInitializePredicate = new TestPredicate({provider, pin});
+      const reInitializePredicate = new TestPredicate({
+        provider,
+        data: [bn(pin)],
+      });
 
       if (!reInitializePredicate) {
         return toast.error("Failed to initialize predicate");
