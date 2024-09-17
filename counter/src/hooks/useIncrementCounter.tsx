@@ -2,11 +2,12 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { bn, BN } from "fuels";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import type { TestContractAbi } from "../sway-api";
+import { TestContract } from "../sway-api/contracts/index";
+
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 interface UseIncrementCounterProps {
-  contract: TestContractAbi | undefined;
+  contract: TestContract | undefined;
   isConnected: boolean | null;
   walletBalance: BN | null;
   setCounter: (value: number) => void;
