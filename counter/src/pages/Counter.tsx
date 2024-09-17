@@ -1,5 +1,4 @@
-import type { TestContractAbi } from "../sway-api";
-import { TestContractAbi__factory } from "../sway-api";
+import { TestContract, TestContractFactory} from "../sway-api";
 import contractIds from "../sway-api/contract-ids.json";
 import { FuelLogo } from "../components/FuelLogo";
 import { useState } from "react";
@@ -18,12 +17,12 @@ const contractId =
 export default function Home() {
   const { wallet, walletBalance, refetchBalance, isConnected } =
     useActiveWallet();
-  const [contract, setContract] = useState<TestContractAbi>();
+  const [contract, setContract] = useState<TestContract>();
   const [counter, setCounter] = useState<number>();
 
   useAsync(async () => {
     if (wallet) {
-      const testContract = TestContractAbi__factory.connect(contractId, wallet);
+      const testContract = new TestContract(contractId, wallet);
       setContract(testContract);
       const { value } = await testContract.functions.get_count().get();
       setCounter(value.toNumber());

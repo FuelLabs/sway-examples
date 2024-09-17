@@ -17,7 +17,7 @@ import {
 import { StyledEngineProvider } from "@mui/material";
 
 import { NODE_URL, WC_PROJECT_ID } from "../lib";
-import { OnboardingFlowProvider } from "app-commons";
+import { OnboardingFlowProvider } from "sway-example-commons";
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => {

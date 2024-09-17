@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { BN, BigNumberish, Script, bn, Account } from "fuels";
-import { TestScriptAbi__factory } from "../sway-api";
+import { TestScript } from "../sway-api";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import useAsync from "react-use/lib/useAsync";
 
@@ -25,7 +25,7 @@ export function useRunScript({
 
   useAsync(async () => {
     if (wallet) {
-      const scriptInstance = TestScriptAbi__factory.createInstance(wallet);
+      const scriptInstance = new TestScript(wallet);
       setScript(scriptInstance);
     }
   }, [wallet]);

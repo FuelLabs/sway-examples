@@ -6,7 +6,7 @@ import { App } from "./App";
 import { Text } from "./components/Text";
 import { AppProvider } from "./components/Provider";
 import { Toaster } from "react-hot-toast";
-import { OnboardingFlow } from "app-commons";
+import { OnboardingFlow } from "sway-example-commons";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

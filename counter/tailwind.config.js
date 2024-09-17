@@ -4,8 +4,8 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./index.html",
-    "./node_modules/app-commons/src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/app-commons/tailwind.config.ts",
+    "./node_modules/sway-example-commons/src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/sway-example-commons/tailwind.config.ts",
   ],
   theme: {
     // darkMode: 'selector',
