@@ -253,8 +253,11 @@ impl SRC3 for Contract {
     /// }
     /// ```
     #[storage(read, write)]
-    fn mint(recipient: Identity, sub_id: SubId, amount: u64) {
+    fn mint(recipient: Identity, sub_id: Option<SubId>, amount: u64) {
         require_not_paused();
+        require(sub_id.is_some(), MintError::SubIdCannotBeNone);
+
+        let sub_id = sub_id.unwrap();
 
         // Checks to ensure this is a valid mint.
         let asset = AssetId::new(ContractId::this(), sub_id);

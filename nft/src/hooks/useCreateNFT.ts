@@ -1,10 +1,10 @@
-import { QUERY_KEYS, useWallet } from "@fuels/react";
+import { useWallet } from "@fuels/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { getRandomB256 } from "fuels";
 import { useNavigate } from "react-router-dom";
-import { NFTContractAbi__factory } from "src/contract-types";
-import { AssetIdInput } from "src/contract-types/contracts/NFTContractAbi";
+import { NFTContract } from "src/contract-types/contracts";
+import { AssetIdInput } from "src/contract-types/contracts/NFTContract";
 import { createAssetId } from "src/utils/assetId";
 import { useUpdateMetadata } from "./useUpdateMetadata";
 import { useUnpin } from "./useUnpin";
@@ -35,7 +35,7 @@ export const useCreateNFT = () => {
 
       if (!cid) throw new Error(`cid is ${cid}`);
 
-      const contract = NFTContractAbi__factory.connect(CONTRACT_ID, wallet);
+      const contract = new NFTContract(CONTRACT_ID, wallet);
 
       let contractCalls = [];
       const subId = getRandomB256();

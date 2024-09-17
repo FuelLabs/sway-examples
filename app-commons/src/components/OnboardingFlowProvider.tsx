@@ -1,6 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { FuelProvider, useIsConnected } from "@fuels/react";
-import { defaultConnectors } from "@fuels/connectors";
+import { createContext, useContext, useState } from "react";
+import { useIsConnected } from "@fuels/react";
 
 import { Toaster } from "react-hot-toast";
 

@@ -1,4 +1,4 @@
-import { NFTContractAbi__factory } from "src/contract-types";
+import { NFTContract } from "src/contract-types/contracts";
 import { useQuery } from "@tanstack/react-query";
 import { CONTRACT_ID, NODE_URL } from "src/lib";
 import { createAssetId } from "src/utils/assetId";
@@ -13,7 +13,7 @@ export const useTotalSupply = (subId: string) => {
 
             const assetId = createAssetId(subId, CONTRACT_ID);
 
-            const contract = NFTContractAbi__factory.connect(CONTRACT_ID, provider);
+            const contract = new NFTContract(CONTRACT_ID, provider);
 
             const result = await contract.functions.total_supply(assetId).get();
             return result.value?.toNumber() || 0;
