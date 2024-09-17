@@ -18,6 +18,7 @@ import { useBreakpoints } from "./hooks/useBreakpoints";
 import { NavMenu } from "./components/NavMenu";
 import ThemeToggle from "./components/ThemeToggle";
 import { useEffect, useState } from "react";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 export default function App() {
   const { wallet, network, isConnected } =
@@ -60,7 +61,10 @@ export default function App() {
         <nav className="flex justify-between items-center p-4 bg-background text-text-primary gap-6">
           {!isMobile && (
             <>
-              <Link className="text-fuel-green hover:underline" to={`${VITE_BASE_URL}/counter`}>
+              <Link
+                className="text-fuel-green hover:underline"
+                to={`${VITE_BASE_URL}/counter`}
+              >
                 Home
               </Link>
               <Link
@@ -69,6 +73,7 @@ export default function App() {
                 className="text-fuel-green hover:underline"
               >
                 Fuel Docs
+                <OpenInNewIcon fontSize="small" className="ml-1" />
               </Link>
             </>
           )}
@@ -89,9 +94,17 @@ export default function App() {
                     "Please connect your wallet to visit the faucet."
                   );
                 if (isSafari && wallet) {
-                  const redirectUrl = new URL("https://faucet-testnet.fuel.network/");
-                  redirectUrl.searchParams.append("address", wallet.address.toString());
-                  redirectUrl.searchParams.append("redirectUrl", window.location.href);
+                  const redirectUrl = new URL(
+                    "https://faucet-testnet.fuel.network/"
+                  );
+                  redirectUrl.searchParams.append(
+                    "address",
+                    wallet.address.toString()
+                  );
+                  redirectUrl.searchParams.append(
+                    "redirectUrl",
+                    window.location.href
+                  );
                   window.location.href = redirectUrl.href;
                 } else {
                   navigate(`${VITE_BASE_URL}/counter/faucet`);
@@ -115,9 +128,18 @@ export default function App() {
         <div className="min-h-screen items-center justify-center flex flex-col gap-6">
           <Routes>
             <Route path={`${VITE_BASE_URL}/counter`} element={<Home />} />
-            <Route path={`${VITE_BASE_URL}/counter/predicate`} element={<PredicateExample />} />
-            <Route path={`${VITE_BASE_URL}/counter/script`} element={<ScriptExample />} />
-            <Route path={`${VITE_BASE_URL}/counter/faucet`} element={<Faucet />} />
+            <Route
+              path={`${VITE_BASE_URL}/counter/predicate`}
+              element={<PredicateExample />}
+            />
+            <Route
+              path={`${VITE_BASE_URL}/counter/script`}
+              element={<ScriptExample />}
+            />
+            <Route
+              path={`${VITE_BASE_URL}/counter/faucet`}
+              element={<Faucet />}
+            />
           </Routes>{" "}
         </div>
       </div>
