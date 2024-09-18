@@ -27,51 +27,7 @@ export default function Home() {
   const [contract, setContract] = useState<TestContract>();
   const [counter, setCounter] = useState<number>();
 
-  /**
-   * useAsync is a wrapper around useEffect that allows us to run asynchronous code
-   * See: https://github.com/streamich/react-use/blob/master/docs/useAsync.md
-   */
-  useAsync(async () => {
-    if (wallet) {
-      // Create a new instance of the contract
-      const testContract = new TestContract(contractId, wallet);
-      setContract(testContract);
 
-      // Read the current value of the counter
-      const { value } = await testContract.functions.get_count().get();
-      setCounter(value.toNumber());
-    }
-  }, [wallet]);
-
-  // eslint-disable-next-line consistent-return
-  const onIncrementPressed = async () => {
-    if (!contract) {
-      return toast.error("Contract not loaded");
-    }
-
-    if (walletBalance?.eq(0)) {
-      return toast.error(
-        <span>
-          Your wallet does not have enough funds. Please top it up using the{" "}
-          <Link href={FAUCET_LINK} target="_blank">
-            faucet.
-          </Link>
-        </span>,
-      );
-    }
-
-    // Call the increment_counter function on the contract
-    const { waitForResult } = await contract.functions
-      .increment_counter(bn(1))
-      .call();
-
-    // Wait for the transaction to be mined, and then read the value returned
-    const { value } = await waitForResult();
-
-    setCounter(value.toNumber());
-
-    await refreshWalletBalance?.();
-  };
 
   return (
     <>
@@ -100,7 +56,7 @@ export default function Home() {
           {counter}
         </span>
 
-        <Button onClick={onIncrementPressed} className="mt-6">
+        <Button onClick={() => {}} className="mt-6">
           Increment Counter
         </Button>
       </>

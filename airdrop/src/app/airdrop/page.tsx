@@ -1,11 +1,11 @@
-"use-client"
+"use client"
 import React from "react";
 // import { HomeCard } from "@/components/HomeCard";
 import { Text } from "../../components/Text";
 import { useGetAirdropData } from "@/hooks/useGetAirdropData";
 import { Button } from "../../components/Button";
 import { Grid } from "@mui/material";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { HomeCard } from "../../components/HomeCard";
 
@@ -48,7 +48,7 @@ export default function Claim() {
                   )}`}
                 >
                   <Text key={index}>
-                    {contractId.slice(0, 10)}....{contractId.slice(-3)}
+                    {contractId.toString().slice(0, 10)}....{contractId.toString().slice(-3)}
                   </Text>
                 </HomeCard>
               </Grid>

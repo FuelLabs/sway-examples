@@ -1,6 +1,6 @@
 import { Card, CardActionArea, CardContent } from "@mui/material";
 import { Text } from "./Text";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 type HomeCardProps = {
