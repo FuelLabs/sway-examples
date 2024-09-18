@@ -70,7 +70,7 @@ Create a `.env` file based on the provided example in the `nft/` directory
 cp ./.env.example ./.env
 ```
 
-This app uses Pinata to store NFT image data. You can follow their [documentation](https://docs.pinata.cloud/account-management/api-keys) to get an api key and gateway url. Once you have an account set `VITE_PINATA_JWT` as the API key and `VITE_PUBLIC_GATEWAY_URL` as your pinata gateway url in your `.env` file. `WALLET_SECRET` is a private key that holds funds on the network. Lastly, `VITE_APP_WC_PROJECT_ID` refers to the WalletConnect project ID.
+This app uses Pinata to store NFT image data. You can follow their [documentation](https://docs.pinata.cloud/account-management/api-keys) to get an api key and gateway url. Once you have an account set `VITE_PINATA_JWT` as the API key and `VITE_PUBLIC_GATEWAY_URL` as your pinata gateway url in your `.env` file. `WALLET_SECRET` is a private key that holds funds on the network. Lastly, `VITE_APP_WC_PROJECT_ID` refers to the [WalletConnect](walletconnect.network) project ID.
 
 ### 💻 6. Run Web App
 
