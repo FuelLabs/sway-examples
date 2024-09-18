@@ -1,0 +1,39 @@
+[[package]]
+name = "core"
+source = "path+from-root-6B41E47784CE0549"
+
+[[package]]
+name = "standards"
+source = "git+https://github.com/FuelLabs/sway-standards?tag=v0.4.3#6f63eb7dff2458a7d976184e565b5cbf26f61da2"
+dependencies = ["std"]
+
+[[package]]
+name = "std"
+source = "git+https://github.com/fuellabs/sway?rev#520bfe916844046741cf84a60caff7c41132e228"
+dependencies = ["core"]
+
+[[package]]
+name = "sway_libs"
+source = "git+https://github.com/FuelLabs/sway-libs?tag=v0.21.0#6a227ed34c86fe1ebd334dbdfeccf66c43e3915b"
+dependencies = [
+    "standards",
+    "std",
+]
+
+[[package]]
+name = "test-contract"
+source = "member"
+dependencies = [
+    "std",
+    "sway_libs",
+]
+
+[[package]]
+name = "test-predicate"
+source = "member"
+dependencies = ["std"]
+
+[[package]]
+name = "test-script"
+source = "member"
+dependencies = ["std"]

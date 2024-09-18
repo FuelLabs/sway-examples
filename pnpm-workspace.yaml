@@ -2,3 +2,4 @@ packages:
   - "nft/"
   - "counter/"
   - "app-commons/"
+  - "airdrop/"
