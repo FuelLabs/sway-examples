@@ -1,14 +1,19 @@
-export const Button: React.FC<{
-  children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
-}> = ({ children, className, onClick }) => {
+import { Button as BaseButton, ButtonProps } from "@mui/material";
+import clsx from "clsx";
+
+export const Button = ({
+  children,
+  className,
+  variant = "contained",
+  ...props
+}: ButtonProps) => {
   return (
-    <button
-      className={`bg-fuel-green text-white px-4 py-2 rounded-md ${className}`}
-      onClick={onClick}
+    <BaseButton
+      {...props}
+      variant={variant}
+      className={clsx("btn", "btn-primary", className)}
     >
       {children}
-    </button>
+    </BaseButton>
   );
 };
