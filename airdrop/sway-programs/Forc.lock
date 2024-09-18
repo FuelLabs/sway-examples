@@ -27,13 +27,3 @@ dependencies = [
     "std",
     "sway_libs",
 ]
-
-[[package]]
-name = "test-predicate"
-source = "member"
-dependencies = ["std"]
-
-[[package]]
-name = "test-script"
-source = "member"
-dependencies = ["std"]

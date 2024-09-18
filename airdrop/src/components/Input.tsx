@@ -1,19 +1,62 @@
+import { Input as BaseInput, TextField } from "@mui/material";
+import clsx from "clsx";
+
+export const inputStyle = [
+  "mt-1",
+  "shrink",
+  "basis-2/3",
+  "rounded-lg",
+  "border-2",
+  "border-solid",
+  "border-zinc-500/25",
+  "p-1",
+  "font-sans",
+  "outline-none",
+  "md:-ml-2",
+  "md:mt-2",
+  "md:p-2",
+  "bg-transparent",
+  "placeholder:text-zinc-400",
+  "text-zinc-50",
+];
+
 export const Input: React.FC<{
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  type?: string;
   className?: string;
-  id?: string;
-}> = ({ value, onChange, placeholder, type, className, id }) => {
+  type?: string;
+}> = ({ value, onChange, placeholder, className, type }) => {
   return (
-    <input
+    <BaseInput
       value={value}
+      className={clsx([...inputStyle, className])}
       onChange={onChange}
       placeholder={placeholder}
       type={type}
-      className={`border-2 border-gray-700 placeholder:text-gray-600 text-gray-400 rounded-md px-4 py-2 bg-transparent outline-none ${className}`}
-      id={id}
+      inputProps={{ className: "placeholder:text-zinc-400 text-zinc-50" }}
     />
   );
 };
+
+export const MultilineInput: React.FC<{
+  value?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  className?: string;
+  type?: string;
+  maxRows?: number;
+}> = ({ value, onChange, placeholder, className, type, maxRows }) => {
+  return (
+    <TextField
+      value={value}
+      className={clsx([...inputStyle, className])}
+      onChange={onChange}
+      placeholder={placeholder}
+      type={type}
+      inputProps={{ className: "placeholder:text-zinc-400 text-zinc-50" }}
+      multiline
+      maxRows={maxRows}
+    />
+  );
+}
