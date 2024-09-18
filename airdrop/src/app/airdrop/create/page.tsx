@@ -9,8 +9,8 @@ import {
   createMerkleTree,
   stringifyObj,
   verifyMerkleProof,
-} from "../../../../utils/merkleTrees";
-import { recipientsParser } from "../../../../utils/parsers";
+} from "../../../utils/merkleTrees";
+import { recipientsParser } from "../../../utils/parsers";
 import { useWallet } from "@fuels/react";
 import { TextField } from "@mui/material";
 import { Address, bn, BytesLike, DateTime, getRandomB256 } from "fuels";
