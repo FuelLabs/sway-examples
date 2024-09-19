@@ -10,6 +10,7 @@ import useAsync from "react-use/lib/useAsync";
 import { Link } from "react-router-dom";
 import { useTransferFundsToPredicate } from "../hooks/useTransferFundsToPredicate";
 import { useUnlockPredicateAndTransferFundsBack } from "../hooks/useUnlockPredicateAndTransferFundsBack";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export default function PredicateExample() {
   const { wallet, walletBalance, refetchBalance, isConnected } =
@@ -71,10 +72,10 @@ export default function PredicateExample() {
       <Button
         className={`${
           isLoadingTransfer
-            ? "bg-transparent border border-gray-400 pointer-events-none"
+            ? "bg-buttontransition border border-gray-400 pointer-events-none"
             : !isConnected
-            ? "bg-gray-500"
-            : ""
+              ? "bg-gray-500"
+              : ""
         }`}
         onClick={async () =>
           await transferFundsToPredicate(bn.parseUnits("0.001"))
@@ -95,10 +96,10 @@ export default function PredicateExample() {
       <Button
         className={`w-11/12 sm:w-fit ${
           isLoadingUnlock
-            ? "bg-transparent border border-gray-400 pointer-events-none"
+            ? "bg-buttontransition border border-gray-400 pointer-events-none"
             : isButtonDisabled
-            ? "bg-gray-500"
-            : ""
+              ? "bg-gray-500"
+              : ""
         }`}
         onClick={async () =>
           await unlockPredicateAndTransferFundsBack(
@@ -124,7 +125,8 @@ export default function PredicateExample() {
         target="_blank"
         className="text-fuel-green hover:underline"
       >
-        Learn more about Predicates
+        Learn more about Predicates 
+        <OpenInNewIcon fontSize="small" className="ml-1" />
       </Link>
     </>
   );

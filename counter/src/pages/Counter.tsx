@@ -8,6 +8,7 @@ import { useActiveWallet } from "../hooks/useActiveWallet";
 import useAsync from "react-use/lib/useAsync";
 import { CURRENT_ENVIRONMENT, VITE_BASE_URL } from "../lib";
 import { useIncrementCounter } from "../hooks/useIncrementCounter";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 const contractId =
   CURRENT_ENVIRONMENT === "local"
@@ -52,7 +53,7 @@ export default function Home() {
       <span className="text-gray-400 text-center">
         This template uses the new{" "}
         <Link to="https://docs.fuel.network/docs/fuels-ts/fuels/#fuels-cli">
-          Fuels CLI
+          Fuels CLI <OpenInNewIcon fontSize="small" />
         </Link>{" "}
         to enable type-safe hot-reloading for your Sway programs.
       </span>
@@ -68,21 +69,27 @@ export default function Home() {
           onClick={onIncrementPressed}
           className={`mt-6 ${
             isLoading
-              ? "bg-transparent border border-gray-400 pointer-events-none"
+              ? "bg-buttontransition border border-gray-400 pointer-events-none"
               : !isConnected
-              ? "bg-gray-500"
-              : ""
+                ? "bg-gray-500"
+                : ""
           }`}
         >
           {isLoading ? "Incrementing..." : "Increment Counter"}
         </Button>
       </>
 
-      <Link to={`${VITE_BASE_URL}/counter/predicate`} className="text-fuel-green hover:underline">
+      <Link
+        to={`${VITE_BASE_URL}/counter/predicate`}
+        className="text-fuel-green hover:underline"
+      >
         Predicate Example
       </Link>
 
-      <Link to={`${VITE_BASE_URL}/counter/script`} className="text-fuel-green hover:underline">
+      <Link
+        to={`${VITE_BASE_URL}/counter/script`}
+        className="text-fuel-green hover:underline"
+      >
         Script Example
       </Link>
     </>

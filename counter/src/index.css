@@ -8,6 +8,7 @@
   --text-color: #000000;
   --primary-color: #4f46e5;
   --secondary-color: #10b981;
+  --button-transition-background-color: #9ca3af;
 }
 
 [data-theme="dark"] {
@@ -15,6 +16,7 @@
   --text-color: #ffffff;
   --primary-color: #6366f1;
   --secondary-color: #34d399;
+  --button-transition-background-color: transparent;
 }
 .bg-gradient {
   background: linear-gradient(180deg, rgba(8, 8, 8, 0.88) 0%, rgba(8, 8, 8, 0.79) 100%);
