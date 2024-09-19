@@ -16,7 +16,7 @@ import ScriptExample from "./pages/Script";
 import Faucet from "./pages/Faucet";
 import { useBreakpoints } from "./hooks/useBreakpoints";
 import { NavMenu } from "./components/NavMenu";
-import ThemeToggle from "./components/ThemeToggle";
+import { ThemeToggle } from "sway-example-commons";
 import { useEffect, useState } from "react";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
@@ -39,22 +39,22 @@ export default function App() {
       `Please add the network ${NODE_URL} to your Fuel wallet, or swtich to it if you have it already, and refresh the page.`
     );
   };
-  const [darkMode, setDarkMode] = useState(() => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
     return (
       localStorage.getItem("theme") === "dark" ||
       (!localStorage.getItem("theme") &&
         window.matchMedia("(prefers-color-scheme: dark)").matches)
     );
   });
-    useEffect(() => {
-      if (darkMode) {
-        document.documentElement.setAttribute("data-theme", "dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.documentElement.removeAttribute("data-theme");
-        localStorage.setItem("theme", "light");
-      }
-    }, [darkMode]);
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDarkMode]);
   return (
     <>
       <div className="flex flex-col bg-background text-text-primary">
@@ -83,7 +83,7 @@ export default function App() {
             </Button>
           )}
           <div className="ml-auto">
-            <WalletDisplay darkMode={darkMode} />
+            <WalletDisplay darkMode={isDarkMode} />
           </div>
           {!isMobile && (
             <Button
@@ -122,7 +122,7 @@ export default function App() {
           {!isConnected && !isMobile && (
             <Button onClick={connect}>Connect Wallet</Button>
           )}
-          <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+          <ThemeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
           {isMobile && <NavMenu address={wallet?.address.toString()} />}
         </nav>
         <div className="min-h-screen items-center justify-center flex flex-col gap-6">
