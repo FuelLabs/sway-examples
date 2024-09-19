@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: ['selector', '[data-theme="dark"]'],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./index.html",
-    "./node_modules/app-commons/src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/app-commons/tailwind.config.ts",
+    "./node_modules/sway-example-commons/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/sway-example-commons/tailwind.config.ts",
   ],
   theme: {
     // darkMode: 'selector',
@@ -20,6 +21,7 @@ export default {
         'text-primary': 'var(--text-color)',
         primary: 'var(--primary-color)',
         secondary: 'var(--secondary-color)',
+        buttontransition: 'var(--button-transition-background-color)',
       },
     },
   },

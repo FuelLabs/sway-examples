@@ -13,7 +13,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import ExploreIcon from "@mui/icons-material/ExploreOutlined";
 import AddBoxIcon from "@mui/icons-material/AddBoxOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircleOutlined";
-import { ThemeToggle } from "app-commons";
+import { ThemeToggle } from "sway-example-commons";
 import { useState, useEffect } from "react";
 
 import { BrandBackgroundBlur } from "./BrandBackgroundBlur";

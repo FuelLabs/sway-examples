@@ -1,4 +1,3 @@
 packages:
   - "nft/"
   - "counter/"
-  - "app-commons/"
