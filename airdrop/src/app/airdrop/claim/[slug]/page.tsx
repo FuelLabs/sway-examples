@@ -1,3 +1,4 @@
+"use client";
 
 import { Text } from "@/components/Text";
 // import { IdentityInput } from "@/contract-types/aidrop-contracts/contracts/AirdropContract";
@@ -10,7 +11,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import { formatUnits } from "viem";
-import { createMerkleTree, generateProof } from "../../../utils/merkleTrees";
+import { createMerkleTree, generateProof } from "../../../../utils/merkleTrees";
 import { Button } from "@/components/Button";
 import { useClaimAirdrop } from "@/hooks/useClaimAirdrop";
 import { useGetOwner } from "@/hooks/useGetAirdropContractData";
@@ -18,9 +19,8 @@ import { useGetOwner } from "@/hooks/useGetAirdropContractData";
 
 export type RecipientData = Array<{ address: string; amount: bigint }>;
 
-export default function ClaimAirdrop() {
-  const { query } = useRouter();
-  const contractId = query.slug as string;
+export default function ClaimAirdrop({ params }: { params: { slug: string } }) {
+  const contractId = params.slug as string;
   const recipients = JSON.parse(useSearchParams().get("recipient") as string);
   // const { data: airdropData } = useGetAirdropData();
   const { mutate } = useClaimAirdrop();

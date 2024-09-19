@@ -90,6 +90,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           >
             Faucet
           </Link>
+          <Link href="/airdrop">Airdrop</Link>
 
           {isBrowserWalletConnected && (
             <Button onClick={disconnect}>Disconnect Wallet</Button>
