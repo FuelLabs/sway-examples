@@ -60,7 +60,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "airdrop"
+name = "airdrop-contract"
 version = "0.1.0"
 dependencies = [
  "fuels",

@@ -43,4 +43,4 @@ src/sway-api/index.ts
 sway-programs/**/out
 .turbo
 
-sway-programs/target
+sway-programs/contract/target
