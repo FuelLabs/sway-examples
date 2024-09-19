@@ -7,6 +7,7 @@ import { Input } from "../components/Input";
 import { useActiveWallet } from "../hooks/useActiveWallet";
 import { useRunScript } from "../hooks/useRunScript";
 import { useState } from "react";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export default function ScriptExample() {
   const { wallet, walletBalance, isConnected } = useActiveWallet();
@@ -40,10 +41,10 @@ export default function ScriptExample() {
       <Button
         className={`${
           isLoading
-            ? "bg-transparent border border-gray-400 pointer-events-none"
+            ? "bg-buttontransition border border-gray-400 pointer-events-none"
             : !isConnected
-            ? "bg-gray-500"
-            : ""
+              ? "bg-gray-500"
+              : ""
         }`}
         onClick={runScript}
       >
@@ -53,7 +54,9 @@ export default function ScriptExample() {
       {result && (
         <div className="flex gap-2 align-bottom">
           <h5 className="font-semibold text-xl">Result:</h5>
-          <span className="text-gray-400 text-center flex justify-center items-center">{result}</span>
+          <span className="text-gray-400 text-center flex justify-center items-center">
+            {result}
+          </span>
         </div>
       )}
 
@@ -67,6 +70,7 @@ export default function ScriptExample() {
         className="text-fuel-green hover:underline"
       >
         Learn more about Scripts
+        <OpenInNewIcon fontSize="small" className="ml-1" />
       </Link>
     </>
   );

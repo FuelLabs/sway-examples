@@ -20,6 +20,7 @@ export default {
         'text-primary': 'var(--text-color)',
         primary: 'var(--primary-color)',
         secondary: 'var(--secondary-color)',
+        buttontransition: 'var(--button-transition-background-color)',
       },
     },
   },
