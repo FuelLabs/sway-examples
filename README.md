@@ -40,9 +40,10 @@ All examples are maintained by official Sway contributors and will be kept up to
 
 - Learn how to work with merkle trees in Sway to distrubute native tokens across multiple addresses.
 
-#### Counter Dapp
+#### [Counter Dapp](./counter/README.md)
 
 - A simple example to demonstrate basic functionality.
+- [demo](https://fuellabs.github.io/sway-examples/counter/)
 
 ## Coming Soon
 
