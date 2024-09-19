@@ -23,7 +23,7 @@ export const useGetOwner = ({ contractId }: Params) => {
 
         const contract = new TestContract(contractId,  provider!);
 
-        const owner = await contract.functions.owner().get();
+        const owner = await contract.functions.is_paused().get();
         console.log("owner from useGetOwner: ", owner);
         return owner.value;
       } catch (error) {

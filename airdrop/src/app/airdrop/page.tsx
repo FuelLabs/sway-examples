@@ -30,14 +30,14 @@ export default function Claim() {
         </Text>
       )}
       {!isFetching && !isError && airdropData && (
-        <div className="min-h-screen items-center p-20 flex flex-col gap-6">
+        <div className="min-h-screen overflow-y-auto items-center p-20 flex flex-col gap-6">
           <Button onClick={() => router.push("/airdrop/create")}>
             Create New Airdrop
           </Button>
           <Text variant="h4" sx={{ paddingBottom: "28px", width: "full" }}>
             Below are the open Airdrops
           </Text>
-          <Grid container spacing={3}>
+          <Grid container overflow={'auto'} spacing={3}>
             {/* @ts-expect-error */}
             {airdropData?.map(({ contractId, recipients }, index) => (
               <Grid className="m-3">
