@@ -35,26 +35,30 @@ describe('Contract', () => {
       contracts: [contract],
     } = launched;
 
-    // Lets setup some values to use in the test.
-    const initialCount = 0;
-    const incrementedCount = 5;
 
-    // We can now call the contract functions and test the results. Lets assert the initial value of the counter.
-    const { waitForResult: initWaitForResult } = await contract.functions.get_count().call();
-    const { value: initValue } = await initWaitForResult();
-    expect(initValue.toNumber()).toBe(initialCount);
+       // Read is_paused
+       const { waitForResult: isPausedWaitForResult } = await contract.functions.is_paused().call();
+       const { value: isPausedValue } = await isPausedWaitForResult();
+       console.log('Is Paused:', isPausedValue);
+    
+    // Read owner
+    const { waitForResult: ownerWaitForResult } = await contract.functions.owner().call();
+    const { value: ownerValue } = await ownerWaitForResult();
+    console.log('Owner:', ownerValue);
 
-    // Next, we'll increment the counter by 5 and assert the new value.
-    const { waitForResult: incrementWaitForResult } = await contract.functions
-      .increment_counter(incrementedCount)
-      .call();
-    const { value: incrementValue } = await incrementWaitForResult();
-    expect(incrementValue.toNumber()).toBe(incrementedCount);
 
-    // Finally, we'll test the get count function again to ensure parity.
-    const { waitForResult: finalWaitForResult } = await contract.functions.get_count().call();
-    const { value: finalValue } = await finalWaitForResult();
-    expect(finalValue.toNumber()).toBe(incrementedCount);
-    expect(initValue.toNumber()).toBeLessThan(finalValue.toNumber());
+    // Read claims for a specific tree index (example: 0)
+    const treeIndex = 0;
+    const { waitForResult: isClaimedWaitForResult } = await contract.functions.is_claimed(treeIndex).call();
+    const { value: isClaimedValue } = await isClaimedWaitForResult();
+    console.log(`Is Claimed for tree index ${treeIndex}:`, isClaimedValue);
+
+
+   // Assertions
+   expect(ownerValue).toBeNull();
+   expect(isPausedValue).toBe(false);
+   // expect(isInitializedValue).toBe(false);
+   expect(isClaimedValue).toBe(false);
+   
   });
 });
