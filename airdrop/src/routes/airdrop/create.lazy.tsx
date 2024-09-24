@@ -126,13 +126,13 @@ function Airdrop() {
           console.log("recipients", recipients);
 
           // stringifyObj(recipients);
-          const { leaves, root, tree } = createMerkleTree(recipients);
+          const {  root, tree } = createMerkleTree(recipients);
           console.log("root: ", root);
           const { isValid } = verifyMerkleProof(recipients[0], root, tree);
 
           console.log("Merkle proof valid:", isValid);
 
-          const deployRes = await deployAirdrop({
+           await deployAirdrop({
             storageSlots: [
               {
                 key: "02dac99c283f16bc91b74f6942db7f012699a2ad51272b15207b9cc14a70dbae",
