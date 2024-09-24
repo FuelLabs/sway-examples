@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { BN, bn, Predicate, InputValue } from "fuels";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useActiveWallet } from "./useActiveWallet";
-import { TestPredicateAbi__factory } from "../sway-api/predicates/index";
+import { TestPredicate } from "../sway-api/predicates/index";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 
@@ -49,10 +49,11 @@ export function useUnlockPredicateAndTransferFundsBack({
 
       setIsLoadingUnlock(true);
       const baseAssetId = wallet.provider.getBaseAssetId();
-      const reInitializePredicate = TestPredicateAbi__factory.createInstance(
-        wallet.provider,
-        [bn(pin)]
-      );
+      let provider = wallet.provider
+      const reInitializePredicate = new TestPredicate({
+        provider,
+        data: [bn(pin)],
+      });
 
       if (!reInitializePredicate) {
         return toast.error("Failed to initialize predicate");

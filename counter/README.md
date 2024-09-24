@@ -42,7 +42,7 @@ To begin, install dependencies.
 
 ```sh
 git clone https://github.com/FuelLabs/sway-examples
-cd sway-examples
+cd sway-examples/counter
 ```
 
 ### 📦 2. Install Dependencies
@@ -80,7 +80,7 @@ Start the frontend with the following command:
 pnpm dev
 ```
 
-After running that command, you can open [http://localhost:5173](http://localhost:5173) in your browser to interact with the dapp.
+After running that command, you can open [http://localhost:5173/counter](http://localhost:5173/counter) in your browser to interact with the dapp.
 
 ### 🧪 7. Run Contract tests
 

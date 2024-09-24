@@ -4,8 +4,7 @@ import TableRowsIcon from "@mui/icons-material/TableRows";
 
 import { IconButton } from "@mui/material";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "./Button";
+import { Link } from "react-router-dom";
 import { ConnectButton } from "./ConnectButton";
 
 export const NavMenu = ({ address }: { address?: string }) => {
