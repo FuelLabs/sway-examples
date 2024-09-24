@@ -46,6 +46,7 @@ export const useUploadAirdropData = () => {
 
       const res = await fetch(
         "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        // @ts-expect-error
         fetchOptions
       );
       const resData = await res.json();

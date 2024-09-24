@@ -26,7 +26,8 @@ export const Input: React.FC<{
   placeholder?: string;
   className?: string;
   type?: string;
-}> = ({ value, onChange, placeholder, className, type }) => {
+  id?: string;
+}> = ({ value, onChange, placeholder, className, type, id }) => {
   return (
     <BaseInput
       value={value}
@@ -35,6 +36,7 @@ export const Input: React.FC<{
       placeholder={placeholder}
       type={type}
       inputProps={{ className: "placeholder:text-zinc-400 text-zinc-50" }}
+      id={id}
     />
   );
 };

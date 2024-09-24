@@ -93,7 +93,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           <Link href="/airdrop">Airdrop</Link>
 
           {isBrowserWalletConnected && (
-            <Button onClick={disconnect}>Disconnect Wallet</Button>
+            <Button onClick={() => disconnect()}>Disconnect Wallet</Button>
           )}
           {!isBrowserWalletConnected && (
             <Button onClick={connect}>Connect Wallet</Button>

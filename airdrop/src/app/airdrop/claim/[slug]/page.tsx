@@ -33,6 +33,7 @@ export default function ClaimAirdrop({ params }: { params: { slug: string } }) {
 
   console.log("recipients", recipients);
 
+  // @ts-expect-error
   const { owner } = useGetOwner({ contractId });
 
   useEffect(() => {
