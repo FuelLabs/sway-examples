@@ -28,6 +28,6 @@
     "dotenv": "^16.4.5",
     "turbo": "^1.13.4",
     "typescript": "^5.5.4",
-    "sway-example-commons": "^0.0.9"
+    "sway-example-commons": "^0.0.10"
   }
 }

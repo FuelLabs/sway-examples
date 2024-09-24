@@ -33,7 +33,7 @@
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.25.1",
     "react-use": "^17.5.0",
-    "sway-example-commons": "^0.0.9"
+    "sway-example-commons": "^0.0.10"
   },
   "devDependencies": {
     "@types/node": "^20",
