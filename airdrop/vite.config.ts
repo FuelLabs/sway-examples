@@ -10,9 +10,9 @@ export default defineConfig(({ mode }) => {
       'process.env': env,
     },
     plugins: [TanStackRouterVite(), react()],
-    base: process.env.VITE_BASE_URL ? `${process.env.VITE_BASE_URL}/counter` : "/",
+    base: process.env.VITE_BASE_URL ? `${process.env.VITE_BASE_URL}/airdrop` : "/",
     build: {
-      outDir: process.env.COUNTER_DIST,
+      outDir: process.env.AIRDROP_DIST,
       minify: false,
       emptyOutDir: true,
     },
