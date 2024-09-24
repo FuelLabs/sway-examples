@@ -1,10 +1,10 @@
-import { TestContract, TestContractFactory } from "@/sway-api";
+import { TestContract, TestContractFactory } from "../sway-api";
 import { useWallet } from "@fuels/react";
 import { useMutation } from "@tanstack/react-query";
 import { Account, DeployContractOptions } from "fuels";
 import toast from "react-hot-toast";
 
-type deployAirdropArgs = {
+export type deployAirdropArgs = {
   wallet: Account;
   options: DeployContractOptions;
 };

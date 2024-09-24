@@ -1,4 +1,4 @@
-import NextLink from "next/link";
+import { Link as ReactRouterLink } from "@tanstack/react-router";
 
 export const Link = ({
   href,
@@ -12,12 +12,12 @@ export const Link = ({
   target?: string;
 }) => {
   return (
-    <NextLink
-      href={href}
+    <ReactRouterLink
+      to={href}
       className={`text-fuel-green hover:underline ${className}`}
       target={target}
     >
       {children}
-    </NextLink>
+    </ReactRouterLink>
   );
 };

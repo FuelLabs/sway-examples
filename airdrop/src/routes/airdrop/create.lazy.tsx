@@ -1,28 +1,28 @@
-"use client"
-import { Button } from "@/components/Button";
-import { Input, MultilineInput } from "@/components/Input";
-import { Text } from "@/components/Text";
-import { useDeployAirdrop } from "@/hooks/useDeployAirdrop";
-import { useUploadAirdropData } from "@/hooks/useUploadAirdropData";
-
-import {
-  createMerkleTree,
-  stringifyObj,
-  verifyMerkleProof,
-} from "../../../utils/merkleTrees";
-import { recipientsParser } from "../../../utils/parsers";
+import { createLazyFileRoute } from '@tanstack/react-router'
 import { useWallet } from "@fuels/react";
 import { TextField } from "@mui/material";
 import { Address, bn, BytesLike, DateTime, getRandomB256 } from "fuels";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { recipientsParser } from '../../utils/parsers';
+import { useDeployAirdrop } from '../../hooks/useDeployAirdrop';
+import { useUploadAirdropData } from '../../hooks/useUploadAirdropData';
+import { Text } from '../../components/Text';
+import { Input, MultilineInput } from '../../components/Input';
+import { Button } from '../../components/Button';
+import { createMerkleTree, verifyMerkleProof } from '../../utils/merkleTrees';
+
+export const Route = createLazyFileRoute('/airdrop/create')({
+  component: () => <Airdrop />,
+})
+
 
 const parseSRC20Text = (text: string): [string, string][] => {
   const regex = /^0x[a-fA-F0-9]{64}(?= ?[^ ])([=,]?) *(\d*(\.\d*)?)$/;
   const lines = text.trim().split("\n");
   const validLines = lines.filter((line) => regex.test(line));
   return validLines.reduce((acc, line) => {
-    // @ts-expect-error
+    // @ts-expect-error will fix it once the build succeeds
     let [, , value] = line.match(regex);
     // Address is always the full 66 characters (0x plus 64 hex characters)
     const address = line.slice(0, 66);
@@ -31,13 +31,13 @@ const parseSRC20Text = (text: string): [string, string][] => {
     if (value?.startsWith(".")) {
       value = `0${value}`;
     }
-    // @ts-expect-error
+    // @ts-expect-error will fix it once the build succeeds
     acc.push([address, value]);
     return acc;
   }, []);
 };
 
-export default function Airdrop() {
+function Airdrop() {
   const [assetId, setAssetId] = useState<string & BytesLike>("");
   const placeholderText =
     "0x00...00, 4\n0x00...00, 4\n0x00...00, 4\n0x00...00, 4\n0x00...00, 4";

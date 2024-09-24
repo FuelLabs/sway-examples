@@ -1,8 +1,9 @@
-import { PINATA_API_URL, PINATA_JWT } from "@/lib";
+
 import { useQuery } from "@tanstack/react-query";
 import { AbstractAddress } from "fuels";
 import { useUploadAirdropDataParams } from "./useUploadAirdropData";
 import { PinataSDK } from "pinata";
+import { PINATA_JWT } from "../lib";
 
 export type ContractIdData = Array<useUploadAirdropDataParams>;
 

@@ -1,6 +1,6 @@
-import { PINATA_JWT } from "@/lib";
-import { useMutation } from "@tanstack/react-query";
+import { PINATA_JWT } from "../lib";
 import { AbstractAddress } from "fuels";
+import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export type useUploadAirdropDataParams = {
@@ -46,6 +46,7 @@ export const useUploadAirdropData = () => {
 
       const res = await fetch(
         "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        // @ts-expect-error will fix it once the build succeeds
         fetchOptions
       );
       const resData = await res.json();

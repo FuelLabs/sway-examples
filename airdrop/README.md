@@ -1,17 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-fuels`](https://github.com/FuelLabs/fuels-ts/tree/master/packages/create-fuels).
+This is a [Vite](https://vitejs.dev/) project bootstrapped with [`create-fuels`](https://github.com/FuelLabs/fuels-ts/tree/master/packages/create-fuels).
 
 ## Getting Started
 
 1. Start the Fuel development server. This server will start a local Fuel node and provide hot-reloading for your smart contracts.
 
 ```bash
-pnpm fuels:dev
+npm run fuels:dev
 ```
 
 2. Start the Next.js development server.
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 ## Deploying to Testnet

@@ -9,16 +9,16 @@ type Environment = (typeof Environments)[keyof typeof Environments];
 
 /**
  * The current environment is determined by the
- * `NEXT_PUBLIC_DAPP_ENVIRONMENT` environment variable.
+ * `VITE_DAPP_DAPP_ENVIRONMENT` environment variable.
  * If it's not set, the default is `local`.
  */
 export const CURRENT_ENVIRONMENT: Environment =
-  (process.env.NEXT_PUBLIC_DAPP_ENVIRONMENT as Environment) || Environments.LOCAL;
+  (process.env.VITE_DAPP_DAPP_ENVIRONMENT as Environment) || Environments.LOCAL;
 
 // The node URL is determined by the current environment too.
 export const NODE_URL =
   CURRENT_ENVIRONMENT === Environments.LOCAL
-    ? `http://127.0.0.1:${process.env.NEXT_PUBLIC_FUEL_NODE_PORT || 4000}/v1/graphql`
+    ? `http://127.0.0.1:${process.env.VITE_FUEL_NODE_PORT || 4000}/v1/graphql`
     : TESTNET_NETWORK_URL;
 
 export interface AppWallet {
@@ -36,10 +36,10 @@ export const FAUCET_PRIVATE_KEY = '0x01';
 
 export const DOCS_URL = 'https://docs.fuel.network';
 
-export const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL
-  ? process.env.NEXT_PUBLIC_GATEWAY_URL
+export const GATEWAY_URL = process.env.VITE_DAPP_GATEWAY_URL
+  ? process.env.VITE_DAPP_GATEWAY_URL
   : "https://beige-ready-porcupine-957.mypinata.cloud";
 
-export const PINATA_JWT = process.env.NEXT_PUBLIC_PINATA_JWT;
+export const PINATA_JWT = process.env.VITE_DAPP_PINATA_JWT;
 
 export const PINATA_API_URL="https://api.pinata.cloud"
