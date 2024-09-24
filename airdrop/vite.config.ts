@@ -10,5 +10,18 @@ export default defineConfig(({ mode }) => {
       'process.env': env,
     },
     plugins: [TanStackRouterVite(), react()],
+    base: process.env.VITE_BASE_URL ? `${process.env.VITE_BASE_URL}/counter` : "/",
+    build: {
+      outDir: process.env.COUNTER_DIST,
+      minify: false,
+      emptyOutDir: true,
+    },
+    resolve: {
+      alias: {
+        src: "/src",
+        hooks: "/src/hooks",
+        lib: "/src/lib",
+      },
+    },
   };
 });

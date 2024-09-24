@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "fuels:dev": "fuels dev",
     "test": "vitest",
+    "build:all": "NODE_ENV=production run-s build",
     "test:ui": "./test/ui/test-ui.sh"
   },
   "dependencies": {
