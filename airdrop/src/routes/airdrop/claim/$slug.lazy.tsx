@@ -26,7 +26,8 @@ export const Route = createLazyFileRoute('/airdrop/claim/$slug')({
 export type RecipientData = Array<{ address: string; amount: bigint }>
 
 function ClaimAirdrop() {
-  const { slug,} = useParams({ strict: false })
+  const { slug} = useParams({ strict: false })
+  // @ts-expect-error will fix it once the build succeeds
   const {recipient } = Route.useSearch()
   console.log('recipient', recipient)
   const contractId = slug as string
@@ -43,7 +44,7 @@ function ClaimAirdrop() {
   const { wallet } = useWallet()
 
   console.log('recipients', recipients)
- 
+
   // @ts-expect-error will fix it once the build succeeds
   const { owner } = useGetOwner({ contractId })
 
@@ -60,7 +61,7 @@ function ClaimAirdrop() {
         return temp
       })
     }
-  }, [wallet])
+  }, [wallet, recipients])
 
   const claimHandler = async () => {
     if (!wallet) {

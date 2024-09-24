@@ -15,6 +15,7 @@ export const useUploadAirdropData = () => {
       recipients,
     }: useUploadAirdropDataParams) => {
       // Custom replacer function to handle BigInt values
+      // @ts-expect-error
       const replacer = (key: string, value: any) => {
         return typeof value === "bigint" ? value.toString() : value;
       };

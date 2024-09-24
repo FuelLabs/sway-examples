@@ -52,7 +52,6 @@ function Claim() {
             {/* @ts-expect-error will fix it once the build succeeds */}
             {airdropData?.map(({ contractId, recipients }, index) => (
               <Grid className="m-3">
-                {console.log({ recipients })}
                 <HomeCard
                   title={"Airdrop " + (index + 1)}
                   href={`/airdrop/claim/${contractId}?recipient=${JSON.stringify(

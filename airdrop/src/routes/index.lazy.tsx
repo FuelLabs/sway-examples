@@ -1,8 +1,8 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { TestContract } from "../sway-api";
-import contractIds from "../sway-api/contract-ids.json";
+// import contractIds from "../sway-api/contract-ids.json";
 import { FuelLogo } from "../components/FuelLogo";
-import { bn } from "fuels";
+// import { bn } from "fuels";
 import { useState } from "react";
 import { Link } from "../components/Link";
 import { Button } from "../components/Button";
@@ -10,9 +10,9 @@ import toast from "react-hot-toast";
 import { useActiveWallet } from "../hooks/useActiveWallet";
 import useAsync from "react-use/lib/useAsync";
 import {
-  CURRENT_ENVIRONMENT,
+  // CURRENT_ENVIRONMENT,
   DOCS_URL,
-  Environments,
+  // Environments,
   FAUCET_LINK,
 } from "../lib";
 
@@ -23,8 +23,8 @@ export const Route = createLazyFileRoute("/")({
 
 function Index() {
   const { wallet, walletBalance, refreshWalletBalance } = useActiveWallet();
-  const [contract, setContract] = useState<TestContract>();
-  const [counter, setCounter] = useState<number>();
+  const [contract] = useState<TestContract>();
+  const [counter] = useState<number>();
 
   /**
    * useAsync is a wrapper around useEffect that allows us to run asynchronous code

@@ -82,7 +82,7 @@ export const Navbar: FC = () => {
         <Link href="/faucet">Faucet</Link>
 
         {isBrowserWalletConnected && (
-          <Button onClick={disconnect}>Disconnect Wallet</Button>
+          <Button onClick={() => disconnect()}>Disconnect Wallet</Button>
         )}
         {!isBrowserWalletConnected && (
           <Button onClick={connect}>Connect Wallet</Button>
@@ -119,7 +119,7 @@ export const Navbar: FC = () => {
             <Link href="/faucet">Faucet</Link>
 
             {isBrowserWalletConnected && (
-              <Button onClick={disconnect}>Disconnect Wallet</Button>
+              <Button onClick={() => disconnect()}>Disconnect Wallet</Button>
             )}
             {!isBrowserWalletConnected && (
               <Button onClick={connect}>Connect Wallet</Button>
