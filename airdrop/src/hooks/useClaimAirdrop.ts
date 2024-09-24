@@ -1,5 +1,5 @@
-import { TestContract } from "../sway-api";
-import { IdentityInput } from "../sway-api/contracts/TestContract";
+
+import { IdentityInput, TestContract } from "../sway-api/contracts/TestContract";
 import { useWallet } from "@fuels/react";
 import { useMutation } from "@tanstack/react-query";
 import { AbstractAddress } from "fuels";
