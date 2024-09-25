@@ -1,3 +1,119 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* index.css or global.css */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --primary-color: #4f46e5;
+  --secondary-color: #10b981;
+  --button-transition-background-color: #9ca3af;
+}
+
+[data-theme="dark"] {
+  --background-color: #000000;
+  --text-color: #ffffff;
+  --primary-color: #6366f1;
+  --secondary-color: #34d399;
+  --button-transition-background-color: transparent;
+}
+.bg-gradient {
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.88) 0%, rgba(8, 8, 8, 0.79) 100%);
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.03), 0px 1px 1px 0px rgba(0, 0, 0, 0.06);
+}
+.bg-gradient-header {
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.94) 0%, rgba(8, 8, 8, 0.85) 100%);
+}
+.bg-content { 
+  border-radius: 28px;
+  border-top-color: hsla(0,0%,100%,.08);
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+/* Header */
+header a {
+  transition: background-color .25s cubic-bezier(.4,0,.2,1) 0ms,color .25s cubic-bezier(.4,0,.2,1) 0ms,opacity .25s cubic-bezier(.4,0,.2,1) 0ms;
+  border-radius: 8px;
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: hsla(0, 0%, 100%, .5);
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  padding-left: 12px;
+  padding-right: 12px;
+  text-decoration: none;
+}
+header a.active {
+  color: oklch(94.91% 0 none);
+  background: linear-gradient(180deg, rgba(0, 245, 140, 0) 100%, rgba(0, 245, 140, 0.02) 0%), linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.08) 100%), rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(5px);
+  box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.08);
+}
+header a.active:hover {
+  background-color: hsla(0,0%,100%,.15);
+}
+header a:not(.active):hover {
+  background-color: hsla(0,0%,100%,.02);
+  color: unset;
+}
+
+
+/* Button */
+.btn {
+  @apply rounded-md px-3 py-2 font-sans text-sm normal-case	font-medium transition-all duration-200;
+}
+
+@layer utilities {
+  .bg-custom-important {
+    background-color: #00f58c!important;
+  }
+}
+
+.btn-primary {
+  @apply bg-custom-important text-black hover:bg-[#00dd75];
+}
+
+.btn-primary:disabled {
+  @apply cursor-not-allowed border border-zinc-400/25 bg-zinc-950 text-zinc-400;
+}
+
+.btn-secondary {
+  @apply border border-indigo-400/10 bg-indigo-950 text-indigo-400 hover:border-indigo-400/25;
+}
+
+.grain {
+  @apply dark:bg-zinc-900;
+  /* Graph Paper */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%233f3f46' fill-opacity='0.4'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Gradient border */
+.gradient-border {
+  position: relative;
+  background-clip: padding-box;
+  border: solid 1px transparent;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    to bottom,
+    theme("colors.zinc.600 / 0.8"),
+    theme("colors.zinc.800 / 0.9")
+  );
+}
