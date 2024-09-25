@@ -16,11 +16,11 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const FaucetLazyImport = createFileRoute(process.env.VITE_BASE_URL + '/faucet')()
-const IndexLazyImport = createFileRoute(process.env.VITE_BASE_URL + '/')()
-const AirdropIndexLazyImport = createFileRoute(process.env.VITE_BASE_URL + '/airdrop/')()
-const AirdropCreateLazyImport = createFileRoute(process.env.VITE_BASE_URL + '/airdrop/create')()
-const AirdropClaimSlugLazyImport = createFileRoute(process.env.VITE_BASE_URL + '/airdrop/claim/$slug')()
+const FaucetLazyImport = createFileRoute('/faucet')()
+const IndexLazyImport = createFileRoute('/')()
+const AirdropIndexLazyImport = createFileRoute('/airdrop/')()
+const AirdropCreateLazyImport = createFileRoute('/airdrop/create')()
+const AirdropClaimSlugLazyImport = createFileRoute('/airdrop/claim/$slug')()
 
 // Create/Update Routes
 

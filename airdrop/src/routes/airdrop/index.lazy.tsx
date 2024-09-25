@@ -39,7 +39,7 @@ function Claim() {
           <Button
             onClick={() =>
               navigate({
-                to: "/airdrop/create",
+                to:  "/airdrop/create",
               })
             }
           >
