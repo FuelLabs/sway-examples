@@ -13,7 +13,7 @@ import { createMerkleTree, generateProof } from '../../../utils/merkleTrees'
 import { Text } from '../../../components/Text'
 import { Button } from '../../../components/Button'
 import { useClaimAirdrop } from '../../../hooks/useClaimAirdrop'
-import { useGetOwner } from '../../../hooks/useGetAirdropContractData';
+import { useGetEndTime, useGetIsPaused, useGetMerkleRoot, useGetOwner } from '../../../hooks/useGetAirdropContractData';
 
 
 // import { useGetOwner } from "@/hooks/useGetAirdropContractData";
@@ -45,8 +45,10 @@ function ClaimAirdrop() {
 
   console.log('recipients', recipients)
 
-  // @ts-expect-error will fix it once the build succeeds
-  const { owner } = useGetOwner({ contractId })
+  const { data: owner } = useGetOwner({ contractId })
+  const {  data: endTime } = useGetEndTime({ contractId })
+  const { data: isPaused } = useGetIsPaused({ contractId })
+  const {data: merkleRoot} = useGetMerkleRoot({ contractId })
 
   useEffect(() => {
     console.log({ wallet })
@@ -110,7 +112,10 @@ function ClaimAirdrop() {
         </>
       )}
 
-      <Text textAlign={'center'}>Contract Owner: {owner}</Text>
+      <Text textAlign={'center'}>Contract Owner: {owner?.Address as unknown as string}</Text>
+      <Text textAlign={'center'}>End time: {endTime?.toNumber()}</Text>
+      <Text textAlign={'center'}>Paused: {isPaused?.toString()}</Text>
+      <Text textAlign={'center'}>Merkle Root: {merkleRoot?.toString()}</Text>
     </div>
   )
 }

@@ -4,4 +4,7 @@ export const AirdropQueryKeys = {
   claims: "claims",
   isPaused: "isPaused",
   isInitialized: "isInitialized",
+  endTime: "endTime",
+  merkleRoot: "merkleRoot",
+  
 }

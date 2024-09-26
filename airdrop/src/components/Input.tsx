@@ -17,7 +17,7 @@ export const inputStyle = [
   "md:p-2",
   "bg-transparent",
   "placeholder:text-zinc-400",
-  "text-zinc-50",
+  "text-white!important",
 ];
 
 export const Input: React.FC<{
@@ -52,11 +52,10 @@ export const MultilineInput: React.FC<{
   return (
     <TextField
       value={value}
-      className={clsx([...inputStyle, className])}
+      className={clsx([...inputStyle ,className, "placeholder:text-zinc-400 text-zinc-50!important"])}
       onChange={onChange}
       placeholder={placeholder}
       type={type}
-      inputProps={{ className: "placeholder:text-zinc-400 text-zinc-50" }}
       multiline
       maxRows={maxRows}
     />
