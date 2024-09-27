@@ -45,7 +45,7 @@ function Airdrop() {
   const [totalAmount, setTotalAmount] = useState<string>("0");
 
   const [textValue, setTextValue] = useState<string>("");
-  const [endDate, setEndDate] = useState("");
+  const [endDate, setEndDate] = useState<number>();
 
   const parseText = useCallback((text: string) => {
     // Need to parse decimals dynamically, currently hardcoded to 9
@@ -119,9 +119,10 @@ function Airdrop() {
       <input
         className="block mb-6 text-white bg-black border-2 border-white rounded-md p-1"
         onChange={(e) => {
+
           const tiaValue = DateTime.fromUnixMilliseconds(
             new Date(e.target.value).getTime()
-          ).toTai64();
+          ).toUnixSeconds();
 
           // console.log(bn(BigInt(tiaValue).toString()).toString());
           console.log(BigInt(tiaValue));
@@ -131,8 +132,14 @@ function Airdrop() {
       />
       <Button
         className="m-auto w-fit"
+        disabled={!wallet}
         onClick={async () => {
           console.log("recipients", recipients);
+
+          if(!wallet || !assetId || !endDate || !recipients.length) {
+            toast.error("Please fill in all fields");
+            return;
+          }
 
           // stringifyObj(recipients);
           const { root, tree, leaves } = createMerkleTree(recipients);
@@ -140,6 +147,7 @@ function Airdrop() {
           const { isValid } = verifyMerkleProof(recipients[0], root, tree);
 
           console.log("Merkle proof valid:", isValid);
+          console.log('logging address: ', Address.fromDynamicInput(wallet?.address).toB256())
 
           // Define new configurable values
             const configurableConstants = {
@@ -147,9 +155,13 @@ function Airdrop() {
               ASSET: {
                 bits: assetId,
               } as AssetId,
-              // END_TIME: bn(endDate).toHex(32), // Example UNIX timestamp
-              // NUM_LEAVES: bn(leaves.length),
-              // INITIAL_OWNER: wallet?.address as Address,
+              END_TIME: endDate, // Example UNIX timestamp
+              NUM_LEAVES: BigInt(leaves.length),
+              INITIAL_OWNER:  {
+                Address: {
+                  bits:  wallet.address.toB256()
+                }
+              },
             };
           try {
             await deployAirdrop({
@@ -201,10 +213,10 @@ function Airdrop() {
   );
 }
 
-// 0x6c49291704adc561074d887603c0c5e98b162b8662b746a1c945bb1c71e40f79, 1
-// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 1
-// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 1
-// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 1
+// 0x6c49291704adc561074d887603c0c5e98b162b8662b746a1c945bb1c71e40f79, 0.01
+// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 0.01
+// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 0.01
+// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 0.01
 
 // const dummy_recipients = [
 //   { address: "0x6c49291704adc561074d887603c0c5e98b162b86s62b746a1c945bb1c71e40f79", amount: BigInt(4000000000) },

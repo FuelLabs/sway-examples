@@ -15,7 +15,11 @@ export interface ConfigurableConstants {
   ASSET?: AssetId;
   END_TIME?: number;
   NUM_LEAVES?: number;
-  INITIAL_OWNER?: Address;
+  INITIAL_OWNER?: {
+    Address: {
+      bits: B256Address | undefined
+    }
+  };
 }
 
 
