@@ -10,6 +10,9 @@ import { useDeployAirdrop } from "../../hooks/useDeployAirdrop";
 import { useUploadAirdropData } from "../../hooks/useUploadAirdropData";
 import { createMerkleTree, verifyMerkleProof } from "../../utils/merkleTrees";
 import { recipientsParser } from "../../utils/parsers";
+import { Input as ShadcnInput } from "../../components/ui/input";
+import { Textarea } from "../../components/ui/textarea";
+import { DatePicker } from "@/components/ui/date-picker";
 
 export const Route = createLazyFileRoute("/airdrop/create")({
   component: () => <Airdrop />,
@@ -99,7 +102,7 @@ function Airdrop() {
       </Text>
 
       <Text>Enter Asset Id</Text>
-      <Input
+      <ShadcnInput
         placeholder="0x00...00"
         value={assetId}
         className="w-96"
@@ -109,14 +112,27 @@ function Airdrop() {
       <Text sx={{ paddingTop: "28px" }}>
         Enter addresses and amounts. It accepts the following formats:
       </Text>
-      <MultilineInput
-        className="w-full mb-7 text-white border-2 border-white rounded-md p-1"
+      <Textarea
+        className="w-full mb-7 min-h-[150px] text-white border-2 border-white rounded-md p-1"
         placeholder={placeholderText}
         value={textValue}
         onChange={(val) => setTextValue(val.target.value)}
       />
+      <div>
+        <DatePicker className="pl-3"
+          onChangeHandler={(e) => {
+            const tiaValue = DateTime.fromUnixMilliseconds(
+              // new Date(e.target.value).getTime()
+              e?.getTime() ?? 0
+            ).toUnixSeconds();
 
-      <input
+            // console.log(bn(BigInt(tiaValue).toString()).toString());
+            console.log(BigInt(tiaValue));
+            setEndDate(tiaValue);
+          }}
+        />
+      </div>
+      {/* <ShadcnInput
         className="block mb-6 text-white bg-black border-2 border-white rounded-md p-1"
         onChange={(e) => {
 
@@ -129,14 +145,14 @@ function Airdrop() {
           setEndDate(tiaValue);
         }}
         type="date"
-      />
+      /> */}
       <Button
         className="m-auto w-fit"
         disabled={!wallet}
         onClick={async () => {
           console.log("recipients", recipients);
 
-          if(!wallet || !assetId || !endDate || !recipients.length) {
+          if (!wallet || !assetId || !endDate || !recipients.length) {
             toast.error("Please fill in all fields");
             return;
           }
@@ -147,27 +163,30 @@ function Airdrop() {
           const { isValid } = verifyMerkleProof(recipients[0], root, tree);
 
           console.log("Merkle proof valid:", isValid);
-          console.log('logging address: ', Address.fromDynamicInput(wallet?.address).toB256())
+          console.log(
+            "logging address: ",
+            Address.fromDynamicInput(wallet?.address).toB256()
+          );
 
           // Define new configurable values
-            const configurableConstants = {
-              MERKLE_ROOT: `0x${root}`,
-              ASSET: {
-                bits: assetId,
-              } as AssetId,
-              END_TIME: endDate, // Example UNIX timestamp
-              NUM_LEAVES: BigInt(leaves.length),
-              INITIAL_OWNER:  {
-                Address: {
-                  bits:  wallet.address.toB256()
-                }
+          const configurableConstants = {
+            MERKLE_ROOT: `0x${root}`,
+            ASSET: {
+              bits: assetId,
+            } as AssetId,
+            END_TIME: endDate, // Example UNIX timestamp
+            NUM_LEAVES: BigInt(leaves.length),
+            INITIAL_OWNER: {
+              Address: {
+                bits: wallet.address.toB256(),
               },
-            };
+            },
+          };
           try {
             await deployAirdrop({
               configurables: configurableConstants,
               options: {
-                configurableConstants
+                configurableConstants,
                 // storageSlots: [
                 //   {
                 //     key: "1d63cc2495bbf5570c9a6d7f632018dc033107e7f4452405c44601bb771a4a5d",
@@ -196,9 +215,9 @@ function Airdrop() {
                 //   },
                 // ],
               },
-              
+
               assetId,
-              
+
               totalAmount,
             });
           } catch (error) {

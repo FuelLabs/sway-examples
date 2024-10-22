@@ -12,8 +12,8 @@ type Environment = (typeof Environments)[keyof typeof Environments];
  * `VITE_DAPP_DAPP_ENVIRONMENT` environment variable.
  * If it's not set, the default is `local`.
  */
-export const CURRENT_ENVIRONMENT: Environment =
-  (process.env.VITE_DAPP_DAPP_ENVIRONMENT as Environment) || Environments.LOCAL;
+export const CURRENT_ENVIRONMENT: Environment = "testnet"
+  // (process.env.VITE_DAPP_DAPP_ENVIRONMENT as Environment) || Environments.LOCAL;
 
 const TESTNET_NETWORK_URL = "https://testnet.fuel.network/v1/graphql";
 // The node URL is determined by the current environment too.
