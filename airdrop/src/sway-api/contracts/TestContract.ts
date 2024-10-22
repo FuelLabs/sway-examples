@@ -5,9 +5,9 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 
 /*
-  Fuels version: 0.94.6
-  Forc version: 0.63.5
-  Fuel-Core version: 0.35.0
+  Fuels version: 0.96.1
+  Forc version: 0.66.1
+  Fuel-Core version: 0.40.0
 */
 
 import { Contract, Interface } from "fuels";
@@ -648,27 +648,27 @@ const abi = {
     {
       "name": "MERKLE_ROOT",
       "concreteTypeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
-      "offset": 34792
+      "offset": 35304
     },
     {
       "name": "ASSET",
       "concreteTypeId": "c0710b6731b1dd59799cf6bef33eee3b3b04a2e40e80a0724090215bbf2ca974",
-      "offset": 34704
+      "offset": 35216
     },
     {
       "name": "END_TIME",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 34736
+      "offset": 35248
     },
     {
       "name": "NUM_LEAVES",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 34824
+      "offset": 35336
     },
     {
       "name": "INITIAL_OWNER",
       "concreteTypeId": "253aea1197e8005518365bd24c8bc31f73a434fac0f7350e57696edfdd4850c2",
-      "offset": 34744
+      "offset": 35256
     }
   ]
 };
