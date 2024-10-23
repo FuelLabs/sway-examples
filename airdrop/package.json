@@ -11,6 +11,7 @@
     "fuels:dev": "fuels dev",
     "test": "vitest",
     "build:all": "NODE_ENV=production run-s build",
+     "coverage": "vitest run --coverage",
     "test:ui": "./test/ui/test-ui.sh"
   },
   "dependencies": {
