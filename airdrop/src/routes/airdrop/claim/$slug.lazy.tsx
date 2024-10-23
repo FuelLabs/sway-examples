@@ -100,6 +100,11 @@ function ClaimAirdrop() {
     });
   };
 
+  useEffect(() => {
+    console.log("owner", owner);
+  }, [
+    owner
+  ])
   return (
     <div className="w-full text-center flex flex-col justify-center">
       <Text variant="h4" sx={{ paddingBottom: "28px", textAlign: "center" }}>
@@ -121,7 +126,7 @@ function ClaimAirdrop() {
       )}
 
       <Text textAlign={"center"}>
-        Contract Owner: {owner?.Address as unknown as string}
+        Contract Owner: {owner?.Address?.bits}
       </Text>
       <Text textAlign={"center"}>
         End time:{" "}
