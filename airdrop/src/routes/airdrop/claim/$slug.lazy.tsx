@@ -20,6 +20,8 @@ import {
   useGetOwner,
 } from "../../../hooks/useGetAirdropContractData";
 import { DateTime } from "fuels";
+import { Button as ShadcnButton } from "../../../components/ui/button";
+import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
 
 // import { useGetOwner } from "@/hooks/useGetAirdropContractData";
 
@@ -54,6 +56,7 @@ function ClaimAirdrop() {
   const { data: endTime } = useGetEndTime({ contractId });
   const { data: isPaused } = useGetIsPaused({ contractId });
   const { data: merkleRoot } = useGetMerkleRoot({ contractId });
+  const { mutate: initialize, data: initializeData } = useInitializeAirdrop();
 
   useEffect(() => {
     console.log({ wallet });
@@ -128,6 +131,14 @@ function ClaimAirdrop() {
       </Text>
       <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>
       <Text textAlign={"center"}>Merkle Root: {merkleRoot?.toString()}</Text>
+
+      <ShadcnButton
+        onClick={() => {
+          initialize({ contractId });
+        }}
+      >
+        Initialize Airdrop
+      </ShadcnButton>
     </div>
   );
 }
