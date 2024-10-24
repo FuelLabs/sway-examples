@@ -33,7 +33,7 @@ const parseSRC20Text = (text: string): [string, string][] => {
       value = `0${value}`;
     }
     // @ts-expect-error will fix it once the build succeeds
-    acc.push([address, value]);
+    acc.push([address.toLowerCase(), value]);
     return acc;
   }, []);
 };

@@ -35,6 +35,10 @@ export const useClaimAirdrop = () => {
       const result = await contract.functions
         .claim(amount, account, treeIndex, proof, recipient)
         .call();
+      
+      const temp = await result.waitForResult();
+      console.log(`temp`, temp);
+      
       return result;
     }, onSuccess: (data) => {
       console.log("onSuccess useClaimAirdrop", data);

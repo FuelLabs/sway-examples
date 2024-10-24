@@ -48,6 +48,7 @@ export const useDeployAirdrop = () => {
       console.log("contractBalance", contractBalance);
 
       const result = await TestContractFactory.deploy(wallet, options);
+      await result.waitForResult();
       // Get the initial contract balance
 
       if (contractBalance.lt(+totalAmount.toString())) {
@@ -62,7 +63,9 @@ export const useDeployAirdrop = () => {
         assetId
       );
 
-      await tx.waitForResult();
+      const temp = await tx.waitForResult();
+
+      console.log(`temp`, temp);
 
       return result;
     },
