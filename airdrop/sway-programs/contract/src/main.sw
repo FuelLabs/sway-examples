@@ -111,6 +111,10 @@ impl AirdropDistributorAbi for Contract {
         MERKLE_ROOT
     }
 
+    fn num_leaves() -> u64 {
+        NUM_LEAVES
+    }
+
     #[storage(read)]
     fn owner() -> Option<Identity> {
         _owner()

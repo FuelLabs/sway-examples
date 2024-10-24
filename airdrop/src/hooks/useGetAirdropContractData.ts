@@ -88,3 +88,22 @@ export const useGetMerkleRoot = ({ contractId }: Params) => {
   });
   return query;
 }
+
+export const useGetNumLeaves = ({ contractId }: Params) => {
+  const query = useQuery({
+    queryKey: [AirdropQueryKeys.numLeaves, contractId],
+    queryFn: async () => {
+      try {
+        const provider = await Provider.create(NODE_URL);
+
+        const contract = new TestContract(contractId, provider!);
+
+        const numLeaves = await contract.functions.num_leaves().get();
+        return numLeaves.value;
+      } catch (error) {
+        console.log("error from useGetNumLeaves: ", error);
+      }
+    },
+  });
+  return query;
+}

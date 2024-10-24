@@ -30,6 +30,8 @@ abi AirdropDistributorAbi {
     // @return The end time of the airdrop in Tai64 format
     fn end_time() -> u64;
 
+    fn num_leaves() -> u64;
+
     // Gets the merkle root of the airdrop
     // 
     // @return The merkle root

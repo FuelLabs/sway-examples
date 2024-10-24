@@ -45,6 +45,7 @@ function Airdrop() {
   const [recipients, setRecipients] = useState<
     { address: string; amount: bigint }[]
   >([]);
+
   const [totalAmount, setTotalAmount] = useState<string>("0");
 
   const [textValue, setTextValue] = useState<string>("");
@@ -121,7 +122,7 @@ function Airdrop() {
         bits: assetId,
       } as AssetId,
       END_TIME: endDate, // Example UNIX timestamp
-      NUM_LEAVES: leaves.length,
+      NUM_LEAVES:  BigInt(leaves.length),
       INITIAL_OWNER: {
         Address: {
           bits: wallet.address.toB256(),

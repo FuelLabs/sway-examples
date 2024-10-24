@@ -17,6 +17,7 @@ import {
   useGetEndTime,
   useGetIsPaused,
   useGetMerkleRoot,
+  useGetNumLeaves,
   useGetOwner,
 } from "../../../hooks/useGetAirdropContractData";
 import { DateTime } from "fuels";
@@ -56,6 +57,7 @@ function ClaimAirdrop() {
   const { data: endTime } = useGetEndTime({ contractId });
   const { data: isPaused } = useGetIsPaused({ contractId });
   const { data: merkleRoot } = useGetMerkleRoot({ contractId });
+  const { data: numLeaves } = useGetNumLeaves({ contractId });
   const { mutate: initialize, data: initializeData } = useInitializeAirdrop();
 
   // console.log(endTime?.toNumber())
@@ -131,6 +133,7 @@ function ClaimAirdrop() {
       </Text>
       <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>
       <Text textAlign={"center"}>Merkle Root: {merkleRoot?.toString()}</Text>
+      <Text textAlign={"center"}>Number of Leaves: {numLeaves?.toString()}</Text>
       {/* {owner && owner?.Address?.bits === wallet?.address.toB256() && ( */}
       <ShadcnButton
         className="my-8 mx-auto text-center"

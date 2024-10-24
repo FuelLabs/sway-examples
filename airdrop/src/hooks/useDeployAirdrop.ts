@@ -1,7 +1,7 @@
 import { TestContract, TestContractFactory } from "../sway-api";
 import { useWallet } from "@fuels/react";
 import { useMutation } from "@tanstack/react-query";
-import { Account, Address, AssetId, B256Address, DeployContractOptions } from "fuels";
+import { Account, Address, AssetId, B256Address, BN, DeployContractOptions } from "fuels";
 import toast from "react-hot-toast";
 
 export type deployAirdropArgs = {
@@ -14,7 +14,7 @@ export interface ConfigurableConstants {
   MERKLE_ROOT?: B256Address;
   ASSET?: AssetId;
   END_TIME?: string;
-  NUM_LEAVES?: number;
+  NUM_LEAVES?: bigint;
   INITIAL_OWNER?: {
     Address: {
       bits: B256Address | undefined

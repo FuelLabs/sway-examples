@@ -7,4 +7,5 @@ export const AirdropQueryKeys = {
   endTime: "endTime",
   merkleRoot: "merkleRoot",
   isActive: "isActive",
+  numLeaves: "numLeaves",
 }

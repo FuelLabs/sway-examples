@@ -579,6 +579,12 @@ const abi = {
     },
     {
       "inputs": [],
+      "name": "num_leaves",
+      "output": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+      "attributes": null
+    },
+    {
+      "inputs": [],
       "name": "owner",
       "output": "253aea1197e8005518365bd24c8bc31f73a434fac0f7350e57696edfdd4850c2",
       "attributes": [
@@ -661,27 +667,27 @@ const abi = {
     {
       "name": "MERKLE_ROOT",
       "concreteTypeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
-      "offset": 36064
+      "offset": 36200
     },
     {
       "name": "ASSET",
       "concreteTypeId": "c0710b6731b1dd59799cf6bef33eee3b3b04a2e40e80a0724090215bbf2ca974",
-      "offset": 35976
+      "offset": 36112
     },
     {
       "name": "END_TIME",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 36008
+      "offset": 36144
     },
     {
       "name": "NUM_LEAVES",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 36096
+      "offset": 36232
     },
     {
       "name": "INITIAL_OWNER",
       "concreteTypeId": "253aea1197e8005518365bd24c8bc31f73a434fac0f7350e57696edfdd4850c2",
-      "offset": 36016
+      "offset": 36152
     }
   ]
 };
@@ -728,6 +734,7 @@ export class TestContractInterface extends Interface {
     is_claimed: FunctionFragment;
     is_paused: FunctionFragment;
     merkle_root: FunctionFragment;
+    num_leaves: FunctionFragment;
     owner: FunctionFragment;
     set_paused: FunctionFragment;
   };
@@ -748,6 +755,7 @@ export class TestContract extends Contract {
     is_claimed: InvokeFunction<[tree_index: BigNumberish], boolean>;
     is_paused: InvokeFunction<[], boolean>;
     merkle_root: InvokeFunction<[], string>;
+    num_leaves: InvokeFunction<[], BN>;
     owner: InvokeFunction<[], Option<IdentityOutput>>;
     set_paused: InvokeFunction<[paused: boolean], void>;
   };
