@@ -58,7 +58,7 @@ function ClaimAirdrop() {
   const { data: merkleRoot } = useGetMerkleRoot({ contractId });
   const { mutate: initialize, data: initializeData } = useInitializeAirdrop();
 
-// console.log(endTime?.toNumber())
+  // console.log(endTime?.toNumber())
 
   useEffect(() => {
     console.log({ wallet });
@@ -116,7 +116,10 @@ function ClaimAirdrop() {
           <Text textAlign={"center"}>
             Your Allocations: {Number(formatUnits(isRecipient.amount, 9))}
           </Text>
-          <ShadcnButton onClick={claimHandler} className="my-8 mx-auto text-center">
+          <ShadcnButton
+            onClick={claimHandler}
+            className="my-8 mx-auto text-center"
+          >
             Claim Airdrop
           </ShadcnButton>
         </>
@@ -124,21 +127,19 @@ function ClaimAirdrop() {
 
       <Text textAlign={"center"}>Contract Owner: {owner?.Address?.bits}</Text>
       <Text textAlign={"center"}>
-        End time:{" "}
-        {new Date(
-          DateTime.fromTai64(endTime?.toString() ?? "").toISOString()
-        ).toLocaleDateString()}
+        End time: {DateTime.fromTai64(endTime?.toString() ?? "").toLocaleDateString()}
       </Text>
       <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>
       <Text textAlign={"center"}>Merkle Root: {merkleRoot?.toString()}</Text>
       {/* {owner && owner?.Address?.bits === wallet?.address.toB256() && ( */}
-        <ShadcnButton className="my-8 mx-auto text-center"
-          onClick={() => {
-            initialize({ contractId });
-          }}
-        >
-          Initialize Airdrop
-        </ShadcnButton>
+      <ShadcnButton
+        className="my-8 mx-auto text-center"
+        onClick={() => {
+          initialize({ contractId });
+        }}
+      >
+        Initialize Airdrop
+      </ShadcnButton>
       {/* )} */}
     </div>
   );

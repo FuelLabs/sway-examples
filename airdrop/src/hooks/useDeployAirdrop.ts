@@ -14,7 +14,7 @@ export interface ConfigurableConstants {
   MERKLE_ROOT?: B256Address;
   ASSET?: AssetId;
   END_TIME?: string;
-  NUM_LEAVES?: bigint;
+  NUM_LEAVES?: number;
   INITIAL_OWNER?: {
     Address: {
       bits: B256Address | undefined
