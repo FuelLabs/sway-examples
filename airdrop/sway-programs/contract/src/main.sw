@@ -247,5 +247,9 @@ fn _is_claimed(tree_index: u64) -> bool {
 
 fn _is_airdrop_active() -> bool {
     let current_time = timestamp();
+    log("current_time:");
+    log(current_time);
+    log("END_TIME:");
+    log(END_TIME);
     current_time < END_TIME
 }

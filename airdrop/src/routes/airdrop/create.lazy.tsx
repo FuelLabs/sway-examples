@@ -48,7 +48,7 @@ function Airdrop() {
   const [totalAmount, setTotalAmount] = useState<string>("0");
 
   const [textValue, setTextValue] = useState<string>("");
-  const [endDate, setEndDate] = useState<number>();
+  const [endDate, setEndDate] = useState<string>();
 
   const parseText = useCallback((text: string) => {
     // Need to parse decimals dynamically, currently hardcoded to 9
@@ -124,7 +124,7 @@ function Airdrop() {
             const tiaValue = DateTime.fromUnixMilliseconds(
               // new Date(e.target.value).getTime()
               e?.getTime() ?? 0
-            ).toUnixSeconds();
+            ).toTai64();
 
             // console.log(bn(BigInt(tiaValue).toString()).toString());
             console.log(BigInt(tiaValue));

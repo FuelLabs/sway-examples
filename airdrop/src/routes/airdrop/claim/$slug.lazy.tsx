@@ -58,7 +58,7 @@ function ClaimAirdrop() {
   const { data: merkleRoot } = useGetMerkleRoot({ contractId });
   const { mutate: initialize, data: initializeData } = useInitializeAirdrop();
 
-console.log(endTime?.toNumber())
+// console.log(endTime?.toNumber())
 
   useEffect(() => {
     console.log({ wallet });
@@ -126,7 +126,7 @@ console.log(endTime?.toNumber())
       <Text textAlign={"center"}>
         End time:{" "}
         {new Date(
-          DateTime.fromUnixSeconds(endTime?.toNumber() ?? 0).toISOString()
+          DateTime.fromTai64(endTime?.toString() ?? "").toISOString()
         ).toLocaleDateString()}
       </Text>
       <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>

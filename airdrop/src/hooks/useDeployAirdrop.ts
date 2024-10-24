@@ -13,8 +13,8 @@ export type deployAirdropArgs = {
 export interface ConfigurableConstants {
   MERKLE_ROOT?: B256Address;
   ASSET?: AssetId;
-  END_TIME?: number;
-  NUM_LEAVES?: number;
+  END_TIME?: string;
+  NUM_LEAVES?: bigint;
   INITIAL_OWNER?: {
     Address: {
       bits: B256Address | undefined
