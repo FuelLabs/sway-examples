@@ -6,5 +6,5 @@ export const AirdropQueryKeys = {
   isInitialized: "isInitialized",
   endTime: "endTime",
   merkleRoot: "merkleRoot",
-  
+  isActive: "isActive",
 }

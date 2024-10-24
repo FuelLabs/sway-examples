@@ -4,7 +4,7 @@ import { createLazyFileRoute, useParams } from "@tanstack/react-router";
 // import { Vec } from "@/contract-types/aidrop-contracts/contracts/common";
 // import { useClaimAirdrop } from "@/hooks/useClaimAirdrop";
 // import { createMerkleTree, generateProof } from "@/utils/merkleTrees";
-import { useWallet } from "@fuels/react";
+import { useAccount, useWallet } from "@fuels/react";
 import z from "zod";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -58,6 +58,8 @@ function ClaimAirdrop() {
   const { data: merkleRoot } = useGetMerkleRoot({ contractId });
   const { mutate: initialize, data: initializeData } = useInitializeAirdrop();
 
+console.log(endTime?.toNumber())
+
   useEffect(() => {
     console.log({ wallet });
     if (recipients && wallet) {
@@ -100,11 +102,6 @@ function ClaimAirdrop() {
     });
   };
 
-  useEffect(() => {
-    console.log("owner", owner);
-  }, [
-    owner
-  ])
   return (
     <div className="w-full text-center flex flex-col justify-center">
       <Text variant="h4" sx={{ paddingBottom: "28px", textAlign: "center" }}>
@@ -119,15 +116,13 @@ function ClaimAirdrop() {
           <Text textAlign={"center"}>
             Your Allocations: {Number(formatUnits(isRecipient.amount, 9))}
           </Text>
-          <Button onClick={claimHandler} className="my-8 mx-auto text-center">
+          <ShadcnButton onClick={claimHandler} className="my-8 mx-auto text-center">
             Claim Airdrop
-          </Button>
+          </ShadcnButton>
         </>
       )}
 
-      <Text textAlign={"center"}>
-        Contract Owner: {owner?.Address?.bits}
-      </Text>
+      <Text textAlign={"center"}>Contract Owner: {owner?.Address?.bits}</Text>
       <Text textAlign={"center"}>
         End time:{" "}
         {new Date(
@@ -136,14 +131,15 @@ function ClaimAirdrop() {
       </Text>
       <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>
       <Text textAlign={"center"}>Merkle Root: {merkleRoot?.toString()}</Text>
-
-      <ShadcnButton
-        onClick={() => {
-          initialize({ contractId });
-        }}
-      >
-        Initialize Airdrop
-      </ShadcnButton>
+      {/* {owner && owner?.Address?.bits === wallet?.address.toB256() && ( */}
+        <ShadcnButton className="my-8 mx-auto text-center"
+          onClick={() => {
+            initialize({ contractId });
+          }}
+        >
+          Initialize Airdrop
+        </ShadcnButton>
+      {/* )} */}
     </div>
   );
 }
