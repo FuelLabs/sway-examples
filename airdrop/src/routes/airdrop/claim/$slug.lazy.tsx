@@ -9,7 +9,7 @@ import z from "zod";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { formatUnits } from "viem";
-import { createMerkleTree, generateProof } from "../../../utils/merkleTrees";
+import { createMerkleTree, generateProof, Recipient, verifyMerkleProof } from "../../../utils/merkleTrees";
 import { Text } from "../../../components/Text";
 import { Button } from "../../../components/Button";
 import { useClaimAirdrop } from "../../../hooks/useClaimAirdrop";
@@ -31,27 +31,20 @@ export const Route = createLazyFileRoute("/airdrop/claim/$slug")({
   component: () => <ClaimAirdrop />,
 });
 
-export type RecipientData = Array<{ address: string; amount: bigint }>;
+export type RecipientData = Array<Recipient>;
 
 function ClaimAirdrop() {
   const { slug } = useParams({ strict: false });
   // @ts-expect-error will fix it once the build succeeds
   const { recipient } = Route.useSearch();
-  console.log("recipient", recipient);
   const contractId = slug as string;
   const recipients = recipient as RecipientData;
-  console.log("recipients", recipients);
   // const recipients = JSON.parse(useSearchParams().get('recipient') as string)
   // const { data: airdropData } = useGetAirdropData();
   const { mutate } = useClaimAirdrop();
-  const [isRecipient, setIsRecipient] = useState<{
-    address: string;
-    amount: bigint;
-  }>();
+  const [possibleRecipient, setPossibleRecipient] = useState<Recipient>();
   const [treeIndex, setTreeIndex] = useState<number>();
   const { wallet } = useWallet();
-
-  console.log("recipients", recipients);
 
   const { data: owner } = useGetOwner({ contractId });
   const { data: endTime } = useGetEndTime({ contractId });
@@ -66,10 +59,9 @@ function ClaimAirdrop() {
     console.log({ wallet });
     if (recipients && wallet) {
       (recipients as RecipientData)?.find((recipient, index) => {
-        const temp =
-          recipient.address === (wallet?.address.toB256() as unknown as string);
+        const temp = recipient.address.toLowerCase() === wallet.address.toHexString();
         if (temp) {
-          setIsRecipient(recipient);
+          setPossibleRecipient(recipient);
           setTreeIndex(index);
         }
         return temp;
@@ -83,18 +75,19 @@ function ClaimAirdrop() {
       return;
     }
 
-    if (!isRecipient) {
+    if (!possibleRecipient) {
       toast.error("You are not eligible for the airdrop");
       return;
     }
 
-    const { tree } = createMerkleTree(recipients as RecipientData);
-    const proof = generateProof(isRecipient, tree);
+    const { tree, root, leaves } = createMerkleTree(recipients as RecipientData);
+    const proof = generateProof(possibleRecipient, tree);
 
     console.log("proof:", proof);
+    console.log(`treeIndex`, treeIndex);
     mutate({
       contractId,
-      amount: isRecipient?.amount as unknown as number,
+      amount: possibleRecipient?.amount as unknown as number,
       account: wallet?.address.toB256() as unknown as string,
       treeIndex: treeIndex as number,
       proof,
@@ -111,12 +104,12 @@ function ClaimAirdrop() {
       </Text>
       {!wallet ? (
         <Text>Please connect your wallet to claim the airdrop</Text>
-      ) : !isRecipient ? (
+      ) : !possibleRecipient ? (
         <Text>You are not eligible for the airdrop</Text>
       ) : (
         <>
           <Text textAlign={"center"}>
-            Your Allocations: {Number(formatUnits(isRecipient.amount, 9))}
+            Your Allocations: {Number(formatUnits(possibleRecipient.amount, 9))}
           </Text>
           <ShadcnButton
             onClick={claimHandler}
@@ -129,11 +122,14 @@ function ClaimAirdrop() {
 
       <Text textAlign={"center"}>Contract Owner: {owner?.Address?.bits}</Text>
       <Text textAlign={"center"}>
-        End time: {DateTime.fromTai64(endTime?.toString() ?? "").toLocaleDateString()}
+        End time:{" "}
+        {DateTime.fromTai64(endTime?.toString() ?? "").toLocaleDateString()}
       </Text>
       <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>
       <Text textAlign={"center"}>Merkle Root: {merkleRoot?.toString()}</Text>
-      <Text textAlign={"center"}>Number of Leaves: {numLeaves?.toString()}</Text>
+      <Text textAlign={"center"}>
+        Number of Leaves: {numLeaves?.toString()}
+      </Text>
       {/* {owner && owner?.Address?.bits === wallet?.address.toB256() && ( */}
       <ShadcnButton
         className="my-8 mx-auto text-center"

@@ -6,7 +6,7 @@
 
 /*
   Fuels version: 0.96.1
-  Forc version: 0.66.1
+  Forc version: 0.66.2
   Fuel-Core version: 0.40.0
 */
 
@@ -634,8 +634,20 @@ const abi = {
       "concreteTypeId": "830d3b5a51b6b713a3c93913be027ca77d17b627fcb50fab6474df96baf1da1b"
     },
     {
+      "logId": "8961848586872524460",
+      "concreteTypeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b"
+    },
+    {
+      "logId": "3626970576394486879",
+      "concreteTypeId": "32559685d0c9845f059bf9d472a0a38cf77d36c23dfcffe5489e86a65cdd9198"
+    },
+    {
       "logId": "13375681076267723605",
       "concreteTypeId": "b99ff7124bda2b55402338105d5a582d311c1113da1c5f5b1b6f2c32bcd91965"
+    },
+    {
+      "logId": "13213829929622723620",
+      "concreteTypeId": "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
     },
     {
       "logId": "2279040052662566249",
@@ -667,27 +679,27 @@ const abi = {
     {
       "name": "MERKLE_ROOT",
       "concreteTypeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
-      "offset": 36200
+      "offset": 36096
     },
     {
       "name": "ASSET",
       "concreteTypeId": "c0710b6731b1dd59799cf6bef33eee3b3b04a2e40e80a0724090215bbf2ca974",
-      "offset": 36112
+      "offset": 36008
     },
     {
       "name": "END_TIME",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 36144
+      "offset": 36040
     },
     {
       "name": "NUM_LEAVES",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 36232
+      "offset": 36128
     },
     {
       "name": "INITIAL_OWNER",
       "concreteTypeId": "253aea1197e8005518365bd24c8bc31f73a434fac0f7350e57696edfdd4850c2",
-      "offset": 36152
+      "offset": 36048
     }
   ]
 };

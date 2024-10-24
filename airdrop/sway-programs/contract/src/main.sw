@@ -74,6 +74,9 @@ impl AirdropDistributorAbi for Contract {
         // Verify the merkle proof
         let leaf_params = (account, amount);
         let leaf_hash = sha256(leaf_params);
+        log(leaf_hash);
+        log(leaf_digest(leaf_hash));
+        log(proof);
 
         let merkle_proof_result = verify_proof(
             tree_index,
@@ -82,6 +85,10 @@ impl AirdropDistributorAbi for Contract {
             NUM_LEAVES,
             proof,
         );
+
+        log(merkle_proof_result);
+
+        return 0;
 
         require(merkle_proof_result, VerificationError::InvalidProof);
 
