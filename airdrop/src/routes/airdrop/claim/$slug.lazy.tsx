@@ -82,7 +82,8 @@ function ClaimAirdrop() {
 
     const { tree, root, leaves } = createMerkleTree(recipients as RecipientData);
     const proof = generateProof(possibleRecipient, tree);
-
+    console.log("root", root);
+    console.log("tree", tree);
     console.log("proof:", proof);
     console.log(`treeIndex`, treeIndex);
     mutate({
