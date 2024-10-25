@@ -75,6 +75,7 @@ impl AirdropDistributorAbi for Contract {
         let leaf_params = (account, amount);
         let leaf_hash = sha256(leaf_params);
         log(leaf_hash);
+        log("leaf_digest");
         log(leaf_digest(leaf_hash));
         log(proof);
 
