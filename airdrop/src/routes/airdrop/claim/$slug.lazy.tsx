@@ -9,7 +9,12 @@ import z from "zod";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { formatUnits } from "viem";
-import { createMerkleTree, generateProof, Recipient, verifyMerkleProof } from "../../../utils/merkleTrees";
+import {
+  createMerkleTree,
+  generateProof,
+  Recipient,
+  verifyMerkleProof,
+} from "../../../utils/merkleTrees";
 import { Text } from "../../../components/Text";
 import { Button } from "../../../components/Button";
 import { useClaimAirdrop } from "../../../hooks/useClaimAirdrop";
@@ -59,9 +64,11 @@ function ClaimAirdrop() {
     console.log({ wallet });
     if (recipients && wallet) {
       (recipients as RecipientData)?.find((recipient, index) => {
-        const temp = recipient.address.toLowerCase() === wallet.address.toHexString();
+        const temp =
+          recipient.address.toLowerCase() === wallet.address.toHexString();
         if (temp) {
           setPossibleRecipient(recipient);
+          console.log({ recipient });
           setTreeIndex(index);
         }
         return temp;
@@ -80,7 +87,12 @@ function ClaimAirdrop() {
       return;
     }
 
-    const { tree, root, leaves } = createMerkleTree(recipients as RecipientData);
+    const { tree, root, leaves } = createMerkleTree(
+      recipients as RecipientData
+    );
+    // const { isValid } = verifyMerkleProof(possibleRecipient, root, tree);
+
+    // console.log("isValid", isValid);
     const proof = generateProof(possibleRecipient, tree);
     console.log("root", root);
     console.log("tree", tree);

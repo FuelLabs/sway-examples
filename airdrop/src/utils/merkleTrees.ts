@@ -1,15 +1,25 @@
 import stringify from "json-stable-stringify";
 import { MerkleTree } from "merkletreejs";
 import SHA256 from "crypto-js/sha256";
-import { arrayify, bn, BN, concat, hexlify, sha256 } from "fuels";
+import {
+  arrayify,
+  B256Coder,
+  BigNumberCoder,
+  bn,
+  BN,
+  concat,
+  hexlify,
+  sha256,
+  TupleCoder,
+} from "fuels";
 //import crypto from "crypto";
 
 // import keccak256 from "keccak256";
 
 export type Recipient = {
   address: string;
-  amount: bigint
-}
+  amount: bigint;
+};
 
 export const stringifyObj = (obj: object) => {
   const result = stringify(obj);
@@ -18,25 +28,30 @@ export const stringifyObj = (obj: object) => {
 };
 
 export const getLeafData = (recipient: Recipient) => {
-  const amount = bn(recipient.amount.toString());
-  const recipientBytes = arrayify(recipient.address.toLowerCase());
-  //const amountBytes = arrayify(recipient.amount.toString());
-  const amountBytes = amount.toBytes();
-  const leafData = concat([recipientBytes, amountBytes]);
-  // Hash the concatenated data to get the leaf
-  const hashedData = sha256(leafData);
+  const leafCoder = new TupleCoder([
+    new B256Coder(),
+    new BigNumberCoder("u64"),
+  ]);
 
-  return { hashedData: "0xbef6237f9332675c07f4575f2c130a16dfcfdb3e2798bd70b1039ee2bd48b93c" }
-}
+  const result = leafCoder.encode([
+    recipient.address,
+    bn(recipient.amount.toString()),
+  ]);
+
+  // Hash the concatenated data to get the leaf
+  const hashedData = sha256(result);
+
+  console.log(`hashedData`, hashedData);
+
+  return hashedData;
+};
 
 // function sha256(data) {
 //   // returns Buffer
 //   return crypto.createHash('sha256').update(data).digest()
 //  }
 
-export const createMerkleTree = (
-  recipients: Recipient[]
-) => {
+export const createMerkleTree = (recipients: Recipient[]) => {
   // const tempHash = (recipient: Recipient) => {
   //   const amount = bn(recipient.amount.toString());
   //   const recipientBytes = arrayify(recipient.address.toLowerCase());
@@ -52,9 +67,9 @@ export const createMerkleTree = (
   //   return hashedData;
   // });
   const leaves = recipients.map((recipient) => {
-    const { hashedData } = getLeafData(recipient);
-    return sha256(hashedData);
-  })
+    const hashedData = getLeafData(recipient);
+    return  hashedData;
+  });
   const tree = new MerkleTree(leaves, sha256);
   const root = tree.getRoot().toString("hex");
 
@@ -74,7 +89,7 @@ export const verifyMerkleProof = (
 
   //const leafData = `${recipient.address.toLowerCase()}:${recipient.amount}`;
   // Hash the concatenated data to get the leaf
-  const { hashedData } = getLeafData(recipient);
+  const hashedData = getLeafData(recipient);
 
   console.log(`hashedData`, hashedData);
 
@@ -94,15 +109,11 @@ export const verifyMerkleProof = (
   return { isValid, proof: proof.map((p) => p.data.toString("hex")) };
 };
 
-export const generateProof = (
-  recipient: Recipient,
-  tree: MerkleTree
-) => {
-  const { hashedData } = getLeafData(recipient);
-  const temp = sha256(hashedData);
-  console.log(`HEREEEEEE`, temp);
+export const generateProof = (recipient: Recipient, tree: MerkleTree) => {
+  const hashedData = getLeafData(recipient);
+  // const temp = sha256(hashedData);
+  // console.log(`HEREEEEEE`, temp);
   // @ts-expect-error will fix it once the build succeeds
-  const proof = tree.getProof(temp);
-  return proof
-    .map((p) => `0x${p.data.toString("hex")}`)
+  const proof = tree.getProof(hashedData);
+  return proof.map((p) => `0x${p.data.toString("hex")}`);
 };
