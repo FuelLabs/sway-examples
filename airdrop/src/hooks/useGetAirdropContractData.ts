@@ -107,3 +107,22 @@ export const useGetNumLeaves = ({ contractId }: Params) => {
   });
   return query;
 }
+
+export const useGetIsInitialized = ({ contractId }: Params) => {
+  const query = useQuery({
+    queryKey: [AirdropQueryKeys.isInitialized, contractId],
+    queryFn: async () => {
+      try {
+        const provider = await Provider.create(NODE_URL);
+
+        const contract = new TestContract(contractId, provider!);
+
+        const isInitialized = await contract.functions.is_initialized().get();
+        return isInitialized.value;
+      } catch (error) {
+        console.log("error from useGetIsInitialized: ", error);
+      }
+    },
+  });
+  return query;
+}

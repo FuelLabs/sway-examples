@@ -87,4 +87,7 @@ abi AirdropDistributorAbi {
     // @return the amount clawed back
     #[storage(read)]
     fn clawback(recipient: Identity, asset_id: AssetId) -> u64;
+
+     #[storage(read)]
+    fn is_initialized() -> bool;
 }

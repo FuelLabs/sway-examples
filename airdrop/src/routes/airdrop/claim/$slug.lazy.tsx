@@ -20,6 +20,7 @@ import { Button } from "../../../components/Button";
 import { useClaimAirdrop } from "../../../hooks/useClaimAirdrop";
 import {
   useGetEndTime,
+  useGetIsInitialized,
   useGetIsPaused,
   useGetMerkleRoot,
   useGetNumLeaves,
@@ -57,6 +58,7 @@ function ClaimAirdrop() {
   const { data: merkleRoot } = useGetMerkleRoot({ contractId });
   const { data: numLeaves } = useGetNumLeaves({ contractId });
   const { mutate: initialize, data: initializeData } = useInitializeAirdrop();
+  const { data: isInitialized } = useGetIsInitialized({ contractId });
 
   // console.log(endTime?.toNumber())
 
@@ -115,43 +117,53 @@ function ClaimAirdrop() {
       <Text variant="h4" sx={{ paddingBottom: "28px", textAlign: "center" }}>
         Claim Airdrop
       </Text>
-      {!wallet ? (
-        <Text>Please connect your wallet to claim the airdrop</Text>
-      ) : !possibleRecipient ? (
-        <Text>You are not eligible for the airdrop</Text>
-      ) : (
-        <>
-          <Text textAlign={"center"}>
-            Your Allocations: {Number(formatUnits(possibleRecipient.amount, 9))}
+      <div className="py-8">
+        {!wallet ? (
+          <Text variant="h5">
+            Please connect your wallet to check eligibility and to claim the
+            airdrop
           </Text>
-          <ShadcnButton
-            onClick={claimHandler}
-            className="my-8 mx-auto text-center"
-          >
-            Claim Airdrop
-          </ShadcnButton>
-        </>
-      )}
+        ) : !possibleRecipient ? (
+          <Text variant="h5">You are not eligible for the airdrop</Text>
+        ) : (
+          <>
+            <Text textAlign={"center"}>
+              Your Allocations:{" "}
+              {Number(formatUnits(possibleRecipient.amount, 9))}
+            </Text>
+            <ShadcnButton
+              onClick={claimHandler}
+              className="my-8 mx-auto text-center"
+            >
+              Claim Airdrop
+            </ShadcnButton>
+          </>
+        )}
+      </div>
 
-      <Text textAlign={"center"}>Contract Owner: {owner?.Address?.bits}</Text>
-      <Text textAlign={"center"}>
-        End time:{" "}
-        {DateTime.fromTai64(endTime?.toString() ?? "").toLocaleDateString()}
-      </Text>
-      <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>
-      <Text textAlign={"center"}>Merkle Root: {merkleRoot?.toString()}</Text>
-      <Text textAlign={"center"}>
-        Number of Leaves: {numLeaves?.toString()}
-      </Text>
+      <div className="flex flex-col gap-3">
+        <Text textAlign={"center"}>Contract Owner: {owner?.Address?.bits}</Text>
+        <Text textAlign={"center"}>
+          End time:{" "}
+          {DateTime.fromTai64(endTime?.toString() ?? "").toLocaleDateString()}
+        </Text>
+        <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>
+        <Text textAlign={"center"}>Merkle Root: {merkleRoot?.toString()}</Text>
+        <Text textAlign={"center"}>
+          Number of Leaves: {numLeaves?.toString()}
+        </Text>
+      </div>
       {/* {owner && owner?.Address?.bits === wallet?.address.toB256() && ( */}
-      <ShadcnButton
-        className="my-8 mx-auto text-center"
-        onClick={() => {
-          initialize({ contractId });
-        }}
-      >
-        Initialize Airdrop
-      </ShadcnButton>
+      {isInitialized && !isInitialized && (
+        <ShadcnButton
+          className="my-8 mx-auto text-center"
+          onClick={() => {
+            initialize({ contractId });
+          }}
+        >
+          Initialize Airdrop
+        </ShadcnButton>
+      )}
       {/* )} */}
     </div>
   );

@@ -560,6 +560,19 @@ const abi = {
     },
     {
       "inputs": [],
+      "name": "is_initialized",
+      "output": "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
       "name": "is_paused",
       "output": "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903",
       "attributes": [
@@ -679,27 +692,27 @@ const abi = {
     {
       "name": "MERKLE_ROOT",
       "concreteTypeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
-      "offset": 36160
+      "offset": 36576
     },
     {
       "name": "ASSET",
       "concreteTypeId": "c0710b6731b1dd59799cf6bef33eee3b3b04a2e40e80a0724090215bbf2ca974",
-      "offset": 36072
+      "offset": 36488
     },
     {
       "name": "END_TIME",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 36104
+      "offset": 36520
     },
     {
       "name": "NUM_LEAVES",
       "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      "offset": 36192
+      "offset": 36608
     },
     {
       "name": "INITIAL_OWNER",
       "concreteTypeId": "253aea1197e8005518365bd24c8bc31f73a434fac0f7350e57696edfdd4850c2",
-      "offset": 36112
+      "offset": 36528
     }
   ]
 };
@@ -744,6 +757,7 @@ export class TestContractInterface extends Interface {
     initialize: FunctionFragment;
     initiate_transfer_ownership: FunctionFragment;
     is_claimed: FunctionFragment;
+    is_initialized: FunctionFragment;
     is_paused: FunctionFragment;
     merkle_root: FunctionFragment;
     num_leaves: FunctionFragment;
@@ -765,6 +779,7 @@ export class TestContract extends Contract {
     initialize: InvokeFunction<[], void>;
     initiate_transfer_ownership: InvokeFunction<[new_owner: IdentityInput], void>;
     is_claimed: InvokeFunction<[tree_index: BigNumberish], boolean>;
+    is_initialized: InvokeFunction<[], boolean>;
     is_paused: InvokeFunction<[], boolean>;
     merkle_root: InvokeFunction<[], string>;
     num_leaves: InvokeFunction<[], BN>;
