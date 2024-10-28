@@ -201,6 +201,11 @@ impl AirdropDistributorAbi for Contract {
         storage.owner.write(INITIAL_OWNER);
         storage.is_initialized.write(true);
     }
+
+    #[storage(read)]
+    fn is_initialized() -> bool {
+        _is_initialized()
+    }
 }
 
 #[storage(read)]
