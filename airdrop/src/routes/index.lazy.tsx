@@ -1,30 +1,28 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { TestContract } from "../sway-api";
+import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
 // import contractIds from "../sway-api/contract-ids.json";
 import { FuelLogo } from "../components/FuelLogo";
 // import { bn } from "fuels";
-import { useState } from "react";
-import { Link } from "../components/Link";
-import { Button } from "../components/Button";
-import toast from "react-hot-toast";
-import { useActiveWallet } from "../hooks/useActiveWallet";
+import { useGetAirdropData } from "@/hooks/useGetAirdropData";
+import { useEffect } from "react";
 import useAsync from "react-use/lib/useAsync";
-import {
-  // CURRENT_ENVIRONMENT,
-  DOCS_URL,
-  // Environments,
-  FAUCET_LINK,
-} from "../lib";
+import { Button } from "../components/Button";
+import { useActiveWallet } from "../hooks/useActiveWallet";
+import { Text } from "@/components/Text";
+import { Grid } from "@mui/material";
+import { HomeCard } from "@/components/HomeCard";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
 });
 
-
 function Index() {
-  const { wallet, walletBalance, refreshWalletBalance } = useActiveWallet();
-  const [contract] = useState<TestContract>();
-  const [counter] = useState<number>();
+  const { wallet } = useActiveWallet();
+  const { data: airdropData, isFetching, isError } = useGetAirdropData();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("airdropData: ", airdropData);
+  }, [airdropData, isFetching]);
 
   /**
    * useAsync is a wrapper around useEffect that allows us to run asynchronous code
@@ -35,82 +33,70 @@ function Index() {
       // Create a new instance of the contract
       // const testContract = new TestContract(contractId, wallet);
       // setContract(testContract);
-
-
     }
   }, [wallet]);
-
-  const onIncrementPressed = async () => {
-    if (!contract) {
-      return toast.error("Contract not loaded");
-    }
-
-    if (walletBalance?.eq(0)) {
-      return toast.error(
-        <span>
-          Your wallet does not have enough funds. Please top it up using the{" "}
-          <Link href={FAUCET_LINK} target="_blank">
-            faucet.
-          </Link>
-        </span>,
-      );
-    }
-
-    // Call the increment_counter function on the contract
-    // const { waitForResult } = await contract.functions
-    //   .increment_counter(bn(1))
-    //   .call();
-
-    // Wait for the transaction to be mined, and then read the value returned
-    // const { value } = await waitForResult();
-
-    // setCounter(value.toNumber());
-
-    await refreshWalletBalance?.();
-  };
 
   return (
     <>
       <div className="flex gap-4 items-center">
         <FuelLogo />
-        <h1 className="text-2xl font-semibold ali">Welcome to Fuel</h1>
+        <h1 className="text-3xl font-semibold ali">Fuel Airdrop</h1>
       </div>
 
-      <span className="text-gray-400">
-        Get started by editing <i>sway-programs/contract/main.sw</i> or{" "}
-        <i>src/pages/index.tsx</i>.
+      <span className="text-gray-400 text-center">
+        These are all the airdrops that have been created.
+        <p>
+          Check your eligibility and claim them by visiting each airdrop.
+        </p>
       </span>
 
-      <span className="text-gray-400">
-        This template uses the new{" "}
-        <Link href={`${DOCS_URL}/docs/fuels-ts/fuels/#fuels-cli`}>
-          Fuels CLI
-        </Link>{" "}
-        to enable type-safe hot-reloading for your Sway programs.
-      </span>
-
-      <>
-        <h3 className="text-xl font-semibold">Counter</h3>
-
-        <span data-testid="counter" className="text-gray-400 text-6xl">
-          {counter}
-        </span>
-
-        <Button onClick={onIncrementPressed} className="mt-6">
-          Increment Counter
-        </Button>
-      </>
-
-      <Link href="/predicate" className="mt-4">
-        Predicate Example
-      </Link>
-
-      <Link href="/script" className="mt-4">
-        Script Example
-      </Link>
-      <Link href={DOCS_URL} target="_blank" className="mt-12">
-        Fuel Docs
-      </Link>
+      <div>
+      {isFetching && (
+        <Text variant="h6" sx={{ paddingBottom: "28px", width: "full", }}>
+          Fetching Airdrop ContractIds...
+        </Text>
+      )}
+      {isError && (
+        <Text variant="h6" sx={{ paddingBottom: "28px", width: "full",  }}>
+          Error fetching Airdrop ContractIds
+        </Text>
+      )}
+      {!isFetching && !isError && airdropData && (
+        <div className="min-h-screen overflow-y-auto items-center p-20 pt-0 flex flex-col gap-6">
+          
+          <Text variant="h6" sx={{ paddingBottom: "28px", width: "full" }}>
+            Below are the open Airdrops
+          </Text>
+          <Grid container overflow={"auto"} spacing={3}>
+            {/* @ts-expect-error will fix it once the build succeeds */}
+            {airdropData?.map(({ contractId, recipients }, index) => (
+              <Grid className="m-3">
+                <HomeCard
+                  title={"Airdrop " + (index + 1)}
+                  href={`/airdrop/claim/${contractId}?recipient=${JSON.stringify(
+                    recipients
+                  )}`}
+                >
+                  <Text key={index}>
+                    {contractId.toString().slice(0, 10)}....
+                    {contractId.toString().slice(-3)}
+                  </Text>
+                </HomeCard>
+              </Grid>
+            ))}
+          </Grid>
+          <Button
+            onClick={() =>
+              navigate({
+                to:  "/airdrop/create",
+              })
+            }
+          >
+            Create your own Airdrop
+          </Button>
+        </div>
+      )}
+    </div>
     </>
   );
 }

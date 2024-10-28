@@ -11,10 +11,10 @@ import { HomeCard } from "../../components/HomeCard";
 import { useGetAirdropData } from "../../hooks/useGetAirdropData";
 
 export const Route = createLazyFileRoute("/airdrop/")({
-  component: () => <Claim />,
+  component: () => <Airdrop />,
 });
 
-function Claim() {
+function Airdrop() {
   const { data: airdropData, isFetching, isError } = useGetAirdropData();
   const navigate = useNavigate();
 

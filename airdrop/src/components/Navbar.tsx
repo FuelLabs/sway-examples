@@ -80,7 +80,7 @@ export const Navbar: FC = () => {
         <Link href="/">Home</Link>
 
         <Link href="/faucet">Faucet</Link>
-        <Link href="/airdrop">Airdrop</Link>
+        {/* <Link href="/airdrop">Airdrop</Link> */}
 
         {isBrowserWalletConnected && (
           <Button onClick={() => disconnect()}>Disconnect Wallet</Button>
@@ -118,7 +118,7 @@ export const Navbar: FC = () => {
             <Link href="/">Home</Link>
 
             <Link href="/faucet">Faucet</Link>
-            <Link href="/airdrop">Airdrop</Link>
+            {/* <Link href="/airdrop">Airdrop</Link> */}
 
             {isBrowserWalletConnected && (
               <Button onClick={() => disconnect()}>Disconnect Wallet</Button>
