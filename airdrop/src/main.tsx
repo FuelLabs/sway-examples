@@ -7,9 +7,13 @@ import "./index.css";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 import { ThemeProvider } from "./components/theme-provider";
+import { VITE_BASE_URL } from "./lib";
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  basepath: VITE_BASE_URL,
+  routeTree,
+});
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {

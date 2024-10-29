@@ -38,10 +38,14 @@ export const FAUCET_PRIVATE_KEY = "0x01";
 
 export const DOCS_URL = "https://docs.fuel.network";
 
-export const GATEWAY_URL = process.env.VITE_DAPP_GATEWAY_URL
-  ? process.env.VITE_DAPP_GATEWAY_URL
-  : "https://beige-ready-porcupine-957.mypinata.cloud";
+// export const GATEWAY_URL = process.env.VITE_PUBLIC_GATEWAY_URL
+//   ? process.env.VITE_PUBLIC_GATEWAY_URL
+//   : "https://beige-ready-porcupine-957.mypinata.cloud";
 
-export const PINATA_JWT = process.env.VITE_DAPP_PINATA_JWT;
+export const GATEWAY_URL = "https://beige-ready-porcupine-957.mypinata.cloud";
+
+export const PINATA_JWT = process.env.VITE_PINATA_JWT;
 
 export const PINATA_API_URL = "https://api.pinata.cloud";
+
+export const VITE_BASE_URL = env.VITE_BASE_URL ?? "";

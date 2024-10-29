@@ -39,8 +39,8 @@ export const useUploadAirdropData = () => {
         method: "POST",
         body: formData,
         headers: {
-          pinata_api_key: process.env.NEXT_PUBLIC_API_Key,
-          pinata_secret_api_key: process.env.NEXT_PUBLIC_API_Secret,
+          pinata_api_key: process.env.VITE_API_Key,
+          pinata_secret_api_key: process.env.VITE_API_Secret,
           Authorization: `Bearer ${PINATA_JWT}`,
         },
       };

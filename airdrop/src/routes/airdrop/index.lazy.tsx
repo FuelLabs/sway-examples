@@ -9,6 +9,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { HomeCard } from "../../components/HomeCard";
 import { useGetAirdropData } from "../../hooks/useGetAirdropData";
+import { VITE_BASE_URL } from "@/lib";
 
 export const Route = createLazyFileRoute("/airdrop/")({
   component: () => <Airdrop />,
@@ -39,7 +40,8 @@ function Airdrop() {
           <Button
             onClick={() =>
               navigate({
-                to:  "/airdrop/create",
+                // to:  VITE_BASE_URL + "/airdrop/create",
+                to: "/airdrop/create",
               })
             }
           >

@@ -10,6 +10,7 @@ import { useActiveWallet } from "../hooks/useActiveWallet";
 import { Text } from "@/components/Text";
 import { Grid } from "@mui/material";
 import { HomeCard } from "@/components/HomeCard";
+import { VITE_BASE_URL } from "@/lib";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -45,58 +46,56 @@ function Index() {
 
       <span className="text-gray-400 text-center">
         These are all the airdrops that have been created.
-        <p>
-          Check your eligibility and claim them by visiting each airdrop.
-        </p>
+        <p>Check your eligibility and claim them by visiting each airdrop.</p>
       </span>
 
       <div>
-      {isFetching && (
-        <Text variant="h6" sx={{ paddingBottom: "28px", width: "full", }}>
-          Fetching Airdrop ContractIds...
-        </Text>
-      )}
-      {isError && (
-        <Text variant="h6" sx={{ paddingBottom: "28px", width: "full",  }}>
-          Error fetching Airdrop ContractIds
-        </Text>
-      )}
-      {!isFetching && !isError && airdropData && (
-        <div className="min-h-screen overflow-y-auto items-center p-20 pt-0 flex flex-col gap-6">
-          
+        {isFetching && (
           <Text variant="h6" sx={{ paddingBottom: "28px", width: "full" }}>
-            Below are the open Airdrops
+            Fetching Airdrop ContractIds...
           </Text>
-          <Grid container overflow={"auto"} spacing={3}>
-            {/* @ts-expect-error will fix it once the build succeeds */}
-            {airdropData?.map(({ contractId, recipients }, index) => (
-              <Grid className="m-3">
-                <HomeCard
-                  title={"Airdrop " + (index + 1)}
-                  href={`/airdrop/claim/${contractId}?recipient=${JSON.stringify(
-                    recipients
-                  )}`}
-                >
-                  <Text key={index}>
-                    {contractId.toString().slice(0, 10)}....
-                    {contractId.toString().slice(-3)}
-                  </Text>
-                </HomeCard>
-              </Grid>
-            ))}
-          </Grid>
-          <Button
-            onClick={() =>
-              navigate({
-                to:  "/airdrop/create",
-              })
-            }
-          >
-            Create your own Airdrop
-          </Button>
-        </div>
-      )}
-    </div>
+        )}
+        {isError && (
+          <Text variant="h6" sx={{ paddingBottom: "28px", width: "full" }}>
+            Error fetching Airdrop ContractIds
+          </Text>
+        )}
+        {!isFetching && !isError && airdropData && (
+          <div className="min-h-screen overflow-y-auto items-center p-20 pt-0 flex flex-col gap-6">
+            <Text variant="h6" sx={{ paddingBottom: "28px", width: "full" }}>
+              Below are the open Airdrops
+            </Text>
+            <Grid container overflow={"auto"} spacing={3}>
+              {/* @ts-expect-error will fix it once the build succeeds */}
+              {airdropData?.map(({ contractId, recipients }, index) => (
+                <Grid className="m-3">
+                  <HomeCard
+                    title={"Airdrop " + (index + 1)}
+                    href={`/airdrop/claim/${contractId}?recipient=${JSON.stringify(
+                      recipients
+                    )}`}
+                  >
+                    <Text key={index}>
+                      {contractId.toString().slice(0, 10)}....
+                      {contractId.toString().slice(-3)}
+                    </Text>
+                  </HomeCard>
+                </Grid>
+              ))}
+            </Grid>
+            <Button
+              onClick={() =>
+                navigate({
+                  to: "/airdrop/create",
+                  // to: VITE_BASE_URL + "/airdrop/create",
+                })
+              }
+            >
+              Create your own Airdrop
+            </Button>
+          </div>
+        )}
+      </div>
     </>
   );
 }
