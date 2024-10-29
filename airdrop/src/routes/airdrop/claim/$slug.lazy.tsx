@@ -95,7 +95,7 @@ function ClaimAirdrop() {
     // const { isValid } = verifyMerkleProof(possibleRecipient, root, tree);
 
     // console.log("isValid", isValid);
-    const proof = generateProof(possibleRecipient, tree);
+    const proof = generateProof(possibleRecipient, tree, treeIndex as number);
     console.log("root", root);
     console.log("tree", tree);
     console.log("proof:", proof);
@@ -154,7 +154,7 @@ function ClaimAirdrop() {
         </Text>
       </div>
       {/* {owner && owner?.Address?.bits === wallet?.address.toB256() && ( */}
-      {isInitialized && !isInitialized && (
+      {/* {isInitialized && ( */}
         <ShadcnButton
           className="my-8 mx-auto text-center"
           onClick={() => {
@@ -163,7 +163,7 @@ function ClaimAirdrop() {
         >
           Initialize Airdrop
         </ShadcnButton>
-      )}
+      {/* )} */}
       {/* )} */}
     </div>
   );
