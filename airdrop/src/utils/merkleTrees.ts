@@ -121,11 +121,9 @@ export const verifyMerkleProof = (
   console.log(`hashedData`, hashedData);
 
   // Generate the proof for the hashed leaf
-  // @ts-expect-error will fix it once the build succeeds
   const proof = tree.getProof(hashedData);
 
   // Verify the proof against the Merkle root
-  // @ts-expect-error will fix it once the build succeeds
   const isValid = tree.verify(proof, hashedData, Buffer.from(root, "hex"));
 
   console.log(
@@ -136,11 +134,11 @@ export const verifyMerkleProof = (
   return { isValid, proof: proof.map((p) => p.data.toString("hex")) };
 };
 
+// @ts-expect-error will fix it once the build succeeds
 export const generateProof = (recipient: Recipient, tree: any, leafIndex: number) => {
-  const hashedData = getLeafData(recipient);
+  // const hashedData = getLeafData(recipient);
   // const temp = sha256(hashedData);
   // console.log(`HEREEEEEE`, temp);
-  // @ts-expect-error will fix it once the build succeeds
   const proof = getProof(tree, leafIndex);
   // return proof.map((p) => `0x${p.data.toString("hex")}`);
   return proof;

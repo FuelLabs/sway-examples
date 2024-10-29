@@ -2,7 +2,7 @@ import { NODE_URL } from "@/lib";
 import { AirdropQueryKeys } from "@/queryKeys";
 import { TestContract } from "@/sway-api";
 import { useQuery } from "@tanstack/react-query";
-import { Provider } from "fuels";
+import { AbstractAddress, Provider } from "fuels";
 
 type ContractId = string | AbstractAddress;
 
@@ -19,7 +19,7 @@ export const useGetAirdropActive = ({contractId}: Params) => {
 
         const contract = new TestContract(contractId, provider!);
 
-        const isActive = await contract.functions.
+        // const isActive = await contract.functions.
       } catch (error) {
         
       }

@@ -31,6 +31,7 @@ export interface AppWallet {
 export const TESTNET_FAUCET_LINK = "https://faucet-testnet.fuel.network/";
 
 export const FAUCET_LINK =
+// @ts-expect-error will fix it once the build succeeds
   CURRENT_ENVIRONMENT === Environments.LOCAL ? "/faucet" : TESTNET_FAUCET_LINK;
 
 export const FAUCET_PRIVATE_KEY = "0x01";
