@@ -1,6 +1,6 @@
 import stringify from "json-stable-stringify";
 import { MerkleTree } from "merkletreejs";
-import SHA256 from "crypto-js/sha256";
+
 import {
   arrayify,
   B256Coder,
@@ -11,10 +11,10 @@ import {
   hexlify,
   sha256,
   toHex,
-  TupleCoder,
+  TupleCoder
 } from "fuels";
 //import crypto from "crypto";
-import { calcRoot, constructTree } from "@fuel-ts/merkle"
+import { calcRoot, constructTree, getProof,  } from "@fuel-ts/merkle"
 import { object } from "zod";
 
 // import keccak256 from "keccak256";
@@ -27,10 +27,9 @@ export type Recipient = {
 export const stringifyObj = (obj: Recipient) => {
   const temp = {
     ...obj,
-    amount: (obj.amount.toString()),
+    amount: bn(obj.amount.toString()),
   }
-  
-  const result = JSON.stringify(obj, Object.keys(temp).sort());
+  const result = stringify(temp);
   // const leafCoder = new TupleCoder([
   //   new B256Coder(),
   //   new BigNumberCoder("u64"),
@@ -50,27 +49,27 @@ export const stringifyObj = (obj: Recipient) => {
 
 export const getLeafData = (recipient: Recipient) => {
 
-  // const leafTuple = [recipient.address, recipient.amount];
-  // return toHex(leafTuple)
-  // const leafCoder = new TupleCoder([
-  //   new B256Coder(),
-  //   new BigNumberCoder("u64"),
-  // ]);
+  const leafTuple = [recipient.address, recipient.amount];
 
-  // const result = leafCoder.encode([
-  //   recipient.address,
-  //   bn(recipient.amount.toString()),
-  // ]);
+  const leafCoder = new TupleCoder([
+    new B256Coder(),
+    new BigNumberCoder("u64"),
+  ]);
 
-  const result = stringifyObj(recipient);
+  const result = leafCoder.encode([
+    recipient.address,
+    bn(recipient.amount.toString()),
+  ]);
 
-  return result;
-  // // Hash the concatenated data to get the leaf
-  // const hashedData = sha256(result);
+  // const result = stringifyObj(recipient);
+
+
+  // Hash the concatenated data to get the leaf
+  const hashedData = sha256(result);
 
   // console.log(`hashedData`, hashedData);
 
-  // return hashedData;
+  return hashedData;
 };
 
 // function sha256(data) {
@@ -95,7 +94,7 @@ export const createMerkleTree = (recipients: Recipient[]) => {
   // });
   const leaves = recipients.map((recipient) => {
     const leafData = getLeafData(recipient);
-    return  `${leafData}`;
+    return  leafData;
   });
   const tree = constructTree(leaves);
   // const root = tree.getRoot().toString("hex");
@@ -137,11 +136,12 @@ export const verifyMerkleProof = (
   return { isValid, proof: proof.map((p) => p.data.toString("hex")) };
 };
 
-export const generateProof = (recipient: Recipient, tree: MerkleTree) => {
+export const generateProof = (recipient: Recipient, tree: any, leafIndex: number) => {
   const hashedData = getLeafData(recipient);
   // const temp = sha256(hashedData);
   // console.log(`HEREEEEEE`, temp);
   // @ts-expect-error will fix it once the build succeeds
-  const proof = tree.getProof(hashedData);
-  return proof.map((p) => `0x${p.data.toString("hex")}`);
+  const proof = getProof(tree, leafIndex);
+  // return proof.map((p) => `0x${p.data.toString("hex")}`);
+  return proof;
 };

@@ -48,7 +48,6 @@ storage {
 }
 
 impl AirdropDistributorAbi for Contract {
-
     #[storage(read, write)]
     fn claim(
         amount: u64,
@@ -89,8 +88,6 @@ impl AirdropDistributorAbi for Contract {
 
         log(merkle_proof_result);
 
-        return 0;
-
         require(merkle_proof_result, VerificationError::InvalidProof);
 
         // mark the index as claimed
@@ -104,7 +101,6 @@ impl AirdropDistributorAbi for Contract {
             claimer: account,
             to: recipient,
         });
-
         amount
     }
 
