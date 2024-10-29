@@ -29,6 +29,7 @@ import {
 import { DateTime } from "fuels";
 import { Button as ShadcnButton } from "../../../components/ui/button";
 import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
+import { getTruncatedAddress } from "@/components/WalletDisplay";
 
 // import { useGetOwner } from "@/hooks/useGetAirdropContractData";
 
@@ -142,7 +143,7 @@ function ClaimAirdrop() {
       </div>
 
       <div className="flex flex-col gap-3">
-        <Text textAlign={"center"}>Contract Owner: {owner?.Address?.bits}</Text>
+        <Text textAlign={"center"}>Contract Owner: {getTruncatedAddress(owner?.Address?.bits ?? "")}</Text>
         <Text textAlign={"center"}>
           End time:{" "}
           {DateTime.fromTai64(endTime?.toString() ?? "").toLocaleDateString()}

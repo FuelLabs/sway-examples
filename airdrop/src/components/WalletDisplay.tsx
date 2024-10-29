@@ -1,8 +1,9 @@
 import toast from "react-hot-toast";
 import { useActiveWallet } from "../hooks/useActiveWallet";
+import { VITE_BASE_URL } from "@/lib";
 
-const getTruncatedAddress = (address: string) => {
-  return address.slice(0, 6) + "..." + address.slice(-4);
+export const getTruncatedAddress = (address: string, slice: number = 6) => {
+  return address.slice(0, slice) + "..." + address.slice(-4);
 };
 
 const copyToClipboard = (text: string) => {
@@ -20,7 +21,7 @@ export const WalletDisplay = () => {
           {getTruncatedAddress(wallet.address.toB256() as string)}
         </span>
         <img
-          src="/copy.svg"
+          src={VITE_BASE_URL + "/copy.svg"}
           alt="copy"
           className="cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
           onClick={() => copyToClipboard(wallet.address.toB256() as string)}

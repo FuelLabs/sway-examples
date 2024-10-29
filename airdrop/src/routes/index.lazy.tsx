@@ -10,7 +10,8 @@ import { useActiveWallet } from "../hooks/useActiveWallet";
 import { Text } from "@/components/Text";
 import { Grid } from "@mui/material";
 import { HomeCard } from "@/components/HomeCard";
-import { VITE_BASE_URL } from "@/lib";
+import { VITE_BASE_URL } from "../lib";
+import { getTruncatedAddress } from "../components/WalletDisplay";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -62,6 +63,16 @@ function Index() {
         )}
         {!isFetching && !isError && airdropData && (
           <div className="min-h-screen overflow-y-auto items-center p-20 pt-0 flex flex-col gap-6">
+            <Button
+              onClick={() =>
+                navigate({
+                  to: "/airdrop/create",
+                  // to: VITE_BASE_URL + "/airdrop/create",
+                })
+              }
+            >
+              Create your own Airdrop
+            </Button>
             <Text variant="h6" sx={{ paddingBottom: "28px", width: "full" }}>
               Below are the open Airdrops
             </Text>
@@ -76,23 +87,14 @@ function Index() {
                     )}`}
                   >
                     <Text key={index}>
-                      {contractId.toString().slice(0, 10)}....
-                      {contractId.toString().slice(-3)}
+                     {getTruncatedAddress(contractId, 6)}
+                      {/* {contractId.toString().slice(0, 10)}....
+                      {contractId.toString().slice(-3)} */}
                     </Text>
                   </HomeCard>
                 </Grid>
               ))}
             </Grid>
-            <Button
-              onClick={() =>
-                navigate({
-                  to: "/airdrop/create",
-                  // to: VITE_BASE_URL + "/airdrop/create",
-                })
-              }
-            >
-              Create your own Airdrop
-            </Button>
           </div>
         )}
       </div>

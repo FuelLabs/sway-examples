@@ -58,6 +58,9 @@ function Airdrop() {
 
   const { wallet } = useWallet();
 
+  const baseAssetId =
+    "0xf8f8b6283d7fa5b672b530cbb84fcccb4ff8dc40f8176ef4544ddb1f1952ad07";
+
   // const {mutateAsync, data: ipfsData, isSuccess: uploadToIpfsSuccess} = useUploadAirdropData();
   const {
     mutate: deployAirdrop,
@@ -122,7 +125,7 @@ function Airdrop() {
         bits: assetId,
       } as AssetId,
       END_TIME: endDate, // Example UNIX timestamp
-      NUM_LEAVES:  BigInt(leaves.length),
+      NUM_LEAVES: BigInt(leaves.length),
       INITIAL_OWNER: {
         Address: {
           bits: wallet.address.toB256(),
@@ -166,13 +169,12 @@ function Airdrop() {
         assetId,
 
         totalAmount,
-      }
-    );
+      });
     } catch (error) {
       toast.error("Error while deploying contract");
       console.log("Error while deploying contract", error);
     }
-  }
+  };
 
   return (
     <div className="text-white">
@@ -181,12 +183,20 @@ function Airdrop() {
       </Text>
 
       <Text>Enter Asset Id</Text>
-      <ShadcnInput
-        placeholder="0x00...00"
-        value={assetId}
-        className="w-96"
-        onChange={(val) => setAssetId(val.target.value)}
-      />
+      <div className="flex w-full max-w-fit items-center space-x-2">
+        <ShadcnInput
+          placeholder="0x00...00"
+          value={assetId}
+          className="w-96"
+          onChange={(val) => setAssetId(val.target.value)}
+        />
+        <Button
+          onClick={() => setAssetId(baseAssetId)}
+          className="m-auto w-fit text-xs"
+        >
+          Base Asset Id
+        </Button>
+      </div>
 
       <Text sx={{ paddingTop: "28px" }}>
         Enter addresses and amounts. It accepts the following formats:
@@ -198,7 +208,8 @@ function Airdrop() {
         onChange={(val) => setTextValue(val.target.value)}
       />
       <div>
-        <DatePicker className="pl-3"
+        <DatePicker
+          className="pl-3"
           onChangeHandler={(e) => {
             const tiaValue = DateTime.fromUnixMilliseconds(
               e?.getTime() ?? 0
