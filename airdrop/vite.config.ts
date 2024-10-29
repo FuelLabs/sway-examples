@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
         src: "/src",
         hooks: "/src/hooks",
         lib: "/src/lib",
-        "@": path.resolve(__dirname, "/src"),
+        "@": path.resolve(__dirname, "./src"),
       },
     },
   };
