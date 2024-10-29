@@ -15,6 +15,7 @@ import {
 } from "fuels";
 //import crypto from "crypto";
 import { calcRoot, constructTree } from "@fuel-ts/merkle"
+import { object } from "zod";
 
 // import keccak256 from "keccak256";
 
@@ -23,8 +24,26 @@ export type Recipient = {
   amount: bigint;
 };
 
-export const stringifyObj = (obj: object) => {
-  const result = stringify(obj);
+export const stringifyObj = (obj: Recipient) => {
+  const temp = {
+    ...obj,
+    amount: (obj.amount.toString()),
+  }
+  
+  const result = JSON.stringify(obj, Object.keys(temp).sort());
+  // const leafCoder = new TupleCoder([
+  //   new B256Coder(),
+  //   new BigNumberCoder("u64"),
+  // ]);
+
+// const tupleCoder = new TupleCoder([stringCoder1, stringCoder2]);
+  // const result = (obj.address, obj.amount.toString());
+  // const addressBytes = arrayify(obj.address);
+
+  // const result = leafCoder.encode([
+  //  addressBytes,
+  //   bn(obj.amount.toString()),
+  // ]);
   console.log(result);
   return result;
 };
@@ -76,7 +95,7 @@ export const createMerkleTree = (recipients: Recipient[]) => {
   // });
   const leaves = recipients.map((recipient) => {
     const leafData = getLeafData(recipient);
-    return  leafData;
+    return  `${leafData}`;
   });
   const tree = constructTree(leaves);
   // const root = tree.getRoot().toString("hex");
