@@ -30,6 +30,7 @@ import { DateTime } from "fuels";
 import { Button as ShadcnButton } from "../../../components/ui/button";
 import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
 import { getTruncatedAddress } from "@/components/WalletDisplay";
+import { checkEligibility } from "@/utils/airdropEligibility";
 
 // import { useGetOwner } from "@/hooks/useGetAirdropContractData";
 
@@ -66,16 +67,12 @@ function ClaimAirdrop() {
   useEffect(() => {
     console.log({ wallet });
     if (recipients && wallet) {
-      (recipients as RecipientData)?.find((recipient, index) => {
-        const temp =
-          recipient.address.toLowerCase() === wallet.address.toHexString();
-        if (temp) {
-          setPossibleRecipient(recipient);
-          console.log({ recipient });
-          setTreeIndex(index);
-        }
-        return temp;
-      });
+      const fallback = (recipient: RecipientData[number], index: number) => {
+        setPossibleRecipient(recipient);
+        console.log({ recipient });
+        setTreeIndex(index);
+      };
+      checkEligibility(recipients, wallet, fallback);
     }
   }, [wallet, recipients]);
 

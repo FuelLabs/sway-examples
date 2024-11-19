@@ -12,6 +12,7 @@ import { Grid } from "@mui/material";
 import { HomeCard } from "@/components/HomeCard";
 import { VITE_BASE_URL } from "../lib";
 import { getTruncatedAddress } from "../components/WalletDisplay";
+import { checkEligibility } from "@/utils/airdropEligibility";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -78,22 +79,28 @@ function Index() {
             </Text>
             <Grid container overflow={"auto"} spacing={3}>
               {/* @ts-expect-error will fix it once the build succeeds */}
-              {airdropData?.map(({ contractId, recipients }, index) => (
-                <Grid className="m-3">
-                  <HomeCard
-                    title={"Airdrop " + (index + 1)}
-                    href={`/airdrop/claim/${contractId}?recipient=${JSON.stringify(
-                      recipients
-                    )}`}
-                  >
-                    <Text key={index}>
-                     {getTruncatedAddress(contractId, 6)}
-                      {/* {contractId.toString().slice(0, 10)}....
+              {airdropData?.map(({ contractId, recipients }, index) => {
+                {
+                  console.log({ recipients });
+                }
+
+                return (
+                  <Grid className="m-3">
+                    <HomeCard
+                      title={"Airdrop " + (index + 1)}
+                      href={`/airdrop/claim/${contractId}?recipient=${JSON.stringify(
+                        recipients
+                      )}`} isEligible={checkEligibility(recipients, wallet)}
+                    >
+                      <Text key={index}>
+                        {getTruncatedAddress(contractId, 6)}
+                        {/* {contractId.toString().slice(0, 10)}....
                       {contractId.toString().slice(-3)} */}
-                    </Text>
-                  </HomeCard>
-                </Grid>
-              ))}
+                      </Text>
+                    </HomeCard>
+                  </Grid>
+                );
+              })}
             </Grid>
           </div>
         )}

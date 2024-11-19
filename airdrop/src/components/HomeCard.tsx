@@ -6,24 +6,33 @@ import { useNavigate } from "@tanstack/react-router";
 type HomeCardProps = {
   href: string;
   title: string;
+  isEligible?: boolean;
   children: React.ReactNode;
 };
 
-export const HomeCard = ({ href, title, children }: HomeCardProps) => {
+export const HomeCard = ({
+  href,
+  title,
+  isEligible,
+  children,
+}: HomeCardProps) => {
   const navigate = useNavigate();
 
+  console.log({ isEligible });
   return (
     <Card
       variant="outlined"
       sx={{
         padding: "18px",
-        backgroundColor: "black",
+        backgroundColor: isEligible ? "black" : "#5a5c59",
         borderColor: "#1e1e1e",
         borderWidth: "3px",
         height: "142px",
         width: "280px",
+        opacity: isEligible ? 1 : 0.5,
+        // pointerEvents: isEligible ? "auto" : "none",
       }}
-      className="hover:bg-slate-950"
+      className={`${!isEligible ? "hover:bg-[#4db6ac] hover:text-black" : "hover:bg-slate-950"}`}
     >
       <CardActionArea
         onClick={() => {
