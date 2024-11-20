@@ -2,6 +2,7 @@ import { PINATA_JWT } from "../lib";
 import { AbstractAddress } from "fuels";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { getTruncatedAddress } from "@/components/WalletDisplay";
 
 export type useUploadAirdropDataParams = {
   contractId: AbstractAddress | string;
@@ -54,7 +55,7 @@ export const useUploadAirdropData = () => {
       return resData.IpfsHash;
     },
     onSuccess: (data) => {
-      toast.success(`ContractId uploaded successfully! IPFS Hash: ${data}`);
+      toast.success(`ContractId uploaded successfully! IPFS Hash: ${getTruncatedAddress(data, 3)}`);
     },
     onError: (err) => {
       console.error("Error while uploading contractId to ipfs: ", err.message);

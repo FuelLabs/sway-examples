@@ -2,6 +2,12 @@ import { useEffect, useState, createContext, useContext } from "react";
 import { useBrowserWallet } from "./useBrowserWallet";
 import { useBurnerWallet } from "./useBurnerWallet";
 import { AppWallet } from "../lib";
+import {
+  useWallet,
+  useIsConnected,
+  useNetwork,
+  useBalance,
+} from "@fuels/react";
 
 /**
  * burner -> a burner wallet embedded inside of the template app and stored in local storage
@@ -59,4 +65,23 @@ export const ActiveWalletProvider = ({
   );
 };
 
-export const useActiveWallet = (): AppWallet => useContext(ActiveWalletContext);
+export const useActiveWalletOld = (): AppWallet =>
+  useContext(ActiveWalletContext);
+
+export const useActiveWallet = () => {
+  const { wallet, isLoading: isWalletLoading } = useWallet();
+  const { balance, refetch } = useBalance({
+    address: wallet?.address.toB256(),
+  });
+  const { isConnected, isLoading: isConnectedLoading } = useIsConnected();
+  const { network } = useNetwork();
+
+  return {
+    wallet,
+    walletBalance: balance,
+    refetchBalance: refetch,
+    isPending: isWalletLoading || isConnectedLoading,
+    isConnected,
+    network,
+  };
+};

@@ -1,35 +1,42 @@
 import toast from "react-hot-toast";
 import { useActiveWallet } from "../hooks/useActiveWallet";
-import { VITE_BASE_URL } from "@/lib";
+import { IconCopy } from "@tabler/icons-react";
+import { Link } from "./Link";
 
-export const getTruncatedAddress = (address: string, slice: number = 6) => {
-  return address.slice(0, slice) + "..." + address.slice(-4);
+
+export const getTruncatedAddress = (address: string) => {
+  return address.slice(0, 6) + "..." + address.slice(-4);
 };
 
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text);
   toast.success("Address copied to clipboard");
 };
+interface WalletDisplayProps {
+  darkMode?: boolean;
+}
 
-export const WalletDisplay = () => {
+export const WalletDisplay: React.FC<WalletDisplayProps> = ({ darkMode }) => {
   const { wallet, walletBalance } = useActiveWallet();
-
+  // const CopyIcon = darkMode ? CopyIconDark : CopyIconLight;
   return (
     wallet && (
-      <div className="flex gap-4 items-center">
-        <span className="text-gray-400">
-          {getTruncatedAddress(wallet.address.toB256() as string)}
-        </span>
-        <img
-          src={VITE_BASE_URL + "/copy.svg"}
-          alt="copy"
-          className="cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
-          onClick={() => copyToClipboard(wallet.address.toB256() as string)}
+      <div className="flex gap-2 md:gap-4 items-center">
+        <Link
+          href={`https://app.fuel.network/account/${wallet.address.toB256()}`}
+          target="_blank"
+          className="text-gray-400 hover:underline hover:text-green-400"
+        >
+          {getTruncatedAddress(wallet?.address?.toB256() as string)}
+        </Link>
+        <IconCopy
+          className="text-[#dddddd] cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
+          onClick={() => copyToClipboard(wallet?.address?.toB256() as string)}
         />
         <span data-testid="wallet-balance" className="text-gray-400">
           Balance:{" "}
           {walletBalance?.format({
-            precision: 3,
+            precision: 5,
           })}{" "}
           ETH
         </span>
