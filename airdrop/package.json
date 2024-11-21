@@ -28,7 +28,7 @@
     "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@tabler/icons-react": "^3.22.0",
-    "@tanstack/react-query": "^5.55.4",
+    "@tanstack/react-query": "^5.61.0",
     "@tanstack/react-router": "^1.56.5",
     "@wagmi/connectors": "^5.3.1",
     "@wagmi/core": "^2.14.1",
@@ -49,9 +49,11 @@
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.25.1",
     "react-use": "^17.5.1",
+    "sway-example-commons": "^0.0.10",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
-    "viem": "2.21.32",
+    "viem": "^2.21.48",
+    "wagmi": "^2.12.33",
     "zod": "3.23.8"
   },
   "devDependencies": {

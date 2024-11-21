@@ -54,7 +54,7 @@ export const NavMenu = () => {
             <>
               <Link
                 className="text-fuel-green hover:underline"
-                href={`${VITE_BASE_URL}/airdrop`}
+                href={`${VITE_BASE_URL}/`}
               >
                 Home
               </Link>

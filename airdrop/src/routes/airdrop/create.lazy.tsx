@@ -1,18 +1,20 @@
+import { DatePicker } from "@/components/ui/date-picker";
 import { useWallet } from "@fuels/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { Address, AssetId, bn, BytesLike, DateTime } from "fuels";
+import { AssetId, BytesLike, DateTime } from "fuels";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Button } from "../../components/Button";
-import { Input, MultilineInput } from "../../components/Input";
+// import { Button } from "../../components/Button";
 import { Text } from "../../components/Text";
-import { useDeployAirdrop } from "../../hooks/useDeployAirdrop";
-import { useUploadAirdropData } from "../../hooks/useUploadAirdropData";
-import { createMerkleTree, verifyMerkleProof } from "../../utils/merkleTrees";
-import { recipientsParser } from "../../utils/parsers";
 import { Input as ShadcnInput } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
-import { DatePicker } from "@/components/ui/date-picker";
+import { useDeployAirdrop } from "../../hooks/useDeployAirdrop";
+import { useUploadAirdropData } from "../../hooks/useUploadAirdropData";
+import { createMerkleTree } from "../../utils/merkleTrees";
+import { recipientsParser } from "../../utils/parsers";
+import { useNavigate } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 export const Route = createLazyFileRoute("/airdrop/create")({
   component: () => <Airdrop />,
@@ -57,6 +59,7 @@ function Airdrop() {
   }, []);
 
   const { wallet } = useWallet();
+  const navigate = useNavigate();
 
   const baseAssetId =
     "0xf8f8b6283d7fa5b672b530cbb84fcccb4ff8dc40f8176ef4544ddb1f1952ad07";
@@ -66,6 +69,9 @@ function Airdrop() {
     mutate: deployAirdrop,
     isSuccess: deployAirdropSuccess,
     data,
+    error: deployAirdropError,
+    status: deployAirdropStatus,
+    isPending: deployAirdropIsPending,
   } = useDeployAirdrop();
 
   const { mutate: uploadAirdropData } = useUploadAirdropData();
@@ -170,12 +176,17 @@ function Airdrop() {
 
         totalAmount,
       });
+    
     } catch (error) {
       toast.error("Error while deploying contract");
       console.log("Error while deploying contract", error);
     }
   };
-
+  if(!deployAirdropError && deployAirdropStatus === "success" && data?.contractId) {
+return <div className="text-white">
+ <Text>Contract deployed to:</Text> <Text>{data?.contractId}</Text>
+</div>
+  }
   return (
     <div className="text-white">
       <Text variant="h4" sx={{ paddingBottom: "28px", width: "full" }}>
@@ -221,10 +232,17 @@ function Airdrop() {
       </div>
       <Button
         className="m-auto w-fit"
-        disabled={!wallet}
+        disabled={!wallet || deployAirdropIsPending}
         onClick={submitHandler}
       >
-        Submit
+        {deployAirdropIsPending ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Loading
+          </>
+        ) : (
+          "Submit"
+        )}
       </Button>
     </div>
   );

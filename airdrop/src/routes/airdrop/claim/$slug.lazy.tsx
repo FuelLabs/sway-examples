@@ -116,6 +116,17 @@ function ClaimAirdrop() {
         Claim Airdrop
       </Text>
       <div className="py-8">
+       <> initialized: {isInitialized?.toString()}</>
+        {!isInitialized?.toString() && !!wallet &&(
+          <ShadcnButton
+            className="my-8 mx-auto text-center"
+            onClick={() => {
+              initialize({ contractId });
+            }}
+          >
+            Initialize Airdrop
+          </ShadcnButton>
+        )}
         {!wallet ? (
           <Text variant="h5">
             Please connect your wallet to check eligibility and to claim the
@@ -140,7 +151,9 @@ function ClaimAirdrop() {
       </div>
 
       <div className="flex flex-col gap-3">
-        <Text textAlign={"center"}>Contract Owner: {getTruncatedAddress(owner?.Address?.bits ?? "")}</Text>
+        <Text textAlign={"center"}>
+          Contract Owner: {getTruncatedAddress(owner?.Address?.bits ?? "")}
+        </Text>
         <Text textAlign={"center"}>
           End time:{" "}
           {DateTime.fromTai64(endTime?.toString() ?? "").toLocaleDateString()}
@@ -152,16 +165,7 @@ function ClaimAirdrop() {
         </Text>
       </div>
       {/* {owner && owner?.Address?.bits === wallet?.address.toB256() && ( */}
-      {/* {isInitialized && ( */}
-        <ShadcnButton
-          className="my-8 mx-auto text-center"
-          onClick={() => {
-            initialize({ contractId });
-          }}
-        >
-          Initialize Airdrop
-        </ShadcnButton>
-      {/* )} */}
+
       {/* )} */}
     </div>
   );

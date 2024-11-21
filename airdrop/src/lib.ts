@@ -61,3 +61,5 @@ export const PINATA_JWT = env.VITE_PINATA_JWT;
 export const PINATA_API_URL = "https://api.pinata.cloud";
 
 export const VITE_BASE_URL = env.VITE_BASE_URL ?? "/";
+
+export const WC_PROJECT_ID = env.VITE_PUBLIC_APP_WC_PROJECT_ID;
