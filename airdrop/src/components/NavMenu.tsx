@@ -117,7 +117,7 @@ export const NavMenu = () => {
           {!isConnected && !isMobile && (
             <Button onClick={connect}>Connect Wallet</Button>
           )}
-          <ModeToggle />
+          {/* <ModeToggle /> */}
           {/* {isMobile && <NavMenu address={wallet?.address.toString()} />} */}
         </nav>
       </div>

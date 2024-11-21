@@ -29,8 +29,12 @@ import {
 import { DateTime } from "fuels";
 import { Button as ShadcnButton } from "../../../components/ui/button";
 import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
-import { getTruncatedAddress } from "@/components/WalletDisplay";
+import {
+  copyToClipboard,
+  getTruncatedAddress,
+} from "@/components/WalletDisplay";
 import { checkEligibility } from "@/utils/airdropEligibility";
+import { IconCopy } from "@tabler/icons-react";
 
 // import { useGetOwner } from "@/hooks/useGetAirdropContractData";
 
@@ -60,7 +64,8 @@ function ClaimAirdrop() {
   const { data: merkleRoot } = useGetMerkleRoot({ contractId });
   const { data: numLeaves } = useGetNumLeaves({ contractId });
   const { mutate: initialize, data: initializeData } = useInitializeAirdrop();
-  const { data: isInitialized } = useGetIsInitialized({ contractId });
+  const { data: isInitialized, isFetching: fetchingIsInitialized } =
+    useGetIsInitialized({ contractId });
 
   // console.log(endTime?.toNumber())
 
@@ -115,9 +120,17 @@ function ClaimAirdrop() {
       <Text variant="h4" sx={{ paddingBottom: "28px", textAlign: "center" }}>
         Claim Airdrop
       </Text>
-      <div className="py-8">
-       <> initialized: {isInitialized?.toString()}</>
-        {!isInitialized?.toString() && !!wallet &&(
+      <div className="py-8 ">
+        <Text className=" py-2">
+          {" "}
+          Contract Initialized:{" "}
+          {fetchingIsInitialized
+            ? "Fetching..."
+            : isInitialized?.toString()
+              ? "Yes"
+              : "No"}
+        </Text>
+        {!fetchingIsInitialized && !isInitialized?.toString() && !!wallet && (
           <ShadcnButton
             className="my-8 mx-auto text-center"
             onClick={() => {
@@ -150,16 +163,28 @@ function ClaimAirdrop() {
         )}
       </div>
 
-      <div className="flex flex-col gap-3">
-        <Text textAlign={"center"}>
-          Contract Owner: {getTruncatedAddress(owner?.Address?.bits ?? "")}
-        </Text>
+      <div className="flex items-center flex-col gap-3">
+        <div className="flex items-center gap-2">
+          <Text textAlign={"center"}>
+            Contract Owner: {getTruncatedAddress(owner?.Address?.bits ?? "")}
+          </Text>
+          <IconCopy
+            className="text-[#dddddd] cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
+            onClick={() => copyToClipboard(owner?.Address?.bits as string)}
+          />
+        </div>
         <Text textAlign={"center"}>
           End time:{" "}
           {DateTime.fromTai64(endTime?.toString() ?? "").toLocaleDateString()}
         </Text>
         <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>
-        <Text textAlign={"center"}>Merkle Root: {merkleRoot?.toString()}</Text>
+       <div className="flex items-center gap-2 ">
+       <Text textAlign={"center"}>Merkle Root: {getTruncatedAddress(merkleRoot?.toString() ?? "")}</Text>
+        <IconCopy
+            className="text-[#dddddd] cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
+            onClick={() => copyToClipboard(merkleRoot?.toString() ?? "")}
+          />
+       </div>
         <Text textAlign={"center"}>
           Number of Leaves: {numLeaves?.toString()}
         </Text>

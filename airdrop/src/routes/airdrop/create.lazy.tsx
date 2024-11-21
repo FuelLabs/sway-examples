@@ -165,33 +165,6 @@ function Airdrop() {
         configurables: configurableConstants,
         options: {
           configurableConstants,
-          // storageSlots: [
-          //   {
-          //     key: "1d63cc2495bbf5570c9a6d7f632018dc033107e7f4452405c44601bb771a4a5d",
-          //     value: `0x${root}`,
-          //   },
-          //   {
-          //     key: "1d63cc2495bbf5570c9a6d7f632018dc033107e7f4452405c44601bb771a4a5e",
-          //     value: assetId,
-          //   },
-          //   {
-          //     key: "309e214937e6b1ba34ba1a663db855b3aa0605083e49fa6b09c5ef4186a60300",
-          //     value: bn(endDate).toHex(32),
-          //   },
-          //   {
-          //     key: "309e214937e6b1ba34ba1a663db855b3aa0605083e49fa6b09c5ef4186a60301",
-          //     value: bn(leaves.length).toHex(32),
-          //   },
-          //   {
-          //     key: "38a1b038206f348ec947ba5770c6d713148c9d8bb0b312f47acc88777da1c09d",
-          //     value: wallet?.address.toB256() as string,
-          //   },
-          //   {
-          //     key: "82364c88cfc6f6d7a89bb2c2a21170eb8c7bfebc3fe4a45221ce35a05295e4ad",
-          //     value:
-          //       "0000000000000000000000000000000000000000000000000000000000000000",
-          //   },
-          // ],
         },
 
         assetId,
