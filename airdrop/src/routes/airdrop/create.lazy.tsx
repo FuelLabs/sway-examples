@@ -15,6 +15,13 @@ import { recipientsParser } from "../../utils/parsers";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
+import {
+  getTruncatedAddress,
+  copyToClipboard,
+} from "@/components/WalletDisplay";
+import { IconCopy } from "@tabler/icons-react";
+import { VITE_BASE_URL } from "@/lib";
 
 export const Route = createLazyFileRoute("/airdrop/create")({
   component: () => <Airdrop />,
@@ -74,7 +81,22 @@ function Airdrop() {
     isPending: deployAirdropIsPending,
   } = useDeployAirdrop();
 
-  const { mutate: uploadAirdropData } = useUploadAirdropData();
+  const {
+    mutate: initialize,
+    data: initializeData,
+    status: initializeStatus,
+    isSuccess: initializeSuccess,
+    error: initializeError,
+    isPending: initializeIsPending,
+  } = useInitializeAirdrop();
+
+  const {
+    mutate: uploadAirdropData,
+    isPending: uploadAirdropDataPending,
+    status: uploadAirdropDataStatus,
+    error: uploadAirdropDataError,
+    isSuccess: uploadAirdropDataSuccess,
+  } = useUploadAirdropData();
 
   useEffect(() => {
     if (deployAirdropSuccess && data?.contractId) {
@@ -176,16 +198,60 @@ function Airdrop() {
 
         totalAmount,
       });
-    
     } catch (error) {
       toast.error("Error while deploying contract");
       console.log("Error while deploying contract", error);
     }
   };
-  if(!deployAirdropError && deployAirdropStatus === "success" && data?.contractId) {
-return <div className="text-white">
- <Text>Contract deployed to:</Text> <Text>{data?.contractId}</Text>
-</div>
+
+  useEffect(() => {
+    if (
+      initializeStatus === "success" &&
+      initializeData?.transactionId &&
+      initializeSuccess
+    ) {
+      // toast.success("Airdrop initialized successfully");
+      navigate({
+        to: VITE_BASE_URL,
+      });
+    }
+  }, [initializeStatus, initializeData, initializeIsPending, navigate]);
+
+  if (
+     ( !deployAirdropError &&
+      deployAirdropStatus === "success" &&
+      data?.contractId ) && (uploadAirdropDataSuccess && !uploadAirdropDataPending && uploadAirdropDataStatus === "success")
+  ) {
+    return (
+      <div className="text-white flex flex-col">
+        <div className=" flex gap-2 items-center">
+          <Text>
+            Contract deployed to: {getTruncatedAddress(data?.contractId ?? "")}
+          </Text>
+          <IconCopy
+            className="text-[#dddddd] cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
+            onClick={() => copyToClipboard(data?.contractId as string)}
+          />
+        </div>
+
+        <Button
+          className="my-8 mx-auto text-center"
+          disabled={initializeIsPending || !wallet}
+          onClick={() => {
+            initialize({ contractId: data?.contractId });
+          }}
+        >
+          {initializeIsPending ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Loading
+            </>
+          ) : (
+            "Initialize Airdrop"
+          )}
+        </Button>
+      </div>
+    );
   }
   return (
     <div className="text-white">
@@ -232,10 +298,10 @@ return <div className="text-white">
       </div>
       <Button
         className="m-auto w-fit"
-        disabled={!wallet || deployAirdropIsPending}
+        disabled={!wallet || deployAirdropIsPending || uploadAirdropDataPending}
         onClick={submitHandler}
       >
-        {deployAirdropIsPending ? (
+        {deployAirdropIsPending || uploadAirdropDataPending ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Loading

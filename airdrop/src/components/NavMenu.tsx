@@ -49,7 +49,7 @@ export const NavMenu = () => {
   return (
     <>
       <div className="flex text flex-col bg-background text-text-primary">
-        <nav className="flex justify-between items-center p-4 bg-background text-text-primary gap-6">
+        <nav className="flex justify-between items-center p-2 bg-background text-text-primary gap-6">
           {!isMobile && (
             <>
               <Link

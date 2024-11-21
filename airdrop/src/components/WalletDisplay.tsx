@@ -8,7 +8,7 @@ export const getTruncatedAddress = (address: string) => {
   return address.slice(0, 6) + "..." + address.slice(-4);
 };
 
-const copyToClipboard = (text: string) => {
+export const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text);
   toast.success("Address copied to clipboard");
 };

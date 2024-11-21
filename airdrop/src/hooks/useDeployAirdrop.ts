@@ -1,3 +1,4 @@
+import { getTruncatedAddress } from "@/components/WalletDisplay";
 import { TestContract, TestContractFactory } from "../sway-api";
 import { useWallet } from "@fuels/react";
 import { useMutation } from "@tanstack/react-query";
@@ -71,7 +72,7 @@ export const useDeployAirdrop = () => {
     },
     onSuccess: (data) => {
       toast.success(
-        `Airdrop contract deployed successfully! Contract Address: ${data?.contractId}`
+        `Airdrop contract deployed successfully!\nContract Address: ${getTruncatedAddress(data?.contractId ?? "")}`
       );
     },
     onError: (err) => {
