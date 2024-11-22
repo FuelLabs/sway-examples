@@ -1,23 +1,24 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FuelProvider } from "@fuels/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "fuels";
 import React, { useState } from "react";
-import { coinbaseWallet, walletConnect } from "@wagmi/connectors";
-import { http, createConfig, injected } from "@wagmi/core";
-import type { Config as WagmiConfig } from "@wagmi/core";
-import { mainnet, sepolia } from "@wagmi/core/chains";
+
 import { BrowserRouter } from "react-router-dom";
+
 import {
+  BurnerWalletConnector,
   FuelWalletConnector,
   FuelWalletDevelopmentConnector,
   FueletWalletConnector,
-  BurnerWalletConnector,
   WalletConnectConnector,
 } from "@fuels/connectors";
 import { StyledEngineProvider } from "@mui/material";
+import { coinbaseWallet, walletConnect } from "@wagmi/connectors";
+import type { Config as WagmiConfig } from "@wagmi/core";
+import { createConfig, http, injected } from "@wagmi/core";
+import { mainnet, sepolia } from "@wagmi/core/chains";
 
 import { NODE_URL, WC_PROJECT_ID } from "src/lib";
-import { OnboardingFlowProvider } from "sway-example-commons";
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => {
@@ -71,6 +72,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
                   new FueletWalletConnector(),
                   new WalletConnectConnector({
                     fuelProvider: currentProvider,
+                    // @ts-expect-error will fix it once the build succeeds
                     wagmiConfig,
                     projectId: WC_PROJECT_ID,
                   }),
