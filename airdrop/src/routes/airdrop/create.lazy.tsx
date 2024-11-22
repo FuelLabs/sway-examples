@@ -185,10 +185,10 @@ function Airdrop() {
     ) {
       // toast.success("Airdrop initialized successfully");
       navigate({
-        to: VITE_BASE_URL,
+        to: VITE_BASE_URL + "/airdrop",
       });
     }
-  }, [initializeStatus, initializeData, initializeIsPending, navigate]);
+  }, [initializeStatus, initializeData, initializeIsPending, navigate, initializeSuccess]);
 
   if (
      ( !deployAirdropError &&
