@@ -7,6 +7,7 @@ import { bn } from "fuels";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CURRENT_ENVIRONMENT, Environments, TESTNET_FAUCET_LINK } from "../lib";
+import { useBrowserWallet } from "@/hooks/useBrowserWallet";
 
 export const Route = createLazyFileRoute("/faucet")({
   component: Index,
@@ -16,7 +17,7 @@ function Index() {
   // Get the faucet wallet instance from the useFaucet hook
   const { faucetWallet } = useFaucet();
 
-  const { wallet, refreshWalletBalance } = useActiveWallet();
+  const { wallet, refreshWalletBalance } = useBrowserWallet();
 
   const [receiverAddress, setReceiverAddress] = useState<string>("");
   const [amountToSend, setAmountToSend] = useState<string>("5");

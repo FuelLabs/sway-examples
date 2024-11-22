@@ -16,7 +16,7 @@ interface WalletDisplayProps {
   darkMode?: boolean;
 }
 
-export const WalletDisplay: React.FC<WalletDisplayProps> = ({ darkMode }) => {
+export const WalletDisplay: React.FC<WalletDisplayProps> = () => {
   const { wallet, walletBalance } = useActiveWallet();
   // const CopyIcon = darkMode ? CopyIconDark : CopyIconLight;
   return (

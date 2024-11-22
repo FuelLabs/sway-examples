@@ -55,7 +55,7 @@ export const useUploadAirdropData = () => {
       return resData.IpfsHash;
     },
     onSuccess: (data) => {
-      toast.success(`ContractId uploaded successfully! IPFS Hash: ${getTruncatedAddress(data, 3)}`);
+      toast.success(`ContractId uploaded successfully! IPFS Hash: ${getTruncatedAddress(data)}`);
     },
     onError: (err) => {
       console.error("Error while uploading contractId to ipfs: ", err.message);

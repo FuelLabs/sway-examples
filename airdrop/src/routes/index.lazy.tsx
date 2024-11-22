@@ -90,10 +90,10 @@ function Index() {
                       title={"Airdrop " + (index + 1)}
                       href={`/airdrop/claim/${contractId}?recipient=${JSON.stringify(
                         recipients
-                      )}`} isEligible={checkEligibility(recipients, wallet)}
+                      )}`} isEligible={checkEligibility(recipients, wallet!)}
                     >
                       <Text key={index}>
-                        {getTruncatedAddress(contractId, 6)}
+                        {getTruncatedAddress(contractId)}
                         {/* {contractId.toString().slice(0, 10)}....
                       {contractId.toString().slice(-3)} */}
                       </Text>

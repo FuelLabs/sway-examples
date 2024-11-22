@@ -65,8 +65,6 @@ export const ActiveWalletProvider = ({
   );
 };
 
-export const useActiveWalletOld = (): AppWallet =>
-  useContext(ActiveWalletContext);
 
 export const useActiveWallet = () => {
   const { wallet, isLoading: isWalletLoading } = useWallet();
@@ -83,5 +81,6 @@ export const useActiveWallet = () => {
     isPending: isWalletLoading || isConnectedLoading,
     isConnected,
     network,
+    refreshWalletBalance: refetch,
   };
 };
