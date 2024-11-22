@@ -31,13 +31,13 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <AppProvider>
+      {/* <AppProvider> */}
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       {/* <Toaster position="bottom-center" /> */}
       {/* <OnboardingFlow welcomeMessage={<div>Welcome to the Airdrop!</div>} container={() => document.getElementById("root")} /> */}
         <RouterProvider router={router} />
       </ThemeProvider>
-      </AppProvider>
+      {/* </AppProvider> */}
     </StrictMode>
   );
 }
