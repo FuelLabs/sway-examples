@@ -1,57 +1,57 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { Button } from "../components/Button";
-import { Input } from "../components/Input";
-import { useActiveWallet } from "../hooks/useActiveWallet";
-import { useFaucet } from "../hooks/useFaucet";
-import { bn } from "fuels";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { CURRENT_ENVIRONMENT, Environments, TESTNET_FAUCET_LINK } from "../lib";
-import { useBrowserWallet } from "@/hooks/useBrowserWallet";
+import { createLazyFileRoute } from '@tanstack/react-router'
+import { bn } from 'fuels'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
-export const Route = createLazyFileRoute("/faucet")({
+import { useBrowserWallet } from '@/hooks/useBrowserWallet'
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useFaucet } from '@/hooks/useFaucet';
+import { CURRENT_ENVIRONMENT, Environments, TESTNET_FAUCET_LINK } from '@/lib';
+
+export const Route = createLazyFileRoute('/airdrop/faucet')({
   component: Index,
-});
+})
 
 function Index() {
   // Get the faucet wallet instance from the useFaucet hook
-  const { faucetWallet } = useFaucet();
+  const { faucetWallet } = useFaucet()
 
-  const { wallet, refreshWalletBalance } = useBrowserWallet();
+  const { wallet, refreshWalletBalance } = useBrowserWallet()
 
-  const [receiverAddress, setReceiverAddress] = useState<string>("");
-  const [amountToSend, setAmountToSend] = useState<string>("5");
+  const [receiverAddress, setReceiverAddress] = useState<string>('')
+  const [amountToSend, setAmountToSend] = useState<string>('5')
 
   useEffect(() => {
     if (wallet) {
-      setReceiverAddress(wallet.address.toB256());
+      setReceiverAddress(wallet.address.toB256())
     }
-  }, [wallet]);
+  }, [wallet])
 
   const sendFunds = async () => {
     if (!faucetWallet) {
-      return toast.error("Faucet wallet not found.");
+      return toast.error('Faucet wallet not found.')
     }
 
     if (!receiverAddress) {
-      return toast.error("Receiver address not set");
+      return toast.error('Receiver address not set')
     }
 
     if (!amountToSend) {
-      return toast.error("Amount cannot be empty");
+      return toast.error('Amount cannot be empty')
     }
 
     // Transfer the specified amount of ETH to the receiver address
     const tx = await faucetWallet.transfer(
       receiverAddress,
       bn.parseUnits(amountToSend.toString()),
-    );
-    await tx.waitForResult();
+    )
+    await tx.waitForResult()
 
-    toast.success("Funds sent!");
+    toast.success('Funds sent!')
 
-    await refreshWalletBalance?.();
-  };
+    await refreshWalletBalance?.()
+  }
 
   return (
     <>
@@ -104,5 +104,5 @@ function Index() {
         </>
       )}
     </>
-  );
+  )
 }

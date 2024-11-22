@@ -1,24 +1,14 @@
-import { useState } from "react";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "./ui/navigation-menu";
-import { Link } from "./Link";
-import { Button } from "./ui/button";
-import { ConnectButton } from "./ConnectButton";
+import { useActiveWallet } from "@/hooks/useActiveWallet";
 import { useBreakpoints } from "@/hooks/useBreakPoints";
 import { NODE_URL, VITE_BASE_URL } from "@/lib";
+import { useConnectUI, useDisconnect } from "@fuels/react";
 import { IconExternalLink } from "@tabler/icons-react";
-import { useActiveWallet } from "@/hooks/useActiveWallet";
-import { ModeToggle } from "./mode-toggle";
 import { useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
-import { useConnectUI, useDisconnect } from "@fuels/react";
+import { Link } from "./Link";
 import { WalletDisplay } from "./WalletDisplay";
 import { useTheme } from "./theme-provider";
+import { Button } from "./ui/button";
 
 export const NavMenu = () => {
   const { isMobile } = useBreakpoints();
@@ -54,7 +44,7 @@ export const NavMenu = () => {
             <>
               <Link
                 className="text-fuel-green hover:underline"
-                href={`${VITE_BASE_URL}/`}
+                href={`${VITE_BASE_URL}/airdrop`}
               >
                 Home
               </Link>
