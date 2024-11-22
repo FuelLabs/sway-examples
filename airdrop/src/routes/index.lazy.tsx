@@ -5,7 +5,7 @@ import { FuelLogo } from "../components/FuelLogo";
 import { useGetAirdropData } from "@/hooks/useGetAirdropData";
 import { useEffect } from "react";
 import useAsync from "react-use/lib/useAsync";
-import { Button } from "../components/Button";
+
 import { useActiveWallet } from "../hooks/useActiveWallet";
 import { Text } from "@/components/Text";
 import { Grid } from "@mui/material";
@@ -13,6 +13,7 @@ import { HomeCard } from "@/components/HomeCard";
 import { VITE_BASE_URL } from "../lib";
 import { getTruncatedAddress } from "../components/WalletDisplay";
 import { checkEligibility } from "@/utils/airdropEligibility";
+import { Button } from "@/components/ui/button";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -72,7 +73,7 @@ function Index() {
                 })
               }
             >
-              Create your own Airdrop
+              Create new Airdrop
             </Button>
             <Text variant="h6" sx={{ paddingBottom: "28px", width: "full" }}>
               Below are the open Airdrops

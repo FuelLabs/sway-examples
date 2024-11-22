@@ -10,7 +10,7 @@ import { Grid } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import useAsync from "react-use/lib/useAsync";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/ui/button";
 import { HomeCard } from "../../components/HomeCard";
 import { useGetAirdropData } from "../../hooks/useGetAirdropData";
 
