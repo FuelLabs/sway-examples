@@ -6,8 +6,7 @@ import toast from "react-hot-toast";
 
 export type Src20Args = {
   options?: DeployContractOptions;
-  tokenName: string;
-  symbol: string;
+  
 }
 export const useDeploySrc20 = () => {
   const { wallet } = useWallet();
@@ -18,7 +17,7 @@ export const useDeploySrc20 = () => {
         return;
       }
 
-      const { options, tokenName, symbol } = args;
+      const { options } = args;
       const result = await  Src20Factory.deploy(wallet, options)
       const {contract, transactionResult} = await result.waitForResult();
 
