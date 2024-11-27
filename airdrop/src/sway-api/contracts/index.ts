@@ -12,3 +12,5 @@
 
 export { TestContract } from './TestContract';
 export { TestContractFactory } from './TestContractFactory';
+export { Src20 } from './Src20';
+export { Src20Factory } from './Src20Factory';

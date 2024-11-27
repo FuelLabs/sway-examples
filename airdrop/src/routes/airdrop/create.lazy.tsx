@@ -188,12 +188,21 @@ function Airdrop() {
         to: VITE_BASE_URL + "/airdrop",
       });
     }
-  }, [initializeStatus, initializeData, initializeIsPending, navigate, initializeSuccess]);
+  }, [
+    initializeStatus,
+    initializeData,
+    initializeIsPending,
+    navigate,
+    initializeSuccess,
+  ]);
 
   if (
-     ( !deployAirdropError &&
-      deployAirdropStatus === "success" &&
-      data?.contractId ) && (uploadAirdropDataSuccess && !uploadAirdropDataPending && uploadAirdropDataStatus === "success")
+    !deployAirdropError &&
+    deployAirdropStatus === "success" &&
+    data?.contractId &&
+    uploadAirdropDataSuccess &&
+    !uploadAirdropDataPending &&
+    uploadAirdropDataStatus === "success"
   ) {
     return (
       <div className="text-white flex flex-col">
@@ -227,7 +236,7 @@ function Airdrop() {
     );
   }
   return (
-    <div className="text-white">
+    <div className="flex flex-col items-center text-white">
       <Text variant="h4" sx={{ paddingBottom: "28px", width: "full" }}>
         Airdrop an SRC20 token
       </Text>
@@ -248,6 +257,16 @@ function Airdrop() {
         </Button>
       </div>
 
+      <Button
+      className="m-auto w-fit mt-6"
+        onClick={() => {
+          navigate({
+            to: VITE_BASE_URL + "/airdrop/deploy-src20",
+          });
+        }}
+      >
+        Deploy an SRC20 token
+      </Button>
       <Text sx={{ paddingTop: "28px" }}>
         Enter addresses and amounts. It accepts the following formats:
       </Text>
