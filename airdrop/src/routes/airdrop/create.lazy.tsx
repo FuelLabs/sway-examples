@@ -5,6 +5,16 @@ import { AssetId, BytesLike, DateTime } from "fuels";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 // import { Button } from "../../components/Button";
+import { Button } from "@/components/ui/button";
+import {
+  copyToClipboard,
+  getTruncatedAddress,
+} from "@/components/WalletDisplay";
+import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
+import { VITE_BASE_URL } from "@/lib";
+import { IconCopy } from "@tabler/icons-react";
+import { useNavigate } from "@tanstack/react-router";
+import { Loader2 } from "lucide-react";
 import { Text } from "../../components/Text";
 import { Input as ShadcnInput } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
@@ -12,16 +22,6 @@ import { useDeployAirdrop } from "../../hooks/useDeployAirdrop";
 import { useUploadAirdropData } from "../../hooks/useUploadAirdropData";
 import { createMerkleTree } from "../../utils/merkleTrees";
 import { recipientsParser } from "../../utils/parsers";
-import { useNavigate } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
-import {
-  getTruncatedAddress,
-  copyToClipboard,
-} from "@/components/WalletDisplay";
-import { IconCopy } from "@tabler/icons-react";
-import { VITE_BASE_URL } from "@/lib";
 
 export const Route = createLazyFileRoute("/airdrop/create")({
   component: () => <Airdrop />,
@@ -233,7 +233,7 @@ function Airdrop() {
       </Text>
 
       <Text>Enter Asset Id</Text>
-      <div className="flex w-full max-w-fit items-center space-x-2">
+      <div className="flex gap-3 w-full max-w-fit items-center space-x-2">
         <ShadcnInput
           placeholder="0x00...00"
           value={assetId}

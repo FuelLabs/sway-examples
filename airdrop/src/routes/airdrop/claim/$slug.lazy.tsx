@@ -4,19 +4,21 @@ import { createLazyFileRoute, useParams } from "@tanstack/react-router";
 // import { Vec } from "@/contract-types/aidrop-contracts/contracts/common";
 // import { useClaimAirdrop } from "@/hooks/useClaimAirdrop";
 // import { createMerkleTree, generateProof } from "@/utils/merkleTrees";
-import { useAccount, useWallet } from "@fuels/react";
-import z from "zod";
+import {
+  copyToClipboard,
+  getTruncatedAddress,
+} from "@/components/WalletDisplay";
+import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
+import { checkEligibility } from "@/utils/airdropEligibility";
+import { useWallet } from "@fuels/react";
+import { IconCopy } from "@tabler/icons-react";
+import { DateTime } from "fuels";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { formatUnits } from "viem";
-import {
-  createMerkleTree,
-  generateProof,
-  Recipient,
-  verifyMerkleProof,
-} from "../../../utils/merkleTrees";
 import { Text } from "../../../components/Text";
-import { Button } from "../../../components/Button";
+import { Button as ShadcnButton } from "../../../components/ui/button";
 import { useClaimAirdrop } from "../../../hooks/useClaimAirdrop";
 import {
   useGetEndTime,
@@ -26,15 +28,11 @@ import {
   useGetNumLeaves,
   useGetOwner,
 } from "../../../hooks/useGetAirdropContractData";
-import { DateTime } from "fuels";
-import { Button as ShadcnButton } from "../../../components/ui/button";
-import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
 import {
-  copyToClipboard,
-  getTruncatedAddress,
-} from "@/components/WalletDisplay";
-import { checkEligibility } from "@/utils/airdropEligibility";
-import { IconCopy } from "@tabler/icons-react";
+  createMerkleTree,
+  generateProof,
+  Recipient,
+} from "../../../utils/merkleTrees";
 
 // import { useGetOwner } from "@/hooks/useGetAirdropContractData";
 
@@ -53,19 +51,46 @@ function ClaimAirdrop() {
   const recipients = recipient as RecipientData;
   // const recipients = JSON.parse(useSearchParams().get('recipient') as string)
   // const { data: airdropData } = useGetAirdropData();
-  const { mutate } = useClaimAirdrop();
+  const {
+    mutate: claim,
+    error: claimError,
+    status: claimStatus,
+    isPending: claimIsPending,
+    isSuccess: claimIsSuccess,
+    isError: claimIsError,
+  } = useClaimAirdrop();
   const [possibleRecipient, setPossibleRecipient] = useState<Recipient>();
   const [treeIndex, setTreeIndex] = useState<number>();
   const { wallet } = useWallet();
 
-  const { data: owner } = useGetOwner({ contractId });
-  const { data: endTime } = useGetEndTime({ contractId });
-  const { data: isPaused } = useGetIsPaused({ contractId });
-  const { data: merkleRoot } = useGetMerkleRoot({ contractId });
-  const { data: numLeaves } = useGetNumLeaves({ contractId });
-  const { mutate: initialize, data: initializeData } = useInitializeAirdrop();
-  const { data: isInitialized, isFetching: fetchingIsInitialized } =
-    useGetIsInitialized({ contractId });
+  const { data: owner, isFetching: ownerIsfetching } = useGetOwner({
+    contractId,
+  });
+  const { data: endTime, isFetching: endTimeIsFetching } = useGetEndTime({
+    contractId,
+  });
+  const { data: isPaused, isFetching: isPausedFetching } = useGetIsPaused({
+    contractId,
+  });
+  const { data: merkleRoot, isFetching: merkleRootIsFetching } =
+    useGetMerkleRoot({ contractId });
+  const { data: numLeaves, isFetching: numLeavesIsFetching } = useGetNumLeaves({
+    contractId,
+  });
+  const {
+    mutate: initialize,
+    data: initializeData,
+    status: initializeStatus,
+    isSuccess: initializeSuccess,
+    error: initializeError,
+    isPending: initializeIsPending,
+  } = useInitializeAirdrop();
+
+  const {
+    data: isInitialized,
+    isFetching: fetchingIsInitialized,
+    refetch: refetchIsIntialized,
+  } = useGetIsInitialized({ contractId });
 
   // console.log(endTime?.toNumber())
 
@@ -81,9 +106,31 @@ function ClaimAirdrop() {
     }
   }, [wallet, recipients]);
 
+  useEffect(() => {
+    if (
+      initializeStatus === "success" &&
+      initializeData?.transactionId &&
+      initializeSuccess
+    ) {
+      toast.success("Airdrop initialized successfully");
+      refetchIsIntialized();
+    }
+  }, [
+    initializeStatus,
+    initializeData,
+    initializeIsPending,
+    refetchIsIntialized,
+    initializeSuccess,
+  ]);
+
   const claimHandler = async () => {
     if (!wallet) {
       toast.error("Wallet not connected!");
+      return;
+    }
+
+    if (isInitialized?.toString() === "false") {
+      toast.error("Owner needs to initialize the contract first!");
       return;
     }
 
@@ -103,7 +150,7 @@ function ClaimAirdrop() {
     console.log("tree", tree);
     console.log("proof:", proof);
     console.log(`treeIndex`, treeIndex);
-    mutate({
+    claim({
       contractId,
       amount: possibleRecipient?.amount as unknown as number,
       account: wallet?.address.toB256() as unknown as string,
@@ -115,31 +162,52 @@ function ClaimAirdrop() {
     });
   };
 
+  console.log(owner?.Address?.bits);
+
   return (
     <div className="w-full text-center flex flex-col justify-center">
       <Text variant="h4" sx={{ paddingBottom: "28px", textAlign: "center" }}>
         Claim Airdrop
       </Text>
+      <div className="flex m-auto items-start gap-2">
+        <Text variant="h5" sx={{ textAlign: "center" }}>
+         Airdrop Contract ID: {getTruncatedAddress(contractId)}
+        </Text>
+        <IconCopy
+          className="text-[#dddddd] cursor-pointer h-5 mt-2 hover:opacity-80 active:scale-[90%]"
+          onClick={() => copyToClipboard(contractId)}
+        />
+      </div>
       <div className="py-8 ">
         <Text className=" py-2">
           {" "}
           Contract Initialized:{" "}
           {fetchingIsInitialized
             ? "Fetching..."
-            : isInitialized?.toString()
+            : isInitialized?.toString() === "true"
               ? "Yes"
               : "No"}
         </Text>
-        {!fetchingIsInitialized && !isInitialized?.toString() && !!wallet && (
-          <ShadcnButton
-            className="my-8 mx-auto text-center"
-            onClick={() => {
-              initialize({ contractId });
-            }}
-          >
-            Initialize Airdrop
-          </ShadcnButton>
-        )}
+        {!fetchingIsInitialized &&
+          isInitialized?.toString() === "false" &&
+          !!wallet && (
+            <ShadcnButton
+              disabled={initializeIsPending || !wallet}
+              className="my-8 mx-auto text-center"
+              onClick={() => {
+                initialize({ contractId });
+              }}
+            >
+              {initializeIsPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Loading
+                </>
+              ) : (
+                "Initialize Airdrop"
+              )}
+            </ShadcnButton>
+          )}
         {!wallet ? (
           <Text variant="h5">
             Please connect your wallet to check eligibility and to claim the
@@ -155,9 +223,17 @@ function ClaimAirdrop() {
             </Text>
             <ShadcnButton
               onClick={claimHandler}
+              disabled={claimIsPending || !wallet || !possibleRecipient}
               className="my-8 mx-auto text-center"
             >
-              Claim Airdrop
+              {claimIsPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Loading
+                </>
+              ) : (
+                "Claim Airdrop"
+              )}
             </ShadcnButton>
           </>
         )}
@@ -166,7 +242,10 @@ function ClaimAirdrop() {
       <div className="flex items-center flex-col gap-3">
         <div className="flex items-center gap-2">
           <Text textAlign={"center"}>
-            Contract Owner: {getTruncatedAddress(owner?.Address?.bits ?? "")}
+            Contract Owner:{" "}
+            {ownerIsfetching
+              ? "Fetching.."
+              : getTruncatedAddress(owner?.Address?.bits ?? "")}
           </Text>
           <IconCopy
             className="text-[#dddddd] cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
@@ -175,23 +254,32 @@ function ClaimAirdrop() {
         </div>
         <Text textAlign={"center"}>
           End time:{" "}
-          {DateTime.fromTai64(endTime?.toString() ?? "").toLocaleDateString()}
+          {endTimeIsFetching
+            ? "Fetching..."
+            : DateTime.fromTai64(
+                endTime?.toString() ?? ""
+              ).toLocaleDateString()}
         </Text>
-        <Text textAlign={"center"}>Paused: {isPaused?.toString()}</Text>
-       <div className="flex items-center gap-2 ">
-       <Text textAlign={"center"}>Merkle Root: {getTruncatedAddress(merkleRoot?.toString() ?? "")}</Text>
-        <IconCopy
+        <Text textAlign={"center"}>
+          Paused: {isPausedFetching ? "Fetching..." : isPaused?.toString()}
+        </Text>
+        <div className="flex items-center gap-2 ">
+          <Text textAlign={"center"}>
+            Merkle Root:{" "}
+            {merkleRootIsFetching
+              ? "Fetching..."
+              : getTruncatedAddress(merkleRoot?.toString() ?? "")}
+          </Text>
+          <IconCopy
             className="text-[#dddddd] cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
             onClick={() => copyToClipboard(merkleRoot?.toString() ?? "")}
           />
-       </div>
+        </div>
         <Text textAlign={"center"}>
-          Number of Leaves: {numLeaves?.toString()}
+          Number of Leaves:{" "}
+          {numLeavesIsFetching ? "Fetching..." : numLeaves?.toString()}
         </Text>
       </div>
-      {/* {owner && owner?.Address?.bits === wallet?.address.toB256() && ( */}
-
-      {/* )} */}
     </div>
   );
 }

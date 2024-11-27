@@ -1,9 +1,9 @@
-
 import { TestContract } from "../sway-api";
 import { useQuery } from "@tanstack/react-query";
 import { AbstractAddress, Provider } from "fuels";
 import { AirdropQueryKeys } from "../queryKeys";
 import { NODE_URL } from "../lib";
+import { cookieStorage } from "@wagmi/core";
 
 type ContractId = string | AbstractAddress;
 
@@ -11,7 +11,6 @@ interface Params {
   contractId: ContractId;
 }
 export const useGetOwner = ({ contractId }: Params) => {
-
   const query = useQuery({
     queryKey: [AirdropQueryKeys.owner, contractId],
     queryFn: async () => {
@@ -19,7 +18,7 @@ export const useGetOwner = ({ contractId }: Params) => {
       try {
         const provider = await Provider.create(NODE_URL);
 
-        const contract = new TestContract(contractId,  provider!);
+        const contract = new TestContract(contractId, provider!);
 
         const owner = await contract.functions.owner().get();
         console.log("owner from useGetOwner: ", owner);
@@ -49,7 +48,7 @@ export const useGetEndTime = ({ contractId }: Params) => {
     },
   });
   return query;
-}
+};
 
 export const useGetIsPaused = ({ contractId }: Params) => {
   const query = useQuery({
@@ -68,7 +67,7 @@ export const useGetIsPaused = ({ contractId }: Params) => {
     },
   });
   return query;
-}
+};
 
 export const useGetMerkleRoot = ({ contractId }: Params) => {
   const query = useQuery({
@@ -87,7 +86,7 @@ export const useGetMerkleRoot = ({ contractId }: Params) => {
     },
   });
   return query;
-}
+};
 
 export const useGetNumLeaves = ({ contractId }: Params) => {
   const query = useQuery({
@@ -106,7 +105,7 @@ export const useGetNumLeaves = ({ contractId }: Params) => {
     },
   });
   return query;
-}
+};
 
 export const useGetIsInitialized = ({ contractId }: Params) => {
   const query = useQuery({
@@ -118,6 +117,9 @@ export const useGetIsInitialized = ({ contractId }: Params) => {
         const contract = new TestContract(contractId, provider!);
 
         const isInitialized = await contract.functions.is_initialized().get();
+        console.log("isInitialized from useGetIsInitialized: ", {
+          isInitialized,
+        });
         return isInitialized.value;
       } catch (error) {
         console.log("error from useGetIsInitialized: ", error);
@@ -125,4 +127,4 @@ export const useGetIsInitialized = ({ contractId }: Params) => {
     },
   });
   return query;
-}
+};
