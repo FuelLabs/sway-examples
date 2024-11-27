@@ -11,17 +11,13 @@ export const Route = createLazyFileRoute("/airdrop/deploy-src20")({
 });
 
 const Src20 = () => {
-  const [tokenName, setTokenName] = useState<string>("Fuel Token");
-  const [symbol, setSymbol] = useState<string>("FUEL");
+  const [tokenName, setTokenName] = useState<string>();
+  const [symbol, setSymbol] = useState<string>();
 
   const { mutate } = useDeploySrc20();
 
   const u8Coder = new NumberCoder("u8");
-  const configurableConstants = {
-    DECIMELS: u8Coder.encode(9),
-    NAME: arrayify(tokenName),
-    SYMBOL: arrayify(symbol),
-  };
+ 
   return (
     <div className="flex w-full flex-col gap-6 items-center">
       <Text variant="h4">Deploy an SRC20 token</Text>
@@ -45,6 +41,15 @@ const Src20 = () => {
       </div>
       <Button
         onClick={() => {
+          if(!tokenName && !symbol) {
+            return
+          }
+          const configurableConstants = {
+            DECIMELS: u8Coder.encode(9),
+            NAME: arrayify(tokenName),
+            SYMBOL: arrayify(symbol),
+          };
+
           mutate({
             options: {
               configurableConstants,
