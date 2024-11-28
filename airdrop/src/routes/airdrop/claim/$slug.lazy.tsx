@@ -1,9 +1,4 @@
 import { createLazyFileRoute, useParams } from "@tanstack/react-router";
-
-// import { IdentityInput } from "@/contract-types/aidrop-contracts/contracts/AirdropContract";
-// import { Vec } from "@/contract-types/aidrop-contracts/contracts/common";
-// import { useClaimAirdrop } from "@/hooks/useClaimAirdrop";
-// import { createMerkleTree, generateProof } from "@/utils/merkleTrees";
 import {
   copyToClipboard,
   getTruncatedAddress,
@@ -34,10 +29,8 @@ import {
   Recipient,
 } from "../../../utils/merkleTrees";
 
-// import { useGetOwner } from "@/hooks/useGetAirdropContractData";
 
 export const Route = createLazyFileRoute("/airdrop/claim/$slug")({
-  // validateSearch: z.array(z.object({ address: z.string(), amount: z.string() })),
   component: () => <ClaimAirdrop />,
 });
 
@@ -49,8 +42,7 @@ function ClaimAirdrop() {
   const { recipient } = Route.useSearch();
   const contractId = slug as string;
   const recipients = recipient as RecipientData;
-  // const recipients = JSON.parse(useSearchParams().get('recipient') as string)
-  // const { data: airdropData } = useGetAirdropData();
+
   const {
     mutate: claim,
     error: claimError,
@@ -91,8 +83,6 @@ function ClaimAirdrop() {
     isFetching: fetchingIsInitialized,
     refetch: refetchIsIntialized,
   } = useGetIsInitialized({ contractId });
-
-  // console.log(endTime?.toNumber())
 
   useEffect(() => {
     console.log({ wallet });
@@ -142,9 +132,7 @@ function ClaimAirdrop() {
     const { tree, root, leaves } = createMerkleTree(
       recipients as RecipientData
     );
-    // const { isValid } = verifyMerkleProof(possibleRecipient, root, tree);
 
-    // console.log("isValid", isValid);
     const proof = generateProof(possibleRecipient, tree, treeIndex as number);
     console.log("root", root);
     console.log("tree", tree);

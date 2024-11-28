@@ -18,7 +18,7 @@ interface WalletDisplayProps {
 
 export const WalletDisplay: React.FC<WalletDisplayProps> = () => {
   const { wallet, walletBalance } = useActiveWallet();
-  // const CopyIcon = darkMode ? CopyIconDark : CopyIconLight;
+
   return (
     wallet && (
       <div className="flex gap-2 md:gap-4 items-center">

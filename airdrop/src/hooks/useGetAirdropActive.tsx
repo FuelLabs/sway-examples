@@ -3,6 +3,7 @@ import { AirdropQueryKeys } from "@/queryKeys";
 import { TestContract } from "@/sway-api";
 import { useQuery } from "@tanstack/react-query";
 import { AbstractAddress, Provider } from "fuels";
+import toast from "react-hot-toast";
 
 type ContractId = string | AbstractAddress;
 
@@ -19,10 +20,13 @@ export const useGetAirdropActive = ({contractId}: Params) => {
 
         const contract = new TestContract(contractId, provider!);
 
-        // const isActive = await contract.functions.
+        const isActive = await contract.functions.is_paused();
+        return isActive;
       } catch (error) {
-        
+        console.log(error);
+        toast.error("Failed to fetch airdrop status");
       }
     }
   })
+  return query;
 }

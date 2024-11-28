@@ -1,5 +1,4 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-// import { HomeCard } from "@/components/HomeCard";
 import { Text } from "../../components/Text";
 
 import { FuelLogo } from "@/components/FuelLogo";
@@ -9,9 +8,8 @@ import { checkEligibility } from "@/utils/airdropEligibility";
 import { Grid } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import useAsync from "react-use/lib/useAsync";
-import { Button } from "../../components/ui/button";
 import { HomeCard } from "../../components/HomeCard";
+import { Button } from "../../components/ui/button";
 import { useGetAirdropData } from "../../hooks/useGetAirdropData";
 
 export const Route = createLazyFileRoute("/airdrop/")({
@@ -27,18 +25,7 @@ function Index() {
     console.log("airdropData: ", airdropData);
   }, [airdropData, isFetching]);
 
-  /**
-   * useAsync is a wrapper around useEffect that allows us to run asynchronous code
-   * See: https://github.com/streamich/react-use/blob/master/docs/useAsync.md
-   */
-  useAsync(async () => {
-    if (wallet) {
-      // Create a new instance of the contract
-      // const testContract = new TestContract(contractId, wallet);
-      // setContract(testContract);
-    }
-  }, [wallet]);
-
+  
   return (
     <>
       <div className="flex gap-4 items-center">
@@ -68,7 +55,6 @@ function Index() {
               onClick={() =>
                 navigate({
                   to: "/airdrop/create",
-                  // to: VITE_BASE_URL + "/airdrop/create",
                 })
               }
             >
@@ -94,8 +80,6 @@ function Index() {
                     >
                       <Text key={index}>
                         {getTruncatedAddress(contractId)}
-                        {/* {contractId.toString().slice(0, 10)}....
-                      {contractId.toString().slice(-3)} */}
                       </Text>
                     </HomeCard>
                   </Grid>

@@ -15,7 +15,7 @@ export const pinata = new PinataSDK({
 export const useGetAirdropData = () => {
   return useQuery<ContractIdData>({
     queryKey: ["airdropData"],
-    // @ts-expect-error
+    // @ts-expect-error - revisit this later
     queryFn: async () => {
       try {
         const options = {

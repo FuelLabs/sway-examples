@@ -1,19 +1,15 @@
 import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
-// import contractIds from "../sway-api/contract-ids.json";
 import { FuelLogo } from "../components/FuelLogo";
-// import { bn } from "fuels";
 import { useGetAirdropData } from "@/hooks/useGetAirdropData";
 import { useEffect } from "react";
-import useAsync from "react-use/lib/useAsync";
 
-import { useActiveWallet } from "../hooks/useActiveWallet";
-import { Text } from "@/components/Text";
-import { Grid } from "@mui/material";
 import { HomeCard } from "@/components/HomeCard";
-import { VITE_BASE_URL } from "../lib";
-import { getTruncatedAddress } from "../components/WalletDisplay";
-import { checkEligibility } from "@/utils/airdropEligibility";
+import { Text } from "@/components/Text";
 import { Button } from "@/components/ui/button";
+import { checkEligibility } from "@/utils/airdropEligibility";
+import { Grid } from "@mui/material";
+import { getTruncatedAddress } from "../components/WalletDisplay";
+import { useActiveWallet } from "../hooks/useActiveWallet";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -28,17 +24,6 @@ function Index() {
     console.log("airdropData: ", airdropData);
   }, [airdropData, isFetching]);
 
-  /**
-   * useAsync is a wrapper around useEffect that allows us to run asynchronous code
-   * See: https://github.com/streamich/react-use/blob/master/docs/useAsync.md
-   */
-  useAsync(async () => {
-    if (wallet) {
-      // Create a new instance of the contract
-      // const testContract = new TestContract(contractId, wallet);
-      // setContract(testContract);
-    }
-  }, [wallet]);
 
   return (
     <>
@@ -69,7 +54,6 @@ function Index() {
               onClick={() =>
                 navigate({
                   to: "/airdrop/create",
-                  // to: VITE_BASE_URL + "/airdrop/create",
                 })
               }
             >
@@ -95,8 +79,6 @@ function Index() {
                     >
                       <Text key={index}>
                         {getTruncatedAddress(contractId)}
-                        {/* {contractId.toString().slice(0, 10)}....
-                      {contractId.toString().slice(-3)} */}
                       </Text>
                     </HomeCard>
                   </Grid>

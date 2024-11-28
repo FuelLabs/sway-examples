@@ -22,14 +22,6 @@ export const NavMenu = () => {
   const { connect } = useConnectUI();
   const { disconnect } = useDisconnect();
 
-  // const [isDarkMode, setIsDarkMode] = useState(() => {
-  //   return (
-  //     localStorage.getItem("theme") === "dark" ||
-  //     (!localStorage.getItem("theme") &&
-  //       window.matchMedia("(prefers-color-scheme: dark)").matches)
-  //   );
-  // });
-
   const tryToAddNetwork = () => {
     return alert(
       `Please add the network ${NODE_URL} to your Fuel wallet, or swtich to it if you have it already, and refresh the page.`

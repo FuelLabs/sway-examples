@@ -4,7 +4,6 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { AssetId, BytesLike, DateTime } from "fuels";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-// import { Button } from "../../components/Button";
 import { Button } from "@/components/ui/button";
 import {
   copyToClipboard,
@@ -71,7 +70,6 @@ function Airdrop() {
   const baseAssetId =
     "0xf8f8b6283d7fa5b672b530cbb84fcccb4ff8dc40f8176ef4544ddb1f1952ad07";
 
-  // const {mutateAsync, data: ipfsData, isSuccess: uploadToIpfsSuccess} = useUploadAirdropData();
   const {
     mutate: deployAirdrop,
     isSuccess: deployAirdropSuccess,
@@ -135,16 +133,8 @@ function Airdrop() {
       return;
     }
 
-    // stringifyObj(recipients);
     const { root, tree, leaves } = createMerkleTree(recipients);
     console.log("root: ", root);
-    // const { isValid } = verifyMerkleProof(recipients[0], root, tree);
-
-    // console.log("Merkle proof valid:", isValid);
-    // console.log(
-    //   "logging address: ",
-    //   Address.fromDynamicInput(wallet?.address).toB256()
-    // );
 
     // Define new configurable values
     const configurableConstants = {
@@ -183,7 +173,6 @@ function Airdrop() {
       initializeData?.transactionId &&
       initializeSuccess
     ) {
-      // toast.success("Airdrop initialized successfully");
       navigate({
         to: VITE_BASE_URL + "/airdrop",
       });
@@ -286,15 +275,3 @@ function Airdrop() {
     </div>
   );
 }
-
-// 0x6c49291704adc561074d887603c0c5e98b162b8662b746a1c945bb1c71e40f79, 0.001
-// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 0.001
-// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 0.001
-// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 0.001
-
-// const dummy_recipients = [
-//   { address: "0x6c49291704adc561074d887603c0c5e98b162b86s62b746a1c945bb1c71e40f79", amount: BigInt(4000000000) },
-//   { address: "0x9a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085", amount: BigInt(4000000000) },
-// ];
-
-//base assetId=0xf8f8b6283d7fa5b672b530cbb84fcccb4ff8dc40f8176ef4544ddb1f1952ad07
