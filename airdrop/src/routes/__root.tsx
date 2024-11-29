@@ -16,6 +16,7 @@ import {
   SolanaConnector,
 } from "@fuels/connectors";
 import { ActiveWalletProvider } from "../hooks/useActiveWallet";
+import { OnboardingFlow, OnboardingFlowProvider } from "sway-example-commons";
 
 /**
  * react-query is a peer dependency of @fuels/react, so we set it up here.
@@ -69,7 +70,13 @@ export const Route = createRootRoute({
           >
             <ActiveWalletProvider>
               <Layout>
-                <Outlet />
+                {/* <OnboardingFlowProvider> */}
+                  {/* <OnboardingFlow
+                    welcomeMessage={<div>Welcome to the Airdrop!</div>}
+                    container={() => document.getElementById("root")}
+                  /> */}
+                  <Outlet />
+                {/* </OnboardingFlowProvider> */}
               </Layout>
             </ActiveWalletProvider>
           </FuelProvider>
