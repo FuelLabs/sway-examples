@@ -21,11 +21,6 @@ function Index() {
   const { data: airdropData, isFetching, isError } = useGetAirdropData();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("airdropData: ", airdropData);
-  }, [airdropData, isFetching]);
-
-
   return (
     <>
       <div className="flex gap-4 items-center">
@@ -64,12 +59,7 @@ function Index() {
               Below are the open Airdrops
             </Text>
             <Grid container overflow={"auto"} spacing={3}>
-              {/* @ts-expect-error will fix it once the build succeeds */}
               {airdropData?.map(({ contractId, recipients }, index) => {
-                {
-                  console.log({ recipients });
-                }
-
                 return (
                   <Grid className="m-3">
                     <HomeCard
@@ -79,7 +69,7 @@ function Index() {
                       )}`} isEligible={checkEligibility(recipients, wallet!)}
                     >
                       <Text key={index}>
-                        {getTruncatedAddress(contractId)}
+                        {getTruncatedAddress(contractId as string)}
                       </Text>
                     </HomeCard>
                   </Grid>

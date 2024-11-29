@@ -53,18 +53,13 @@ function Index() {
                 })
               }
             >
-              Create your own Airdrop
+              Create new Airdrop
             </Button>
             <Text variant="h6" sx={{ paddingBottom: "28px", width: "full" }}>
               Below are the open Airdrops
             </Text>
             <Grid container overflow={"auto"} spacing={3}>
-              {/* @ts-expect-error will fix it once the build succeeds */}
               {airdropData?.map(({ contractId, recipients }, index) => {
-                {
-                  console.log({ recipients });
-                }
-
                 return (
                   <Grid className="m-3">
                     <HomeCard
@@ -74,7 +69,7 @@ function Index() {
                       )}`} isEligible={checkEligibility(recipients, wallet!)}
                     >
                       <Text key={index}>
-                        {getTruncatedAddress(contractId)}
+                        {getTruncatedAddress(contractId as string)}
                       </Text>
                     </HomeCard>
                   </Grid>

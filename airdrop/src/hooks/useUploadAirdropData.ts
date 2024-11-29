@@ -27,7 +27,7 @@ export const useUploadAirdropData = () => {
       recipients,
     }: useUploadAirdropDataParams) => {
       // Custom replacer function to handle BigInt values
-      const replacer = (key: string, value: any) => {
+      const replacer = (_key: string, value: unknown): string | unknown => {
         return typeof value === "bigint" ? value.toString() : value;
       };
       const airdropData = JSON.stringify({ contractId, recipients }, replacer);
