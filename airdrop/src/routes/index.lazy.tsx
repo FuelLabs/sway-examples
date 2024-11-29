@@ -8,8 +8,9 @@ import { Text } from "@/components/Text";
 import { Button } from "@/components/ui/button";
 import { checkEligibility } from "@/utils/airdropEligibility";
 import { Grid } from "@mui/material";
-import { getTruncatedAddress } from "../components/WalletDisplay";
+
 import { useActiveWallet } from "../hooks/useActiveWallet";
+import { getTruncatedAddress } from "@/lib/utils";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,

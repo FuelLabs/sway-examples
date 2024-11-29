@@ -9,6 +9,7 @@ import {
   sha256,
   TupleCoder
 } from "fuels";
+import Node from "node_modules/@fuel-ts/merkle/dist/binary/types/node";
 
 export type Recipient = {
   address: string;
@@ -85,8 +86,7 @@ export const verifyMerkleProof = (
   return { isValid, proof: proof.map((p) => p.data.toString("hex")) };
 };
 
-// @ts-expect-error will fix it once the build succeeds
-export const generateProof = (recipient: Recipient, tree: any, leafIndex: number) => {
+export const generateProof = (tree: Node[], leafIndex: number) => {
   const proof = getProof(tree, leafIndex);
   return proof;
 };

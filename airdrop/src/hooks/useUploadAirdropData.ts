@@ -2,7 +2,8 @@ import { PINATA_JWT } from "../lib";
 import { AbstractAddress } from "fuels";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { getTruncatedAddress } from "@/components/WalletDisplay";
+import { getTruncatedAddress } from "@/lib/utils";
+
 
 export type useUploadAirdropDataParams = {
   contractId: AbstractAddress | string;

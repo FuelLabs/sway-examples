@@ -99,68 +99,8 @@ export const NavMenu = () => {
           {!isConnected && !isMobile && (
             <Button onClick={connect}>Connect Wallet</Button>
           )}
-          {/* <ModeToggle /> */}
-          {/* {isMobile && <NavMenu address={wallet?.address.toString()} />} */}
         </nav>
       </div>
     </>
   );
 };
-
-{
-  /* <NavigationMenu className="flex mt-3 w-full justify-around">
-        <div className="flex">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/">
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Home
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link
-                href="https://docs.fuel.network"
-                target="_blank"
-                className="text-white"
-                >
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Fuel Docs
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link
-                href="https://docs.fuel.network"
-                target="_blank"
-                className="text-white"
-                >
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Fuel Docs
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </div>
-        <div className="flex gap-4">
-          {address && (
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Button onClick={handleClose} className="text-white">
-                  Faucet
-                </Button>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          )}
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <ConnectButton />
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </div>
-      </NavigationMenu> */
-}

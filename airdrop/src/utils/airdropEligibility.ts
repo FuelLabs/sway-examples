@@ -1,10 +1,10 @@
-import { RecipientData } from "@/routes/airdrop/claim/$slug.lazy";
+import { RecipientData } from "@/routes/airdrop/claim/$slug";
 import { Account } from "fuels";
 
 export const checkEligibility = (
   recipients: RecipientData,
   wallet: Account | undefined,
-  fallback?: (recipient: RecipientData[number], index: number) => void
+  fallback?: (possibleRecipient: RecipientData[number], index: number) => void
 ) => {
   let temp = undefined;
   (recipients as RecipientData)?.find((recipient, index) => {

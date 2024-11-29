@@ -2,16 +2,10 @@ import toast from "react-hot-toast";
 import { useActiveWallet } from "../hooks/useActiveWallet";
 import { IconCopy } from "@tabler/icons-react";
 import { Link } from "./Link";
+import { copyToClipboard, getTruncatedAddress } from "@/lib/utils";
 
 
-export const getTruncatedAddress = (address: string) => {
-  return address.slice(0, 6) + "..." + address.slice(-4);
-};
 
-export const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text);
-  toast.success("Address copied to clipboard");
-};
 interface WalletDisplayProps {
   darkMode?: boolean;
 }

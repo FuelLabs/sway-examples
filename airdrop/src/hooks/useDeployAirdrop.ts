@@ -1,4 +1,5 @@
-import { getTruncatedAddress } from "@/components/WalletDisplay";
+
+import { getTruncatedAddress } from "@/lib/utils";
 import { TestContract, TestContractFactory } from "../sway-api";
 import { useWallet } from "@fuels/react";
 import { useMutation } from "@tanstack/react-query";
@@ -64,9 +65,7 @@ export const useDeployAirdrop = () => {
         assetId
       );
 
-      const temp = await tx.waitForResult();
-
-      console.log(`temp`, temp);
+      await tx.waitForResult();
 
       return result;
     },

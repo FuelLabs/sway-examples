@@ -5,10 +5,7 @@ import { AssetId, BytesLike, DateTime } from "fuels";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import {
-  copyToClipboard,
-  getTruncatedAddress,
-} from "@/components/WalletDisplay";
+
 import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
 import { VITE_BASE_URL } from "@/lib";
 import { IconCopy } from "@tabler/icons-react";
@@ -21,6 +18,7 @@ import { useDeployAirdrop } from "../../hooks/useDeployAirdrop";
 import { useUploadAirdropData } from "../../hooks/useUploadAirdropData";
 import { createMerkleTree } from "../../utils/merkleTrees";
 import { recipientsParser } from "../../utils/parsers";
+import { copyToClipboard, getTruncatedAddress } from "@/lib/utils";
 
 export const Route = createLazyFileRoute("/airdrop/create")({
   component: () => <Airdrop />,
@@ -31,8 +29,10 @@ const parseSRC20Text = (text: string): [string, string][] => {
   const lines = text.trim().split("\n");
   const validLines = lines.filter((line) => regex.test(line));
   return validLines.reduce((acc, line) => {
-    // @ts-expect-error will fix it once the build succeeds
-    let [, , value] = line.match(regex);
+    const match = line.match(regex);
+    if (!match) return acc;
+    
+    let value = match[2]; // Get the second capture group which contains the number
     // Address is always the full 66 characters (0x plus 64 hex characters)
     const address = line.slice(0, 66);
     value = value?.replace(/^[^0-9.]+/, "");
@@ -40,10 +40,9 @@ const parseSRC20Text = (text: string): [string, string][] => {
     if (value?.startsWith(".")) {
       value = `0${value}`;
     }
-    // @ts-expect-error will fix it once the build succeeds
     acc.push([address.toLowerCase(), value]);
     return acc;
-  }, []);
+  }, [] as [string, string][]);
 };
 
 function Airdrop() {

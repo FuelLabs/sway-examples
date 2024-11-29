@@ -2,12 +2,12 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { Text } from "../../components/Text";
 
 import { FuelLogo } from "@/components/FuelLogo";
-import { getTruncatedAddress } from "@/components/WalletDisplay";
+
 import { useActiveWallet } from "@/hooks/useActiveWallet";
+import { getTruncatedAddress } from "@/lib/utils";
 import { checkEligibility } from "@/utils/airdropEligibility";
 import { Grid } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { HomeCard } from "../../components/HomeCard";
 import { Button } from "../../components/ui/button";
 import { useGetAirdropData } from "../../hooks/useGetAirdropData";
@@ -20,11 +20,6 @@ function Index() {
   const { wallet } = useActiveWallet();
   const { data: airdropData, isFetching, isError } = useGetAirdropData();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log("airdropData: ", airdropData);
-  }, [airdropData, isFetching]);
-
   
   return (
     <>
