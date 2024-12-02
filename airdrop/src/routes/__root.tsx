@@ -92,7 +92,7 @@ export const Route = createRootRoute({
                 new FueletWalletConnector(),
                 new WalletConnectConnector({
                   fuelProvider: providerToUse,
-                  wagmiConfig: DEFAULT_WAGMI_CONFIG,
+                  wagmiConfig: wagmiConfig,
                   projectId: WC_PROJECT_ID,
                 }),
                 new FuelWalletDevelopmentConnector(),
