@@ -51,17 +51,15 @@ The Airdrop DApp leverages IPFS (InterPlanetary File System) and Merkle trees fo
      ```
 
    > ⚠️ **Important Notes**:
-   > - Never commit your `.env.local` file.
-   > - Keep your API keys and secrets secure.
    > - For Pinata credentials, sign up at [Pinata Cloud](https://app.pinata.cloud).
    > - For WalletConnect Project ID, register at [WalletConnect Cloud](https://cloud.walletconnect.com).
 
 2. **Start the Fuel Development Server**:
    - This server will start a local Fuel node and provide hot-reloading for your smart contracts. To start the local Fuel node, run:
 
-     ```bash
-     npm run fuels:dev
-     ```
+```bash
+npm run fuels:dev
+```
 
    - This command will compile the contracts, generate types for your contracts, and start the Fuel local node at [http://127.0.0.1:4000/v1/graphql](http://127.0.0.1:4000/v1/graphql).
 
