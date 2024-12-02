@@ -1,10 +1,11 @@
 import { Toaster } from "react-hot-toast";
 import { NavMenu } from "./NavMenu";
-import { OnboardingFlow } from "sway-example-commons";
+import { OnboardingFlow, OnboardingFlowProvider } from "sway-example-commons";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="w-full">
+       <OnboardingFlowProvider>
       <Toaster />
       <OnboardingFlow
         welcomeMessage={<div>Welcome to the Airdrop!</div>}
@@ -17,6 +18,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           {children}
         </div>
       </div>
+      </OnboardingFlowProvider>
+
     </div>
   );
 };
