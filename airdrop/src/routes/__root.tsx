@@ -15,7 +15,7 @@ import { createConfig, http, injected } from "@wagmi/core";
 import { mainnet, sepolia } from "@wagmi/core/chains";
 import { Provider } from "fuels";
 import { useEffect, useMemo, useState } from "react";
-
+import { OnboardingFlowProvider } from "sway-example-commons";
 import { Layout } from "../components/Layout";
 import { ActiveWalletProvider } from "../hooks/useActiveWallet";
 import { NODE_URL, WC_PROJECT_ID } from "../lib";
@@ -95,9 +95,11 @@ export const Route = createRootRoute({
             }}
           >
             <ActiveWalletProvider>
-              <Layout>
+              <OnboardingFlowProvider>
+                <Layout>
                 <Outlet />
               </Layout>
+              </OnboardingFlowProvider>
             </ActiveWalletProvider>
           </FuelProvider>
         </QueryClientProvider>
