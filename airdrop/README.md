@@ -57,9 +57,9 @@ The Airdrop DApp leverages IPFS (InterPlanetary File System) and Merkle trees fo
 2. **Start the Fuel Development Server**:
    - This server will start a local Fuel node and provide hot-reloading for your smart contracts. To start the local Fuel node, run:
 
-```bash
-npm run fuels:dev
-```
+      ```bash
+      npm run fuels:dev
+      ```
 
    - This command will compile the contracts, generate types for your contracts, and start the Fuel local node at [http://127.0.0.1:4000/v1/graphql](http://127.0.0.1:4000/v1/graphql).
 
