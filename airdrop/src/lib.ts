@@ -28,7 +28,12 @@ export const CURRENT_ENVIRONMENT: Environment = (process.env.VITE_PUBLIC_DAPP_EN
 
 const TESTNET_NETWORK_URL = "https://testnet.fuel.network/v1/graphql";
 // The node URL is determined by the current environment too.
-export const NODE_URL = TESTNET_NETWORK_URL;
+export const NODE_URL =
+  CURRENT_ENVIRONMENT === "local"
+    ? `http://127.0.0.1:${
+        env.VITE_PUBLIC_FUEL_NODE_PORT || 4000
+      }/v1/graphql`
+    : TESTNET_NETWORK_URL;
 
 export interface AppWallet {
   wallet?: Account;
@@ -38,13 +43,11 @@ export interface AppWallet {
 
 export const TESTNET_FAUCET_LINK = "https://faucet-testnet.fuel.network/";
 
-export const FAUCET_LINK = TESTNET_FAUCET_LINK
-
 export const FAUCET_PRIVATE_KEY = "0x01";
 
 export const DOCS_URL = "https://docs.fuel.network";
 
-export const GATEWAY_URL = "https://beige-ready-porcupine-957.mypinata.cloud";
+export const GATEWAY_URL = env.VITE_PUBLIC_GATEWAY_URL;
 
 export const PINATA_JWT = env.VITE_PINATA_JWT;
 
