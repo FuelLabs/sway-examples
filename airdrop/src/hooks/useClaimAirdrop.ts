@@ -1,5 +1,7 @@
-
-import { IdentityInput, TestContract } from "../sway-api/contracts/TestContract";
+import {
+  IdentityInput,
+  TestContract,
+} from "../sway-api/contracts/TestContract";
 import { useWallet } from "@fuels/react";
 import { useMutation } from "@tanstack/react-query";
 import { AbstractAddress } from "fuels";
@@ -35,18 +37,19 @@ export const useClaimAirdrop = () => {
       const result = await contract.functions
         .claim(amount, account, treeIndex, proof, recipient)
         .call();
-      
-      const temp = await result.waitForResult();
-      console.log(`temp`, temp);
-      
+
+      await result.waitForResult();
+
       return result;
-    }, onSuccess: (data) => {
+    },
+    onSuccess: (data) => {
       console.log("onSuccess useClaimAirdrop", data);
       toast.success("Airdrop claimed successfully!");
-    }, onError: (err) => {
+    },
+    onError: (err) => {
       console.error("Error claiming airdrop:", err);
       toast.error(err.message);
-    }
+    },
   });
 
   return mutation;
