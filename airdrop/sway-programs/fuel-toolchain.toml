@@ -1,0 +1,6 @@
+[toolchain]
+channel = "latest"
+
+[components]
+forc = "0.66.2"
+fuel-core = "0.40.0"
