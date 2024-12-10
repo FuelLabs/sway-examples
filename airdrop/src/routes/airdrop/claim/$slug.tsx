@@ -1,18 +1,17 @@
-import { createFileRoute, useParams } from '@tanstack/react-router'
-
-import { useInitializeAirdrop } from '@/hooks/useInitializeAirdrop'
-import { copyToClipboard, getTruncatedAddress } from '@/lib/utils'
-import { checkEligibility } from '@/utils/airdropEligibility'
-import { useWallet } from '@fuels/react'
-import { IconCopy } from '@tabler/icons-react'
-import { DateTime } from 'fuels'
-import { Loader2 } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import { formatUnits } from 'viem'
-import { Text } from '../../../components/Text'
-import { Button as ShadcnButton } from '../../../components/ui/button'
-import { useClaimAirdrop } from '../../../hooks/useClaimAirdrop'
+import { useInitializeAirdrop } from '@/hooks/useInitializeAirdrop';
+import { copyToClipboard, getTruncatedAddress } from '@/lib/utils';
+import { checkEligibility } from '@/utils/airdropEligibility';
+import { useWallet } from '@fuels/react';
+import { IconCopy } from '@tabler/icons-react';
+import { createFileRoute, useParams } from '@tanstack/react-router';
+import { DateTime } from 'fuels';
+import { Loader2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { formatUnits } from 'viem';
+import { Text } from '../../../components/Text';
+import { Button as ShadcnButton } from '../../../components/ui/button';
+import { useClaimAirdrop } from '../../../hooks/useClaimAirdrop';
 import {
   useGetEndTime,
   useGetIsInitialized,
@@ -20,12 +19,12 @@ import {
   useGetMerkleRoot,
   useGetNumLeaves,
   useGetOwner,
-} from '../../../hooks/useGetAirdropContractData'
+} from '../../../hooks/useGetAirdropContractData';
 import {
   createMerkleTree,
   generateProof,
   Recipient,
-} from '../../../utils/merkleTrees'
+} from '../../../utils/merkleTrees';
 
 export const Route = createFileRoute('/airdrop/claim/$slug')({
   component: () => <ClaimAirdrop />,

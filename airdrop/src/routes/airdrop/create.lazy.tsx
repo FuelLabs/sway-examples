@@ -118,14 +118,13 @@ function Airdrop() {
         setRecipients(parseText(textValue));
       } catch (e) {
         setRecipients([]);
-        console.error(e);
+        console.error('Error parsing addresses:', e);
         toast.error("There was an error parsing addresses");
       }
     }
   }, [textValue]);
 
   const submitHandler = async () => {
-    console.log("recipients", recipients);
 
     if (!wallet || !assetId || !endDate || !recipients.length) {
       toast.error("Please fill in all fields");
@@ -133,7 +132,6 @@ function Airdrop() {
     }
 
     const { root, tree, leaves } = createMerkleTree(recipients);
-    console.log("root: ", root);
 
     // Define new configurable values
     const configurableConstants = {
@@ -162,7 +160,7 @@ function Airdrop() {
       });
     } catch (error) {
       toast.error("Error while deploying contract");
-      console.log("Error while deploying contract", error);
+      console.error("Error while deploying contract", error);
     }
   };
 
@@ -252,7 +250,6 @@ function Airdrop() {
             const tiaValue = DateTime.fromUnixMilliseconds(
               e?.getTime() ?? 0
             ).toTai64();
-            console.log(BigInt(tiaValue));
             setEndDate(tiaValue);
           }}
         />

@@ -19,17 +19,11 @@ export const useGetAirdropData = () => {
           (file) => file.metadata.name === "AirdropData"
         );
 
-        console.log("ipfsData from useGetAirdropContractId: ", ipfsData);
-
         const airdropData = await Promise.all(
           ipfsData.map(async (file) => {
             const res = await pinata.gateways.get(file.ipfs_pin_hash);
             return res?.data;
           })
-        );
-        console.log(
-          "final contractIds from useGetAirdropContractId pinatasdk: ",
-          { airdropData }
         );
 
         if (airdropData) {

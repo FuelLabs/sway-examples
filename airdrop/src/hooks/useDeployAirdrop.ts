@@ -1,16 +1,15 @@
 
 import { getTruncatedAddress } from "@/lib/utils";
-import { TestContract, TestContractFactory } from "../sway-api";
 import { useWallet } from "@fuels/react";
 import { useMutation } from "@tanstack/react-query";
-import { Account, Address, AssetId, B256Address, BN, DeployContractOptions } from "fuels";
+import { Account, AssetId, B256Address, DeployContractOptions } from "fuels";
 import toast from "react-hot-toast";
+import { TestContractFactory } from "../sway-api";
 
 export type deployAirdropArgs = {
   wallet: Account;
   options: DeployContractOptions;
 };
-
 
 export interface ConfigurableConstants {
   MERKLE_ROOT?: B256Address;
@@ -23,8 +22,6 @@ export interface ConfigurableConstants {
     }
   };
 }
-
-
 
 export type DeployAirdropArgs = {
   options?: DeployContractOptions;
@@ -45,9 +42,8 @@ export const useDeployAirdrop = () => {
       const { options, assetId, totalAmount } = args;
 
       const baseAssetId = wallet.provider.getBaseAssetId();
-      console.log("baseAssetId", baseAssetId);
+
       const contractBalance = await wallet.getBalance(baseAssetId);
-      console.log("contractBalance", contractBalance);
 
       const result = await TestContractFactory.deploy(wallet, options);
       await result.waitForResult();

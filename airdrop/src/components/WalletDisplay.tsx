@@ -1,8 +1,7 @@
-import toast from "react-hot-toast";
-import { useActiveWallet } from "../hooks/useActiveWallet";
-import { IconCopy } from "@tabler/icons-react";
-import { Link } from "./Link";
 import { copyToClipboard, getTruncatedAddress } from "@/lib/utils";
+import { IconCopy } from "@tabler/icons-react";
+import { useActiveWallet } from "../hooks/useActiveWallet";
+import { Link } from "./Link";
 
 
 

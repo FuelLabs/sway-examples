@@ -18,7 +18,6 @@ export const HomeCard = ({
 }: HomeCardProps) => {
   const navigate = useNavigate();
 
-  console.log({ isEligible });
   return (
     <Card
       variant="outlined"

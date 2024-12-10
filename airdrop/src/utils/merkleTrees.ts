@@ -23,7 +23,6 @@ export const stringifyObj = (obj: Recipient) => {
   }
   const result = stringify(temp);
 
-  console.log(result);
   return result;
 };
 
@@ -54,8 +53,6 @@ export const createMerkleTree = (recipients: Recipient[]) => {
   const tree = constructTree(leaves);
 
   const root = calcRoot(leaves);
-  console.log("root", root);
-  console.log("tree", tree);
 
   return { leaves, tree, root };
 };
@@ -70,19 +67,12 @@ export const verifyMerkleProof = (
 
    const hashedData = getLeafData(recipient);
 
-  console.log(`hashedData`, hashedData);
-
   // Generate the proof for the hashed leaf
   const proof = tree.getProof(hashedData);
 
   // Verify the proof against the Merkle root
   const isValid = tree.verify(proof, hashedData, Buffer.from(root, "hex"));
-
-  console.log(
-    "proof",
-    proof.map((p) => p.data.toString("hex"))
-  );
-  console.log("isValid", isValid);
+  
   return { isValid, proof: proof.map((p) => p.data.toString("hex")) };
 };
 
