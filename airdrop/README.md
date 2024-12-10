@@ -4,7 +4,7 @@ This project is a [Vite](https://vitejs.dev/) application bootstrapped with [`cr
 
 ### Demo
 
-Interact with the Airdrop DApp using this [demo link](https://fuellabs.github.io/sway-examples/pr-preview/pr-18/airdrop/).
+Interact with the Airdrop DApp using this [demo link](https://fuellabs.github.io/sway-examples/airdrop/).
 
 ### Architecture Overview
 
