@@ -1,0 +1,39 @@
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/Inter.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/Inter-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: GeistMono;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/GeistMono.woff2") format("woff2");
+}
+
+:root { 
+  font-family: "Inter", sans-serif; 
+  font-optical-sizing: auto; 
+}
+
+html[data-theme="dark"] body {
+  background-color: #0b140b;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  background-color: #ffffff;
+  color: oklch(94.91% 0 none);
+  font-size: 16px;
+}
