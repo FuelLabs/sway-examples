@@ -1,9 +1,7 @@
-
 import { useQuery } from "@tanstack/react-query";
-import { AbstractAddress } from "fuels";
-import { useUploadAirdropDataParams } from "./useUploadAirdropData";
 import { PinataSDK } from "pinata";
 import { PINATA_JWT } from "../lib";
+import { useUploadAirdropDataParams } from "./useUploadAirdropData";
 
 export type ContractIdData = Array<useUploadAirdropDataParams>;
 
@@ -15,25 +13,11 @@ export const pinata = new PinataSDK({
 export const useGetAirdropData = () => {
   return useQuery<ContractIdData>({
     queryKey: ["airdropData"],
-    // @ts-expect-error
-    queryFn: async () => {
+    queryFn: async (): Promise<ContractIdData> => {
       try {
-        const options = {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${PINATA_JWT}`,
-          },
-        };
-
-        const metaData = JSON.stringify({
-          name: "AirdropData",
-        });
-
         const ipfsData = (await pinata.listFiles()).filter(
           (file) => file.metadata.name === "AirdropData"
         );
-
-        console.log("ipfsData from useGetAirdropContractId: ", ipfsData);
 
         const airdropData = await Promise.all(
           ipfsData.map(async (file) => {
@@ -41,16 +25,17 @@ export const useGetAirdropData = () => {
             return res?.data;
           })
         );
-        console.log(
-          "final contractIds from useGetAirdropContractId pinatasdk: ",
-          { airdropData }
-        );
 
-        if (airdropData) return airdropData;
+        if (airdropData) {
+          return airdropData as unknown as ContractIdData;
+        }
         return [];
       } catch (error) {
-        console.error("Error while fetching contractIds from ipfs in useGetAirdropContractId: ", error);
-        return [];
+        console.error(
+          "Error while fetching contractIds from ipfs in useGetAirdropContractId: ",
+          error
+        );
+        throw error;
       }
     },
   });

@@ -1,9 +1,8 @@
-import { TestContract } from "../sway-api";
 import { useQuery } from "@tanstack/react-query";
 import { AbstractAddress, Provider } from "fuels";
-import { AirdropQueryKeys } from "../queryKeys";
 import { NODE_URL } from "../lib";
-import { cookieStorage } from "@wagmi/core";
+import { AirdropQueryKeys } from "../queryKeys";
+import { TestContract } from "../sway-api";
 
 type ContractId = string | AbstractAddress;
 
@@ -14,17 +13,16 @@ export const useGetOwner = ({ contractId }: Params) => {
   const query = useQuery({
     queryKey: [AirdropQueryKeys.owner, contractId],
     queryFn: async () => {
-      console.log("contractId from useGetOwner: ", contractId);
+
       try {
         const provider = await Provider.create(NODE_URL);
 
         const contract = new TestContract(contractId, provider!);
 
         const owner = await contract.functions.owner().get();
-        console.log("owner from useGetOwner: ", owner);
         return owner.value;
       } catch (error) {
-        console.log("error from useGetOwner: ", error);
+        console.error("error from useGetOwner: ", error);
       }
     },
   });
@@ -43,7 +41,7 @@ export const useGetEndTime = ({ contractId }: Params) => {
         const endTime = await contract.functions.end_time().get();
         return endTime.value;
       } catch (error) {
-        console.log("error from useGetEndTime: ", error);
+        console.error("error from useGetEndTime: ", error);
       }
     },
   });
@@ -62,7 +60,7 @@ export const useGetIsPaused = ({ contractId }: Params) => {
         const isPaused = await contract.functions.is_paused().get();
         return isPaused.value;
       } catch (error) {
-        console.log("error from useGetIsPaused: ", error);
+        console.error("error from useGetIsPaused: ", error);
       }
     },
   });
@@ -81,7 +79,7 @@ export const useGetMerkleRoot = ({ contractId }: Params) => {
         const merkleRoot = await contract.functions.merkle_root().get();
         return merkleRoot.value;
       } catch (error) {
-        console.log("error from useGetMerkleRoot: ", error);
+        console.error("error from useGetMerkleRoot: ", error);
       }
     },
   });
@@ -100,7 +98,7 @@ export const useGetNumLeaves = ({ contractId }: Params) => {
         const numLeaves = await contract.functions.num_leaves().get();
         return numLeaves.value;
       } catch (error) {
-        console.log("error from useGetNumLeaves: ", error);
+        console.error("error from useGetNumLeaves: ", error);
       }
     },
   });
@@ -117,12 +115,10 @@ export const useGetIsInitialized = ({ contractId }: Params) => {
         const contract = new TestContract(contractId, provider!);
 
         const isInitialized = await contract.functions.is_initialized().get();
-        console.log("isInitialized from useGetIsInitialized: ", {
-          isInitialized,
-        });
+
         return isInitialized.value;
       } catch (error) {
-        console.log("error from useGetIsInitialized: ", error);
+        console.error("error from useGetIsInitialized: ", error);
       }
     },
   });

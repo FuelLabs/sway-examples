@@ -1,21 +1,21 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { Layout } from "../components/Layout";
-import { useEffect, useMemo, useState } from "react";
-import { Provider } from "fuels";
-import { NODE_URL } from "../lib";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { FuelProvider } from "@fuels/react";
 import {
   BakoSafeConnector,
   BurnerWalletConnector,
+  FueletWalletConnector,
   FuelWalletConnector,
   FuelWalletDevelopmentConnector,
-  FueletWalletConnector,
-  WalletConnectConnector,
   SolanaConnector,
+  WalletConnectConnector,
 } from "@fuels/connectors";
+import { FuelProvider } from "@fuels/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { Provider } from "fuels";
+import { useEffect, useMemo, useState } from "react";
+import { Layout } from "../components/Layout";
 import { ActiveWalletProvider } from "../hooks/useActiveWallet";
+import { NODE_URL } from "../lib";
 
 /**
  * react-query is a peer dependency of @fuels/react, so we set it up here.
@@ -69,7 +69,7 @@ export const Route = createRootRoute({
           >
             <ActiveWalletProvider>
               <Layout>
-                <Outlet />
+                  <Outlet />
               </Layout>
             </ActiveWalletProvider>
           </FuelProvider>

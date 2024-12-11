@@ -39,6 +39,7 @@ All examples are maintained by official Sway contributors and will be kept up to
 #### Token Airdrop
 
 - Learn how to work with merkle trees in Sway to distrubute native tokens across multiple addresses.
+- [demo](https://fuellabs.github.io/sway-examples/airdrop/)
 
 #### [Counter Dapp](./counter/README.md)
 

@@ -4,12 +4,8 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { AssetId, BytesLike, DateTime } from "fuels";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-// import { Button } from "../../components/Button";
 import { Button } from "@/components/ui/button";
-import {
-  copyToClipboard,
-  getTruncatedAddress,
-} from "@/components/WalletDisplay";
+
 import { useInitializeAirdrop } from "@/hooks/useInitializeAirdrop";
 import { VITE_BASE_URL } from "@/lib";
 import { IconCopy } from "@tabler/icons-react";
@@ -22,6 +18,7 @@ import { useDeployAirdrop } from "../../hooks/useDeployAirdrop";
 import { useUploadAirdropData } from "../../hooks/useUploadAirdropData";
 import { createMerkleTree } from "../../utils/merkleTrees";
 import { recipientsParser } from "../../utils/parsers";
+import { copyToClipboard, getTruncatedAddress } from "@/lib/utils";
 
 export const Route = createLazyFileRoute("/airdrop/create")({
   component: () => <Airdrop />,
@@ -32,8 +29,10 @@ const parseSRC20Text = (text: string): [string, string][] => {
   const lines = text.trim().split("\n");
   const validLines = lines.filter((line) => regex.test(line));
   return validLines.reduce((acc, line) => {
-    // @ts-expect-error will fix it once the build succeeds
-    let [, , value] = line.match(regex);
+    const match = line.match(regex);
+    if (!match) return acc;
+    
+    let value = match[2]; // Get the second capture group which contains the number
     // Address is always the full 66 characters (0x plus 64 hex characters)
     const address = line.slice(0, 66);
     value = value?.replace(/^[^0-9.]+/, "");
@@ -41,10 +40,9 @@ const parseSRC20Text = (text: string): [string, string][] => {
     if (value?.startsWith(".")) {
       value = `0${value}`;
     }
-    // @ts-expect-error will fix it once the build succeeds
     acc.push([address.toLowerCase(), value]);
     return acc;
-  }, []);
+  }, [] as [string, string][]);
 };
 
 function Airdrop() {
@@ -71,7 +69,6 @@ function Airdrop() {
   const baseAssetId =
     "0xf8f8b6283d7fa5b672b530cbb84fcccb4ff8dc40f8176ef4544ddb1f1952ad07";
 
-  // const {mutateAsync, data: ipfsData, isSuccess: uploadToIpfsSuccess} = useUploadAirdropData();
   const {
     mutate: deployAirdrop,
     isSuccess: deployAirdropSuccess,
@@ -121,30 +118,20 @@ function Airdrop() {
         setRecipients(parseText(textValue));
       } catch (e) {
         setRecipients([]);
-        console.error(e);
+        console.error('Error parsing addresses:', e);
         toast.error("There was an error parsing addresses");
       }
     }
   }, [textValue]);
 
   const submitHandler = async () => {
-    console.log("recipients", recipients);
 
     if (!wallet || !assetId || !endDate || !recipients.length) {
       toast.error("Please fill in all fields");
       return;
     }
 
-    // stringifyObj(recipients);
     const { root, tree, leaves } = createMerkleTree(recipients);
-    console.log("root: ", root);
-    // const { isValid } = verifyMerkleProof(recipients[0], root, tree);
-
-    // console.log("Merkle proof valid:", isValid);
-    // console.log(
-    //   "logging address: ",
-    //   Address.fromDynamicInput(wallet?.address).toB256()
-    // );
 
     // Define new configurable values
     const configurableConstants = {
@@ -173,7 +160,7 @@ function Airdrop() {
       });
     } catch (error) {
       toast.error("Error while deploying contract");
-      console.log("Error while deploying contract", error);
+      console.error("Error while deploying contract", error);
     }
   };
 
@@ -183,26 +170,16 @@ function Airdrop() {
       initializeData?.transactionId &&
       initializeSuccess
     ) {
-      // toast.success("Airdrop initialized successfully");
       navigate({
         to: VITE_BASE_URL + "/airdrop",
       });
     }
-  }, [
-    initializeStatus,
-    initializeData,
-    initializeIsPending,
-    navigate,
-    initializeSuccess,
-  ]);
+  }, [initializeStatus, initializeData, initializeIsPending, navigate, initializeSuccess]);
 
   if (
-    !deployAirdropError &&
-    deployAirdropStatus === "success" &&
-    data?.contractId &&
-    uploadAirdropDataSuccess &&
-    !uploadAirdropDataPending &&
-    uploadAirdropDataStatus === "success"
+     ( !deployAirdropError &&
+      deployAirdropStatus === "success" &&
+      data?.contractId ) && (uploadAirdropDataSuccess && !uploadAirdropDataPending && uploadAirdropDataStatus === "success")
   ) {
     return (
       <div className="text-white flex flex-col">
@@ -283,7 +260,6 @@ function Airdrop() {
             const tiaValue = DateTime.fromUnixMilliseconds(
               e?.getTime() ?? 0
             ).toTai64();
-            console.log(BigInt(tiaValue));
             setEndDate(tiaValue);
           }}
         />
@@ -305,15 +281,3 @@ function Airdrop() {
     </div>
   );
 }
-
-// 0x6c49291704adc561074d887603c0c5e98b162b8662b746a1c945bb1c71e40f79, 0.001
-// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 0.001
-// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 0.001
-// 0x4a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085, 0.001
-
-// const dummy_recipients = [
-//   { address: "0x6c49291704adc561074d887603c0c5e98b162b86s62b746a1c945bb1c71e40f79", amount: BigInt(4000000000) },
-//   { address: "0x9a30b5cc74a9094c16a6e86680e09c7bef7d4bfe5f52d577fc78efa87a1ac085", amount: BigInt(4000000000) },
-// ];
-
-//base assetId=0xf8f8b6283d7fa5b672b530cbb84fcccb4ff8dc40f8176ef4544ddb1f1952ad07

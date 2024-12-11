@@ -13,15 +13,14 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AirdropClaimSlugImport } from './routes/airdrop/claim/$slug'
 
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
 const AirdropIndexLazyImport = createFileRoute('/airdrop/')()
 const AirdropFaucetLazyImport = createFileRoute('/airdrop/faucet')()
-const AirdropDeploySrc20LazyImport = createFileRoute('/airdrop/deploy-src20')()
 const AirdropCreateLazyImport = createFileRoute('/airdrop/create')()
-const AirdropClaimSlugLazyImport = createFileRoute('/airdrop/claim/$slug')()
 
 // Create/Update Routes
 
@@ -42,13 +41,6 @@ const AirdropFaucetLazyRoute = AirdropFaucetLazyImport.update({
   import('./routes/airdrop/faucet.lazy').then((d) => d.Route),
 )
 
-const AirdropDeploySrc20LazyRoute = AirdropDeploySrc20LazyImport.update({
-  path: '/airdrop/deploy-src20',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/airdrop/deploy-src20.lazy').then((d) => d.Route),
-)
-
 const AirdropCreateLazyRoute = AirdropCreateLazyImport.update({
   path: '/airdrop/create',
   getParentRoute: () => rootRoute,
@@ -56,12 +48,10 @@ const AirdropCreateLazyRoute = AirdropCreateLazyImport.update({
   import('./routes/airdrop/create.lazy').then((d) => d.Route),
 )
 
-const AirdropClaimSlugLazyRoute = AirdropClaimSlugLazyImport.update({
+const AirdropClaimSlugRoute = AirdropClaimSlugImport.update({
   path: '/airdrop/claim/$slug',
   getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/airdrop/claim/$slug.lazy').then((d) => d.Route),
-)
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -79,13 +69,6 @@ declare module '@tanstack/react-router' {
       path: '/airdrop/create'
       fullPath: '/airdrop/create'
       preLoaderRoute: typeof AirdropCreateLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/airdrop/deploy-src20': {
-      id: '/airdrop/deploy-src20'
-      path: '/airdrop/deploy-src20'
-      fullPath: '/airdrop/deploy-src20'
-      preLoaderRoute: typeof AirdropDeploySrc20LazyImport
       parentRoute: typeof rootRoute
     }
     '/airdrop/faucet': {
@@ -106,7 +89,7 @@ declare module '@tanstack/react-router' {
       id: '/airdrop/claim/$slug'
       path: '/airdrop/claim/$slug'
       fullPath: '/airdrop/claim/$slug'
-      preLoaderRoute: typeof AirdropClaimSlugLazyImport
+      preLoaderRoute: typeof AirdropClaimSlugImport
       parentRoute: typeof rootRoute
     }
   }
@@ -117,29 +100,26 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/airdrop/create': typeof AirdropCreateLazyRoute
-  '/airdrop/deploy-src20': typeof AirdropDeploySrc20LazyRoute
   '/airdrop/faucet': typeof AirdropFaucetLazyRoute
   '/airdrop': typeof AirdropIndexLazyRoute
-  '/airdrop/claim/$slug': typeof AirdropClaimSlugLazyRoute
+  '/airdrop/claim/$slug': typeof AirdropClaimSlugRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/airdrop/create': typeof AirdropCreateLazyRoute
-  '/airdrop/deploy-src20': typeof AirdropDeploySrc20LazyRoute
   '/airdrop/faucet': typeof AirdropFaucetLazyRoute
   '/airdrop': typeof AirdropIndexLazyRoute
-  '/airdrop/claim/$slug': typeof AirdropClaimSlugLazyRoute
+  '/airdrop/claim/$slug': typeof AirdropClaimSlugRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/airdrop/create': typeof AirdropCreateLazyRoute
-  '/airdrop/deploy-src20': typeof AirdropDeploySrc20LazyRoute
   '/airdrop/faucet': typeof AirdropFaucetLazyRoute
   '/airdrop/': typeof AirdropIndexLazyRoute
-  '/airdrop/claim/$slug': typeof AirdropClaimSlugLazyRoute
+  '/airdrop/claim/$slug': typeof AirdropClaimSlugRoute
 }
 
 export interface FileRouteTypes {
@@ -147,7 +127,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/airdrop/create'
-    | '/airdrop/deploy-src20'
     | '/airdrop/faucet'
     | '/airdrop'
     | '/airdrop/claim/$slug'
@@ -155,7 +134,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/airdrop/create'
-    | '/airdrop/deploy-src20'
     | '/airdrop/faucet'
     | '/airdrop'
     | '/airdrop/claim/$slug'
@@ -163,7 +141,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/airdrop/create'
-    | '/airdrop/deploy-src20'
     | '/airdrop/faucet'
     | '/airdrop/'
     | '/airdrop/claim/$slug'
@@ -173,19 +150,17 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AirdropCreateLazyRoute: typeof AirdropCreateLazyRoute
-  AirdropDeploySrc20LazyRoute: typeof AirdropDeploySrc20LazyRoute
   AirdropFaucetLazyRoute: typeof AirdropFaucetLazyRoute
   AirdropIndexLazyRoute: typeof AirdropIndexLazyRoute
-  AirdropClaimSlugLazyRoute: typeof AirdropClaimSlugLazyRoute
+  AirdropClaimSlugRoute: typeof AirdropClaimSlugRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AirdropCreateLazyRoute: AirdropCreateLazyRoute,
-  AirdropDeploySrc20LazyRoute: AirdropDeploySrc20LazyRoute,
   AirdropFaucetLazyRoute: AirdropFaucetLazyRoute,
   AirdropIndexLazyRoute: AirdropIndexLazyRoute,
-  AirdropClaimSlugLazyRoute: AirdropClaimSlugLazyRoute,
+  AirdropClaimSlugRoute: AirdropClaimSlugRoute,
 }
 
 export const routeTree = rootRoute
@@ -202,7 +177,6 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/airdrop/create",
-        "/airdrop/deploy-src20",
         "/airdrop/faucet",
         "/airdrop/",
         "/airdrop/claim/$slug"
@@ -214,9 +188,6 @@ export const routeTree = rootRoute
     "/airdrop/create": {
       "filePath": "airdrop/create.lazy.tsx"
     },
-    "/airdrop/deploy-src20": {
-      "filePath": "airdrop/deploy-src20.lazy.tsx"
-    },
     "/airdrop/faucet": {
       "filePath": "airdrop/faucet.lazy.tsx"
     },
@@ -224,7 +195,7 @@ export const routeTree = rootRoute
       "filePath": "airdrop/index.lazy.tsx"
     },
     "/airdrop/claim/$slug": {
-      "filePath": "airdrop/claim/$slug.lazy.tsx"
+      "filePath": "airdrop/claim/$slug.tsx"
     }
   }
 }

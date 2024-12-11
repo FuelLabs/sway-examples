@@ -18,7 +18,6 @@ export const HomeCard = ({
 }: HomeCardProps) => {
   const navigate = useNavigate();
 
-  console.log({ isEligible });
   return (
     <Card
       variant="outlined"
@@ -30,7 +29,6 @@ export const HomeCard = ({
         height: "142px",
         width: "280px",
         opacity: isEligible ? 1 : 0.5,
-        // pointerEvents: isEligible ? "auto" : "none",
       }}
       className={`${!isEligible ? "hover:bg-[#4db6ac] hover:text-black" : "hover:bg-slate-950"}`}
     >

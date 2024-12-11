@@ -1,24 +1,17 @@
-import toast from "react-hot-toast";
-import { useActiveWallet } from "../hooks/useActiveWallet";
+import { copyToClipboard, getTruncatedAddress } from "@/lib/utils";
 import { IconCopy } from "@tabler/icons-react";
+import { useActiveWallet } from "../hooks/useActiveWallet";
 import { Link } from "./Link";
 
 
-export const getTruncatedAddress = (address: string) => {
-  return address.slice(0, 6) + "..." + address.slice(-4);
-};
 
-export const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text);
-  toast.success("Address copied to clipboard");
-};
 interface WalletDisplayProps {
   darkMode?: boolean;
 }
 
 export const WalletDisplay: React.FC<WalletDisplayProps> = () => {
   const { wallet, walletBalance } = useActiveWallet();
-  // const CopyIcon = darkMode ? CopyIconDark : CopyIconLight;
+
   return (
     wallet && (
       <div className="flex gap-2 md:gap-4 items-center">
