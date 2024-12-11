@@ -5,8 +5,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 
 /*
-  Fuels version: 0.96.1
-  Forc version: 0.66.1
+  Fuels version: 0.97.0
+  Forc version: 0.66.5
   Fuel-Core version: 0.40.0
 */
 
@@ -597,17 +597,17 @@ const abi = {
     {
       "name": "DECIMALS",
       "concreteTypeId": "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b",
-      "offset": 28904
+      "offset": 29232
     },
     {
       "name": "NAME",
       "concreteTypeId": "5bc5f5dfcd28de7e77d30dec3e6392905198dac3b172c043b403f669f66585ca",
-      "offset": 28912
+      "offset": 29240
     },
     {
       "name": "SYMBOL",
       "concreteTypeId": "84877f6e98274b9e4721db68b4c0bdb9e52b8e9572c5bd7811c07a41ced882c7",
-      "offset": 28920
+      "offset": 29248
     }
   ]
 };
