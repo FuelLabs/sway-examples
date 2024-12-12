@@ -213,71 +213,96 @@ function Airdrop() {
     );
   }
   return (
-    <div className="flex flex-col items-center text-white">
-      <Text variant="h4" sx={{ paddingBottom: "28px", width: "full" }}>
-        Airdrop an SRC20 token
-      </Text>
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      {/* Header Section */}
+      <div className="text-center mb-10">
+        <Text variant="h4" className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          Create Airdrop
+        </Text>
+      </div>
 
-      <Text>Enter Asset Id</Text>
-      <div className="flex gap-3 w-full max-w-fit items-center space-x-2">
-        <ShadcnInput
-          placeholder="0x00...00"
-          value={assetId}
-          className="w-96"
-          onChange={(val) => setAssetId(val.target.value)}
-        />
+      {/* Main Content Card */}
+      <div className="bg-gray-900/50 rounded-xl p-8 shadow-lg border border-gray-800">
+        {/* Asset ID Section */}
+        <div className="space-y-6 mb-8">
+          <div>
+            <Text className="text-gray-400 mb-2">Enter Asset Id</Text>
+            <div className="flex gap-3 items-center">
+              <ShadcnInput
+                placeholder="0x00...00"
+                value={assetId}
+                className="flex-1 bg-gray-800/50 border-gray-700 focus:border-blue-500 disabled:opacity-50"
+                onChange={(val) => setAssetId(val.target.value)}
+                disabled={deployAirdropIsPending || uploadAirdropDataPending}
+              />
+              <Button
+                onClick={() => setAssetId(baseAssetId)}
+                className="bg-blue-600 hover:bg-blue-700 transition-colors text-xs px-4 disabled:opacity-50"
+                disabled={deployAirdropIsPending || uploadAirdropDataPending}
+              >
+                Base Asset Id
+              </Button>
+            </div>
+          </div>
+
+          <Button
+            onClick={() => {
+              navigate({
+                to: VITE_BASE_URL + "/airdrop/deploy-src20",
+              });
+            }}
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity disabled:opacity-50"
+            disabled={deployAirdropIsPending || uploadAirdropDataPending}
+          >
+            Deploy an SRC20 token
+          </Button>
+        </div>
+
+        {/* Recipients Section */}
+        <div className="space-y-4 mb-8">
+          <Text className="text-gray-400">
+            Enter addresses and amounts. It accepts the following formats:
+          </Text>
+          <Textarea
+            className="w-full min-h-[150px] bg-gray-800/50 border-gray-700 focus:border-blue-500 text-gray-300 disabled:opacity-50"
+            placeholder={placeholderText}
+            value={textValue}
+            onChange={(val) => setTextValue(val.target.value)}
+            disabled={deployAirdropIsPending || uploadAirdropDataPending}
+          />
+        </div>
+
+        {/* Date Picker Section */}
+        <div className="mb-8">
+          <Text className="text-gray-400 mb-2">Select End Date</Text>
+          <DatePicker
+            className="w-full bg-gray-800/50 border-gray-700 disabled:opacity-50"
+            onChangeHandler={(e) => {
+              const taiValue = DateTime.fromUnixMilliseconds(
+                e?.getTime() ?? 0
+              ).toTai64();
+              setEndDate(taiValue);
+            }}
+            disabled={deployAirdropIsPending || uploadAirdropDataPending}
+          />
+        </div>
+
+        {/* Submit Button */}
         <Button
-          onClick={() => setAssetId(baseAssetId)}
-          className="m-auto w-fit text-xs"
+          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity disabled:opacity-50"
+          disabled={!wallet || deployAirdropIsPending || uploadAirdropDataPending}
+          onClick={submitHandler}
         >
-          Base Asset Id
+          {deployAirdropIsPending || uploadAirdropDataPending ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Loading
+            </>
+          ) : (
+            "Create Airdrop"
+          )}
         </Button>
       </div>
-
-      <Button
-      className="m-auto w-fit mt-6"
-        onClick={() => {
-          navigate({
-            to: VITE_BASE_URL + "/airdrop/deploy-src20",
-          });
-        }}
-      >
-        Deploy an SRC20 token
-      </Button>
-      <Text sx={{ paddingTop: "28px" }}>
-        Enter addresses and amounts. It accepts the following formats:
-      </Text>
-      <Textarea
-        className="w-full mb-7 min-h-[150px] text-white border-2 border-white rounded-md p-1"
-        placeholder={placeholderText}
-        value={textValue}
-        onChange={(val) => setTextValue(val.target.value)}
-      />
-      <div>
-        <DatePicker
-          className="pl-3"
-          onChangeHandler={(e) => {
-            const tiaValue = DateTime.fromUnixMilliseconds(
-              e?.getTime() ?? 0
-            ).toTai64();
-            setEndDate(tiaValue);
-          }}
-        />
-      </div>
-      <Button
-        className="m-auto w-fit"
-        disabled={!wallet || deployAirdropIsPending || uploadAirdropDataPending}
-        onClick={submitHandler}
-      >
-        {deployAirdropIsPending || uploadAirdropDataPending ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Loading
-          </>
-        ) : (
-          "Submit"
-        )}
-      </Button>
     </div>
   );
 }

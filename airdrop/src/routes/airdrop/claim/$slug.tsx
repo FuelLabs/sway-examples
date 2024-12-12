@@ -53,7 +53,7 @@ function ClaimAirdrop() {
   const [treeIndex, setTreeIndex] = useState<number>()
   const { wallet } = useWallet()
 
-  const { data: owner, isFetching: ownerIsfetching } = useGetOwner({
+  const { data: owner, isFetching: ownerIsfetching, refetch: refetchOwner } = useGetOwner({
     contractId,
   })
   const { data: endTime, isFetching: endTimeIsFetching } = useGetEndTime({
@@ -99,6 +99,7 @@ function ClaimAirdrop() {
       initializeSuccess
     ) {
       refetchIsIntialized()
+      refetchOwner()
     }
   }, [
     initializeStatus,
@@ -106,6 +107,7 @@ function ClaimAirdrop() {
     initializeIsPending,
     refetchIsIntialized,
     initializeSuccess,
+    refetchOwner,
   ])
 
   const claimHandler = async () => {
@@ -141,120 +143,173 @@ function ClaimAirdrop() {
   }
 
   return (
-    <div className="w-full text-center flex flex-col justify-center">
-      <Text variant="h4" sx={{ paddingBottom: '28px', textAlign: 'center' }}>
-        Claim Airdrop
-      </Text>
-      <div className="flex m-auto items-start gap-2">
-        <Text variant="h5" sx={{ textAlign: 'center' }}>
-          Airdrop Contract ID: {getTruncatedAddress(contractId)}
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      {/* Header Section */}
+      <div className="text-center mb-10">
+        <Text variant="h4" className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          Claim Airdrop
         </Text>
-        <IconCopy
-          className="text-[#dddddd] cursor-pointer h-5 mt-2 hover:opacity-80 active:scale-[90%]"
-          onClick={() => copyToClipboard(contractId)}
-        />
-      </div>
-      <div className="py-8 ">
-        <Text className=" py-2">
-          {' '}
-          Contract Initialized:{' '}
-          {fetchingIsInitialized
-            ? 'Fetching...'
-            : isInitialized?.toString() === 'true'
-              ? 'Yes'
-              : 'No'}
-        </Text>
-        {!fetchingIsInitialized &&
-          isInitialized?.toString() === 'false' &&
-          !!wallet && (
-            <ShadcnButton
-              disabled={initializeIsPending || !wallet}
-              className="my-8 mx-auto text-center"
-              onClick={() => {
-                initialize({ contractId })
-              }}
-            >
-              {initializeIsPending ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Loading
-                </>
-              ) : (
-                'Initialize Airdrop'
-              )}
-            </ShadcnButton>
-          )}
-        {!wallet ? (
-          <Text variant="h5">
-            Please connect your wallet to check eligibility and to claim the
-            airdrop
+        <div className="flex justify-center items-center gap-2 bg-gray-800/50 py-2 px-4 rounded-lg inline-flex mx-auto">
+          <Text variant="h5" className="text-gray-300 text-sm">
+            Contract ID: {getTruncatedAddress(contractId)}
           </Text>
-        ) : !possibleRecipient ? (
-          <Text variant="h5">You are not eligible for the airdrop</Text>
-        ) : (
-          <>
-            <Text textAlign={'center'}>
-              Your Allocations:{' '}
-              {Number(formatUnits(possibleRecipient.amount, 9))}
-            </Text>
-            <ShadcnButton
-              onClick={claimHandler}
-              disabled={claimIsPending || !wallet || !possibleRecipient}
-              className="my-8 mx-auto text-center"
-            >
-              {claimIsPending ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Loading
-                </>
-              ) : (
-                'Claim Airdrop'
-              )}
-            </ShadcnButton>
-          </>
-        )}
+          <IconCopy
+            className="text-gray-400 cursor-pointer h-4 hover:text-gray-200 transition-colors"
+            onClick={() => copyToClipboard(contractId)}
+          />
+        </div>
       </div>
 
-      <div className="flex items-center flex-col gap-3">
-        <div className="flex items-center gap-2">
-          <Text textAlign={'center'}>
-            Contract Owner:{' '}
-            {ownerIsfetching
-              ? 'Fetching..'
-              : getTruncatedAddress(owner?.Address?.bits ?? '')}
-          </Text>
-          <IconCopy
-            className="text-[#dddddd] cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
-            onClick={() => copyToClipboard(owner?.Address?.bits as string)}
-          />
+      {/* Main Content Card */}
+      <div className="bg-gray-900/50 rounded-xl p-8 shadow-lg border border-gray-800">
+        {/* Initialization Status */}
+        <div className="mb-8">
+          <div className="flex flex-col items-center justify-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className={`h-3 w-3 rounded-full ${
+                fetchingIsInitialized 
+                  ? 'bg-yellow-500 animate-pulse' 
+                  : isInitialized?.toString() === 'true'
+                    ? 'bg-green-500'
+                    : 'bg-red-500'
+              }`} />
+              <Text className="text-gray-300 text-lg">
+                {fetchingIsInitialized
+                  ? 'Checking initialization status...'
+                  : isInitialized?.toString() === 'true'
+                    ? 'Contract Initialized'
+                    : 'Contract Not Initialized'}
+              </Text>
+            </div>
+
+            {!fetchingIsInitialized && 
+             isInitialized?.toString() === 'false' && 
+             !!wallet && (
+              <ShadcnButton
+                disabled={initializeIsPending || !wallet}
+                className="w-64 bg-blue-600 hover:bg-blue-700 transition-colors"
+                onClick={() => initialize({ contractId })}
+              >
+                {initializeIsPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Initializing...
+                  </>
+                ) : (
+                  'Initialize Airdrop'
+                )}
+              </ShadcnButton>
+            )}
+          </div>
         </div>
-        <Text textAlign={'center'}>
-          End time:{' '}
-          {endTimeIsFetching
-            ? 'Fetching...'
-            : DateTime.fromTai64(
-                endTime?.toString() ?? '',
-              ).toLocaleDateString()}
-        </Text>
-        <Text textAlign={'center'}>
-          Paused: {isPausedFetching ? 'Fetching...' : isPaused?.toString()}
-        </Text>
-        <div className="flex items-center gap-2 ">
-          <Text textAlign={'center'}>
-            Merkle Root:{' '}
-            {merkleRootIsFetching
-              ? 'Fetching...'
-              : getTruncatedAddress(merkleRoot?.toString() ?? '')}
-          </Text>
-          <IconCopy
-            className="text-[#dddddd] cursor-pointer h-5 hover:opacity-80 active:scale-[90%]"
-            onClick={() => copyToClipboard(merkleRoot?.toString() ?? '')}
-          />
+
+        {/* Claim Section */}
+        <div className="space-y-6">
+          {!wallet ? (
+            <div className="text-center py-8 bg-gray-800/50 rounded-lg">
+              <Text variant="h5" className="text-gray-400 px-2">
+                Please connect your wallet to check eligibility
+              </Text>
+            </div>
+          ) : !possibleRecipient ? (
+            <div className="text-center py-8 bg-red-900/20 rounded-lg border border-red-900">
+              <Text variant="h5" className="text-red-400">
+                You are not eligible for this airdrop
+              </Text>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="bg-green-900/20 rounded-lg p-4 border border-green-900">
+                <Text className="text-green-400 text-center">
+                  Your Allocation: {Number(formatUnits(possibleRecipient.amount, 9))}
+                </Text>
+              </div>
+              <ShadcnButton
+                onClick={claimHandler}
+                disabled={claimIsPending || !wallet || !possibleRecipient}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity"
+              >
+                {claimIsPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Claiming...
+                  </>
+                ) : (
+                  'Claim Airdrop'
+                )}
+              </ShadcnButton>
+            </div>
+          )}
         </div>
-        <Text textAlign={'center'}>
-          Number of Leaves:{' '}
-          {numLeavesIsFetching ? 'Fetching...' : numLeaves?.toString()}
-        </Text>
+
+        {/* Contract Details */}
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <Text className="text-gray-400 text-center text-xl mb-6">Contract Details</Text>
+          <div className="space-y-4 mt-6">
+            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+              <div className="flex items-center justify-between">
+                <Text className="text-gray-400 font-medium">Owner</Text>
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-300">
+                    {ownerIsfetching
+                      ? 'Fetching...'
+                      : getTruncatedAddress(owner?.Address?.bits ?? '')}
+                  </span>
+                  <IconCopy
+                    className="text-gray-400 cursor-pointer h-4 hover:text-gray-200"
+                    onClick={() => copyToClipboard(owner?.Address?.bits as string)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+              <div className="flex items-center justify-between">
+                <Text className="text-gray-400 font-medium">End Time</Text>
+                <span className="text-gray-300">
+                  {endTimeIsFetching
+                    ? 'Fetching...'
+                    : DateTime.fromTai64(endTime?.toString() ?? '').toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+              <div className="flex items-center justify-between">
+                <Text className="text-gray-400 font-medium">Status</Text>
+                <span className={`px-3 py-1.5 rounded-full text-sm ${
+                  isPaused ? 'bg-red-900/50 text-red-400' : 'bg-green-900/50 text-green-400'
+                }`}>
+                  {isPausedFetching ? 'Fetching...' : isPaused ? 'Paused' : 'Active'}
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+              <div className="flex items-center justify-between">
+                <Text className="text-gray-400 font-medium">Merkle Root</Text>
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-300">
+                    {merkleRootIsFetching ? 'Fetching...' : getTruncatedAddress(merkleRoot?.toString() ?? '')}
+                  </span>
+                  <IconCopy
+                    className="text-gray-400 cursor-pointer h-4 hover:text-gray-200"
+                    onClick={() => copyToClipboard(merkleRoot?.toString() as string)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+              <div className="flex items-center justify-between">
+                <Text className="text-gray-400 font-medium">Number of Leaves</Text>
+                <span className="text-gray-300">
+                  {numLeavesIsFetching ? 'Fetching...' : numLeaves?.toString()}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

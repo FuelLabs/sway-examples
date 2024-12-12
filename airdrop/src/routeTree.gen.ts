@@ -59,9 +59,7 @@ const AirdropCreateLazyRoute = AirdropCreateLazyImport.update({
 const AirdropClaimSlugRoute = AirdropClaimSlugImport.update({
   path: '/airdrop/claim/$slug',
   getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/airdrop/claim/$slug.lazy').then((d) => d.Route),
-)
+} as any)
 
 // Populate the FileRoutesByPath interface
 
