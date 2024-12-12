@@ -6,8 +6,7 @@ import toast from "react-hot-toast";
 
 export type Src20Args = {
   options?: DeployContractOptions;
-  
-}
+};
 export const useDeploySrc20 = () => {
   const { wallet } = useWallet();
   const mutation = useMutation({
@@ -18,18 +17,17 @@ export const useDeploySrc20 = () => {
       }
 
       const { options } = args;
-      const result = await  Src20Factory.deploy(wallet, options)
-      const {contract, transactionResult} = await result.waitForResult();
+      const result = await Src20Factory.deploy(wallet, options);
+      const { contract, transactionResult } = await result.waitForResult();
 
       console.log("Contract deployed: ", contract);
       console.log("Transaction Result: ", transactionResult);
 
-    
+      return { contract, transactionResult };
     },
     onSuccess: (data) => {
-      toast.success(
-        `SRC20 Contract deployed successfully!`
-      );
+      console.log("SRC20 deployed successfully: ", data);
+      toast.success(`SRC20 Contract deployed successfully!`);
     },
     onError: (err) => {
       console.error("Error deploying contract:", err);
