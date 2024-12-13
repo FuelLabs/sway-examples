@@ -1,4 +1,3 @@
-
 import { getTruncatedAddress } from "@/lib/utils";
 import { useWallet } from "@fuels/react";
 import { useMutation } from "@tanstack/react-query";
@@ -18,8 +17,8 @@ export interface ConfigurableConstants {
   NUM_LEAVES?: bigint;
   INITIAL_OWNER?: {
     Address: {
-      bits: B256Address | undefined
-    }
+      bits: B256Address | undefined;
+    };
   };
 }
 
@@ -41,18 +40,16 @@ export const useDeployAirdrop = () => {
 
       const { options, assetId, totalAmount } = args;
 
-      const baseAssetId = wallet.provider.getBaseAssetId();
+      const tokenBalance = await wallet.getBalance(assetId);
 
-      const contractBalance = await wallet.getBalance(baseAssetId);
+      if (tokenBalance.lt(+totalAmount.toString())) {
+        toast.error("Insufficient balance");
+        return;
+      }
 
       const result = await TestContractFactory.deploy(wallet, options);
       await result.waitForResult();
       // Get the initial contract balance
-
-      if (contractBalance.lt(+totalAmount.toString())) {
-        toast.error("Insufficient balance");
-        return;
-      }
 
       // Perform the transfer to the contract
       const tx = await wallet.transferToContract(

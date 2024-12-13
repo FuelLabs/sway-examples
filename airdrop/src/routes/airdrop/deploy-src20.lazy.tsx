@@ -5,11 +5,13 @@ import { Input } from "@/components/ui/input";
 import { useDeploySrc20 } from "@/hooks/src20Hooks/useDeploySrc20";
 import { useMint } from "@/hooks/src20Hooks/useMint";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { NumberCoder } from "fuels";
+import { getMintedAssetId, NumberCoder } from "fuels";
 import { useState } from "react";
 import { useInitializeOwner } from "@/hooks/src20Hooks/useInitializeOwner";
 import { getTruncatedAddress, copyToClipboard } from "@/lib/utils";
 import { Copy } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { VITE_BASE_URL } from "@/lib";
 
 export const Route = createLazyFileRoute("/airdrop/deploy-src20")({
   component: () => <Src20 />,
@@ -41,6 +43,26 @@ const Src20 = () => {
   } = useInitializeOwner();
 
   const u8Coder = new NumberCoder("u8");
+
+  const navigate = useNavigate();
+
+  // Use a zeroed SubId for single asset contracts
+const subID = '0x0000000000000000000000000000000000000000000000000000000000000000';
+
+
+  const handleMintSuccess =async  () => {
+    if (deploySrc20Data?.contract.id.toB256()) {
+      const mintedAssetId = getMintedAssetId(deploySrc20Data?.contract.id.toB256(), subID);
+
+      // console.log("mintedAssetId", mintedAssetId);
+      navigate({
+        to: "/airdrop/create",
+        search: {
+          deployedTokenId: mintedAssetId
+        }
+      });
+    }
+  };
 
   return (
     <div className="flex w-full flex-col gap-6 items-center">
@@ -162,6 +184,8 @@ const Src20 = () => {
                     mint({
                       contractId: deploySrc20Data.contract.id.toB256(),
                       amount: Number(mintAmount),
+                    }, {
+                      onSuccess: handleMintSuccess
                     });
                   }}
                 >
