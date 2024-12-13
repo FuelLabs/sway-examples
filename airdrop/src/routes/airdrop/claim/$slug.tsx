@@ -146,7 +146,7 @@ function ClaimAirdrop() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       {/* Header Section */}
       <div className="text-center mb-10">
-        <Text variant="h4" className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+        <Text variant="h4" className="text-3xl font-bold text-white mb-4">
           Claim Airdrop
         </Text>
         <div className="flex justify-center items-center gap-2 bg-gray-800/50 py-2 px-4 rounded-lg inline-flex mx-auto">
@@ -187,7 +187,7 @@ function ClaimAirdrop() {
              !!wallet && (
               <ShadcnButton
                 disabled={initializeIsPending || !wallet}
-                className="w-64 bg-blue-600 hover:bg-blue-700 transition-colors"
+                className="w-64 bg-green-600 hover:bg-green-700 transition-colors"
                 onClick={() => initialize({ contractId })}
               >
                 {initializeIsPending ? (
@@ -227,7 +227,7 @@ function ClaimAirdrop() {
               <ShadcnButton
                 onClick={claimHandler}
                 disabled={claimIsPending || !wallet || !possibleRecipient}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity"
+                className="w-full bg-green-600 hover:bg-green-700 transition-opacity"
               >
                 {claimIsPending ? (
                   <>

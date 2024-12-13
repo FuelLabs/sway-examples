@@ -35,7 +35,7 @@ function Index() {
       <div className="flex flex-col items-center text-center mb-12">
         <div className="flex items-center gap-4 mb-6">
           <FuelLogo className="w-12 h-12" />
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold text-white">
             Fuel Airdrop
           </h1>
         </div>
@@ -74,7 +74,7 @@ function Index() {
             <div className="flex justify-center">
               <Button
                 onClick={() => navigate({ to: "/airdrop/create" })}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all"
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all"
               >
                 Create new Airdrop
               </Button>
@@ -89,7 +89,7 @@ function Index() {
             <Grid container spacing={4} className="justify-center">
               {airdropData?.map(({ contractId, recipients }, index) => (
                 <Grid item xs={12} sm={6} md={4} key={contractId as string}>
-                  <Card className="hover:border-blue-500/50 transition-all duration-200 group cursor-pointer"
+                  <Card className="hover:border-green-500/50 transition-all duration-200 group cursor-pointer"
                         onClick={() => navigate({
                           to: `/airdrop/claim/${contractId}?recipient=${JSON.stringify(
                         recipients
@@ -110,7 +110,7 @@ function Index() {
                         {getTruncatedAddress(contractId as string)}
                       </Text>
                     </CardContent>
-                    <CardFooter className="flex justify-end text-gray-400 group-hover:text-blue-500">
+                    <CardFooter className="flex justify-end text-gray-400 group-hover:text-green-500">
                       <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </CardFooter>
                   </Card>

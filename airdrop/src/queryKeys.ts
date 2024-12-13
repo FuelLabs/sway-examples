@@ -8,4 +8,5 @@ export const AirdropQueryKeys = {
   merkleRoot: "merkleRoot",
   isActive: "isActive",
   numLeaves: "numLeaves",
+  src20Balance: "src20Balance",
 }

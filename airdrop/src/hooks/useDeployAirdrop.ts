@@ -43,8 +43,7 @@ export const useDeployAirdrop = () => {
       const tokenBalance = await wallet.getBalance(assetId);
 
       if (tokenBalance.lt(+totalAmount.toString())) {
-        toast.error("Insufficient balance");
-        return;
+        throw new Error("Insufficient balance");
       }
 
       const result = await TestContractFactory.deploy(wallet, options);

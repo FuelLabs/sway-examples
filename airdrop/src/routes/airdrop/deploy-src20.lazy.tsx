@@ -183,7 +183,7 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
                     
                     mint({
                       contractId: deploySrc20Data.contract.id.toB256(),
-                      amount: Number(mintAmount),
+                      amount: Number(mintAmount) * 10 ** 9, // 9 decimals
                     }, {
                       onSuccess: handleMintSuccess
                     });
