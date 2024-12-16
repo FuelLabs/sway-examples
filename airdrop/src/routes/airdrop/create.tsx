@@ -21,11 +21,22 @@ import { createMerkleTree } from "../../utils/merkleTrees";
 import { recipientsParser } from "../../utils/parsers";
 import { useGetSrc20Balance } from "@/hooks/src20Hooks/useGetSrc20Balance";
 
+
+type SearchParams = {
+  deployedTokenId?: string;
+};
+
+const validateSearch = (rawParams: URLSearchParams): SearchParams => {
+  const deployedTokenId = rawParams.get('deployedTokenId');
+  
+  return {
+    deployedTokenId: deployedTokenId || undefined,
+  };
+};
+
 export const Route = createFileRoute("/airdrop/create")({
   component: () => <Airdrop />,
-  validateSearch: (search: Record<string, unknown>) => ({
-    deployedTokenId: search.deployedTokenId as string,
-  }),
+  validateSearch: (search: Record<string, unknown>) => validateSearch(new URLSearchParams(search as Record<string, string>)),
 });
 
 const parseSRC20Text = (text: string): [string, string][] => {
@@ -84,7 +95,7 @@ function Airdrop() {
     error: src20BalanceError,
     status: src20BalanceStatus,
     refetch: refetchSrc20Balance,
-  } = useGetSrc20Balance(deployedTokenId);
+  } = useGetSrc20Balance(deployedTokenId ?? baseAssetId);
   const {
     mutate: deployAirdrop,
     isSuccess: deployAirdropSuccess,
@@ -278,7 +289,7 @@ function Airdrop() {
           {deployedTokenId ? (
             <Button
               onClick={() => setAssetId(deployedTokenId)}
-              className="w-full bg-gray-700 hover:bg-gray-600 transition-opacity disabled:opacity-50"
+              className="w-full bg-gray-700 hover:bg-gray-600 hover:text-white transition-opacity disabled:opacity-50"
               disabled={deployAirdropIsPending || uploadAirdropDataPending}
             >
               Use Deployed Token ({getTruncatedAddress(deployedTokenId)})

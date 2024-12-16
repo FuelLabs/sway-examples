@@ -34,7 +34,7 @@ function Index() {
       {/* Header Section */}
       <div className="flex flex-col items-center text-center mb-12">
         <div className="flex items-center gap-4 mb-6">
-          <FuelLogo className="w-12 h-12" />
+          <FuelLogo />
           <h1 className="text-4xl font-bold text-white">
             Fuel Airdrop
           </h1>

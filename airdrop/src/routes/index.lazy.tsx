@@ -27,18 +27,18 @@ function Index() {
   const { wallet } = useActiveWallet();
   const { data: airdropData, isFetching, isError } = useGetAirdropData();
   const navigate = useNavigate();
-
+  
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header Section */}
       <div className="flex flex-col items-center text-center mb-12">
         <div className="flex items-center gap-4 mb-6">
-          <FuelLogo className="w-12 h-12" />
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <FuelLogo />
+          <h1 className="text-4xl font-bold text-white">
             Fuel Airdrop
           </h1>
         </div>
-
+        
         <div className="max-w-2xl">
           <p className="text-gray-400 text-lg mb-2">
             These are all the airdrops that have been created.
@@ -58,7 +58,7 @@ function Index() {
             </Text>
           </div>
         )}
-
+        
         {isError && (
           <div className="text-center py-8">
             <Text variant="h6" className="text-red-500">
@@ -73,17 +73,14 @@ function Index() {
             <div className="flex justify-center">
               <Button
                 onClick={() => navigate({ to: "/airdrop/create" })}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all"
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all"
               >
                 Create new Airdrop
               </Button>
             </div>
 
             <div className="text-center mb-8">
-              <Text
-                variant="h6"
-                className="text-xl font-semibold text-gray-200"
-              >
+              <Text variant="h6" className="text-xl font-semibold text-gray-200">
                 Available Airdrops
               </Text>
             </div>
@@ -91,31 +88,19 @@ function Index() {
             <Grid container spacing={4} className="justify-center">
               {airdropData?.map(({ contractId, recipients }, index) => (
                 <Grid item xs={12} sm={6} md={4} key={contractId as string}>
-                  <Card
-                    className="hover:border-blue-500/50 transition-all duration-200 group cursor-pointer"
-                    onClick={() =>
-                      navigate({
-                        to: `/airdrop/claim/${contractId}?recipient=${JSON.stringify(
-                          recipients
-                        )}`,
-                      })
-                    }
-                  >
+                  <Card className="hover:border-green-500/50 transition-all duration-200 group cursor-pointer"
+                        onClick={() => navigate({
+                          to: `/airdrop/claim/${contractId}?recipient=${JSON.stringify(
+                        recipients
+                      )}`,
+                        })}>
                     <CardHeader>
                       <div className="flex justify-between items-center">
                         <CardTitle className="text-xl font-semibold">
                           Airdrop {index + 1}
                         </CardTitle>
-                        <Badge
-                          variant={
-                            checkEligibility(recipients, wallet!)
-                              ? "default"
-                              : "destructive"
-                          }
-                        >
-                          {checkEligibility(recipients, wallet!)
-                            ? "Eligible"
-                            : "Not Eligible"}
+                        <Badge variant={checkEligibility(recipients, wallet!) ? "default" : "destructive"}>
+                          {checkEligibility(recipients, wallet!) ? "Eligible" : "Not Eligible"}
                         </Badge>
                       </div>
                     </CardHeader>
@@ -124,7 +109,7 @@ function Index() {
                         {getTruncatedAddress(contractId as string)}
                       </Text>
                     </CardContent>
-                    <CardFooter className="flex justify-end text-gray-400 group-hover:text-blue-500">
+                    <CardFooter className="flex justify-end text-gray-400 group-hover:text-green-500">
                       <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </CardFooter>
                   </Card>
