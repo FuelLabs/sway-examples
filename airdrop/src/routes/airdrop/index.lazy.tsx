@@ -81,7 +81,7 @@ function Index() {
             </div>
 
             <div className="text-center mb-8">
-              <Text variant="h6" className="text-xl font-semibold text-gray-200">
+              <Text variant="h6" className="text-xl font-semibold text-foreground">
                 Available Airdrops
               </Text>
             </div>
