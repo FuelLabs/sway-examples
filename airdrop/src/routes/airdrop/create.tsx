@@ -20,15 +20,15 @@ import { useUploadAirdropData } from "../../hooks/useUploadAirdropData";
 import { createMerkleTree } from "../../utils/merkleTrees";
 import { recipientsParser } from "../../utils/parsers";
 import { useGetSrc20Balance } from "@/hooks/src20Hooks/useGetSrc20Balance";
-
+import { useTheme } from "@/components/theme-provider";
 
 type SearchParams = {
   deployedTokenId?: string;
 };
 
 const validateSearch = (rawParams: URLSearchParams): SearchParams => {
-  const deployedTokenId = rawParams.get('deployedTokenId');
-  
+  const deployedTokenId = rawParams.get("deployedTokenId");
+
   return {
     deployedTokenId: deployedTokenId || undefined,
   };
@@ -36,7 +36,8 @@ const validateSearch = (rawParams: URLSearchParams): SearchParams => {
 
 export const Route = createFileRoute("/airdrop/create")({
   component: () => <Airdrop />,
-  validateSearch: (search: Record<string, unknown>) => validateSearch(new URLSearchParams(search as Record<string, string>)),
+  validateSearch: (search: Record<string, unknown>) =>
+    validateSearch(new URLSearchParams(search as Record<string, string>)),
 });
 
 const parseSRC20Text = (text: string): [string, string][] => {
@@ -95,7 +96,7 @@ function Airdrop() {
     error: src20BalanceError,
     status: src20BalanceStatus,
     refetch: refetchSrc20Balance,
-  } = useGetSrc20Balance(deployedTokenId ?? baseAssetId);
+  } = useGetSrc20Balance(deployedTokenId ?? "");
   const {
     mutate: deployAirdrop,
     isSuccess: deployAirdropSuccess,
@@ -121,6 +122,8 @@ function Airdrop() {
     error: uploadAirdropDataError,
     isSuccess: uploadAirdropDataSuccess,
   } = useUploadAirdropData();
+
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (deployAirdropSuccess && data?.contractId) {
@@ -234,7 +237,8 @@ function Airdrop() {
           />
         </div>
 
-        <Button
+        <Button 
+          variant="secondary"
           className="my-8 mx-auto text-center"
           disabled={initializeIsPending || !wallet}
           onClick={() => {
@@ -257,28 +261,33 @@ function Airdrop() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       {/* Header Section */}
       <div className="text-center mb-10">
-        <Text variant="h4" className="text-3xl font-bold text-white mb-4">
+        <Text variant="h4" className="text-3xl font-bold mb-4">
           Create Airdrop
         </Text>
       </div>
 
       {/* Main Content Card */}
-      <div className="bg-gray-900/50 rounded-xl p-8 shadow-lg border border-gray-800">
+      <div className="bg-card rounded-xl p-8 shadow-lg border border-border">
         {/* Asset ID Section */}
         <div className="space-y-6 mb-8">
           <div>
-            <Text className="text-gray-400 mb-2">Enter Asset Id</Text>
+            <Text className="text-muted-foreground mb-2">Enter Asset Id</Text>
             <div className="flex gap-3 items-center">
               <ShadcnInput
                 placeholder="0x00...00"
                 value={assetId}
-                className="flex-1 bg-gray-800/50 border-gray-700 focus:border-blue-500 disabled:opacity-50"
+                className="flex-1"
                 onChange={(val) => setAssetId(val.target.value)}
                 disabled={deployAirdropIsPending || uploadAirdropDataPending}
               />
               <Button
                 onClick={() => setAssetId(baseAssetId)}
-                className="bg-white text-black hover:bg-gray-200 transition-colors text-xs px-4 disabled:opacity-50"
+                variant="secondary"
+                className={
+                  theme === "dark"
+                    ? "text-xs px-4 hover:text-white"
+                    : "text-xs px-4 hover:text-black"
+                }
                 disabled={deployAirdropIsPending || uploadAirdropDataPending}
               >
                 Base Asset Id
@@ -289,7 +298,12 @@ function Airdrop() {
           {deployedTokenId ? (
             <Button
               onClick={() => setAssetId(deployedTokenId)}
-              className="w-full bg-gray-700 hover:bg-gray-600 hover:text-white transition-opacity disabled:opacity-50"
+              variant="secondary"
+              className={
+                theme === "dark"
+                  ? "w-full hover:text-white"
+                  : "w-full hover:text-black"
+              }
               disabled={deployAirdropIsPending || uploadAirdropDataPending}
             >
               Use Deployed Token ({getTruncatedAddress(deployedTokenId)})
@@ -301,7 +315,12 @@ function Airdrop() {
                   to: VITE_BASE_URL + "/airdrop/deploy-src20",
                 });
               }}
-              className="w-full  hover:hover:bg-gray-200 transition-opacity disabled:opacity-50"
+              variant="secondary"
+              className={
+                theme === "dark"
+                  ? "w-full hover:text-white"
+                  : "w-full hover:text-black"
+              }
               disabled={deployAirdropIsPending || uploadAirdropDataPending}
             >
               Deploy an SRC20 token
@@ -309,8 +328,8 @@ function Airdrop() {
           )}
 
           {deployedTokenId && (
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-gray-800/50 border border-gray-700">
-              <div className="text-gray-400">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-muted border border-border">
+              <div className="text-muted-foreground">
                 {src20BalanceIsFetching ? (
                   <div className="flex items-center">
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -320,8 +339,10 @@ function Airdrop() {
                   <span className="text-red-400">Error fetching balance</span>
                 ) : (
                   <div className="flex flex-col">
-                    <span className="text-sm text-gray-500">Deployed Token Balance</span>
-                    <span className="text-lg text-white font-medium">
+                    <span className="text-sm text-muted-foreground">
+                      Deployed Token Balance
+                    </span>
+                    <span className="text-lg font-medium">
                       {Number(src20Balance?.toString()) / 10 ** 9} tokens
                     </span>
                   </div>
@@ -333,11 +354,11 @@ function Airdrop() {
 
         {/* Recipients Section */}
         <div className="space-y-4 mb-8">
-          <Text className="text-gray-400">
+          <Text className="text-muted-foreground">
             Enter addresses and amounts. It accepts the following formats:
           </Text>
           <Textarea
-            className="w-full min-h-[150px] bg-gray-800/50 border-gray-700 focus:border-blue-500 text-gray-300 disabled:opacity-50"
+            className="w-full min-h-[150px]"
             placeholder={placeholderText}
             value={textValue}
             onChange={(val) => setTextValue(val.target.value)}
@@ -347,9 +368,9 @@ function Airdrop() {
 
         {/* Date Picker Section */}
         <div className="mb-8">
-          <Text className="text-gray-400 mb-2">Select End Date</Text>
+          <Text className="text-muted-foreground mb-2">Select End Date</Text>
           <DatePicker
-            className="w-full bg-gray-800/50 border-gray-700 disabled:opacity-50"
+            className="w-full"
             onChangeHandler={(e) => {
               const taiValue = DateTime.fromUnixMilliseconds(
                 e?.getTime() ?? 0
@@ -362,7 +383,11 @@ function Airdrop() {
 
         {/* Submit Button */}
         <Button
-          className="w-full bg-white text-black hover:bg-gray-200 transition-opacity disabled:opacity-50"
+          className={
+            theme === "dark"
+              ? "w-full hover:text-black"
+              : "w-full hover:text-white"
+          }
           disabled={
             !wallet || deployAirdropIsPending || uploadAirdropDataPending
           }

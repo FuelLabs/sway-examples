@@ -89,7 +89,8 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
               placeholder="Fuel"
             />
           </div>
-          <Button
+          <Button 
+            variant="secondary"
             disabled={
               deploySrc20IsPending || 
               !tokenName.trim() || 
@@ -142,7 +143,8 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
                 <Text className="text-sm text-muted-foreground text-center">
                   Initialize the contract to start minting tokens
                 </Text>
-                <Button
+                <Button 
+                  variant="secondary"
                   disabled={isInitializing}
                   onClick={() => {
                     if (!deploySrc20Data?.contract.id.toB256()) return;
@@ -176,7 +178,8 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
                   />
                 </div>
 
-                <Button
+                <Button 
+                  variant="secondary"
                   disabled={isMinting || !mintAmount || Number(mintAmount) <= 0}
                   onClick={() => {
                     if (!deploySrc20Data?.contract.id.toB256()) return;

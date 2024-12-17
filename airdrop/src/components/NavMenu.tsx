@@ -9,6 +9,7 @@ import { Link } from "./Link";
 import { WalletDisplay } from "./WalletDisplay";
 import { useTheme } from "./theme-provider";
 import { Button } from "./ui/button";
+import { ModeToggle } from "./mode-toggle";
 
 export const NavMenu = () => {
   const { isMobile } = useBreakpoints();
@@ -62,7 +63,8 @@ export const NavMenu = () => {
 
           {!isMobile && (
             <Button
-              className="bg-gray-500"
+              variant="outline"
+              className="hover:bg-secondary/80"
               onClick={() => {
                 if (!isConnected)
                   return toast.error(
@@ -92,13 +94,21 @@ export const NavMenu = () => {
             </Button>
           )}
           {isConnected && !isMobile && (
-            <Button className="bg-red-600" onClick={() => disconnect()}>
+            <Button
+              variant="destructive"
+              className="hover:bg-destructive/90"
+              onClick={() => disconnect()}
+            >
               Disconnect
             </Button>
           )}
           {!isConnected && !isMobile && (
-            <Button onClick={connect}>Connect Wallet</Button>
+            <Button variant="outline" onClick={connect}>
+              Connect Wallet
+            </Button>
           )}
+          {/* add mode toggle button */}
+          <ModeToggle />
         </nav>
       </div>
     </>

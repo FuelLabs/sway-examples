@@ -146,22 +146,22 @@ function ClaimAirdrop() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       {/* Header Section */}
       <div className="text-center mb-10">
-        <Text variant="h4" className="text-3xl font-bold text-white mb-4">
+        <Text variant="h4" className="text-3xl font-bold text-foreground mb-4">
           Claim Airdrop
         </Text>
-        <div className="flex justify-center items-center gap-2 bg-gray-800/50 py-2 px-4 rounded-lg inline-flex mx-auto">
-          <Text variant="h5" className="text-gray-300 text-sm">
+        <div className="flex justify-center items-center gap-2 bg-muted py-2 px-4 rounded-lg inline-flex mx-auto">
+          <Text variant="h5" className="text-foreground text-sm">
             Contract ID: {getTruncatedAddress(contractId)}
           </Text>
           <IconCopy
-            className="text-gray-400 cursor-pointer h-4 hover:text-gray-200 transition-colors"
+            className="text-muted-foreground hover:text-foreground cursor-pointer h-4 transition-colors"
             onClick={() => copyToClipboard(contractId)}
           />
         </div>
       </div>
 
       {/* Main Content Card */}
-      <div className="bg-gray-900/50 rounded-xl p-8 shadow-lg border border-gray-800">
+      <div className="bg-card rounded-xl p-8 shadow-lg border border-border">
         {/* Initialization Status */}
         <div className="mb-8">
           <div className="flex flex-col items-center justify-center gap-3">
@@ -171,9 +171,9 @@ function ClaimAirdrop() {
                   ? 'bg-yellow-500 animate-pulse' 
                   : isInitialized?.toString() === 'true'
                     ? 'bg-green-500'
-                    : 'bg-red-500'
+                    : 'bg-destructive'
               }`} />
-              <Text className="text-gray-300 text-lg">
+              <Text className="text-foreground text-lg">
                 {fetchingIsInitialized
                   ? 'Checking initialization status...'
                   : isInitialized?.toString() === 'true'
@@ -206,14 +206,14 @@ function ClaimAirdrop() {
         {/* Claim Section */}
         <div className="space-y-6">
           {!wallet ? (
-            <div className="text-center py-8 bg-gray-800/50 rounded-lg">
-              <Text variant="h5" className="text-gray-400 px-2">
+            <div className="text-center py-8 bg-muted rounded-lg">
+              <Text variant="h5" className="text-muted-foreground px-2">
                 Please connect your wallet to check eligibility
               </Text>
             </div>
           ) : !possibleRecipient ? (
-            <div className="text-center py-8 bg-red-900/20 rounded-lg border border-red-900">
-              <Text variant="h5" className="text-red-400">
+            <div className="text-center py-8 bg-destructive/10 rounded-lg border border-destructive">
+              <Text variant="h5" className="text-destructive">
                 You are not eligible for this airdrop
               </Text>
             </div>
@@ -243,30 +243,32 @@ function ClaimAirdrop() {
         </div>
 
         {/* Contract Details */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <Text className="text-gray-400 text-center text-xl mb-6">Contract Details</Text>
+        <div className="mt-12 pt-8 border-t border-border">
+          <Text className="text-foreground text-center text-xl mb-6">
+            Contract Details
+          </Text>
           <div className="space-y-4 mt-6">
-            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+            <div className="bg-muted p-6 rounded-lg hover:bg-muted/70 transition-colors">
               <div className="flex items-center justify-between">
-                <Text className="text-gray-400 font-medium">Owner</Text>
+                <Text className="text-foreground font-medium">Owner</Text>
                 <div className="flex items-center gap-2">
-                  <span className="text-gray-300">
+                  <span className="text-foreground">
                     {ownerIsfetching
                       ? 'Fetching...'
                       : getTruncatedAddress(owner?.Address?.bits ?? '')}
                   </span>
                   <IconCopy
-                    className="text-gray-400 cursor-pointer h-4 hover:text-gray-200"
+                    className="text-muted-foreground hover:text-foreground cursor-pointer h-4"
                     onClick={() => copyToClipboard(owner?.Address?.bits as string)}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+            <div className="bg-muted p-6 rounded-lg hover:bg-muted/70 transition-colors">
               <div className="flex items-center justify-between">
-                <Text className="text-gray-400 font-medium">End Time</Text>
-                <span className="text-gray-300">
+                <Text className="text-foreground font-medium">End Time</Text>
+                <span className="text-foreground">
                   {endTimeIsFetching
                     ? 'Fetching...'
                     : DateTime.fromTai64(endTime?.toString() ?? '').toLocaleDateString()}
@@ -274,36 +276,36 @@ function ClaimAirdrop() {
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+            <div className="bg-muted p-6 rounded-lg hover:bg-muted/70 transition-colors">
               <div className="flex items-center justify-between">
-                <Text className="text-gray-400 font-medium">Status</Text>
+                <Text className="text-foreground font-medium">Status</Text>
                 <span className={`px-3 py-1.5 rounded-full text-sm ${
-                  isPaused ? 'bg-red-900/50 text-red-400' : 'bg-green-900/50 text-green-400'
+                  isPaused ? 'bg-destructive/20 text-destructive' : 'bg-green-900/20 text-green-400'
                 }`}>
                   {isPausedFetching ? 'Fetching...' : isPaused ? 'Paused' : 'Active'}
                 </span>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+            <div className="bg-muted p-6 rounded-lg hover:bg-muted/70 transition-colors">
               <div className="flex items-center justify-between">
-                <Text className="text-gray-400 font-medium">Merkle Root</Text>
+                <Text className="text-foreground font-medium">Merkle Root</Text>
                 <div className="flex items-center gap-2">
-                  <span className="text-gray-300">
+                  <span className="text-foreground">
                     {merkleRootIsFetching ? 'Fetching...' : getTruncatedAddress(merkleRoot?.toString() ?? '')}
                   </span>
                   <IconCopy
-                    className="text-gray-400 cursor-pointer h-4 hover:text-gray-200"
+                    className="text-muted-foreground hover:text-foreground cursor-pointer h-4"
                     onClick={() => copyToClipboard(merkleRoot?.toString() as string)}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-800/70 transition-colors">
+            <div className="bg-muted p-6 rounded-lg hover:bg-muted/70 transition-colors">
               <div className="flex items-center justify-between">
-                <Text className="text-gray-400 font-medium">Number of Leaves</Text>
-                <span className="text-gray-300">
+                <Text className="text-foreground font-medium">Number of Leaves</Text>
+                <span className="text-foreground">
                   {numLeavesIsFetching ? 'Fetching...' : numLeaves?.toString()}
                 </span>
               </div>
