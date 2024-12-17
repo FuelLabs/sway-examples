@@ -30,7 +30,7 @@ export const Route = createRootRoute({
      * Create a Provider instance.
      * We memoize it to avoid creating a new instance on every render.
      */
-    const providerToUse = useMemo(() => Provider.create(NODE_URL), [NODE_URL]);
+    const providerToUse = useMemo(() => Provider.create(NODE_URL), []);
 
     useEffect(() => {
       setIsMounted(true);
