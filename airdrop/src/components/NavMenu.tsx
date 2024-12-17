@@ -96,7 +96,7 @@ export const NavMenu = () => {
           {isConnected && !isMobile && (
             <Button
               variant="destructive"
-              className="hover:bg-destructive/90"
+              className="hover:bg-destructive/90 hover:dark:text-white"
               onClick={() => disconnect()}
             >
               Disconnect
