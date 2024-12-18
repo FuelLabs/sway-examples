@@ -14,9 +14,10 @@ import {
 interface DatePickerProps {
   className?: string;
   onChangeHandler?: (date: Date | undefined) => void;
+  disabled?: boolean;
 }
 
-export function DatePicker({ className, onChangeHandler }: DatePickerProps) {
+export function DatePicker({ className, onChangeHandler, disabled }: DatePickerProps) {
   const [date, setDate] = React.useState<Date>();
 
   const handleDateChange = (selectedDate: Date | undefined) => {
@@ -36,6 +37,7 @@ export function DatePicker({ className, onChangeHandler }: DatePickerProps) {
             !date && "text-muted-foreground",
             className
           )}
+          disabled={disabled}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, "PPP") : <span>Pick a date</span>}
@@ -47,6 +49,7 @@ export function DatePicker({ className, onChangeHandler }: DatePickerProps) {
           selected={date}
           onSelect={handleDateChange}
           initialFocus
+          disabled={disabled}
         />
       </PopoverContent>
     </Popover>

@@ -14,7 +14,6 @@ import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Provider } from "fuels";
 import { useEffect, useMemo, useState } from "react";
 import { Layout } from "../components/Layout";
-import { ActiveWalletProvider } from "../hooks/useActiveWallet";
 import { NODE_URL } from "../lib";
 
 /**
@@ -67,11 +66,9 @@ export const Route = createRootRoute({
               ],
             }}
           >
-            <ActiveWalletProvider>
-              <Layout>
-                  <Outlet />
-              </Layout>
-            </ActiveWalletProvider>
+            <Layout>
+              <Outlet />
+            </Layout>
           </FuelProvider>
         </QueryClientProvider>
       </>

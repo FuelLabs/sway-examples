@@ -23,8 +23,7 @@ export const useInitializeAirdrop = () => {
 
       return result;
     },
-    onSuccess: (data) => {
-      console.log("onSuccess useInitializeAirdrop", data);
+    onSuccess: () => {
       toast.success("Airdrop initialized successfully!");
     },
     onError: (err) => {

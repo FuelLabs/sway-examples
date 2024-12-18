@@ -2,12 +2,11 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import { bn } from 'fuels'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-
-import { useBrowserWallet } from '@/hooks/useBrowserWallet'
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useFaucet } from '@/hooks/useFaucet';
 import { CURRENT_ENVIRONMENT, Environments, TESTNET_FAUCET_LINK } from '@/lib';
+import { useActiveWallet } from '@/hooks/useActiveWallet';
 
 export const Route = createLazyFileRoute('/airdrop/faucet')({
   component: Index,
@@ -17,7 +16,7 @@ function Index() {
   // Get the faucet wallet instance from the useFaucet hook
   const { faucetWallet } = useFaucet()
 
-  const { wallet, refreshWalletBalance } = useBrowserWallet()
+  const { wallet, refetchBalance } = useActiveWallet()
 
   const [receiverAddress, setReceiverAddress] = useState<string>('')
   const [amountToSend, setAmountToSend] = useState<string>('5')
@@ -50,7 +49,7 @@ function Index() {
 
     toast.success('Funds sent!')
 
-    await refreshWalletBalance?.()
+    await refetchBalance?.()
   }
 
   return (
