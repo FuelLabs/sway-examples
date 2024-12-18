@@ -7,10 +7,7 @@ export const useGetSrc20Balance = (assetId: string) => {
   const query = useQuery({
     queryKey: [AirdropQueryKeys.src20Balance],
     queryFn: async () => {
-      if (!assetId || assetId.trim() === "") return;
-      if (!wallet) {
-        return;
-      }
+      if (!wallet || !assetId || assetId.trim() === "") return;
       const balance = await wallet.getBalance(assetId);
       return balance;
     },

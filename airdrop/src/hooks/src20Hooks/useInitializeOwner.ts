@@ -13,10 +13,8 @@ export const useInitializeOwner = () => {
   const mutation = useMutation({
     mutationFn: async (args: InitializeOwnerArgs) => {
       if (!wallet) {
-        toast.error("Wallet not connected!");
-        return;
+        throw new Error("Wallet not connected!");
       }
-
 
       const owner = { Address: { bits: wallet.address.toB256() } };
 
@@ -24,20 +22,16 @@ export const useInitializeOwner = () => {
 
       const result = await contract.functions.constructor(owner).call();
       const transactionResult = await result.waitForResult();
-
-      console.log("Initialize Owner Transaction Result: ", transactionResult);
       return transactionResult;
     },
-    onSuccess: (data) => {
-      console.log("onSuccess useMint", data);
+    onSuccess: () => {
       toast.success("Owner initialized successfully!");
     },
     onError: (err) => {
       console.error("Error initializing owner:", err);
       toast.error(err.message);
-    },  
+    },
   });
 
   return mutation;
 };
-

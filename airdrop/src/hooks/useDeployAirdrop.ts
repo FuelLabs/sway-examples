@@ -42,13 +42,13 @@ export const useDeployAirdrop = () => {
 
       const tokenBalance = await wallet.getBalance(assetId);
 
+      // Get the initial contract balance
       if (tokenBalance.lt(+totalAmount.toString())) {
         throw new Error("Insufficient balance");
       }
 
       const result = await TestContractFactory.deploy(wallet, options);
       await result.waitForResult();
-      // Get the initial contract balance
 
       // Perform the transfer to the contract
       const tx = await wallet.transferToContract(

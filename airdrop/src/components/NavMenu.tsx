@@ -107,7 +107,6 @@ export const NavMenu = () => {
               Connect Wallet
             </Button>
           )}
-          {/* add mode toggle button */}
           <ModeToggle />
         </nav>
       </div>

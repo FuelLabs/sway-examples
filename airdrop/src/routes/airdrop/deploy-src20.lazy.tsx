@@ -31,10 +31,7 @@ const Src20 = () => {
     data: deploySrc20Data,
   } = useDeploySrc20();
 
-  const {
-    mutate: mint,
-    isPending: isMinting,
-  } = useMint();
+  const { mutate: mint, isPending: isMinting } = useMint();
 
   const {
     mutate: initializeOwner,
@@ -46,20 +43,22 @@ const Src20 = () => {
 
   const navigate = useNavigate();
 
-  // Use a zeroed SubId for single asset contracts
-const subID = '0x0000000000000000000000000000000000000000000000000000000000000000';
+  // Using a zeroed SubId for single asset contracts
+  const DEFAULT_SUB_ID =
+    "0x0000000000000000000000000000000000000000000000000000000000000000";
 
-
-  const handleMintSuccess =async  () => {
+  const handleMintSuccess = async () => {
     if (deploySrc20Data?.contract.id.toB256()) {
-      const mintedAssetId = getMintedAssetId(deploySrc20Data?.contract.id.toB256(), subID);
-
-      // console.log("mintedAssetId", mintedAssetId);
+      const mintedAssetId = getMintedAssetId(
+        deploySrc20Data?.contract.id.toB256(),
+        DEFAULT_SUB_ID
+      );
+      
       navigate({
         to: "/airdrop/create",
         search: {
-          deployedTokenId: mintedAssetId
-        }
+          deployedTokenId: mintedAssetId,
+        },
       });
     }
   };
@@ -89,11 +88,11 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
               placeholder="Fuel"
             />
           </div>
-          <Button 
+          <Button
             variant="secondary"
             disabled={
-              deploySrc20IsPending || 
-              !tokenName.trim() || 
+              deploySrc20IsPending ||
+              !tokenName.trim() ||
               !symbol.trim() ||
               tokenName.length > 7 ||
               symbol.length > 5
@@ -117,20 +116,27 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
               });
             }}
           >
-            {deploySrc20IsPending ? 'Deploying...' : 'Deploy SRC20 contract'}
+            {deploySrc20IsPending ? "Deploying..." : "Deploy SRC20 contract"}
           </Button>
         </>
       ) : (
         <Card className="w-full max-w-md p-6">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
-              <Text variant="h4" className="text-center">Token Deployed Successfully!</Text>
+              <Text variant="h4" className="text-center">
+                Token Deployed Successfully!
+              </Text>
               <div className="flex items-center justify-center gap-2">
                 <Text className="text-sm text-muted-foreground">
-                  Contract ID: {getTruncatedAddress(deploySrc20Data?.contract.id.toB256() || '')}
+                  Contract ID:{" "}
+                  {getTruncatedAddress(
+                    deploySrc20Data?.contract.id.toB256() || ""
+                  )}
                 </Text>
                 <button
-                  onClick={() => copyToClipboard(deploySrc20Data?.contract.id.toB256() || '')}
+                  onClick={() =>
+                    copyToClipboard(deploySrc20Data?.contract.id.toB256() || "")
+                  }
                   className="p-1 hover:bg-gray-100 hover:text-gray-700 active:bg-gray-200 rounded-md transition-colors"
                 >
                   <Copy className="h-4 w-4" />
@@ -143,12 +149,12 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
                 <Text className="text-sm text-muted-foreground text-center">
                   Initialize the contract to start minting tokens
                 </Text>
-                <Button 
+                <Button
                   variant="secondary"
                   disabled={isInitializing}
                   onClick={() => {
                     if (!deploySrc20Data?.contract.id.toB256()) return;
-                    
+
                     initializeOwner({
                       contractId: deploySrc20Data.contract.id.toB256(),
                     });
@@ -159,14 +165,14 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
                       <span>Initializing...</span>
                     </div>
                   ) : (
-                    'Initialize Contract'
+                    "Initialize Contract"
                   )}
                 </Button>
               </div>
             ) : (
               <div className="flex flex-col gap-4">
                 <Text variant="h5">Mint Tokens</Text>
-                
+
                 <div className="flex flex-col gap-2">
                   <Text className="text-sm">Amount to mint:</Text>
                   <Input
@@ -178,18 +184,22 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
                   />
                 </div>
 
-                <Button 
+                <Button
                   variant="secondary"
                   disabled={isMinting || !mintAmount || Number(mintAmount) <= 0}
                   onClick={() => {
                     if (!deploySrc20Data?.contract.id.toB256()) return;
-                    
-                    mint({
-                      contractId: deploySrc20Data.contract.id.toB256(),
-                      amount: Number(mintAmount) * 10 ** 9, // 9 decimals
-                    }, {
-                      onSuccess: handleMintSuccess
-                    });
+
+                    mint(
+                      {
+                        contractId: deploySrc20Data.contract.id.toB256(),
+                        amount: Number(mintAmount) * 10 ** 9, // 9 decimals
+                        subId: DEFAULT_SUB_ID,
+                      },
+                      {
+                        onSuccess: handleMintSuccess,
+                      }
+                    );
                   }}
                 >
                   {isMinting ? (
@@ -197,7 +207,7 @@ const subID = '0x000000000000000000000000000000000000000000000000000000000000000
                       <span>Minting...</span>
                     </div>
                   ) : (
-                    'Mint Tokens'
+                    "Mint Tokens"
                   )}
                 </Button>
               </div>

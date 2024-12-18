@@ -12,21 +12,16 @@ export const useDeploySrc20 = () => {
   const mutation = useMutation({
     mutationFn: async (args: Src20Args) => {
       if (!wallet) {
-        toast.error("Wallet not connected!");
-        return;
+        throw new Error("Wallet not connected!");
       }
 
       const { options } = args;
       const result = await Src20Factory.deploy(wallet, options);
       const { contract, transactionResult } = await result.waitForResult();
 
-      console.log("Contract deployed: ", contract);
-      console.log("Transaction Result: ", transactionResult);
-
       return { contract, transactionResult };
     },
-    onSuccess: (data) => {
-      console.log("SRC20 deployed successfully: ", data);
+    onSuccess: () => {
       toast.success(`SRC20 Contract deployed successfully!`);
     },
     onError: (err) => {
