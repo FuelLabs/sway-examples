@@ -42,8 +42,7 @@ export const useClaimAirdrop = () => {
 
       return result;
     },
-    onSuccess: (data) => {
-      console.log("onSuccess useClaimAirdrop", data);
+    onSuccess: () => {
       toast.success("Airdrop claimed successfully!");
     },
     onError: (err) => {
